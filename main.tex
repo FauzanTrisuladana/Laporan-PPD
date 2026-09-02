@@ -105,41 +105,41 @@ Pertemuan \Pertemuan\\
 
 % Title Page
 \begin{titlingpage} 
-\begin{center}
+  \begin{center}
 
-\vspace{4cm} 
-\begin{Large} 
-\textbf{\thetitle} \\
-\end{Large}
-\vspace{2cm}
-
-\includegraphics[height=8cm]{resource/lambang ugm.png}\\ 
-\vspace{2cm}
-
-\textbf{Disusun oleh:}\\[0.8em]
-\begin{minipage}{0.8\textwidth}
-\raggedright
-\begin{large}
-\begin{tabular}{@{}l@{\hspace{1.5em}}c@{\hspace{1.5em}}p{\textwidth}@{}}
-Nama & : & \NamaMahasiswa \\
-NIM & : & \NIMMahasiswa \\
-Kelas & : & \KelasMahasiswa \\
-Dosen Pengampu & : & \DosenPengampu \\
-\end{tabular}
-\end{large}
-\end{minipage}
-
-\vspace{2cm}
-\begin{Large}
-\textbf{Program Studi D-IV Teknologi Rekayasa Perangkat Lunak} \\
-\textbf{Departemen Teknik Elektro dan Informatika} \\
-\textbf{Sekolah Vokasi}\\
-\textbf{Universitas Gadjah Mada}\\
-\textbf{Yogyakarta}\\
-\textbf{2026}\\
-\end{Large}
-
-\end{center}
+    \vspace{4cm}
+    \begin{Large} 
+      \textbf{\thetitle} \\
+    \end{Large}
+    \vspace{2cm}
+    
+    \includegraphics[height=8cm]{resource/lambang ugm.png}\\ 
+    \vspace{2cm}
+    
+    \textbf{Disusun oleh:}\\[0.8em]
+    \begin{minipage}{0.8\textwidth}
+      \raggedright
+      \begin{large}
+        \begin{tabular}{@{}l@{\hspace{1.5em}}c@{\hspace{1.5em}}p{\textwidth}@{}}
+          Nama           & : & \NamaMahasiswa  \\
+          NIM            & : & \NIMMahasiswa   \\
+          Kelas          & : & \KelasMahasiswa \\
+          Dosen Pengampu & : & \DosenPengampu  \\
+        \end{tabular}
+      \end{large}
+    \end{minipage}
+    
+    \vspace{2cm}
+    \begin{Large}
+      \textbf{Program Studi D-IV Teknologi Rekayasa Perangkat Lunak} \\
+      \textbf{Departemen Teknik Elektro dan Informatika} \\
+      \textbf{Sekolah Vokasi}\\
+      \textbf{Universitas Gadjah Mada}\\
+      \textbf{Yogyakarta}\\
+      \textbf{2026}\\
+    \end{Large}
+    
+  \end{center}
 \end{titlingpage}
 
 % Header/Footer
@@ -200,8 +200,8 @@ Dosen Pengampu & : & \DosenPengampu \\
 % Tidak pakai \chapter agar bisa menyatu dengan halaman sebelumnya.
 \newpage
 \begin{center}
-\textbf{\LARGE Pertemuan \Pertemuan\\
-{[{\Materi}]}}
+  \textbf{\LARGE Pertemuan \Pertemuan\\
+  {[{\Materi}]}}
 \end{center}
 
 \section{Tujuan Praktikum}
@@ -213,9 +213,17 @@ Dosen Pengampu & : & \DosenPengampu \\
 
 \section{Dasar Teori}
 
-\subsection{Something}
-\par Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. \cite{}
+\subsection{Python}
+\par Python adalah bahasa pemrograman tingkat tinggi yang bersifat \textit{open-source} dan serbaguna (\textit{general-purpose}) yang diciptakan oleh Guido van Rossum \cite{telkom_python}. Bahasa ini dirancang dengan filosofi yang mengutamakan keterbacaan kode (\textit{code readability}), sehingga sintaksnya sederhana dan mudah dipahami baik oleh pemula maupun profesional \cite{dicoding_python}. Berkat komunitas pendukung yang besar serta ketersediaan ekosistem pustaka (\textit{library}) yang sangat lengkap, Python kini menjadi bahasa standar industri untuk berbagai keperluan komputasi modern, mulai dari pengembangan web, otomatisasi, analisis data, hingga pengembangan kecerdasan buatan (\textit{Artificial Intelligence}) \cite{telkom_python}.
 
+\subsection{Google Colab}
+\par Google Colab (Colaboratory) adalah layanan komputasi awan (\textit{cloud computing}) berbasis Jupyter Notebook yang disediakan secara gratis oleh Google \cite{glints_colab}. Platform ini memungkinkan penggunanya untuk menulis dan mengeksekusi kode bahasa Python secara langsung melalui peramban (\textit{browser}) tanpa perlu melakukan instalasi atau konfigurasi perangkat lunak di komputer lokal \cite{binus_colab}. Salah satu keunggulan utama dari Google Colab adalah tersedianya akses komputasi performa tinggi, seperti pengolah grafis (GPU) dan \textit{Tensor Processing Unit} (TPU) secara cuma-cuma, yang sangat esensial untuk mempercepat proses komputasi data dan pelatihan model \textit{machine learning} yang kompleks \cite{binus_colab}. Selain itu, layaknya Google Docs, Colab mendukung kolaborasi tim secara \textit{real-time} dan terintegrasi langsung dengan media penyimpanan Google Drive \cite{glints_colab}.
+
+\subsection{Numpy}
+\par NumPy (Numerical Python) adalah pustaka (*library*) bersifat \textit{open-source} dalam ekosistem Python yang dirancang khusus untuk komputasi numerik dan saintifik \cite{dqlab_numpy}. NumPy menyediakan struktur data utama berupa objek array n-dimensi yang sangat efisien yang disebut \texttt{ndarray}. Dibandingkan dengan struktur \textit{list} bawaan pada Python, NumPy menggunakan manajemen memori yang jauh lebih efisien serta memungkinkan penerapan operasi matematis secara vektorisasi yang mempercepat waktu eksekusi tanpa memerlukan iterasi (\textit{looping}) secara manual \cite{ruangguru_numpy}. Oleh karena itu, pustaka ini sering kali menjadi tulang punggung bagi berbagai *library* analisis data dan \textit{machine learning}.
+
+\subsection{Pandas}
+\par Pandas adalah pustaka perangkat lunak \textit{open-source} pada bahasa pemrograman Python yang berfokus pada tahapan manipulasi dan analisis data terstruktur \cite{datacamp_pandas}. Pustaka ini dibangun di atas fondasi NumPy dan menawarkan struktur data yang kuat seperti \texttt{Series} (array berlabel satu dimensi) dan \texttt{DataFrame} (struktur data tabular dua dimensi layaknya tabel SQL atau lembar kerja Excel) \cite{dqlab_pandas}. Keunggulan utama Pandas terletak pada fleksibilitasnya dalam membaca berbagai format data, fitur-fitur pembersihan data (\textit{data cleaning}), serta kemampuan komprehensif untuk pengolahan data agregat, filter, dan penggabungan dataset \cite{datacamp_pandas}.
 
 %contoh gambar dan kode
 % \begin{figure}[H]
@@ -232,7 +240,317 @@ Dosen Pengampu & : & \DosenPengampu \\
 
 \section{Hasil dan Pembahasan}
 
-\par Sesuai dengan tujuan praktikum, berikut adalah hasil yang diperoleh dan pembahasan terkait materi yang telah dipelajari.
+\subsection{Numpy}
+
+\subsubsection{Install Numpy}
+\par Karena pada praktikum ini menggunakan Google Colab, maka tidak perlu melakukan instalasi pustaka Numpy karena sudah tersedia secara default.
+
+\subsubsection{Impor Pustaka Numpy}
+\begin{lstlisting}[language=python, caption={Contoh Kode Impor Pustaka Numpy}, label={lst:contoh-kode-numpy}]
+import numpy as np
+print(np.__version__)
+\end{lstlisting}
+
+\subsubsection{Membuat array 1 dimensi}
+\begin{lstlisting}[language=python, caption={Contoh Kode Membuat Array 1 Dimensi}, label={lst:contoh-kode-array-1d}]
+arr = np.array([1, 2, 3, 4, 5])
+print("Arr: ", arr)
+
+print("Type: ", type(arr))
+\end{lstlisting}
+
+\subsubsection{Melihat shape atau bentuk array}
+\begin{lstlisting}[language=python, caption={Contoh Kode Melihat Shape Array}, label={lst:contoh-kode-shape}]
+arr.shape
+\end{lstlisting}
+
+\subsubsection{Membuat array 2 dimensi}
+\begin{lstlisting}[language=python, caption={Contoh Kode Membuat Array 2 Dimensi}, label={lst:contoh-kode-array-2d}]
+arr2d = np.array([[1, 2, 3], [4, 5, 6]])
+print(arr2d)
+
+print("Shape: ", arr2d.shape)
+\end{lstlisting}
+
+\subsubsection{Membuat array 3 dimensi}
+\begin{lstlisting}[language=python, caption={Contoh Kode Membuat Array 3 Dimensi}, label={lst:contoh-kode-array-3d}]
+arr3d = np.array(
+    [
+        [
+            [1, 2, 3, 4],
+            [5, 6, 7, 8]
+        ],
+        [
+            [9, 10, 11, 12],
+            [13, 14, 15, 16],
+        ],
+        [
+            [17, 18, 19, 20],
+            [21, 22, 23, 24]
+        ]
+    ]
+)
+
+print(arr3d)
+
+print("Shape: ", arr3d.shape)
+\end{lstlisting}
+
+\subsubsection{Membuat array dengan String sebagai member}
+\begin{lstlisting}[language=python, caption={Contoh Kode Membuat Array dengan String}, label={lst:contoh-kode-array-string}]
+arr_str = np.array(['hello', 'nama', 'saya'])
+print(arr_str)
+\end{lstlisting}
+
+\subsubsection{Melakukan indexing di array 1 dimensi}
+\begin{lstlisting}[language=python, caption={Contoh Kode Indexing Array 1 Dimensi}, label={lst:contoh-kode-indexing-array-1d}]
+arr = np.array([1, 2, 3, 4, 5])
+
+print(arr[2])
+
+print(arr[0] + arr[4])
+\end{lstlisting}
+
+\subsubsection{Melakukan indexing di array 2 dimensi}
+\begin{lstlisting}[language=python, caption={Contoh Kode Indexing Array 2 Dimensi}, label={lst:contoh-kode-indexing-array-2d}]
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+
+print(arr[0][2])
+print(arr[1][1])
+\end{lstlisting}
+
+\subsubsection{Melakukan indexing di array 3 dimensi}
+\begin{lstlisting}[language=python, caption={Contoh Kode Indexing Array 3 Dimensi}, label={lst:contoh-kode-indexing-array-3d}]
+arr = np.array([
+    [[1, 2, 3], [4, 5, 6]],
+    [[7, 8, 9], [10, 11, 12]]
+])
+
+# menampilkan angka 8
+print(arr[1][0][1])
+
+# menampilakn angka 12
+print(arr[1][1][2])
+\end{lstlisting}
+
+\subsubsection{Membuat array dari contoh}
+\begin{lstlisting}[language=python, caption={Contoh Kode Membuat Array dari Contoh}, label={lst:contoh-kode-array-dari-contoh}]
+implementasi_array_3d = np.array([
+    [[1, 2], [4, 3], [7, 4]],
+    [[2, 0], [9, 0], [7, 5]],
+    [[1, 0], [3, 0], [0, 2]],
+    [[9, 0], [6, 0], [9, 8]]
+])
+
+print(implementasi_array_3d)
+
+print("\nshape", implementasi_array_3d.shape)
+\end{lstlisting}
+
+\subsubsection{Array slicing}
+\begin{lstlisting}[language=python, caption={Contoh Kode Array Slicing}, label={lst:contoh-kode-array-slicing}]
+target = implementasi_array_3d[2][1:][0]
+print(target)
+\end{lstlisting}
+
+\subsubsection{Mengonversi tipe data}
+\begin{lstlisting}[language=python, caption={Contoh Kode Mengonversi Tipe Data}, label={lst:contoh-kode-konversi-tipe-data}]
+arr = np.array(['1', '2', '3', '4', '5'])
+print(arr)
+
+arr_int = arr.astype(int)
+print("Integer", arr_int)
+
+arr_float = arr.astype(float)
+print("Float", arr_float)
+\end{lstlisting}
+
+\subsubsection{Reshape ke dimensi lebih tinggi}
+\begin{lstlisting}[language=python, caption={Contoh Kode Reshape ke Dimensi Lebih Tinggi}, label={lst:contoh-kode-reshape}]
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+print(arr)
+print('Shape', arr.shape, '\n')
+
+new_arr_2d = arr.reshape(3, 4)
+
+print(new_arr_2d)
+print('Shape', new_arr_2d.shape, '\n')
+
+new_arr_3d = arr.reshape(3, 2, 2)
+
+print(new_arr_3d)
+print('Shape', new_arr_3d.shape)
+\end{lstlisting}
+
+\subsubsection{Reshape ke dimensi 1}
+\begin{lstlisting}[language=python, caption={Contoh Kode Reshape ke Dimensi 1}, label={lst:contoh-kode-reshape-1d}]
+arr = np.array([
+    [[1, 2, 3], [4, 5, 6]],
+    [[7, 8, 9], [13, 14, 15]]
+])
+
+print(arr)
+print('sesudah di reshape')
+
+new_arr = arr.reshape(-1)
+
+print(new_arr)
+\end{lstlisting}
+
+\subsubsection{Perbedaan fungsi len dan atribut shape}
+\begin{lstlisting}[language=python, caption={Contoh Kode Perbedaan Fungsi len dan Atribut Shape}, label={lst:contoh-kode-len-shape}]
+print(len(implementasi_array_3d))
+print(implementasi_array_3d.shape)
+\end{lstlisting}
+
+\subsubsection{Iterasi ndarray}
+\begin{lstlisting}[language=python, caption={Iterasi Langsung}, label={lst:contoh-kode-iterasi-ndarray}]
+for sumbu_0 in implementasi_array_3d:
+  for sumbu_1 in sumbu_0:
+    for sumbu_2 in sumbu_1:
+      print(sumbu_2, end=", ")
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, caption={Iterasi dengan index}, label={lst:contoh-kode-iterasi-nditer}]
+for idx_sumbu_0 in range(implementasi_array_3d.shape[0]):
+  for idx_sumbu_1 in range(implementasi_array_3d.shape[1]):
+    for idx_sumbu_2 in range(implementasi_array_3d.shape[2]):
+      print(implementasi_array_3d[idx_sumbu_0][idx_sumbu_1][idx_sumbu_2], end=", ")
+\end{lstlisting}
+
+\subsubsection{Melakukan join pada array dimensi 1}
+\begin{lstlisting}[language=python, caption={Contoh Kode Melakukan Join pada Array Dimensi 1}, label={lst:contoh-kode-join-array-1d}]
+arr1 = np.array([1, 2, 3])
+arr2 = np.array([4, 5, 6])
+
+arr = np.concatenate((arr1, arr2), axis=0)
+print(arr)
+\end{lstlisting}
+
+\subsubsection{Melakukan join pada array dimensi 2}
+\begin{lstlisting}[language=python, caption={Join di sumbu 1}, label={lst:contoh-kode-join-array-2d}]
+arr1 = np.array([[1, 2, 3], [4, 5, 6]])
+arr2 = np.array([[7, 8, 9], [10, 11, 12]])
+
+arr = np.concatenate((arr1, arr2), axis=1)
+print(arr)
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, caption={Join di sumbu 0}, label={lst:contoh-kode-join-array-2d-sumbu-0}]
+arr3 = np.concatenate((arr1, arr2), axis=0)
+print(arr3)
+\end{lstlisting}
+
+\subsubsection{Array Split}
+\begin{lstlisting}[language=python, caption={Contoh Kode Array Split}, label={lst:contoh-kode-array-split}]
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+
+newarray = np.array_split(arr, 5)
+
+print('sebelum \n', arr)
+print('setelah \n', newarray)
+
+narr = newarray[2]
+print(narr)
+\end{lstlisting}
+
+\subsubsection{Array Search}
+\begin{lstlisting}[language=python, caption={Contoh Kode Array Search}, label={lst:contoh-kode-array-search}]
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+
+x = np.where(arr == 3)
+
+print(x)
+\end{lstlisting}
+
+\subsubsection{Sorting}
+\begin{lstlisting}[language=python, caption={Contoh Kode Sorting}, label={lst:contoh-kode-sorting}]
+arr = np.array([11, 21, 3, 4, 19, 1, 21, 12])
+sorted_arr = np.sort(arr)
+
+print(arr)
+print(sorted_arr)
+\end{lstlisting}
+
+\subsubsection{NumPy Random}
+\begin{lstlisting}[language=python, caption={Contoh Kode NumPy Random}, label={lst:contoh-kode-numpy-random}]
+from numpy import random
+
+x =  random.rand(2)
+print(x)
+\end{lstlisting}
+
+\subsubsection{Operasi penjumlahan}
+\begin{lstlisting}[language=python, caption={Contoh Kode Operasi Penjumlahan}, label={lst:contoh-kode-penjumlahan}]
+arr1 = np.array([1, 2, 3, 4, 5])
+arr2 = np.array([10, 20, 30, 40, 50])
+
+arr3 = np.add(arr1, arr2)
+print(arr3)
+\end{lstlisting}
+
+\subsubsection{Operasi Summation (Total jumlah)}
+\begin{lstlisting}[language=python, caption={Contoh Kode Operasi Summation}, label={lst:contoh-kode-summation}]
+arr1 = np.array([1, 2, 3, 4, 5])
+arr3 = np.sum(arr1)
+
+print(arr3)
+\end{lstlisting}
+
+\subsubsection{Product of elements}
+\begin{lstlisting}[language=python, caption={Contoh Kode Product of Elements}, label={lst:contoh-kode-product}]
+arr1 = np.array([1, 2, 3, 4, 5,])
+arr3 = np.prod(arr1)
+
+print(arr3)
+\end{lstlisting}
+
+\subsection{Pandas}
+
+\subsubsection{Instal Pandas}
+\par something
+
+\subsubsection{Import Library}
+
+\subsubsection{Membuat Dataframe}
+
+\subsubsection{Menambahkan Kolom}
+
+\subsubsection{Menambahkan Multi Kolom}
+
+\subsubsection{Menghapus Kolom}
+
+\subsubsection{Menghapus Multi Kolom}
+
+\subsubsection{Sorting}
+
+\subsubsection{Sorting Value}
+
+\subsubsection{Filtering}
+
+\subsubsection{Grouping}
+
+\subsubsection{Aggregation}
+
+\subsubsection{Merge}
+
+\subsubsection{Join}
+
+\subsubsection{Concatenate}
+
+\subsubsection{Reset Indeks}
+
+\subsubsection{Set Indeks}
+
+\par something
+
+\subsubsection{Pivot Tabel}
+
+\subsubsection{Melt}
+
+\subsubsection{Lambda Function}
+
+\subsubsection{Membaca File}
 
 \section{Kesimpulan}
 
