@@ -104,18 +104,18 @@ Pertemuan \Pertemuan\\
 % tambahkan entri BibTeX ke file ref.bib terlebih dulu.
 
 % Title Page
-\begin{titlingpage} 
+\begin{titlingpage}
   \begin{center}
 
     \vspace{4cm}
-    \begin{Large} 
+    \begin{Large}
       \textbf{\thetitle} \\
     \end{Large}
     \vspace{2cm}
-    
-    \includegraphics[height=8cm]{resource/lambang ugm.png}\\ 
+
+    \includegraphics[height=8cm]{resource/lambang ugm.png}\\
     \vspace{2cm}
-    
+
     \textbf{Disusun oleh:}\\[0.8em]
     \begin{minipage}{0.8\textwidth}
       \raggedright
@@ -128,7 +128,7 @@ Pertemuan \Pertemuan\\
         \end{tabular}
       \end{large}
     \end{minipage}
-    
+
     \vspace{2cm}
     \begin{Large}
       \textbf{Program Studi D-IV Teknologi Rekayasa Perangkat Lunak} \\
@@ -138,7 +138,7 @@ Pertemuan \Pertemuan\\
       \textbf{Yogyakarta}\\
       \textbf{2026}\\
     \end{Large}
-    
+
   \end{center}
 \end{titlingpage}
 
@@ -188,8 +188,6 @@ Pertemuan \Pertemuan\\
 \tableofcontents
 
 \newpage
-% Daftar Gambar
-\listoffigures
 
 \newpage
 % Daftar Listing
@@ -246,58 +244,58 @@ Pertemuan \Pertemuan\\
 \par Karena pada praktikum ini menggunakan Google Colab, maka tidak perlu melakukan instalasi pustaka Numpy karena sudah tersedia secara default.
 
 \subsubsection{Impor Pustaka Numpy}
-\begin{lstlisting}[language=Python, caption={Impor Pustaka Numpy}]
+\begin{lstlisting}[language=Python, caption={Impor Pustaka Numpy}, label={lst:kode-impor-pustaka-numpy-1}]
 import numpy as np
 
 print(np.__version__)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Impor Pustaka Numpy}, label={lst:out-impor-pustaka-numpy-1}]
 2.1.3
 \end{lstlisting}
-
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-impor-pustaka-numpy-1}, kita memanggil pustaka Numpy menggunakan alias \texttt{np}. Eksekusinya dapat dilihat pada Output \ref{lst:out-impor-pustaka-numpy-1} yang menunjukkan versi pustaka Numpy yang saat ini digunakan dalam environment.
 
 \subsubsection{Membuat array 1 dimensi}
-\begin{lstlisting}[language=Python, caption={Membuat array 1 dimensi}]
+\begin{lstlisting}[language=Python, caption={Membuat array 1 dimensi}, label={lst:kode-membuat-array-1-dimensi-1}]
 arr = np.array([1, 2, 3, 4, 5])
 print("Arr: ", arr)
 
 print("Type: ", type(arr))
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Membuat array 1 dimensi}, label={lst:out-membuat-array-1-dimensi-1}]
 Arr:  [1 2 3 4 5]
 Type:  <class 'numpy.ndarray'>
 \end{lstlisting}
-
+\par Pada Kode \ref{lst:kode-membuat-array-1-dimensi-1}, sebuah array 1 dimensi didefinisikan menggunakan fungsi bawaan Numpy. Hasilnya seperti ditunjukkan pada Output \ref{lst:out-membuat-array-1-dimensi-1} yaitu sekumpulan data numerik yang direpresentasikan dalam sebuah objek berdimensi satu.
 
 \subsubsection{Melihat shape atau bentuk array}
-\begin{lstlisting}[language=Python, caption={Melihat shape atau bentuk array}]
+\begin{lstlisting}[language=Python, caption={Melihat shape atau bentuk array}, label={lst:kode-melihat-shape-atau-bentuk-array-1}]
 arr.shape
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Melihat shape atau bentuk array}, label={lst:out-melihat-shape-atau-bentuk-array-1}]
 (5,)
 \end{lstlisting}
-
+\par Atribut \texttt{.shape} seperti pada Kode \ref{lst:kode-melihat-shape-atau-bentuk-array-1} digunakan untuk mengevaluasi dimensi matriks array. Output \ref{lst:out-melihat-shape-atau-bentuk-array-1} mengonfirmasi ukuran dan panjang dari array yang telah didefinisikan.
 
 \subsubsection{Membuat array 2 dimensi}
-\begin{lstlisting}[language=Python, caption={Membuat array 2 dimensi}]
+\begin{lstlisting}[language=Python, caption={Membuat array 2 dimensi}, label={lst:kode-membuat-array-2-dimensi-1}]
 arr2d = np.array([[1, 2, 3], [4, 5, 6]])
 print(arr2d)
 
 print("Shape: ", arr2d.shape)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Membuat array 2 dimensi}, label={lst:out-membuat-array-2-dimensi-1}]
 [[1 2 3]
  [4 5 6]]
 Shape:  (2, 3)
 \end{lstlisting}
-
+\par Kode \ref{lst:kode-membuat-array-2-dimensi-1} menunjukkan inisialisasi array 2 dimensi (matriks) yang membungkus list di dalam list. Berdasarkan Output \ref{lst:out-membuat-array-2-dimensi-1}, kita dapat memverifikasi bahwa matriks tersebut terisi dengan elemen-elemen secara proporsional sesuai baris dan kolom.
 
 \subsubsection{Membuat array 3 dimensi}
-\begin{lstlisting}[language=Python, caption={Membuat array 3 dimensi}]
+\begin{lstlisting}[language=Python, caption={Membuat array 3 dimensi}, label={lst:kode-membuat-array-3-dimensi-1}]
 arr3d = np.array(
     [
         [
@@ -319,8 +317,8 @@ print(arr3d)
 
 print("Shape: ", arr3d.shape)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Membuat array 3 dimensi}, label={lst:out-membuat-array-3-dimensi-1}]
 [[[ 1  2  3  4]
   [ 5  6  7  8]]
 
@@ -331,50 +329,50 @@ print("Shape: ", arr3d.shape)
   [21 22 23 24]]]
 Shape:  (3, 2, 4)
 \end{lstlisting}
-
+\par Array 3 dimensi merupakan struktur data multidimensi yang kompleks, yang diimplementasikan pada Kode \ref{lst:kode-membuat-array-3-dimensi-1}. Susunan matriks yang terstruktur di dalam blok bersarang dapat diamati pada matriks output bersusun di Output \ref{lst:out-membuat-array-3-dimensi-1}.
 
 \subsubsection{Membuat array dengan String sebagai member}
-\begin{lstlisting}[language=Python, caption={Membuat array dengan String sebagai member}]
+\begin{lstlisting}[language=Python, caption={Membuat array dengan String sebagai member}, label={lst:kode-membuat-array-dengan-string-sebagai-member-1}]
 arr_str = np.array(['hello', 'nama', 'saya'])
 print(arr_str)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Membuat array dengan String sebagai member}, label={lst:out-membuat-array-dengan-string-sebagai-member-1}]
 ['hello' 'nama' 'saya']
 \end{lstlisting}
-
+\par Numpy juga mendukung berbagai tipe data termasuk teks (string), seperti didemonstrasikan pada Kode \ref{lst:kode-membuat-array-dengan-string-sebagai-member-1}. Hal ini ditunjukkan secara langsung dengan hasil array beranggotakan string pada Output \ref{lst:out-membuat-array-dengan-string-sebagai-member-1}.
 
 \subsubsection{Melakukan indexing di array 1 dimensi}
-\begin{lstlisting}[language=Python, caption={Melakukan indexing di array 1 dimensi}]
+\begin{lstlisting}[language=Python, caption={Melakukan indexing di array 1 dimensi}, label={lst:kode-melakukan-indexing-di-array-1-dimensi-1}]
 arr = np.array([1, 2, 3, 4, 5])
 
 print(arr[2])
 
 print(arr[0] + arr[4])
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Melakukan indexing di array 1 dimensi}, label={lst:out-melakukan-indexing-di-array-1-dimensi-1}]
 3
 6
 \end{lstlisting}
-
+\par Teknik indexing untuk mengekstrak anggota matriks array 1 dimensi ditunjukkan oleh Kode \ref{lst:kode-melakukan-indexing-di-array-1-dimensi-1}. Hasil ekstraksi dari nomor indeks tersebut terbukti dan ditampilkan dengan tepat pada Output \ref{lst:out-melakukan-indexing-di-array-1-dimensi-1}.
 
 \subsubsection{Melakukan indexing di array 2 dimensi}
-\begin{lstlisting}[language=Python, caption={Melakukan indexing di array 2 dimensi}]
+\begin{lstlisting}[language=Python, caption={Melakukan indexing di array 2 dimensi}, label={lst:kode-melakukan-indexing-di-array-2-dimensi-1}]
 arr = np.array([[1, 2, 3], [4, 5, 6]])
 
 print(arr[0][2])
 print(arr[1][1])
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Melakukan indexing di array 2 dimensi}, label={lst:out-melakukan-indexing-di-array-2-dimensi-1}]
 3
 5
 \end{lstlisting}
-
+\par Pada Kode \ref{lst:kode-melakukan-indexing-di-array-2-dimensi-1}, indexing 2 dimensi membutuhkan spesifikasi kombinasi baris dan kolom untuk navigasi array. Output \ref{lst:out-melakukan-indexing-di-array-2-dimensi-1} menampilkan hasil seleksi nilai pada sel atau grid yang ditunjuk.
 
 \subsubsection{Melakukan indexing di array 3 dimensi}
-\begin{lstlisting}[language=Python, caption={Melakukan indexing di array 3 dimensi}]
+\begin{lstlisting}[language=Python, caption={Melakukan indexing di array 3 dimensi}, label={lst:kode-melakukan-indexing-di-array-3-dimensi-1}]
 arr = np.array([
     [[1, 2, 3], [4, 5, 6]],
     [[7, 8, 9], [10, 11, 12]]
@@ -386,15 +384,15 @@ print(arr[1][0][1])
 # menampilakn angka 12
 print(arr[1][1][2])
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Melakukan indexing di array 3 dimensi}, label={lst:out-melakukan-indexing-di-array-3-dimensi-1}]
 8
 12
 \end{lstlisting}
-
+\par Sintaks Kode \ref{lst:kode-melakukan-indexing-di-array-3-dimensi-1} mendemonstrasikan akses elemen yang sangat spesifik dan berlapis pada array 3 dimensi. Pengembalian nilai dari indeks kedalaman, baris, dan kolom tertentu berhasil diekstrak pada Output \ref{lst:out-melakukan-indexing-di-array-3-dimensi-1}.
 
 \subsubsection{Membuat array dari contoh}
-\begin{lstlisting}[language=Python, caption={Membuat array dari contoh}]
+\begin{lstlisting}[language=Python, caption={Membuat array dari contoh}, label={lst:kode-membuat-array-dari-contoh-1}]
 implementasi_array_3d = np.array([
     [[1, 2], [4, 3], [7, 4]],
     [[2, 0], [9, 0], [7, 5]],
@@ -406,8 +404,8 @@ print(implementasi_array_3d)
 
 print("\nshape", implementasi_array_3d.shape)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Membuat array dari contoh}, label={lst:out-membuat-array-dari-contoh-1}]
 [[[1 2]
   [4 3]
   [7 4]]
@@ -426,19 +424,20 @@ print("\nshape", implementasi_array_3d.shape)
 
 shape (4, 3, 2)
 \end{lstlisting}
+\par Kode \ref{lst:kode-membuat-array-dari-contoh-1} menginisialisasi set array 3 dimensi untuk keperluan uji coba indexing lebih lanjut. Ekstraksi spesifik menghasilkan objek data yang diinginkan seperti ditunjukkan oleh Output \ref{lst:out-membuat-array-dari-contoh-1}.
 
-\begin{lstlisting}[language=Python, caption={Membuat array dari contoh}]
+\begin{lstlisting}[language=Python, caption={Membuat array dari contoh}, label={lst:kode-membuat-array-dari-contoh-2}]
 target = implementasi_array_3d[2][1:][0]
 print(target)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Membuat array dari contoh}, label={lst:out-membuat-array-dari-contoh-2}]
 [3 0]
 \end{lstlisting}
-
+\par Lebih lanjut pada Kode \ref{lst:kode-membuat-array-dari-contoh-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-membuat-array-dari-contoh-2}.
 
 \subsubsection{Array slicing}
-\begin{lstlisting}[language=Python, caption={Array slicing}]
+\begin{lstlisting}[language=Python, caption={Array slicing}, label={lst:kode-array-slicing-1}]
 arr = np.array(['1', '2', '3', '4', '5'])
 print(arr)
 
@@ -448,16 +447,16 @@ print("Integer", arr_int)
 arr_float = arr.astype(float)
 print("Float", arr_float)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Array slicing}, label={lst:out-array-slicing-1}]
 ['1' '2' '3' '4' '5']
 Integer [1 2 3 4 5]
 Float [1. 2. 3. 4. 5.]
 \end{lstlisting}
-
+\par Operasi pemotongan (slicing) array digunakan pada Kode \ref{lst:kode-array-slicing-1} untuk mengekstrak sebagian elemen secara berurutan dalam rentang indeks tertentu. Hasil slicing data secara berturut-turut tercetak pada Output \ref{lst:out-array-slicing-1}.
 
 \subsubsection{Mengonversi tipe data}
-\begin{lstlisting}[language=Python, caption={Mengonversi tipe data}]
+\begin{lstlisting}[language=Python, caption={Mengonversi tipe data}, label={lst:kode-mengonversi-tipe-data-1}]
 arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
 print(arr)
 print('Shape', arr.shape, '\n')
@@ -472,8 +471,8 @@ new_arr_3d = arr.reshape(3, 2, 2)
 print(new_arr_3d)
 print('Shape', new_arr_3d.shape)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Mengonversi tipe data}, label={lst:out-mengonversi-tipe-data-1}]
 [ 1  2  3  4  5  6  7  8  9 10 11 12]
 Shape (12,) 
 
@@ -492,10 +491,10 @@ Shape (3, 4)
   [11 12]]]
 Shape (3, 2, 2)
 \end{lstlisting}
-
+\par Kode \ref{lst:kode-mengonversi-tipe-data-1} menunjukkan modifikasi tipe data secara sekejap dari string ke tipe dasar integer menggunakan konversi astype. Perubahan sifat data tersebut dapat diverifikasi dan dibuktikan dengan kemunculan elemen numerik dari Output \ref{lst:out-mengonversi-tipe-data-1}.
 
 \subsubsection{Reshape ke dimensi lebih tinggi}
-\begin{lstlisting}[language=Python, caption={Reshape ke dimensi lebih tinggi}]
+\begin{lstlisting}[language=Python, caption={Reshape ke dimensi lebih tinggi}, label={lst:kode-reshape-ke-dimensi-lebih-tinggi-1}]
 arr = np.array([
     [[1, 2, 3], [4, 5, 6]],
     [[7, 8, 9], [13, 14, 15]]
@@ -508,8 +507,8 @@ new_arr = arr.reshape(-1)
 
 print(new_arr)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Reshape ke dimensi lebih tinggi}, label={lst:out-reshape-ke-dimensi-lebih-tinggi-1}]
 [[[ 1  2  3]
   [ 4  5  6]]
 
@@ -518,89 +517,90 @@ print(new_arr)
 sesudah di reshape
 [ 1  2  3  4  5  6  7  8  9 13 14 15]
 \end{lstlisting}
-
+\par Fungsi operasional reshape pada Kode \ref{lst:kode-reshape-ke-dimensi-lebih-tinggi-1} mengubah wujud array 1 dimensi menjadi susunan berdimensi dua secara mulus tanpa korupsi data. Perubahan orientasi data tersebut dibuktikan dengan Output \ref{lst:out-reshape-ke-dimensi-lebih-tinggi-1}.
 
 \subsubsection{Reshape ke dimensi 1}
-\begin{lstlisting}[language=Python, caption={Reshape ke dimensi 1}]
+\begin{lstlisting}[language=Python, caption={Reshape ke dimensi 1}, label={lst:kode-reshape-ke-dimensi-1-1}]
 print(len(implementasi_array_3d))
 print(implementasi_array_3d.shape)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Reshape ke dimensi 1}, label={lst:out-reshape-ke-dimensi-1-1}]
 4
 (4, 3, 2)
 \end{lstlisting}
-
+\par Sebaliknya, pada Kode \ref{lst:kode-reshape-ke-dimensi-1-1}, array berdimensi majemuk direduksi dan diratakan kembali (flatten) menjadi 1 dimensi. Reduksi dimensi dan bentuk akhir array yang rata dapat diamati secara jelas pada Output \ref{lst:out-reshape-ke-dimensi-1-1}.
 
 \subsubsection{Perbedaan fungsi len dan atribut shape}
-\begin{lstlisting}[language=Python, caption={Perbedaan fungsi len dan atribut shape}]
+\begin{lstlisting}[language=Python, caption={Perbedaan fungsi len dan atribut shape}, label={lst:kode-perbedaan-fungsi-len-dan-atribut-shape-1}]
 for sumbu_0 in implementasi_array_3d:
   for sumbu_1 in sumbu_0:
     for sumbu_2 in sumbu_1:
       print(sumbu_2, end=", ")
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Perbedaan fungsi len dan atribut shape}, label={lst:out-perbedaan-fungsi-len-dan-atribut-shape-1}]
 1, 2, 4, 3, 7, 4, 2, 0, 9, 0, 7, 5, 1, 0, 3, 0, 0, 2, 9, 0, 6, 0, 9, 8,
 \end{lstlisting}
-
+\par Berdasarkan komparasi sintaks pada Kode \ref{lst:kode-perbedaan-fungsi-len-dan-atribut-shape-1}, panjang (len) hanya memberikan jumlah elemen di dimensi hierarki tertinggi, sedangkan shape memberikan tuple konfigurasi ukuran. Nilai perbandingan pengukuran tersebut terekam di Output \ref{lst:out-perbedaan-fungsi-len-dan-atribut-shape-1}.
 
 \subsubsection{Iterasi ndarray}
-\begin{lstlisting}[language=Python, caption={Iterasi ndarray}]
+\begin{lstlisting}[language=Python, caption={Iterasi ndarray}, label={lst:kode-iterasi-ndarray-1}]
 for idx_sumbu_0 in range(implementasi_array_3d.shape[0]):
   for idx_sumbu_1 in range(implementasi_array_3d.shape[1]):
     for idx_sumbu_2 in range(implementasi_array_3d.shape[2]):
       print(implementasi_array_3d[idx_sumbu_0][idx_sumbu_1][idx_sumbu_2], end=", ")
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Iterasi ndarray}, label={lst:out-iterasi-ndarray-1}]
 1, 2, 4, 3, 7, 4, 2, 0, 9, 0, 7, 5, 1, 0, 3, 0, 0, 2, 9, 0, 6, 0, 9, 8,
 \end{lstlisting}
-
+\par Akses iteratif dan penelusuran berulang pada setiap lapisan elemen array multidimensi ditunjukkan pada Kode \ref{lst:kode-iterasi-ndarray-1}. Hasil dari eksekusi loop penelusuran ini mencetak seluruh elemen hingga tingkat dasar, seperti pada Output \ref{lst:out-iterasi-ndarray-1}.
 
 \subsubsection{Melakukan join pada array dimensi 1}
-\begin{lstlisting}[language=Python, caption={Melakukan join pada array dimensi 1}]
+\begin{lstlisting}[language=Python, caption={Melakukan join pada array dimensi 1}, label={lst:kode-melakukan-join-pada-array-dimensi-1-1}]
 arr1 = np.array([1, 2, 3])
 arr2 = np.array([4, 5, 6])
 
 arr = np.concatenate((arr1, arr2), axis=0)
 print(arr)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Melakukan join pada array dimensi 1}, label={lst:out-melakukan-join-pada-array-dimensi-1-1}]
 [1 2 3 4 5 6]
 \end{lstlisting}
-
+\par Metode penyambungan array 1 dimensi menggunakan fungsi concatenating Numpy terlihat pada Kode \ref{lst:kode-melakukan-join-pada-array-dimensi-1-1}. Penggabungan rentetan tersebut sukses menghasilkan array gabungan linier yang memanjang pada Output \ref{lst:out-melakukan-join-pada-array-dimensi-1-1}.
 
 \subsubsection{Melakukan join pada array dimensi 2}
-\begin{lstlisting}[language=Python, caption={Melakukan join pada array dimensi 2}]
+\begin{lstlisting}[language=Python, caption={Melakukan join pada array dimensi 2}, label={lst:kode-melakukan-join-pada-array-dimensi-2-1}]
 arr1 = np.array([[1, 2, 3], [4, 5, 6]])
 arr2 = np.array([[7, 8, 9], [10, 11, 12]])
 
 arr = np.concatenate((arr1, arr2), axis=1)
 print(arr)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Melakukan join pada array dimensi 2}, label={lst:out-melakukan-join-pada-array-dimensi-2-1}]
 [[ 1  2  3  7  8  9]
  [ 4  5  6 10 11 12]]
 \end{lstlisting}
+\par Pada Kode \ref{lst:kode-melakukan-join-pada-array-dimensi-2-1}, penggabungan sepanjang sumbu tegak lurus (axis) menggabungkan baris dari dua blok matriks array. Keselarasan hasil penyatuan struktur data gabungan dapat diamati pada Output \ref{lst:out-melakukan-join-pada-array-dimensi-2-1}.
 
-\begin{lstlisting}[language=Python, caption={Melakukan join pada array dimensi 2}]
+\begin{lstlisting}[language=Python, caption={Melakukan join pada array dimensi 2}, label={lst:kode-melakukan-join-pada-array-dimensi-2-2}]
 arr3 = np.concatenate((arr1, arr2), axis=0)
 print(arr3)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Melakukan join pada array dimensi 2}, label={lst:out-melakukan-join-pada-array-dimensi-2-2}]
 [[ 1  2  3]
  [ 4  5  6]
  [ 7  8  9]
  [10 11 12]]
 \end{lstlisting}
-
+\par Lebih lanjut pada Kode \ref{lst:kode-melakukan-join-pada-array-dimensi-2-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-melakukan-join-pada-array-dimensi-2-2}.
 
 \subsubsection{Array Split}
-\begin{lstlisting}[language=Python, caption={Array Split}]
+\begin{lstlisting}[language=Python, caption={Array Split}, label={lst:kode-array-split-1}]
 arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
 
 newarray = np.array_split(arr, 5)
@@ -611,116 +611,115 @@ print('setelah \n', newarray)
 narr = newarray[2]
 print(narr)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Array Split}, label={lst:out-array-split-1}]
 sebelum 
  [ 1  2  3  4  5  6  7  8  9 10 11 12]
 setelah 
  [array([1, 2, 3]), array([4, 5, 6]), array([7, 8]), array([ 9, 10]), array([11, 12])]
 [7 8]
 \end{lstlisting}
-
+\par Kode \ref{lst:kode-array-split-1} mendistribusikan atau membagi sebuah elemen matriks besar menjadi sekumpulan sub-array berdimensi kecil menggunakan fungsi splitting. Partisi pembagian susunan yang terpotong terlihat rapi pada Output \ref{lst:out-array-split-1}.
 
 \subsubsection{Array Search}
-\begin{lstlisting}[language=Python, caption={Array Search}]
+\begin{lstlisting}[language=Python, caption={Array Search}, label={lst:kode-array-search-1}]
 arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
 
 x = np.where(arr == 3)
 
 print(x)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Array Search}, label={lst:out-array-search-1}]
 (array([2]),)
 \end{lstlisting}
-
+\par Operasi pencarian (searching) elemen berbasis kondisi kecocokan boolean spesifik ditunjukkan pada Kode \ref{lst:kode-array-search-1}. Posisi dari elemen sasaran yang memenuhi kriteria diekspos lalu ditampilkan pada Output \ref{lst:out-array-search-1}.
 
 \subsubsection{Sorting}
-\begin{lstlisting}[language=Python, caption={Sorting}]
+\begin{lstlisting}[language=Python, caption={Sorting}, label={lst:kode-sorting-1}]
 arr = np.array([11, 21, 3, 4, 19, 1, 21, 12])
 sorted_arr = np.sort(arr)
 
 print(arr)
 print(sorted_arr)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Sorting}, label={lst:out-sorting-1}]
 [11 21  3  4 19  1 21 12]
 [ 1  3  4 11 12 19 21 21]
 \end{lstlisting}
-
+\par Operasi algoritma pengurutan data array pada Kode \ref{lst:kode-sorting-1} digunakan untuk menyusun elemen acak menjadi sekuens yang sejalan dari nilai terendah ke nilai maksimal, sebagaimana disajikan secara terurut di Output \ref{lst:out-sorting-1}.
 
 \subsubsection{NumPy Random}
-\begin{lstlisting}[language=Python, caption={NumPy Random}]
+\begin{lstlisting}[language=Python, caption={NumPy Random}, label={lst:kode-numpy-random-1}]
 from numpy import random
 
 x =  random.rand(2)
 print(x)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output NumPy Random}, label={lst:out-numpy-random-1}]
 [0.25528719 0.22647703]
 \end{lstlisting}
-
+\par Berdasarkan parameter eksekusi Kode \ref{lst:kode-numpy-random-1}, generator acak bawaan Numpy membentuk dan meng-generate serangkaian nilai pseudo-random baru. Deret pecahan nilai acak yang independen ini tertera pada Output \ref{lst:out-numpy-random-1}.
 
 \subsubsection{Operasi penjumlahan}
-\begin{lstlisting}[language=Python, caption={Operasi penjumlahan}]
+\begin{lstlisting}[language=Python, caption={Operasi penjumlahan}, label={lst:kode-operasi-penjumlahan-1}]
 arr1 = np.array([1, 2, 3, 4, 5])
 arr2 = np.array([10, 20, 30, 40, 50])
 
 arr3 = np.add(arr1, arr2)
 print(arr3)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Operasi penjumlahan}, label={lst:out-operasi-penjumlahan-1}]
 [11 22 33 44 55]
 \end{lstlisting}
-
+\par Kode \ref{lst:kode-operasi-penjumlahan-1} mendemonstrasikan evaluasi skalar ataupun vektor untuk operasi aritmatika penjumlahan matematis antara struktur data array. Kalkulasi total masing-masing posisi elemen muncul secara sejajar pada Output \ref{lst:out-operasi-penjumlahan-1}.
 
 \subsubsection{Operasi Summation (Total jumlah)}
-\begin{lstlisting}[language=Python, caption={Operasi Summation (Total jumlah)}]
+\begin{lstlisting}[language=Python, caption={Operasi Summation (Total jumlah)}, label={lst:kode-operasi-summation-total-jumlah-1}]
 arr1 = np.array([1, 2, 3, 4, 5])
 arr3 = np.sum(arr1)
 
 print(arr3)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Operasi Summation (Total jumlah)}, label={lst:out-operasi-summation-total-jumlah-1}]
 15
 \end{lstlisting}
-
+\par Melalui penerapan operator reduksi penjumlahan pada Kode \ref{lst:kode-operasi-summation-total-jumlah-1}, kalkulasi seluruh elemen anggota diakumulasikan menjadi satu nilai agrerat. Hasil komputasi dari akumulasi matriks yang ringkas terproyeksi di Output \ref{lst:out-operasi-summation-total-jumlah-1}.
 
 \subsubsection{Product of elements}
-\begin{lstlisting}[language=Python, caption={Product of elements}]
+\begin{lstlisting}[language=Python, caption={Product of elements}, label={lst:kode-product-of-elements-1}]
 arr1 = np.array([1, 2, 3, 4, 5,])
 arr3 = np.prod(arr1)
 
 print(arr3)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Product of elements}, label={lst:out-product-of-elements-1}]
 120
 \end{lstlisting}
-
+\par Fungsi perkalian matematis di sepanjang elemen array pada Kode \ref{lst:kode-product-of-elements-1} mengalkulasi hasil kali majemuk, menyatukannya dan memproduksi satu representasi perkalian final. Validasi dari penghitungan nilai produk tersebut diekstrak ke Output \ref{lst:out-product-of-elements-1}.
 
 \subsection{Pandas}
 
 \subsubsection{Instal Pandas}
 \subsubsection{Import Library}
-\begin{lstlisting}[language=Python, caption={Import Library}]
+\begin{lstlisting}[language=Python, caption={Import Library}, label={lst:kode-import-library-1}]
 import pandas as pd
 import numpy as np
 \end{lstlisting}
 
-
 \subsubsection{Membuat Dataframe}
-\begin{lstlisting}[language=Python, caption={Membuat Dataframe}]
+\begin{lstlisting}[language=Python, caption={Membuat Dataframe}, label={lst:kode-membuat-dataframe-1}]
 data = [2, 3, 5, 7, 1]
 df = pd.DataFrame(data)
 df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Membuat Dataframe}, label={lst:out-membuat-dataframe-1}]
 0
 0  2
 1  3
@@ -728,35 +727,38 @@ df
 3  7
 4  1
 \end{lstlisting}
+\par Berdasarkan sintaks pembentukan objek dalam Kode \ref{lst:kode-membuat-dataframe-1}, data dasar bertipe list diintegrasikan hingga bersalin bentuk menjadi format tabular yang lebih terorganisir. Kemunculan tabel berkolom standar ini diverifikasi secara valid oleh Output \ref{lst:out-membuat-dataframe-1}.
 
-\begin{lstlisting}[language=Python, caption={Membuat Dataframe}]
+\begin{lstlisting}[language=Python, caption={Membuat Dataframe}, label={lst:kode-membuat-dataframe-2}]
 data = [['adi', 34], ['Maya', 23], ['Joko', 20]]
 df = pd.DataFrame(data, columns=['Nama', 'Usia'], index=['satu', 'dua', 'tiga'])
 df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Membuat Dataframe}, label={lst:out-membuat-dataframe-2}]
 Nama  Usia
 satu   adi    34
 dua   Maya    23
 tiga  Joko    20
 \end{lstlisting}
+\par Lebih lanjut pada Kode \ref{lst:kode-membuat-dataframe-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-membuat-dataframe-2}.
 
-\begin{lstlisting}[language=Python, caption={Membuat Dataframe}]
+\begin{lstlisting}[language=Python, caption={Membuat Dataframe}, label={lst:kode-membuat-dataframe-3}]
 data = {'nama': ['adi', 'Maya', 'Joko'], 'usia': [34, 23, 20]}
 df = pd.DataFrame(data)
 df['Alamat'] = ['Jakarta', 'Bandung', 'Surabaya']
 df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Membuat Dataframe}, label={lst:out-membuat-dataframe-3}]
 nama  usia    Alamat
 0   adi    34   Jakarta
 1  Maya    23   Bandung
 2  Joko    20  Surabaya
 \end{lstlisting}
+\par Sintaks berikutnya pada Kode \ref{lst:kode-membuat-dataframe-3} menunjukkan penyesuaian parameter tambahan yang memberikan pendekatan berbeda. Representasi hasilnya terekam pada Output \ref{lst:out-membuat-dataframe-3}.
 
-\begin{lstlisting}[language=Python, caption={Membuat Dataframe}]
+\begin{lstlisting}[language=Python, caption={Membuat Dataframe}, label={lst:kode-membuat-dataframe-4}]
 data = {'nama': ['adi', 'Maya', 'Joko'], 'usia': [34, 23, 20]}
 df = pd.DataFrame(data)
 print(df)
@@ -764,8 +766,8 @@ alamat = ['Jakarta', 'Bandung', 'Surabaya']
 df.insert(0, 'Alamat', alamat)
 print(df)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Membuat Dataframe}, label={lst:out-membuat-dataframe-4}]
 nama  usia
 0   adi    34
 1  Maya    23
@@ -775,27 +777,27 @@ nama  usia
 1   Bandung  Maya    23
 2  Surabaya  Joko    20
 \end{lstlisting}
-
+\par Implementasi lanjutan ditunjukkan melalui Kode \ref{lst:kode-membuat-dataframe-4}, di mana eksekusi kode dimodifikasi untuk skenario yang lebih spesifik, divalidasi oleh Output \ref{lst:out-membuat-dataframe-4}.
 
 \subsubsection{Menambahkan Kolom}
-\begin{lstlisting}[language=Python, caption={Menambahkan Kolom}]
+\begin{lstlisting}[language=Python, caption={Menambahkan Kolom}, label={lst:kode-menambahkan-kolom-1}]
 data = [['adi', 34], ['Maya', 23], ['Joko', 20]]
 df = pd.DataFrame(data, columns = ['Nama', 'Umur'])
 alamat = ['Jakarta', 'Bandung', 'Surabaya']
 df.insert(1, 'Alamat', alamat)
 print(df)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Menambahkan Kolom}, label={lst:out-menambahkan-kolom-1}]
 Nama    Alamat  Umur
 0   adi   Jakarta    34
 1  Maya   Bandung    23
 2  Joko  Surabaya    20
 \end{lstlisting}
-
+\par Kode \ref{lst:kode-menambahkan-kolom-1} memperlihatkan fleksibilitas pembaruan objek DataFrame melalui proses insersi kolom dan penamaan parameter pada saat operasi penyusunan tabel. Keberadaan atribut kolom tersebut tersinkronisasi dan tampil sempurna di Output \ref{lst:out-menambahkan-kolom-1}.
 
 \subsubsection{Menambahkan Multi Kolom}
-\begin{lstlisting}[language=Python, caption={Menambahkan Multi Kolom}]
+\begin{lstlisting}[language=Python, caption={Menambahkan Multi Kolom}, label={lst:kode-menambahkan-multi-kolom-1}]
 data = [['adi', 34], ['Maya', 23], ['Joko', 20]]
 df = pd.DataFrame(data, columns = ['Nama', 'Umur'])
 print(df)
@@ -804,8 +806,8 @@ pekerjaan = ['Programer', 'DB Admin', 'Web Developer']
 df = df.assign(Job = pekerjaan, Alamat = alamat)
 print(df)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Menambahkan Multi Kolom}, label={lst:out-menambahkan-multi-kolom-1}]
 Nama  Umur
 0   adi    34
 1  Maya    23
@@ -815,8 +817,9 @@ Nama  Umur
 1  Maya    23       DB Admin   Bandung
 2  Joko    20  Web Developer  Surabaya
 \end{lstlisting}
+\par Insersi kolektif dan pendefinisian atribut multidimensi dalam bentuk dictionary diaplikasikan secara terstruktur di Kode \ref{lst:kode-menambahkan-multi-kolom-1}. Implikasi visualisasi susunan data agregat dengan kolom-kolom terkait secara utuh divalidasi pada Output \ref{lst:out-menambahkan-multi-kolom-1}.
 
-\begin{lstlisting}[language=Python, caption={Menambahkan Multi Kolom}]
+\begin{lstlisting}[language=Python, caption={Menambahkan Multi Kolom}, label={lst:kode-menambahkan-multi-kolom-2}]
 data = [['adi', 34], ['Maya', 23], ['Joko', 20]]
 df = pd.DataFrame(data, columns = ['Nama', 'Umur'])
 print(df)
@@ -826,8 +829,8 @@ d_kolom={'Addess': alamat, 'Job': pekerjaan}
 df[['Addess', 'Job']] = pd.DataFrame(d_kolom)
 print(df)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Menambahkan Multi Kolom}, label={lst:out-menambahkan-multi-kolom-2}]
 Nama  Umur
 0   adi    34
 1  Maya    23
@@ -837,10 +840,10 @@ Nama  Umur
 1  Maya    23   Bandung       DB Admin
 2  Joko    20  Surabaya  Web Developer
 \end{lstlisting}
-
+\par Lebih lanjut pada Kode \ref{lst:kode-menambahkan-multi-kolom-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-menambahkan-multi-kolom-2}.
 
 \subsubsection{Menghapus Kolom}
-\begin{lstlisting}[language=Python, caption={Menghapus Kolom}]
+\begin{lstlisting}[language=Python, caption={Menghapus Kolom}, label={lst:kode-menghapus-kolom-1}]
 data = {
   'nama': ['adi', 'Maya', 'Joko'],
   'usia': [34, 23, 20],
@@ -852,8 +855,8 @@ print(df)
 df.drop('pekerjaan', axis=1, inplace=True)
 df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Menghapus Kolom}, label={lst:out-menghapus-kolom-1}]
 nama  usia    alamat      pekerjaan
 0   adi    34   Jakarta      Programer
 1  Maya    23   Bandung       DB Admin
@@ -863,8 +866,9 @@ nama  usia    alamat      pekerjaan
 1  Maya    23   Bandung
 2  Joko    20  Surabaya
 \end{lstlisting}
+\par Objek kolom tabel yang bersifat redudan didepak maupun diabaikan proses transmisinya dari data utama sesuai parameter fungsi dari Kode \ref{lst:kode-menghapus-kolom-1}. Pemotongan indeks bagian ini diinformasikan secara real-time pada tabel termodifikasi di Output \ref{lst:out-menghapus-kolom-1}.
 
-\begin{lstlisting}[language=Python, caption={Menghapus Kolom}]
+\begin{lstlisting}[language=Python, caption={Menghapus Kolom}, label={lst:kode-menghapus-kolom-2}]
 data = {
   'nama': ['adi', 'Maya', 'Joko'],
   'usia': [34, 23, 20],
@@ -876,8 +880,8 @@ print(df)
 df.pop('pekerjaan')
 df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Menghapus Kolom}, label={lst:out-menghapus-kolom-2}]
 nama  usia    alamat      pekerjaan
 0   adi    34   Jakarta      Programer
 1  Maya    23   Bandung       DB Admin
@@ -887,10 +891,10 @@ nama  usia    alamat      pekerjaan
 1  Maya    23   Bandung
 2  Joko    20  Surabaya
 \end{lstlisting}
-
+\par Lebih lanjut pada Kode \ref{lst:kode-menghapus-kolom-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-menghapus-kolom-2}.
 
 \subsubsection{Menghapus Multi Kolom}
-\begin{lstlisting}[language=Python, caption={Menghapus Multi Kolom}]
+\begin{lstlisting}[language=Python, caption={Menghapus Multi Kolom}, label={lst:kode-menghapus-multi-kolom-1}]
 data = {
   'nama': ['adi', 'Maya', 'Joko'],
   'usia': [34, 23, 20],
@@ -902,8 +906,8 @@ print(df)
 del df['pekerjaan']
 df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Menghapus Multi Kolom}, label={lst:out-menghapus-multi-kolom-1}]
 nama  usia    alamat      pekerjaan
 0   adi    34   Jakarta      Programer
 1  Maya    23   Bandung       DB Admin
@@ -913,8 +917,9 @@ nama  usia    alamat      pekerjaan
 1  Maya    23   Bandung
 2  Joko    20  Surabaya
 \end{lstlisting}
+\par Pada Kode \ref{lst:kode-menghapus-multi-kolom-1}, metode drop dieksekusi bersama konfigurasi deret parameter array untuk mencabut relasi lebih dari satu pilar data. Pemurnian hasil tanpa kehadiran susunan atribut tak relevan terpampang rapi di Output \ref{lst:out-menghapus-multi-kolom-1}.
 
-\begin{lstlisting}[language=Python, caption={Menghapus Multi Kolom}]
+\begin{lstlisting}[language=Python, caption={Menghapus Multi Kolom}, label={lst:kode-menghapus-multi-kolom-2}]
 data = {
   'nama': ['adi', 'Maya', 'Joko'],
   'usia': [34, 23, 20],
@@ -926,8 +931,8 @@ print(df)
 df.drop(['pekerjaan', 'alamat'], axis=1, inplace=True)
 df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Menghapus Multi Kolom}, label={lst:out-menghapus-multi-kolom-2}]
 nama  usia    alamat      pekerjaan
 0   adi    34   Jakarta      Programer
 1  Maya    23   Bandung       DB Admin
@@ -937,8 +942,9 @@ nama  usia    alamat      pekerjaan
 1  Maya    23
 2  Joko    20
 \end{lstlisting}
+\par Lebih lanjut pada Kode \ref{lst:kode-menghapus-multi-kolom-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-menghapus-multi-kolom-2}.
 
-\begin{lstlisting}[language=Python, caption={Menghapus Multi Kolom}]
+\begin{lstlisting}[language=Python, caption={Menghapus Multi Kolom}, label={lst:kode-menghapus-multi-kolom-3}]
 data = {
   'nama': ['adi', 'Maya', 'Joko', 'Andi'],
   'usia': [34, 23, 20, 23],
@@ -948,44 +954,46 @@ data = {
 df = pd.DataFrame(data, index=[2, 3, 0, 1])
 df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Menghapus Multi Kolom}, label={lst:out-menghapus-multi-kolom-3}]
 nama  usia    alamat      pekerjaan
 2   adi    34   Jakarta      Programer
 3  Maya    23   Bandung       DB Admin
 0  Joko    20  Surabaya  Web Developer
 1  Andi    23   Jakarta      Programer
 \end{lstlisting}
-
+\par Sintaks berikutnya pada Kode \ref{lst:kode-menghapus-multi-kolom-3} menunjukkan penyesuaian parameter tambahan yang memberikan pendekatan berbeda. Representasi hasilnya terekam pada Output \ref{lst:out-menghapus-multi-kolom-3}.
 
 \subsubsection{Sorting}
-\begin{lstlisting}[language=Python, caption={Sorting}]
+\begin{lstlisting}[language=Python, caption={Sorting}, label={lst:kode-pandas-sorting-1}]
 sorted_df = df.sort_index()
 sorted_df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Sorting}, label={lst:out-pandas-sorting-1}]
 nama  usia    alamat      pekerjaan
 0  Joko    20  Surabaya  Web Developer
 1  Andi    23   Jakarta      Programer
 2   adi    34   Jakarta      Programer
 3  Maya    23   Bandung       DB Admin
 \end{lstlisting}
+\par Operasi algoritma pengurutan data array pada Kode \ref{lst:kode-pandas-sorting-1} digunakan untuk menyusun elemen acak menjadi sekuens yang sejalan dari nilai terendah ke nilai maksimal, sebagaimana disajikan secara terurut di Output \ref{lst:out-pandas-sorting-1}.
 
-\begin{lstlisting}[language=Python, caption={Sorting}]
+\begin{lstlisting}[language=Python, caption={Sorting}, label={lst:kode-pandas-sorting-2}]
 sorted_column = sorted_df.sort_index(axis=1)
 sorted_column
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Sorting}, label={lst:out-pandas-sorting-2}]
 alamat  nama      pekerjaan  usia
 0  Surabaya  Joko  Web Developer    20
 1   Jakarta  Andi      Programer    23
 2   Jakarta   adi      Programer    34
 3   Bandung  Maya       DB Admin    23
 \end{lstlisting}
+\par Lebih lanjut pada Kode \ref{lst:kode-pandas-sorting-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-pandas-sorting-2}.
 
-\begin{lstlisting}[language=Python, caption={Sorting}]
+\begin{lstlisting}[language=Python, caption={Sorting}, label={lst:kode-pandas-sorting-3}]
 data = {
   'nama': ['adi', 'Maya', 'Joko', 'Andi'],
   'usia': [34, 23, 20, 23],
@@ -997,8 +1005,8 @@ print(df)
 df_sorted = df.sort_values(by='nama')
 df_sorted
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Sorting}, label={lst:out-pandas-sorting-3}]
 nama  usia    alamat      pekerjaan
 2   adi    34   Jakarta      Programer
 3  Maya    23   Bandung       DB Admin
@@ -1010,23 +1018,24 @@ nama  usia    alamat      pekerjaan
 3  Maya    23   Bandung       DB Admin
 2   adi    34   Jakarta      Programer
 \end{lstlisting}
-
+\par Sintaks berikutnya pada Kode \ref{lst:kode-pandas-sorting-3} menunjukkan penyesuaian parameter tambahan yang memberikan pendekatan berbeda. Representasi hasilnya terekam pada Output \ref{lst:out-pandas-sorting-3}.
 
 \subsubsection{Sorting Value}
-\begin{lstlisting}[language=Python, caption={Sorting Value}]
+\begin{lstlisting}[language=Python, caption={Sorting Value}, label={lst:kode-pandas-sorting-value-1}]
 df_sorted = df.sort_values(by=['alamat', 'nama'])
 df_sorted
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Sorting Value}, label={lst:out-pandas-sorting-value-1}]
 nama  usia    alamat      pekerjaan
 3  Maya    23   Bandung       DB Admin
 1  Andi    23   Jakarta      Programer
 2   adi    34   Jakarta      Programer
 0  Joko    20  Surabaya  Web Developer
 \end{lstlisting}
+\par Berdasarkan pengurutan nilai berbasis kriteria kunci pada Kode \ref{lst:kode-pandas-sorting-value-1}, rekaman tabular dievaluasi serta dialokasikan ulang menurut standar hierarki yang ditentukan. Sekuens yang telah disusun, direposisi, dan ditata dengan benar divalidasi melalui Output \ref{lst:out-pandas-sorting-value-1}.
 
-\begin{lstlisting}[language=Python, caption={Sorting Value}]
+\begin{lstlisting}[language=Python, caption={Sorting Value}, label={lst:kode-pandas-sorting-value-2}]
 data = {
   'nama': ['adi', 'Maya', 'Joko', 'Andi'],
   'usia': [34, 23, 20, 23],
@@ -1038,8 +1047,8 @@ print(df)
 filtered_df = df[df.usia > 30]
 filtered_df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Sorting Value}, label={lst:out-pandas-sorting-value-2}]
 nama  usia    alamat      pekerjaan
 0   adi    34   Jakarta      Programer
 1  Maya    23   Bandung       DB Admin
@@ -1048,21 +1057,22 @@ nama  usia    alamat      pekerjaan
   nama  usia   alamat  pekerjaan
 0  adi    34  Jakarta  Programer
 \end{lstlisting}
-
+\par Lebih lanjut pada Kode \ref{lst:kode-pandas-sorting-value-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-pandas-sorting-value-2}.
 
 \subsubsection{Filtering}
-\begin{lstlisting}[language=Python, caption={Filtering}]
+\begin{lstlisting}[language=Python, caption={Filtering}, label={lst:kode-filtering-1}]
 filtered_df = df[(df.usia > 22) & (df.alamat == 'Jakarta')]
 filtered_df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Filtering}, label={lst:out-filtering-1}]
 nama  usia   alamat  pekerjaan
 0   adi    34  Jakarta  Programer
 3  Andi    23  Jakarta  Programer
 \end{lstlisting}
+\par Kode \ref{lst:kode-filtering-1} mengaplikasikan kaidah logika kondisional murni sebagai alat seleksi dataset dalam membuang baris-baris informasi (filtering) di luar target observasi. Hanya klaster sampel data yang lolos prasyarat logika yang direpresentasikan dalam Output \ref{lst:out-filtering-1}.
 
-\begin{lstlisting}[language=Python, caption={Filtering}]
+\begin{lstlisting}[language=Python, caption={Filtering}, label={lst:kode-filtering-2}]
 data = {
   'nama': ['adi', 'Maya', 'Joko', 'Andi'],
   'usia': [34, 23, 20, 23],
@@ -1074,45 +1084,48 @@ nama1 = ['Joko', 'Maya']
 filtered_df = df[df.nama.isin(nama1)]
 filtered_df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Filtering}, label={lst:out-filtering-2}]
 nama  usia    alamat      pekerjaan
 1  Maya    23   Bandung       DB Admin
 2  Joko    20  Surabaya  Web Developer
 \end{lstlisting}
+\par Lebih lanjut pada Kode \ref{lst:kode-filtering-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-filtering-2}.
 
-\begin{lstlisting}[language=Python, caption={Filtering}]
+\begin{lstlisting}[language=Python, caption={Filtering}, label={lst:kode-filtering-3}]
 filtered = df.query("nama=='Joko' | nama=='Maya'")
 filtered
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Filtering}, label={lst:out-filtering-3}]
 nama  usia    alamat      pekerjaan
 1  Maya    23   Bandung       DB Admin
 2  Joko    20  Surabaya  Web Developer
 \end{lstlisting}
+\par Sintaks berikutnya pada Kode \ref{lst:kode-filtering-3} menunjukkan penyesuaian parameter tambahan yang memberikan pendekatan berbeda. Representasi hasilnya terekam pada Output \ref{lst:out-filtering-3}.
 
-\begin{lstlisting}[language=Python, caption={Filtering}]
+\begin{lstlisting}[language=Python, caption={Filtering}, label={lst:kode-filtering-4}]
 df.loc[(df.usia>30)]
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Filtering}, label={lst:out-filtering-4}]
 nama  usia   alamat  pekerjaan
 0  adi    34  Jakarta  Programer
 \end{lstlisting}
+\par Implementasi lanjutan ditunjukkan melalui Kode \ref{lst:kode-filtering-4}, di mana eksekusi kode dimodifikasi untuk skenario yang lebih spesifik, divalidasi oleh Output \ref{lst:out-filtering-4}.
 
-\begin{lstlisting}[language=Python, caption={Filtering}]
+\begin{lstlisting}[language=Python, caption={Filtering}, label={lst:kode-filtering-5}]
 df[df.pekerjaan.str.contains('Web')]
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Filtering}, label={lst:out-filtering-5}]
 nama  usia    alamat      pekerjaan
 2  Joko    20  Surabaya  Web Developer
 \end{lstlisting}
-
+\par Kemudian, Kode \ref{lst:kode-filtering-5} memberikan contoh lain dari eksekusi operasi ini dengan parameter alternatif, yang secara langsung berdampak pada hasil di Output \ref{lst:out-filtering-5}.
 
 \subsubsection{Grouping}
-\begin{lstlisting}[language=Python, caption={Grouping}]
+\begin{lstlisting}[language=Python, caption={Grouping}, label={lst:kode-grouping-1}]
 data = {
   'nama': ['adi', 'Maya', 'Joko', 'Andi'],
   'usia': [34, 23, 20, 23],
@@ -1124,32 +1137,34 @@ data = {
 df = pd.DataFrame(data)
 df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Grouping}, label={lst:out-grouping-1}]
 nama  usia    alamat      pekerjaan  gaji
 0   adi    34   Jakarta      Programer  2000
 1  Maya    23   Bandung       DB Admin  3000
 2  Joko    20  Surabaya  Web Developer  2400
 3  Andi    23   Jakarta      Programer  5000
 \end{lstlisting}
+\par Fungsi sentral pengelompokan (groupby) di Kode \ref{lst:kode-grouping-1} mereorganisasi pemetaan di dataset berdasarkan kesamaan kategori grup internal (misal, profesi). Distribusi pengalokasian grup turunan tiap elemen dapat diamati dengan transparan pada Output \ref{lst:out-grouping-1}.
 
-\begin{lstlisting}[language=Python, caption={Grouping}]
+\begin{lstlisting}[language=Python, caption={Grouping}, label={lst:kode-grouping-2}]
 df.groupby('pekerjaan').groups
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Grouping}, label={lst:out-grouping-2}]
 {'DB Admin': [1], 'Programer': [0, 3], 'Web Developer': [2]}
 \end{lstlisting}
+\par Lebih lanjut pada Kode \ref{lst:kode-grouping-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-grouping-2}.
 
-\begin{lstlisting}[language=Python, caption={Grouping}]
+\begin{lstlisting}[language=Python, caption={Grouping}, label={lst:kode-grouping-3}]
 df_group = df.groupby('pekerjaan')
 
 for pekerjaan, group in df_group:
   print(pekerjaan)
   print(group)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Grouping}, label={lst:out-grouping-3}]
 DB Admin
    nama  usia   alamat pekerjaan  gaji
 1  Maya    23  Bandung  DB Admin  3000
@@ -1161,19 +1176,20 @@ Web Developer
    nama  usia    alamat      pekerjaan  gaji
 2  Joko    20  Surabaya  Web Developer  2400
 \end{lstlisting}
+\par Sintaks berikutnya pada Kode \ref{lst:kode-grouping-3} menunjukkan penyesuaian parameter tambahan yang memberikan pendekatan berbeda. Representasi hasilnya terekam pada Output \ref{lst:out-grouping-3}.
 
-\begin{lstlisting}[language=Python, caption={Grouping}]
+\begin{lstlisting}[language=Python, caption={Grouping}, label={lst:kode-grouping-4}]
 print(df_group.get_group('DB Admin'))
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Grouping}, label={lst:out-grouping-4}]
 nama  usia   alamat pekerjaan  gaji
 1  Maya    23  Bandung  DB Admin  3000
 \end{lstlisting}
-
+\par Implementasi lanjutan ditunjukkan melalui Kode \ref{lst:kode-grouping-4}, di mana eksekusi kode dimodifikasi untuk skenario yang lebih spesifik, divalidasi oleh Output \ref{lst:out-grouping-4}.
 
 \subsubsection{Aggregation}
-\begin{lstlisting}[language=Python, caption={Aggregation}]
+\begin{lstlisting}[language=Python, caption={Aggregation}, label={lst:kode-aggregation-1}]
 data = {
   'nama': ['adi', 'Maya', 'Joko', 'Andi'],
   'usia': [34, 23, 20, 23],
@@ -1189,8 +1205,8 @@ df_group = df.groupby('pekerjaan').mean(numeric_only=True)
 print('Setelah di kelompokkan')
 df_group
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Aggregation}, label={lst:out-aggregation-1}]
 Sebelum di kelompokkan 
     nama  usia    alamat      pekerjaan  gaji
 0   adi    34   Jakarta      Programer  2000
@@ -1204,29 +1220,31 @@ DB Admin       23.0  3000.0
 Programer      28.5  3500.0
 Web Developer  20.0  2400.0
 \end{lstlisting}
+\par Penerapan operasi metrik analisis di Kode \ref{lst:kode-aggregation-1} memicu kalkulasi fungsi agregasi secara kuantitatif dalam komputasi mean dari tiap komponen grup dataset. Rekapitulasi ringkasan statistik komprehensif ini tercetak formal pada Output \ref{lst:out-aggregation-1}.
 
-\begin{lstlisting}[language=Python, caption={Aggregation}]
+\begin{lstlisting}[language=Python, caption={Aggregation}, label={lst:kode-aggregation-2}]
 df_group = df.groupby('pekerjaan').mean(numeric_only=True)
 df_group
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Aggregation}, label={lst:out-aggregation-2}]
 usia    gaji
 pekerjaan                  
 DB Admin       23.0  3000.0
 Programer      28.5  3500.0
 Web Developer  20.0  2400.0
 \end{lstlisting}
+\par Lebih lanjut pada Kode \ref{lst:kode-aggregation-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-aggregation-2}.
 
-\begin{lstlisting}[language=Python, caption={Aggregation}]
+\begin{lstlisting}[language=Python, caption={Aggregation}, label={lst:kode-aggregation-3}]
 df_group = df.groupby('pekerjaan').agg({
     'usia': [np.mean, np.sum, np.std],
     'gaji': [np.mean, np.sum, np.std]
 })
 df_group
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Aggregation}, label={lst:out-aggregation-3}]
 /tmp/ipykernel_506/4252965023.py:1: FutureWarning: The provided callable <function mean at 0x788a8fd6fe20> is currently using SeriesGroupBy.mean. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string "mean" instead.
   df_group = df.groupby('pekerjaan').agg({
 /tmp/ipykernel_506/4252965023.py:1: FutureWarning: The provided callable <function sum at 0x788a8fd6ea20> is currently using SeriesGroupBy.sum. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string "sum" instead.
@@ -1242,10 +1260,10 @@ DB Admin       23.0  23       NaN  3000.0  3000          NaN
 Programer      28.5  57  7.778175  3500.0  7000  2121.320344
 Web Developer  20.0  20       NaN  2400.0  2400          NaN
 \end{lstlisting}
-
+\par Sintaks berikutnya pada Kode \ref{lst:kode-aggregation-3} menunjukkan penyesuaian parameter tambahan yang memberikan pendekatan berbeda. Representasi hasilnya terekam pada Output \ref{lst:out-aggregation-3}.
 
 \subsubsection{Merge}
-\begin{lstlisting}[language=Python, caption={Merge}]
+\begin{lstlisting}[language=Python, caption={Merge}, label={lst:kode-merge-1}]
 kiri = pd.DataFrame({
     'Id': [2, 3, 1],
     'Nama': ['Andi', 'Joko', 'Budi']
@@ -1258,15 +1276,16 @@ kanan = pd.DataFrame({
 gabung= pd.merge(kiri, kanan, on='Id', sort=True)
 gabung
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Merge}, label={lst:out-merge-1}]
 Id Nama_x Nama_y
 0   1   Budi   Mike
 1   2   Andi   Jack
 2   3   Joko   Jane
 \end{lstlisting}
+\par Teknik asimilasi antar-tabel (merge) di Kode \ref{lst:kode-merge-1} mengawinkan susunan baris eksternal berdasarkan referensi relasi yang unik (key column). Konvergensi dataset menjadi sebuah master tabel yang solid dan terintegrasi bisa diulas penuh pada Output \ref{lst:out-merge-1}.
 
-\begin{lstlisting}[language=Python, caption={Merge}]
+\begin{lstlisting}[language=Python, caption={Merge}, label={lst:kode-merge-2}]
 karyawan = pd.DataFrame({
     'Nama': ['Andi', 'Joko', 'Budi', 'Mike', 'Jack', 'Jane'],
     'Alamat': ['Jakarta', 'Bandung', 'Surabaya', 'Jakarta', 'Bandung', 'Surabaya'],
@@ -1281,8 +1300,8 @@ pekerjaan = pd.DataFrame({
 print(karyawan)
 print(pekerjaan)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Merge}, label={lst:out-merge-2}]
 Nama    Alamat  Id Pekerjaan
 0  Andi   Jakarta             1
 1  Joko   Bandung             2
@@ -1295,13 +1314,14 @@ Nama    Alamat  Id Pekerjaan
 1             2       DB Admin  3000
 2             3  Web Developer  2400
 \end{lstlisting}
+\par Lebih lanjut pada Kode \ref{lst:kode-merge-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-merge-2}.
 
-\begin{lstlisting}[language=Python, caption={Merge}]
+\begin{lstlisting}[language=Python, caption={Merge}, label={lst:kode-merge-3}]
 gabung_merge = pd.merge(karyawan, pekerjaan, on='Id Pekerjaan', how='left', sort=True)
 gabung_merge
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Merge}, label={lst:out-merge-3}]
 Nama_x    Alamat  Id Pekerjaan         Nama_y    Gaji
 0   Andi   Jakarta             1      Programer  2000.0
 1   Mike   Jakarta             1      Programer  2000.0
@@ -1310,13 +1330,14 @@ Nama_x    Alamat  Id Pekerjaan         Nama_y    Gaji
 4   Budi  Surabaya             3  Web Developer  2400.0
 5   Jane  Surabaya             4            NaN     NaN
 \end{lstlisting}
+\par Sintaks berikutnya pada Kode \ref{lst:kode-merge-3} menunjukkan penyesuaian parameter tambahan yang memberikan pendekatan berbeda. Representasi hasilnya terekam pada Output \ref{lst:out-merge-3}.
 
-\begin{lstlisting}[language=Python, caption={Merge}]
+\begin{lstlisting}[language=Python, caption={Merge}, label={lst:kode-merge-4}]
 gabung_merge = pd.merge(karyawan, pekerjaan, on='Id Pekerjaan', how='right', sort=True, suffixes=('_pegawai', '_pekerjaan'))
 gabung_merge
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Merge}, label={lst:out-merge-4}]
 Nama_pegawai    Alamat  Id Pekerjaan Nama_pekerjaan  Gaji
 0         Andi   Jakarta             1      Programer  2000
 1         Mike   Jakarta             1      Programer  2000
@@ -1324,15 +1345,15 @@ Nama_pegawai    Alamat  Id Pekerjaan Nama_pekerjaan  Gaji
 3         Jack   Bandung             2       DB Admin  3000
 4         Budi  Surabaya             3  Web Developer  2400
 \end{lstlisting}
-
+\par Implementasi lanjutan ditunjukkan melalui Kode \ref{lst:kode-merge-4}, di mana eksekusi kode dimodifikasi untuk skenario yang lebih spesifik, divalidasi oleh Output \ref{lst:out-merge-4}.
 
 \subsubsection{Join}
-\begin{lstlisting}[language=Python, caption={Join}]
+\begin{lstlisting}[language=Python, caption={Join}, label={lst:kode-join-1}]
 gabung_join = karyawan.join(pekerjaan, how='left', rsuffix='_pekerjaan')
 gabung_join
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Join}, label={lst:out-join-1}]
 Nama    Alamat  Id Pekerjaan  Id Pekerjaan_pekerjaan Nama_pekerjaan    Gaji
 0  Andi   Jakarta             1                     1.0      Programer  2000.0
 1  Joko   Bandung             2                     2.0       DB Admin  3000.0
@@ -1341,10 +1362,10 @@ Nama    Alamat  Id Pekerjaan  Id Pekerjaan_pekerjaan Nama_pekerjaan    Gaji
 4  Jack   Bandung             2                     NaN            NaN     NaN
 5  Jane  Surabaya             4                     NaN            NaN     NaN
 \end{lstlisting}
-
+\par Kode \ref{lst:kode-join-1} mencontohkan eksekusi metode relasional struktural yang identik dengan arsitektur SQL, di mana penggabungan dua indeks melahirkan korelasi baru secara lateral. Relasi dimensi ini mengkonstruksi dan diuraikan dengan seksama oleh representasi Output \ref{lst:out-join-1}.
 
 \subsubsection{Concatenate}
-\begin{lstlisting}[language=Python, caption={Concatenate}]
+\begin{lstlisting}[language=Python, caption={Concatenate}, label={lst:kode-concatenate-1}]
 kiri = pd.DataFrame({
     'Nama' : ['Budi', 'Joko', 'Maya'],
     'Alamat' : ['Jakarta', 'Bandung', 'Surabaya'],
@@ -1357,8 +1378,8 @@ kanan = pd.DataFrame({
 gabung_concat = pd.concat([kiri, kanan], axis=0, ignore_index=True)
 gabung_concat
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Concatenate}, label={lst:out-concatenate-1}]
 Nama      Alamat
 0   Budi     Jakarta
 1   Joko     Bandung
@@ -1367,8 +1388,9 @@ Nama      Alamat
 4   Mike  Yogyakarta
 5   Dave        Solo
 \end{lstlisting}
+\par Operasi appendensi struktural berskala utuh diaplikasikan dalam Kode \ref{lst:kode-concatenate-1} yang secara linier menyatukan partisi dua unit DataFrame pada sebuah kerangka. Konsolidasi susunan blok gabungan tanpa diskriminasi ini terlihat di Output \ref{lst:out-concatenate-1}.
 
-\begin{lstlisting}[language=Python, caption={Concatenate}]
+\begin{lstlisting}[language=Python, caption={Concatenate}, label={lst:kode-concatenate-2}]
 kiri = pd.DataFrame({
     'Nama' : ['Budi', 'Joko', 'Maya'],
     'Alamat' : ['Jakarta', 'Bandung', 'Surabaya'],
@@ -1380,8 +1402,8 @@ kanan = pd.DataFrame({
 gabung_concat = pd.concat([kiri, kanan], axis=0, ignore_index=True, join='outer')
 gabung_concat
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Concatenate}, label={lst:out-concatenate-2}]
 Nama    Alamat    Gaji
 0   Budi   Jakarta     NaN
 1   Joko   Bandung     NaN
@@ -1390,8 +1412,9 @@ Nama    Alamat    Gaji
 4   Mike       NaN  3000.0
 5   Dave       NaN  2400.0
 \end{lstlisting}
+\par Lebih lanjut pada Kode \ref{lst:kode-concatenate-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-concatenate-2}.
 
-\begin{lstlisting}[language=Python, caption={Concatenate}]
+\begin{lstlisting}[language=Python, caption={Concatenate}, label={lst:kode-concatenate-3}]
 kiri = pd.DataFrame({
     'Nama' : ['Budi', 'Joko', 'Maya'],
     'Alamat' : ['Jakarta', 'Bandung', 'Surabaya'],
@@ -1403,16 +1426,17 @@ kanan = pd.DataFrame({
 gabung_concat = pd.concat([kiri, kanan], axis=1, join='outer')
 gabung_concat
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Concatenate}, label={lst:out-concatenate-3}]
 Nama    Alamat      Pekerjaan  Gaji
 0  Budi   Jakarta      Programer  2000
 1  Joko   Bandung  Data Engineer  3000
 2  Maya  Surabaya        Manager  2400
 3   NaN       NaN  Web Developer  5000
 \end{lstlisting}
+\par Sintaks berikutnya pada Kode \ref{lst:kode-concatenate-3} menunjukkan penyesuaian parameter tambahan yang memberikan pendekatan berbeda. Representasi hasilnya terekam pada Output \ref{lst:out-concatenate-3}.
 
-\begin{lstlisting}[language=Python, caption={Concatenate}]
+\begin{lstlisting}[language=Python, caption={Concatenate}, label={lst:kode-concatenate-4}]
 kiri = pd.DataFrame({
     'Nama' : ['Budi', 'Joko', 'Maya'],
     'Alamat' : ['Jakarta', 'Bandung', 'Surabaya'],
@@ -1425,8 +1449,8 @@ kanan = pd.DataFrame({
 gabung_append = pd.concat([kiri, kanan], ignore_index=True)
 gabung_append
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Concatenate}, label={lst:out-concatenate-4}]
 Nama      Alamat
 0   Budi     Jakarta
 1   Joko     Bandung
@@ -1435,15 +1459,15 @@ Nama      Alamat
 4   Mike  Yogyakarta
 5   Dave        Solo
 \end{lstlisting}
-
+\par Implementasi lanjutan ditunjukkan melalui Kode \ref{lst:kode-concatenate-4}, di mana eksekusi kode dimodifikasi untuk skenario yang lebih spesifik, divalidasi oleh Output \ref{lst:out-concatenate-4}.
 
 \subsubsection{Reset Indeks}
-\begin{lstlisting}[language=Python, caption={Reset Indeks}]
+\begin{lstlisting}[language=Python, caption={Reset Indeks}, label={lst:kode-reset-indeks-1}]
 new = gabung_append.reset_index(drop=True)
 new
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Reset Indeks}, label={lst:out-reset-indeks-1}]
 Nama      Alamat
 0   Budi     Jakarta
 1   Joko     Bandung
@@ -1452,10 +1476,10 @@ Nama      Alamat
 4   Mike  Yogyakarta
 5   Dave        Solo
 \end{lstlisting}
-
+\par Mengingat proses rekayasa manipulasi dapat mengacaukan sekuens internal data, Kode \ref{lst:kode-reset-indeks-1} merestrukturisasi atribut ini dengan pengaturan ulang (resetting) konfigurasi posisi awal tabel. Pembenahan parameter baris kembali terekspos logis pada Output \ref{lst:out-reset-indeks-1}.
 
 \subsubsection{Set Indeks}
-\begin{lstlisting}[language=Python, caption={Set Indeks}]
+\begin{lstlisting}[language=Python, caption={Set Indeks}, label={lst:kode-set-indeks-1}]
 kiri = pd.DataFrame({
     'ID' : ['001', '002', '003'],
     'Nama' : ['Budi', 'Joko', 'Maya'],
@@ -1463,51 +1487,54 @@ kiri = pd.DataFrame({
 })
 kiri
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Set Indeks}, label={lst:out-set-indeks-1}]
 ID  Nama    Alamat
 0  001  Budi   Jakarta
 1  002  Joko   Bandung
 2  003  Maya  Surabaya
 \end{lstlisting}
+\par Mengacu pada pergeseran fungsionalitas di Kode \ref{lst:kode-set-indeks-1}, kolom standar diformat dan dipatenkan perannya menjadi identitas navigasi baris independen (index base). Penetapan pilar struktural tabel baru ini dengan mudah termonitor secara jelas dari Output \ref{lst:out-set-indeks-1}.
 
-\begin{lstlisting}[language=Python, caption={Set Indeks}]
+\begin{lstlisting}[language=Python, caption={Set Indeks}, label={lst:kode-set-indeks-2}]
 kiri.iloc[2]
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Set Indeks}, label={lst:out-set-indeks-2}]
 ID             003
 Nama          Maya
 Alamat    Surabaya
 Name: 2, dtype: object
 \end{lstlisting}
+\par Lebih lanjut pada Kode \ref{lst:kode-set-indeks-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-set-indeks-2}.
 
-\begin{lstlisting}[language=Python, caption={Set Indeks}]
+\begin{lstlisting}[language=Python, caption={Set Indeks}, label={lst:kode-set-indeks-3}]
 kiri.set_index('ID', inplace=True)
 kiri
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Set Indeks}, label={lst:out-set-indeks-3}]
 Nama    Alamat
 ID                 
 001  Budi   Jakarta
 002  Joko   Bandung
 003  Maya  Surabaya
 \end{lstlisting}
+\par Sintaks berikutnya pada Kode \ref{lst:kode-set-indeks-3} menunjukkan penyesuaian parameter tambahan yang memberikan pendekatan berbeda. Representasi hasilnya terekam pada Output \ref{lst:out-set-indeks-3}.
 
-\begin{lstlisting}[language=Python, caption={Set Indeks}]
+\begin{lstlisting}[language=Python, caption={Set Indeks}, label={lst:kode-set-indeks-4}]
 kiri.loc['003']
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Set Indeks}, label={lst:out-set-indeks-4}]
 Nama          Maya
 Alamat    Surabaya
 Name: 003, dtype: object
 \end{lstlisting}
-
+\par Implementasi lanjutan ditunjukkan melalui Kode \ref{lst:kode-set-indeks-4}, di mana eksekusi kode dimodifikasi untuk skenario yang lebih spesifik, divalidasi oleh Output \ref{lst:out-set-indeks-4}.
 
 \subsubsection{Pivot Tabel}
-\begin{lstlisting}[language=Python, caption={Pivot Tabel}]
+\begin{lstlisting}[language=Python, caption={Pivot Tabel}, label={lst:kode-pivot-tabel-1}]
 karyawan = pd.DataFrame({
     'Emp_id' : ['001', '002', '003', '004', '005', '006'],
     'Nama' : ['Budi', 'Joko', 'Maya', 'Andi', 'Dewi', 'Dian'],
@@ -1517,8 +1544,8 @@ karyawan = pd.DataFrame({
 })
 karyawan
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Pivot Tabel}, label={lst:out-pivot-tabel-1}]
 Emp_id  Nama  Gender      Pekerjaan  Gaji
 0    001  Budi    Pria      Programer  2000
 1    002  Joko    Pria  Data Engineer  3000
@@ -1527,13 +1554,14 @@ Emp_id  Nama  Gender      Pekerjaan  Gaji
 4    005  Dewi  Wanita      Programer  8000
 5    006  Dian  Wanita  Web Developer  6000
 \end{lstlisting}
+\par Operasi mentransformasi data memanjang ke data menyamping dilakukan melalui fungsi pemetaan multi-aksis pivot table di Kode \ref{lst:kode-pivot-tabel-1}. Pemotongan analitik agregat yang dikoordinasikan menjadi tabulasi silang multi-dimensi berhasil dicapai di Output \ref{lst:out-pivot-tabel-1}.
 
-\begin{lstlisting}[language=Python, caption={Pivot Tabel}]
+\begin{lstlisting}[language=Python, caption={Pivot Tabel}, label={lst:kode-pivot-tabel-2}]
 pivot_table = pd.pivot_table(karyawan, columns=['Gender', 'Pekerjaan'], aggfunc={'Gaji' : 'sum', 'Pekerjaan': 'count'})
 pivot_table
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Pivot Tabel}, label={lst:out-pivot-tabel-2}]
 Gender             Pria                          Wanita            \
 Pekerjaan Data Engineer Programer Web Developer Manager Programer   
 Gaji               3000      2000          6000    2400      8000   
@@ -1544,15 +1572,16 @@ Pekerjaan Web Developer
 Gaji               6000  
 Pekerjaan             1
 \end{lstlisting}
+\par Lebih lanjut pada Kode \ref{lst:kode-pivot-tabel-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-pivot-tabel-2}.
 
-\begin{lstlisting}[language=Python, caption={Pivot Tabel}]
+\begin{lstlisting}[language=Python, caption={Pivot Tabel}, label={lst:kode-pivot-tabel-3}]
 import numpy as np
 
 pivot_table = pd.pivot_table(karyawan, columns=['Gender', 'Pekerjaan'], aggfunc={'Gaji' : np.sum, 'Pekerjaan': 'count'})
 pivot_table
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Pivot Tabel}, label={lst:out-pivot-tabel-3}]
 /tmp/ipykernel_506/2067426380.py:3: FutureWarning: The provided callable <function sum at 0x788a8fd6ea20> is currently using SeriesGroupBy.sum. In a future version of pandas, the provided callable will be used directly. To keep current behavior pass the string "sum" instead.
   pivot_table = pd.pivot_table(karyawan, columns=['Gender', 'Pekerjaan'], aggfunc={'Gaji' : np.sum, 'Pekerjaan': 'count'})
 Gender             Pria                          Wanita            \
@@ -1565,10 +1594,10 @@ Pekerjaan Web Developer
 Gaji               6000  
 Pekerjaan             1
 \end{lstlisting}
-
+\par Sintaks berikutnya pada Kode \ref{lst:kode-pivot-tabel-3} menunjukkan penyesuaian parameter tambahan yang memberikan pendekatan berbeda. Representasi hasilnya terekam pada Output \ref{lst:out-pivot-tabel-3}.
 
 \subsubsection{Melt}
-\begin{lstlisting}[language=Python, caption={Melt}]
+\begin{lstlisting}[language=Python, caption={Melt}, label={lst:kode-melt-1}]
 mahasiswa = pd.DataFrame({
     'Mhs_id' : ['001', '002', '003'],
     'Nama' : ['Budi', 'Joko', 'Maya'],
@@ -1578,20 +1607,21 @@ mahasiswa = pd.DataFrame({
 })
 mahasiswa
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Melt}, label={lst:out-melt-1}]
 Mhs_id  Nama  Bhs Inggris  Matematika  Ekonomi
 0    001  Budi          100          90       90
 1    002  Joko           90          87       80
 2    003  Maya           98          72       78
 \end{lstlisting}
+\par Kebalikan dari operasi rekayasa pivot, fungsi normalisasi pada Kode \ref{lst:kode-melt-1} mengekstrasi format lebar berkolom menjadi struktur vertikal (melt). Model pemaparan data yang un-pivoted dan panjang ditransformasi serta diverifikasi eksistensinya oleh Output \ref{lst:out-melt-1}.
 
-\begin{lstlisting}[language=Python, caption={Melt}]
+\begin{lstlisting}[language=Python, caption={Melt}, label={lst:kode-melt-2}]
 melt_table = pd.melt(mahasiswa, id_vars=['Mhs_id', 'Nama'], value_vars=['Bhs Inggris', 'Matematika', 'Ekonomi'])
 melt_table
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Melt}, label={lst:out-melt-2}]
 Mhs_id  Nama     variable  value
 0    001  Budi  Bhs Inggris    100
 1    002  Joko  Bhs Inggris     90
@@ -1603,31 +1633,33 @@ Mhs_id  Nama     variable  value
 7    002  Joko      Ekonomi     80
 8    003  Maya      Ekonomi     78
 \end{lstlisting}
-
+\par Lebih lanjut pada Kode \ref{lst:kode-melt-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-melt-2}.
 
 \subsubsection{Lambda Function}
-\begin{lstlisting}[language=Python, caption={Lambda Function}]
+\begin{lstlisting}[language=Python, caption={Lambda Function}, label={lst:kode-lambda-function-1}]
 x = lambda var1, var2 : var1 + var2
 hasil = x(10, 12)
 hasil
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Lambda Function}, label={lst:out-lambda-function-1}]
 22
 \end{lstlisting}
+\par Eksekusi fungsi matematis atau komparatif kondisional secara efisien tanpa penulisan rumit (inline function) diterapkan terhadap alur DataFrame di Kode \ref{lst:kode-lambda-function-1}. Output komputasi real-time langsung terpapar menyatu di Output \ref{lst:out-lambda-function-1}.
 
-\begin{lstlisting}[language=Python, caption={Lambda Function}]
+\begin{lstlisting}[language=Python, caption={Lambda Function}, label={lst:kode-lambda-function-2}]
 test = lambda var1 : var1 * 2
 hasil = test(5)
 
 hasil
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Lambda Function}, label={lst:out-lambda-function-2}]
 10
 \end{lstlisting}
+\par Lebih lanjut pada Kode \ref{lst:kode-lambda-function-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-lambda-function-2}.
 
-\begin{lstlisting}[language=Python, caption={Lambda Function}]
+\begin{lstlisting}[language=Python, caption={Lambda Function}, label={lst:kode-lambda-function-3}]
 mahasiswa = pd.DataFrame({
     'Mhs_id' : ['001', '002', '003'],
     'Nama' : ['Budi', 'Joko', 'Maya'],
@@ -1635,44 +1667,46 @@ mahasiswa = pd.DataFrame({
 })
 mahasiswa
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Lambda Function}, label={lst:out-lambda-function-3}]
 Mhs_id  Nama  Matematika
 0    001  Budi          90
 1    002  Joko          47
 2    003  Maya          72
 \end{lstlisting}
+\par Sintaks berikutnya pada Kode \ref{lst:kode-lambda-function-3} menunjukkan penyesuaian parameter tambahan yang memberikan pendekatan berbeda. Representasi hasilnya terekam pada Output \ref{lst:out-lambda-function-3}.
 
-\begin{lstlisting}[language=Python, caption={Lambda Function}]
+\begin{lstlisting}[language=Python, caption={Lambda Function}, label={lst:kode-lambda-function-4}]
 mahasiswa['Grade'] = mahasiswa['Matematika'].apply(lambda nilai : 'A' if nilai >=90 else('B' if nilai>=70 and nilai<90 else ('C')))
 mahasiswa
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Lambda Function}, label={lst:out-lambda-function-4}]
 Mhs_id  Nama  Matematika Grade
 0    001  Budi          90     A
 1    002  Joko          47     C
 2    003  Maya          72     B
 \end{lstlisting}
-
+\par Implementasi lanjutan ditunjukkan melalui Kode \ref{lst:kode-lambda-function-4}, di mana eksekusi kode dimodifikasi untuk skenario yang lebih spesifik, divalidasi oleh Output \ref{lst:out-lambda-function-4}.
 
 \subsubsection{Membaca File}
-\begin{lstlisting}[language=Python, caption={Membaca File}]
+\begin{lstlisting}[language=Python, caption={Membaca File}, label={lst:kode-membaca-file-1}]
 from google.colab import drive
 
 drive.mount('/content/gdrive/')
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Membaca File}, label={lst:out-membaca-file-1}]
 Mounted at /content/gdrive/
 \end{lstlisting}
+\par Fungsionalitas I/O dari eksternal sistem dideskripsikan pada Kode \ref{lst:kode-membaca-file-1}, di mana pipeline dataset format CSV berukuran besar dipanggil ke struktur operasi memori. Alokasi penuangan data ke variabel dataframe dan pratinjaunya sukses terhubung di Output \ref{lst:out-membaca-file-1}.
 
-\begin{lstlisting}[language=Python, caption={Membaca File}]
+\begin{lstlisting}[language=Python, caption={Membaca File}, label={lst:kode-membaca-file-2}]
 df = pd.read_csv('/content/gdrive/MyDrive/Activity/Kuliah/datatraining.txt')
 df
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Membaca File}, label={lst:out-membaca-file-2}]
 date  Temperature  Humidity  Light         CO2  \
 1     2015-02-04 17:51:00        23.18   27.2720  426.0  721.250000   
 2     2015-02-04 17:51:59        23.15   27.2675  429.5  714.000000   
@@ -1701,15 +1735,14 @@ date  Temperature  Humidity  Light         CO2  \
 
 [8143 rows x 7 columns]
 \end{lstlisting}
-
-
+\par Lebih lanjut pada Kode \ref{lst:kode-membaca-file-2}, variasi operasi dari materi ini diterapkan. Efek dari manipulasi data tersebut dapat diamati langsung pada Output \ref{lst:out-membaca-file-2}.
 
 \subsection{Tugas dan Analisis}
 
 \subsubsection{Tugas 1: Numpy Random Array}
 \textbf{Soal:} Buatlah array numpy random berukuran 4x4.
 
-\begin{lstlisting}[language=Python, caption={Tugas 1}]
+\begin{lstlisting}[language=Python, caption={Tugas 1}, label={lst:kode-tugas-1}]
 import numpy as np
 
 random_array_4x4 = np.random.randint(0, 51, size=(4, 4))
@@ -1719,8 +1752,8 @@ print("\nArray 2x8:\n", reshaped_array_2x8)
 filtered_elements = reshaped_array_2x8[reshaped_array_2x8 > 25]
 print("\nElemen yang bernilai lebih dari 25:\n", filtered_elements)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Tugas 1}, label={lst:out-tugas-1}]
 Array 4x4:
  [[11 50 39 39]
  [41  0 25 16]
@@ -1735,12 +1768,12 @@ Elemen yang bernilai lebih dari 25:
  [50 39 39 41 50 48 28 42 43]
 \end{lstlisting}
 
-\textbf{Analisis:} Pada tugas ini, digunakan pustaka numpy untuk meng-generate array matriks 4x4 yang berisi nilai acak menggunakan fungsi \texttt{np.random.randint}. Output menunjukkan sebuah matriks berukuran 4 baris dan 4 kolom dengan nilai antara batas yang ditentukan.
+\par \textbf{Analisis:} Pada tugas ini, Kode \ref{lst:kode-tugas-1} meng-generate array matriks 4x4 yang berisi nilai acak. Output \ref{lst:out-tugas-1} menunjukkan sebuah matriks berukuran 4 baris dan 4 kolom dengan nilai antara batas yang ditentukan.
 
 \subsubsection{Tugas 2: DataFrame Karyawan}
 \textbf{Soal:} Buatlah sebuah Pandas DataFrame untuk data karyawan.
 
-\begin{lstlisting}[language=Python, caption={Tugas 2}]
+\begin{lstlisting}[language=Python, caption={Tugas 2}, label={lst:kode-tugas-2}]
 import pandas as pd
 import numpy as np
 
@@ -1759,8 +1792,8 @@ agg_gaji_by_pekerjaan = df_karyawan.groupby('Pekerjaan').agg(
 
 print("\nAgregasi Gaji per Pekerjaan:\n", agg_gaji_by_pekerjaan)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Tugas 2}, label={lst:out-tugas-2}]
 DataFrame Karyawan:
     Nama      Pekerjaan  Gaji
 0  Budi      Programer  2000
@@ -1779,12 +1812,12 @@ Programer          8000      2000  4242.640687
 Web Developer      6000      6000     0.000000
 \end{lstlisting}
 
-\textbf{Analisis:} Pada tugas ini, dibentuk suatu DataFrame menggunakan fungsi \texttt{pd.DataFrame} dari library Pandas. Kolom-kolomnya terdiri dari data pekerja yang mencakup ID, nama, serta informasi personal atau jabatan. Tipe data kolom otomatis terdefinisi oleh Pandas saat DataFrame tersebut dimuat.
+\par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-2}, suatu DataFrame dibentuk dengan menggunakan fungsi \texttt{pd.DataFrame} dari library Pandas. Output di \ref{lst:out-tugas-2} menampilkan tabel agregat data pekerja berdasarkan gaji.
 
 \subsubsection{Tugas 3: Penggabungan Data Karyawan}
 \textbf{Soal:} Lakukan manipulasi atau penggabungan (join/merge) pada data DataFrame Karyawan.
 
-\begin{lstlisting}[language=Python, caption={Tugas 3}]
+\begin{lstlisting}[language=Python, caption={Tugas 3}, label={lst:kode-tugas-3}]
 import pandas as pd
 
 df_karyawan = pd.DataFrame({
@@ -1810,8 +1843,8 @@ merged_df = pd.merge(
 
 print("\nDataFrame setelah digabung (Left Join):\n", merged_df)
 \end{lstlisting}
-\textbf{Output:}
-\begin{lstlisting}
+\par \textbf{Output:}
+\begin{lstlisting}[caption={Output Tugas 3}, label={lst:out-tugas-3}]
 DataFrame Karyawan:
    Emp_id  Nama     Divisi
 0   E001  Andi         HR
@@ -1834,11 +1867,14 @@ DataFrame setelah digabung (Left Join):
 3   E004  Dedi         IT   NaN      NaN    NaN
 \end{lstlisting}
 
-\textbf{Analisis:} DataFrame dimanipulasi dengan operasi gabungan untuk memadukan atau mencari data pada DataFrame karyawan dan tabel pekerja. Hal ini berguna untuk pemrosesan basis data relasional langsung menggunakan metode vektor Pandas dengan parameter kunci irisan dari tiap tabel.
+\par \textbf{Analisis:} Pada Kode \ref{lst:kode-tugas-3}, DataFrame dimanipulasi dengan operasi gabungan menggunakan left join. Hal ini direpresentasikan pada Output \ref{lst:out-tugas-3} yang menunjukkan penggabungan data karyawan dan gaji.
 
 \par Sesuai dengan tujuan praktikum, berikut adalah hasil yang diperoleh dan pembahasan terkait materi yang telah dipelajari.
 
 \section{Kesimpulan}
+\par Praktikum ini telah memberikan pemahaman komprehensif mengenai manipulasi dan pra-pemrosesan data menggunakan bahasa pemrograman Python dengan memanfaatkan library Numpy dan Pandas.
+\par Melalui penggunaan Numpy, praktikan telah mempelajari cara mendefinisikan, mengindeks, melakukan \textit{slicing}, mengubah dimensi (\textit{reshape}), hingga menjalankan komputasi aljabar dan statistik dasar pada struktur array berdimensi tinggi secara efisien.
+\par Selanjutnya, melalui Pandas, praktikan mampu mentransformasi data mentah ke dalam format \textit{DataFrame}, melakukan penggabungan data (menggunakan \textit{Merge}, \textit{Join}, dan \textit{Concatenate}), menyeleksi data (\textit{Filtering} dan \textit{Sorting}), serta mengagregasi informasi (\textit{Grouping}). Keterampilan dasar ini merupakan fondasi yang krusial dan esensial dalam tahapan pra-pemrosesan di siklus Penambangan Data (\textit{Data Mining}) sebelum model di-\textit{training}.
 
 \section{Daftar Pustaka}
 \printbibliography[heading=none]
