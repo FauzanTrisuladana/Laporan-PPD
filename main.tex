@@ -16,6 +16,7 @@
 \usepackage{setspace}           % untuk spasi baris
 \usepackage{fancyhdr}           % untuk header/footer
 \usepackage{hyperref}           % untuk link dan bookmark
+\usepackage{xurl}               % untuk line-break URL otomatis
 \usepackage{listings}           % untuk code Python
 \usepackage{xcolor}             % untuk warna
 \usepackage{float}              % untuk posisi gambar
@@ -1293,6 +1294,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-tugas-prep-la
   \item \textbf{Esensi Penanganan Kualitas Data}: Dataset dunia nyata umumnya mengandung ketidaksempurnaan berupa duplikasi baris dan nilai kosong (\textit{missing values}). Duplikasi data wajib dihapus guna mencegah bias dan \textit{overfitting}. Penanganan \textit{missing values} harus disesuaikan dengan jenis atribut: imputasi median diterapkan pada fitur numerik yang memiliki pencilan, imputasi modus diterapkan pada fitur kategorikal, penghapusan baris diterapkan pada kehilangan data kunci berfrekuensi rendah, dan penghapusan fitur diterapkan jika proporsi nilai kosong terlalu dominan.
   \item \textbf{Peran Kritis Pra-Pemrosesan Lanjutan}: Transformasi data lanjutan—meliputi rekayasa fitur (\textit{feature engineering}), penyandian variabel kategorikal (\textit{One-Hot Encoding} untuk data nominal dan \textit{Label Encoding} untuk data ordinal), pembagian partisi data (\textit{train-test split} 80:20), serta standarisasi fitur numerik (\textit{StandardScaler})—terbukti sangat penting dalam mempersiapkan representasi data yang bersih, seimbang, bebas multikolinearitas, dan terkalibrasi secara optimal sebelum diumpankan ke dalam algoritma pembelajaran mesin (\textit{machine learning}).
 \end{enumerate}
+\par Link Google Colab: {\small\url{https://colab.research.google.com/drive/1_vnJxa9CfNLnSSr3-hpLXx8H4PCnESDn?usp=sharing}}
 
 
 \section{Daftar Pustaka}

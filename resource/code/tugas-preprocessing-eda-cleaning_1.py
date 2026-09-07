@@ -1,12 +1,9 @@
-# Check Missing Values
 print("Missing Values:
 ", df.isnull().sum())
 
-# Check Duplicates
 print(f"
 Duplicate rows: {df.duplicated().sum()}")
 
-# Handling: Drop duplicates and fill missing 'size'/'location' with mode, 'bath'/'balcony' with median
 df = df.drop_duplicates()
 df['size'] = df['size'].fillna(df['size'].mode()[0])
 df['bath'] = df['bath'].fillna(df['bath'].median())
