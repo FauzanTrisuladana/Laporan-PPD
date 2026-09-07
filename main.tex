@@ -349,10 +349,10 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-line-chart-3}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{plt.figure(figsize=(15, 3))}: Membuat kanvas baru yang panjangnya disesuaikan untuk runtun waktu (15x3 inci).
-  \item \texttt{plt.plot(df\_iot['date'], df\_iot['Humidity'])}: Memplot kelembapan (Humidity) seiring berjalannya waktu (date) sebagai diagram garis.
+  \item \texttt{plt.plot(df\_iot['date'], df\_iot['Humidity'])}: Memploting kelembapan, Humidity, dan seiring berjalannya waktu (date) sebagai diagram garis.
   \item \texttt{plt.show()}: Menampilkan line plot pergerakan data kelembapan.
 \end{itemize}
-\par Visualisasi grafik deret waktu dari hasil eksekusi Kode \ref{lst:kode-line-chart-3} disajikan pada Gambar \ref{fig:line-chart-iot-1}.
+\par Visualisasi grafik deret waktu dari hasil eksekusi Kode \ref{lst:kode-line-chart-3} disajikan pada Gambar \ref{fig:line-chart-iot-1}.S
 
 \begin{figure}[H]
   \centering
@@ -368,7 +368,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-pie-chart-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-  \item \texttt{y = np.array([35, 25, 25, 15])}: Mendefinisikan array numerik yang merepresentasikan proporsi nilai masing-masing kategori pekerjaan.
+  \item \texttt{y = np.array([35, 25, 25, 15])}: untuk mendefinisikan array numerik yang merepresentasikan proporsi nilai masing-masing kategori pekerjaan.
   \item \texttt{mylables = [...]}: Menentukan teks label nama kategori profesi (Web Programer, Data Scientist, DB Admin, dan Manager).
   \item \texttt{plt.pie(y, labels=mylables, autopct='\%0.2f\%\%')}: Menggambar diagram lingkaran (\textit{pie chart}), menetapkan label kategori, serta memformat tampilan persentase dengan presisi dua angka desimal.
   \item \texttt{plt.show()}: Menampilkan visualisasi diagram pie ke layar.
@@ -388,8 +388,8 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-pie-chart-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-  \item \texttt{data = df\_churning['Marital\_Status'].value\_counts()}: Menghitung frekuensi kemunculan setiap kategori status pernikahan pelanggan dari kolom 'Marital\_Status'.
-  \item \texttt{label = data.index}: Mengambil nama-nama kategori unik status pernikahan sebagai label irisan grafik.
+  \item \texttt{data = df\_churning['Marital\_Status'].value\_counts()}: Digunakan untuk menghitung frekuensi kemunculan setiap kategori status pernikahan pelanggan yang ada di dalam kolom 'Marital\_Status'.
+  \item \texttt{label = data.index}:  Mengambil nama-nama kategori unik status pernikahan sebagai label irisan grafik.
   \item \texttt{plt.pie(data, labels=label, autopct='\%0.5f\%\%')}: Membuat diagram pie dengan format persentase berpresisi tinggi hingga lima angka di belakang koma.
   \item \texttt{plt.title('Marital Status')}: Menambahkan judul 'Marital Status' pada bagian atas diagram.
   \item \texttt{plt.show()}: Menampilkan diagram pie status pernikahan ke layar.
@@ -432,8 +432,8 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-bar-plot-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-  \item \texttt{y2 = existing\_data[...].value\_counts()}: Menghitung frekuensi status pernikahan untuk kelompok pelanggan aktif (\textit{existing}).
-  \item \texttt{y1 = churning\_data[...].value\_counts()}: Menghitung frekuensi status pernikahan untuk kelompok pelanggan berhenti (\textit{churning}).
+  \item \texttt{y2 = existing\_data[...].value\_counts()}: digunakan untuk perhitungan frekuensi status pernikahan untuk kelompok pelanggan aktif (\textit{existing}).
+  \item \texttt{y1 = churning\_data[...].value\_counts()}: digunakan untuk perhitungan frekuensi status pernikahan untuk kelompok pelanggan berhenti (\textit{churning}).
   \item \texttt{x1} dan \texttt{x2}: Mengatur posisi indeks koordinat batang menggunakan \texttt{np.arange()} agar dapat digeser bersebelahan (\textit{grouped bar}).
   \item \texttt{plt.bar(x1, y1, width=bar\_width)} dan \texttt{plt.bar(x2+bar\_width, y2, ...)}: Memplot dua set batang berdampingan dengan lebar 0.4.
   \item \texttt{plt.title(...)}, \texttt{plt.ylabel(...)}, dan \texttt{plt.xticks(...)}: Mengatur judul, label sumbu y, serta meletakkan label kategori di tengah-tengah kedua batang.
@@ -526,7 +526,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 \begin{itemize}
   \item \texttt{y1 = ...} dan \texttt{x1 = ...}: Mengambil nilai lama bulan mendaftar buku tabungan, dan usia pelanggan untuk pelanggan attrited (churn).
   \item \texttt{y2 = ...} dan \texttt{x2 = ...}: Mengambil nilai yang sama (Months\_on\_book dan umur) untuk pelanggan existing.
-  \item \texttt{plt.scatter(x1, y1, label='churning')}: Membuat plot sebar (scatter plot) untuk pelanggan churn.
+  \item \texttt{plt.scatter(x1, y1, label='churning')}: Pembuatan plot sebar (scatter plot) untuk pelanggan churn.
   \item \texttt{plt.scatter(x2, y2, label='existing')}: Membuat scatter plot yang saling tindih untuk pelanggan existing.
   \item \texttt{plt.title(...)}, \texttt{plt.ylabel(...)}, \texttt{plt.xlabel(...)}: Memberi keterangan judul dan label sumbu x y plot perbandingan scatter ini.
   \item \texttt{plt.legend()}: Menampilkan legenda dan arti warna titik pada titik koordinat.
@@ -547,7 +547,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-scatter-plot-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-  \item \texttt{ax = existing\_data.plot.scatter(..., c='red')}: Membuat objek diagram sebar (scatter plot) untuk pelanggan existing berwarna merah menggunakan fungsi pandas \texttt{.plot.scatter()}, kemudian menyimpannya sebagai \texttt{ax}.
+  \item \texttt{ax = existing\_data.plot.scatter(..., c='red')}: Pembuatan objek diagram persebaran (scatter plot) untuk pelanggan existing berwarna merah menggunakan fungsi pandas yaitu \texttt{.plot.scatter()}, kemudian menyimpannya sebagai \texttt{ax}.
   \item \texttt{churning\_data.plot.scatter(..., ax=ax, c='blue')}: Menambahkan scatter plot untuk pelanggan churn berwarna biru dan melekatkannya di grafik/axis (\texttt{ax}) yang sama.
   \item \texttt{plt.title(...)}, \texttt{plt.ylabel(...)}, \texttt{plt.xlabel(...)}: Menyetel atribut judul dan teks keterangan untuk sumbu X maupun sumbu Y plot.
   \item \texttt{plt.show()}: Menampilkan scatter plot menggunakan kapabilitas hybrid antara Pandas dan Matplotlib.
@@ -568,7 +568,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-box-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-  \item \texttt{plt.boxplot(df\_churning['Customer\_Age'])}: Membuat plot kotak (\textit{box plot}) dari kolom usia pelanggan untuk melihat ringkasan sebaran lima angka (\textit{five-number summary}).
+  \item \texttt{plt.boxplot(df\_churning['Customer\_Age'])}: Pembuatan plot kotak (\textit{box plot}) dari kolom usia pelanggan untuk melihat ringkasan sebaran lima angka (\textit{five-number summary}).
   \item \texttt{plt.title('Customer age')}, \texttt{plt.ylabel('age')}: Menambahkan judul grafik dan label penjelas pada sumbu vertikal.
   \item \texttt{plt.xticks([1], labels=['all customer'])}: Mengatur penanda dan label sumbu horizontal untuk kategori seluruh nasabah.
   \item \texttt{plt.show()}: Menampilkan diagram box plot ke layar.
@@ -588,11 +588,11 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-box-plot-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-  \item \texttt{data1 = existing\_data['Customer\_Age']} dan \texttt{data2 = churning\_data['Customer\_Age']}: Mengambil data usia nasabah dari kelompok \textit{existing} dan \textit{churning}.
-  \item \texttt{df\_new = pd.concat([data1, data2], keys=['existing', 'attrited'], axis=1)}: Menggabungkan kedua data menjadi DataFrame terstruktur dengan indeks kolom masing-masing status nasabah.
-  \item \texttt{df\_new.plot.box()}: Membuat diagram kotak komparatif berdampingan secara otomatis melalui pustaka Pandas.
+  \item \texttt{data1 = existing\_data['Customer\_Age']}; \texttt{data2 = churning\_data['Customer\_Age']}: Mengambil data usia nasabah dari kelompok \textit{existing} dan \textit{churning}.
+  \item \texttt{df\_new=pd.concat([data1, data2], keys=['existing', 'attrited'], axis=1)}: Untuk menggabungkan kedua data menjadi DataFrame terstruktur dengan indeks kolom masing-masing status nasabah.
+  \item \texttt{df\_new.plot.box()}: digunakan untuk membuat diagram kotak komparatif berdampingan secara otomatis melalui pustaka Pandas.
   \item \texttt{plt.title('Customer age')}, \texttt{plt.ylabel('age')}: Menambahkan judul dan teks penjelas sumbu y.
-  \item \texttt{plt.show()}: Menampilkan diagram perbandingan box plot ke layar.
+  \item \texttt{plt.show()}: digunakan untuk menampilkan diagram perbandingan box plot ke layar.
 \end{itemize}
 \par Visualisasi perbandingan statistik dari hasil eksekusi Kode \ref{lst:kode-box-plot-2} disajikan pada Gambar \ref{fig:box-plot-comparative-1}.
 
@@ -827,7 +827,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-df-shape-tita
 \lstinputlisting[caption={Output Korelasi antar variabel}, label={lst:out-korelasi-variabel-1}]{resource/output/membaca-dan-exploratory-data-titanic_6_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-korelasi-variabel-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-  \item \texttt{df.corr(numeric\_only=True)}: Menghitung matriks korelasi hanya pada kolom yang bertipe angka, untuk melihat keterhubungan secara linier antar variabel.
+  \item \texttt{df.corr(numeric\_only=True)}: Menghitung matriks korelasi hanya pada kolom-kolom yang bertipe angka, untuk melihat keterhubungan secara linier antar variabel.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-korelasi-variabel-1}.
 
@@ -871,9 +871,9 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-cek-duplicate
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-imputation-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{df['Age'] = df['Age'].fillna(df['Age'].median())}: Mengisi sel/baris kosong (missing value) pada kolom 'Age' (Umur) dengan nilai tengah (median) dari umur penumpang lain.
-  \item \texttt{df['Cabin'] = df['Cabin'].fillna(df['Cabin'].value\_counts().index[0])}: Mengisi sel kosong pada kolom 'Cabin' dengan nilai kabin kategorikal terbanyak/modus (index pertama dari value counts).
-  \item \texttt{df['Embarked'] = df['Embarked'].fillna(...)}: Mengisi sel kosong pada kolom pelabuhan ('Embarked') dengan tempat embarkasi yang paling sering muncul (modus).
-  \item \texttt{display(df.isnull().sum())}: Memastikan hasil imputasi dengan mengecek kembali bahwa semua kolom sudah tidak memiliki null / missing value.
+  \item \texttt{df['Cabin']=df['Cabin'].fillna(df['Cabin'].value\_counts().index[0])}: Mengisi sel kosong pada kolom 'Cabin' dengan nilai kabin kategorikal terbanyak/modus (index pertama dari value counts).
+  \item \texttt{df['Embarked'] = df['Embarked'].fillna(...)}: Mengisi sel yang kosong pada kolom berlabuh ('Embarked') dengan tempat embarkasi yang paling sering muncul (modus).
+  \item \texttt{display(df.isnull().sum())}: Unruk Memastikan hasil imputasi dengan mengecek kembali bahwa semua kolom sudah tidak memiliki null / missing value.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-imputation-1}.
 
@@ -886,7 +886,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-imputation-1}
 \begin{itemize}
   \item \texttt{df\_X = df.drop(..., axis=1)}: Menyeleksi variabel fitur prediktor (df\_X) dengan membuang kolom target ('Survived') dan atribut yang kurang relevan seperti ID, Name, Cabin, dan Ticket.
   \item \texttt{df\_y = df['Survived']}: Mengambil kolom 'Survived' secara spesifik untuk dijadikan variabel target (df\_y).
-  \item \texttt{cats = df\_X.select\_dtypes(include=['object', 'bool']).columns}: Mencari tahu nama-nama kolom pada dataframe df\_X yang masih bertipe kategorikal (string/boolean).
+  \item \texttt{cats = df\_X.select\_dtypes(include=['object', 'bool']).columns}: Untuk mencari tahu nama-nama kolom pada dataframe df\_X yang masih bertipe kategorikal (string/boolean).
   \item \texttt{print(cats)}: Mencetak dan memastikan kolom-kolom mana saja yang harus di-encode lebih lanjut.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-periksa-categorical-1}.
@@ -910,7 +910,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-ohe-1}.
 \lstinputlisting[caption={Output One hot encoding get dummies}, label={lst:out-ohe-2}]{resource/output/pemisahan-fitur-dan-target_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-ohe-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-  \item \texttt{df\_onehot = pd.get\_dummies(..., drop\_first=True)}: Menerapkan fungsi One-Hot Encoding dari pandas pada kolom 'Sex' dan 'Embarked' dengan argumen drop\_first untuk menghindari multikolinearitas (dummy variable trap).
+  \item \texttt{df\_onehot = pd.get\_dummies(..., drop\_first=True)}: Diterapkan fungsi One-Hot Encoding dari pandas pada kolom 'Sex' dan 'Embarked' dengan argumen drop\_first untuk menghindari multikolinearitas (dummy variable trap).
   \item \texttt{df\_onehot.head()}: Menampilkan lima baris DataFrame \texttt{df\_X} yang sudah ditambahkan representasi fitur one-hot yang berformat angka 1 dan 0.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-ohe-2}.
@@ -922,7 +922,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-ohe-2}.
 \lstinputlisting[caption={Output Label encoding df X}, label={lst:out-label-encoding-1}]{resource/output/one-hot-encoding_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-label-encoding-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-  \item \texttt{cats = df\_X.select\_dtypes(include=['object', 'bool']).columns}: Mencari indeks/nama-nama kolom yang tipe datanya teks ('object') atau boolean ('bool').
+  \item \texttt{cats = df\_X.select\_dtypes(include=['object', 'bool']).columns}: Mencari indeks atau nama-nama kolom yang tipe datanya teks ('object') atau boolean ('bool').
   \item \texttt{cat\_features = list(cats.values)}: Mengubah list objek index kolom kategorikal tersebut menjadi list standar Python.
   \item \texttt{cat\_en = LabelEncoder()}: Membuat objek LabelEncoder untuk mengubah nilai kategorikal menjadi representasi numerik.
   \item \texttt{for i in cat\_features: ...}: Melakukan pengulangan terhadap setiap kolom kategorikal.
@@ -951,8 +951,8 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-label-encodin
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-korelasi-atribut-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{df\_y\_new = pd.DataFrame(df\_y, columns=['Survived'])}: Mengubah variabel target df\_y menjadi bentuk DataFrame dengan nama kolom 'Survived'.
-  \item \texttt{df\_gabung = pd.concat([df\_X, df\_y\_new], axis=1)}: Menggabungkan fitur (df\_X) dan target (df\_y\_new) secara vertikal (kolom sebelah kolom).
-  \item \texttt{df\_gabung.corr()}: Menghitung nilai matriks korelasi antarkolom untuk mengetahui hubungan linear antar fitur.
+  \item \texttt{df\_gabung = pd.concat([df\_X, df\_y\_new], axis=1)}: Penggabungan fitur (df\_X) dan target (df\_y\_new) secara vertikal (kolom sebelah kolom).
+  \item \texttt{df\_gabung.corr()}: Perhitungan nilai-nilai matriks korelasi antarkolom untuk mengetahui hubungan linear antar fitur.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-cek-korelasi-atribut-1}.
 
