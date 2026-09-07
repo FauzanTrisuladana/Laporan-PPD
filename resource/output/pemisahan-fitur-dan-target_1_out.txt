@@ -1,0 +1,6 @@
+   Pclass   Age  SibSp  Parch     Fare  Sex_male  Embarked_Q  Embarked_S
+0       3  22.0      1      0   7.2500      True       False        True
+1       1  38.0      1      0  71.2833     False       False       False
+2       3  26.0      0      0   7.9250     False       False        True
+3       1  35.0      1      0  53.1000     False       False        True
+4       3  35.0      0      0   8.0500      True       False        True

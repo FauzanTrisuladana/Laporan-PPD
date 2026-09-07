@@ -1,0 +1,5 @@
+plt.boxplot(df_churning['Customer_Age'])
+plt.title('Customer age')
+plt.ylabel('age')
+plt.xticks([1], labels=['all customer'])
+plt.show()

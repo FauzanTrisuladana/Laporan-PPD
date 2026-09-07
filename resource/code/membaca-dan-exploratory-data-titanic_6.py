@@ -1,0 +1,1 @@
+df.corr(numeric_only=True)
