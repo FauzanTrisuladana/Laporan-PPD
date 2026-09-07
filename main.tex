@@ -313,8 +313,6 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-menyimpan-nil
 
 \subsubsection{Line chart}
 \lstinputlisting[language=Python, caption={Line chart}, label={lst:kode-line-chart-1}]{resource/code/line-plot_1.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Line chart}, label={lst:out-line-chart-1}]{resource/output/line-plot_1_out.txt}
 
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-line-chart-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
@@ -324,7 +322,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-menyimpan-nil
   \item \texttt{plt.plot(x, y2, marker='x')}: Memplot garis data kedua ($y_2$) dengan penanda berupa tanda silang (\textit{cross marker}).
   \item \texttt{plt.show()}: Menampilkan kanvas visualisasi grafik garis (\textit{line plot}) ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-line-chart-1}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:line-chart-1}.
+\par Visualisasi grafis dari hasil eksekusi Kode \ref{lst:kode-line-chart-1} disajikan pada Gambar \ref{fig:line-chart-1}.
 
 \begin{figure}[H]
   \centering
@@ -347,15 +345,14 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-menyimpan-nil
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}.
 
 \lstinputlisting[language=Python, caption={Line chart iot plot}, label={lst:kode-line-chart-3}]{resource/code/line-plot_3.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Line chart iot plot}, label={lst:out-line-chart-3}]{resource/output/line-plot_3_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-line-chart-3}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{plt.figure(figsize=(15, 3))}: Membuat kanvas baru yang panjangnya disesuaikan untuk runtun waktu (15x3 inci).
   \item \texttt{plt.plot(df\_iot['date'], df\_iot['Humidity'])}: Memplot kelembapan (Humidity) seiring berjalannya waktu (date) sebagai diagram garis.
   \item \texttt{plt.show()}: Menampilkan line plot pergerakan data kelembapan.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-line-chart-3}, sedangkan visualisasi grafik deret waktunya disajikan pada Gambar \ref{fig:line-chart-iot-1}.
+\par Visualisasi grafik deret waktu dari hasil eksekusi Kode \ref{lst:kode-line-chart-3} disajikan pada Gambar \ref{fig:line-chart-iot-1}.
 
 \begin{figure}[H]
   \centering
@@ -368,8 +365,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \subsubsection{Pie chart}
 \lstinputlisting[language=Python, caption={Pie chart}, label={lst:kode-pie-chart-1}]{resource/code/pie-chart_1.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Pie chart}, label={lst:out-pie-chart-1}]{resource/output/pie-chart_1_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-pie-chart-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{y = np.array([35, 25, 25, 15])}: Mendefinisikan array numerik yang merepresentasikan proporsi nilai masing-masing kategori pekerjaan.
@@ -377,7 +373,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.pie(y, labels=mylables, autopct='\%0.2f\%\%')}: Menggambar diagram lingkaran (\textit{pie chart}), menetapkan label kategori, serta memformat tampilan persentase dengan presisi dua angka desimal.
   \item \texttt{plt.show()}: Menampilkan visualisasi diagram pie ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-pie-chart-1}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:pie-chart-1}.
+\par Visualisasi grafis dari hasil eksekusi Kode \ref{lst:kode-pie-chart-1} disajikan pada Gambar \ref{fig:pie-chart-1}.
 
 \begin{figure}[H]
   \centering
@@ -389,8 +385,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 \par Berdasarkan Gambar \ref{fig:pie-chart-1}, diagram lingkaran memperlihatkan proporsi dari empat kategori profesi secara jelas. Kategori \textit{Web Programer} mendominasi porsi terbesar dengan persentase 35.00\%, diikuti oleh \textit{Data Scientist} dan \textit{DB Admin} yang masing-masing memiliki porsi seimbang sebesar 25.00\%. Sementara itu, kategori \textit{Manager} menempati proporsi paling kecil yaitu sebesar 15.00\%. Diagram ini membuktikan kemampuan \textit{pie chart} dalam menampilkan perbandingan kontribusi relatif setiap bagian terhadap keseluruhan populasi data 100\%.
 
 \lstinputlisting[language=Python, caption={Pie chart marital status}, label={lst:kode-pie-chart-2}]{resource/code/pie-chart_2.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Pie chart marital status}, label={lst:out-pie-chart-2}]{resource/output/pie-chart_2_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-pie-chart-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{data = df\_churning['Marital\_Status'].value\_counts()}: Menghitung frekuensi kemunculan setiap kategori status pernikahan pelanggan dari kolom 'Marital\_Status'.
@@ -399,7 +394,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.title('Marital Status')}: Menambahkan judul 'Marital Status' pada bagian atas diagram.
   \item \texttt{plt.show()}: Menampilkan diagram pie status pernikahan ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-pie-chart-2}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:pie-chart-marital-1}.
+\par Visualisasi grafis dari hasil eksekusi Kode \ref{lst:kode-pie-chart-2} disajikan pada Gambar \ref{fig:pie-chart-marital-1}.
 
 \begin{figure}[H]
   \centering
@@ -412,8 +407,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \subsubsection{Bar plot}
 \lstinputlisting[language=Python, caption={Bar plot}, label={lst:kode-bar-plot-1}]{resource/code/bar-chart_1.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Bar plot}, label={lst:out-bar-plot-1}]{resource/output/bar-chart_1_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-bar-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{y = np.array([35, 25, 25, 15])}: Mendefinisikan array nilai frekuensi untuk masing-masing batang.
@@ -423,7 +417,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.ylabel('jumlah')}: Memberikan label 'jumlah' pada sumbu vertikal.
   \item \texttt{plt.show()}: Menampilkan visualisasi diagram batang ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-bar-plot-1}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:bar-plot-1}.
+\par Visualisasi grafis dari hasil eksekusi Kode \ref{lst:kode-bar-plot-1} disajikan pada Gambar \ref{fig:bar-plot-1}.
 
 \begin{figure}[H]
   \centering
@@ -435,8 +429,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 \par Berdasarkan Gambar \ref{fig:bar-plot-1}, diagram batang vertikal memperlihatkan perbandingan kuantitatif absolut antarprofesi. Profesi \textit{Web Programer} memiliki frekuensi tertinggi dengan nilai 35, disusul \textit{Data Scientist} dan \textit{DB Admin} yang sama-sama mencapai 25, serta \textit{Manager} dengan nilai 15. Rotasi label sebesar 45 derajat terbukti membuat tipografi kategori di sumbu x tersusun rapi tanpa saling beririsan, memudahkan pembandingan nilai antarbatang secara cepat.
 
 \lstinputlisting[language=Python, caption={Bar plot churning}, label={lst:kode-bar-plot-2}]{resource/code/bar-chart_2.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Bar plot churning}, label={lst:out-bar-plot-2}]{resource/output/bar-chart_2_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-bar-plot-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{y2 = existing\_data[...].value\_counts()}: Menghitung frekuensi status pernikahan untuk kelompok pelanggan aktif (\textit{existing}).
@@ -446,7 +439,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.title(...)}, \texttt{plt.ylabel(...)}, dan \texttt{plt.xticks(...)}: Mengatur judul, label sumbu y, serta meletakkan label kategori di tengah-tengah kedua batang.
   \item \texttt{plt.show()}: Menampilkan diagram batang berdampingan ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-bar-plot-2}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:bar-plot-marital-1}.
+\par Visualisasi grafis dari hasil eksekusi Kode \ref{lst:kode-bar-plot-2} disajikan pada Gambar \ref{fig:bar-plot-marital-1}.
 
 \begin{figure}[H]
   \centering
@@ -459,8 +452,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \subsubsection{Stacked bar plot}
 \lstinputlisting[language=Python, caption={Stacked bar plot}, label={lst:kode-stacked-bar-plot-1}]{resource/code/bar-chart_3.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Stacked bar plot}, label={lst:out-stacked-bar-plot-1}]{resource/output/bar-chart_3_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-stacked-bar-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{data1} dan \texttt{data2}: Menghitung frekuensi status pernikahan masing-masing untuk pelanggan \textit{existing} dan \textit{churning}.
@@ -469,7 +461,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.title('Marital Status')} dan \texttt{plt.ylabel('Count')}: Menambahkan judul grafik dan keterangan nama sumbu y.
   \item \texttt{plt.show()}: Menampilkan diagram batang bertumpuk ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-stacked-bar-plot-1}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:stacked-bar-plot-1}.
+\par Visualisasi diagram batang bertumpuk dari hasil eksekusi Kode \ref{lst:kode-stacked-bar-plot-1} disajikan pada Gambar \ref{fig:stacked-bar-plot-1}.
 
 \begin{figure}[H]
   \centering
@@ -482,8 +474,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \subsubsection{Histogram}
 \lstinputlisting[language=Python, caption={Histogram}, label={lst:kode-histogram-1}]{resource/code/histogram_1.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Histogram}, label={lst:out-histogram-1}]{resource/output/histogram_1_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-histogram-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{data = np.array(...)}: Mendefinisikan array nilai-nilai ujian.
@@ -494,7 +485,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.xlabel(...)} dan \texttt{plt.ylabel(...)}: Memberi label sumbu x dan sumbu y.
   \item \texttt{plt.show()}: Menampilkan plot histogram ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-histogram-1}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:histogram-1}.
+\par Visualisasi grafis dari hasil eksekusi Kode \ref{lst:kode-histogram-1} disajikan pada Gambar \ref{fig:histogram-1}.
 
 \begin{figure}[H]
   \centering
@@ -506,8 +497,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 \par Berdasarkan Gambar \ref{fig:histogram-1}, grafik histogram mengelompokkan 15 data nilai siswa ke dalam empat rentang interval (\textit{bins}) dengan lebar masing-masing 25 poin. Terlihat bahwa kelompok interval nilai terendah ($0\le x < 25$) dan interval menengah ($50\le x < 75$) masing-masing memiliki frekuensi terbanyak yaitu sebanyak 5 siswa. Sementara itu, kelompok interval nilai $25\le x < 50$ memiliki frekuensi 3 siswa, dan interval nilai tertinggi ($75\le x \le 100$) hanya memuat 2 siswa. Penggunaan fungsi \texttt{plt.hist()} dengan penentuan \textit{bins} kustom dan \texttt{plt.xticks(bins)} memberikan pemahaman cepat terhadap bentuk sebaran dan pemusatan data diskrit maupun kontinu.
 
 \lstinputlisting[language=Python, caption={Histogram churning}, label={lst:kode-histogram-2}]{resource/code/histogram_2.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Histogram churning}, label={lst:out-histogram-2}]{resource/output/histogram_2_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-histogram-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{data1 = existing\_data[...]}: Mengambil umur pelanggan existing.
@@ -518,7 +508,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.legend()}: Menampilkan legenda untuk membedakan histogram.
   \item \texttt{plt.show()}: Menampilkan histogram gabungan ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-histogram-2}, sedangkan visualisasi distribusi komparatifnya disajikan pada Gambar \ref{fig:histogram-churning-1}.
+\par Visualisasi distribusi komparatif dari hasil eksekusi Kode \ref{lst:kode-histogram-2} disajikan pada Gambar \ref{fig:histogram-churning-1}.
 
 \begin{figure}[H]
   \centering
@@ -531,8 +521,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \subsubsection{Scatter plot}
 \lstinputlisting[language=Python, caption={Scatter plot}, label={lst:kode-scatter-plot-1}]{resource/code/scatter-plot_1.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Scatter plot}, label={lst:out-scatter-plot-1}]{resource/output/scatter-plot_1_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-scatter-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{y1 = ...} dan \texttt{x1 = ...}: Mengambil nilai lama bulan mendaftar buku tabungan, dan usia pelanggan untuk pelanggan attrited (churn).
@@ -543,7 +532,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.legend()}: Menampilkan legenda dan arti warna titik pada titik koordinat.
   \item \texttt{plt.show()}: Menampilkan dua plot scatter ini secara bersamaan ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-scatter-plot-1}, sedangkan representasi diagram sebarnya disajikan pada Gambar \ref{fig:scatter-plot-1}.
+\par Representasi diagram sebar dari hasil eksekusi Kode \ref{lst:kode-scatter-plot-1} disajikan pada Gambar \ref{fig:scatter-plot-1}.
 
 \begin{figure}[H]
   \centering
@@ -555,8 +544,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 \par Berdasarkan Gambar \ref{fig:scatter-plot-1}, diagram sebar memperlihatkan hubungan bivariat antara usia nasabah (\textit{age}) pada sumbu horizontal dan masa menjadi nasabah (\textit{Months on Book}) pada sumbu vertikal. Secara umum terlihat adanya korelasi positif linear yang cukup kuat, di mana semakin bertambah usia nasabah maka kecenderungan durasi kepemilikan produk perbankan nasabah tersebut juga semakin panjang. Selain pola diagonal linier, terlihat pula klaster titik-titik horizontal pekat pada nilai \textit{Months on Book} bernilai 36 bulan (3 tahun), yang mencerminkan konsentrasi waktu kontrak standar nasabah. Karena titik \textit{existing} (oranye) diplot setelah titik \textit{churning} (biru) dan memiliki jumlah data yang jauh lebih dominan, titik-titik oranye tampak menutupi sebagian besar kanvas, sehingga titik biru hanya terlihat menyembul di area batas tepi dan anomali.
 
 \lstinputlisting[language=Python, caption={Scatter plot df}, label={lst:kode-scatter-plot-2}]{resource/code/scatter-plot_2.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Scatter plot df}, label={lst:out-scatter-plot-2}]{resource/output/scatter-plot_2_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-scatter-plot-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{ax = existing\_data.plot.scatter(..., c='red')}: Membuat objek diagram sebar (scatter plot) untuk pelanggan existing berwarna merah menggunakan fungsi pandas \texttt{.plot.scatter()}, kemudian menyimpannya sebagai \texttt{ax}.
@@ -564,7 +552,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.title(...)}, \texttt{plt.ylabel(...)}, \texttt{plt.xlabel(...)}: Menyetel atribut judul dan teks keterangan untuk sumbu X maupun sumbu Y plot.
   \item \texttt{plt.show()}: Menampilkan scatter plot menggunakan kapabilitas hybrid antara Pandas dan Matplotlib.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-scatter-plot-2}, sedangkan representasi grafis dengan pelapisan Pandas disajikan pada Gambar \ref{fig:scatter-plot-pandas-1}.
+\par Representasi grafis dengan pelapisan Pandas dari hasil eksekusi Kode \ref{lst:kode-scatter-plot-2} disajikan pada Gambar \ref{fig:scatter-plot-pandas-1}.
 
 \begin{figure}[H]
   \centering
@@ -577,8 +565,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \subsubsection{Box plot}
 \lstinputlisting[language=Python, caption={Box plot}, label={lst:kode-box-plot-1}]{resource/code/box-plot_1.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Box plot}, label={lst:out-box-plot-1}]{resource/output/box-plot_1_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-box-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{plt.boxplot(df\_churning['Customer\_Age'])}: Membuat plot kotak (\textit{box plot}) dari kolom usia pelanggan untuk melihat ringkasan sebaran lima angka (\textit{five-number summary}).
@@ -586,7 +573,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.xticks([1], labels=['all customer'])}: Mengatur penanda dan label sumbu horizontal untuk kategori seluruh nasabah.
   \item \texttt{plt.show()}: Menampilkan diagram box plot ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-box-plot-1}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:box-plot-1}.
+\par Visualisasi grafis dari hasil eksekusi Kode \ref{lst:kode-box-plot-1} disajikan pada Gambar \ref{fig:box-plot-1}.
 
 \begin{figure}[H]
   \centering
@@ -598,8 +585,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 \par Berdasarkan Gambar \ref{fig:box-plot-1}, diagram kotak (\textit{box plot}) memberikan visualisasi statistik deskriptif lima angka dari variabel usia seluruh nasabah. Garis horizontal oranye di dalam kotak menunjukkan nilai median yang berada pada usia 46 tahun. Kotak antarkuartil (\textit{Interquartile Range} / IQR) dibatasi oleh kuartil pertama ($Q_1$) di sekitar usia 41 tahun dan kuartil ketiga ($Q_3$) di usia 52 tahun, yang menandakan bahwa 50\% populasi nasabah terkonsentrasi pada rentang usia 41 hingga 52 tahun. Garis batas (\textit{whiskers}) membentang ke bawah hingga usia minimum sekitar 26 tahun dan ke atas hingga batas maksimum sekitar 68 tahun. Selain itu, terdeteksi dua titik pencilan (\textit{outliers}) di atas \textit{whisker} atas pada usia 70 dan 73 tahun, yang mengindikasikan keberadaan sejumlah kecil nasabah lanjut usia di luar batas persebaran normal data.
 
 \lstinputlisting[language=Python, caption={Box plot concated}, label={lst:kode-box-plot-2}]{resource/code/box-plot_2.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Box plot concated}, label={lst:out-box-plot-2}]{resource/output/box-plot_2_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-box-plot-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{data1 = existing\_data['Customer\_Age']} dan \texttt{data2 = churning\_data['Customer\_Age']}: Mengambil data usia nasabah dari kelompok \textit{existing} dan \textit{churning}.
@@ -608,7 +594,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.title('Customer age')}, \texttt{plt.ylabel('age')}: Menambahkan judul dan teks penjelas sumbu y.
   \item \texttt{plt.show()}: Menampilkan diagram perbandingan box plot ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-box-plot-2}, sedangkan visualisasi perbandingan statistiknya disajikan pada Gambar \ref{fig:box-plot-comparative-1}.
+\par Visualisasi perbandingan statistik dari hasil eksekusi Kode \ref{lst:kode-box-plot-2} disajikan pada Gambar \ref{fig:box-plot-comparative-1}.
 
 \begin{figure}[H]
   \centering
@@ -621,8 +607,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \subsubsection{Violin plot}
 \lstinputlisting[language=Python, caption={Violin plot}, label={lst:kode-violin-plot-1}]{resource/code/box-plot_3.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Violin plot}, label={lst:out-violin-plot-1}]{resource/output/box-plot_3_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-violin-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{my\_dictionary = ...}: Menyimpan data1 dan data2 ke dalam bentuk dictionary dengan label 'existing' dan 'attrited'.
@@ -632,7 +617,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.xticks(...)}: Mengatur label sumbu x sesuai dengan kunci (keys) pada dictionary.
   \item \texttt{plt.show()}: Menampilkan plot ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-violin-plot-1}, sedangkan representasi grafik densitasnya disajikan pada Gambar \ref{fig:violin-plot-1}.
+\par Representasi grafik densitas dari hasil eksekusi Kode \ref{lst:kode-violin-plot-1} disajikan pada Gambar \ref{fig:violin-plot-1}.
 
 \begin{figure}[H]
   \centering
@@ -645,8 +630,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \subsubsection{Sub plot}
 \lstinputlisting[language=Python, caption={Sub plot}, label={lst:kode-sub-plot-1}]{resource/code/box-plot_4.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Sub plot}, label={lst:out-sub-plot-1}]{resource/output/box-plot_4_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-sub-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{plt.figure(figsize=(10, 10))}: Mengatur ukuran figure (kanvas) plot menjadi 10x10 inci.
@@ -659,7 +643,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.subplot(2, 2, 4)}: Mengaktifkan area keempat untuk histogram umur pelanggan churn dengan warna merah.
   \item \texttt{plt.show()}: Menampilkan seluruh plot secara bersamaan ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-sub-plot-1}, sedangkan konfigurasi multi-grafik disajikan pada Gambar \ref{fig:sub-plot-1}.
+\par Konfigurasi multi-grafik dari hasil eksekusi Kode \ref{lst:kode-sub-plot-1} disajikan pada Gambar \ref{fig:sub-plot-1}.
 
 \begin{figure}[H]
   \centering
@@ -672,8 +656,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \subsubsection{Annotation}
 \lstinputlisting[language=Python, caption={Annotation}, label={lst:kode-annotation-1}]{resource/code/kustomisasi-plot_1.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Annotation}, label={lst:out-annotation-1}]{resource/output/kustomisasi-plot_1_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-annotation-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{data = df\_churning[...]}: Menyimpan kolom 'Customer\_Age' ke variabel data.
@@ -682,7 +665,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.text(60, 1800, ...)}: Menambahkan teks kustom (nilai rata-rata) pada koordinat (60, 1800) di plot.
   \item \texttt{plt.show()}: Menampilkan plot yang telah dikustomisasi ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-annotation-1}, sedangkan visualisasi beranotasinya disajikan pada Gambar \ref{fig:annotation-plot-1}.
+\par Visualisasi beranotasi dari hasil eksekusi Kode \ref{lst:kode-annotation-1} disajikan pada Gambar \ref{fig:annotation-plot-1}.
 
 \begin{figure}[H]
   \centering
@@ -695,8 +678,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \subsubsection{Axis}
 \lstinputlisting[language=Python, caption={Axis}, label={lst:kode-axis-1}]{resource/code/kustomisasi-plot_2.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Axis}, label={lst:out-axis-1}]{resource/output/kustomisasi-plot_2_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-axis-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{x = np.array(...)}: Membuat array berisi tanggal sebagai penanda waktu di sumbu x.
@@ -708,7 +690,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.ylim([-20, 30])}: Mengatur batas skala sumbu y agar rentangnya dari -20 sampai 30.
   \item \texttt{plt.show()}: Menampilkan plot ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-axis-1}, sedangkan visualisasi penyesuaian batas skalanya disajikan pada Gambar \ref{fig:axis-plot-1}.
+\par Visualisasi penyesuaian batas skala dari hasil eksekusi Kode \ref{lst:kode-axis-1} disajikan pada Gambar \ref{fig:axis-plot-1}.
 
 \begin{figure}[H]
   \centering
@@ -721,8 +703,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 
 \subsubsection{Legend}
 \lstinputlisting[language=Python, caption={Legend}, label={lst:kode-legend-1}]{resource/code/kustomisasi-plot_3.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Legend}, label={lst:out-legend-1}]{resource/output/kustomisasi-plot_3_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-legend-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{data1 = ...} dan \texttt{data2 = ...}: Mengambil dua set data umur dari pelanggan existing dan churn.
@@ -732,7 +713,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
   \item \texttt{plt.legend()}: Menampilkan legenda di sudut plot.
   \item \texttt{plt.show()}: Menampilkan grafik histogram secara utuh ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-legend-1}, sedangkan representasi grafik dengan elemen legendanya disajikan pada Gambar \ref{fig:legend-plot-1}.
+\par Representasi grafik dengan elemen legenda dari hasil eksekusi Kode \ref{lst:kode-legend-1} disajikan pada Gambar \ref{fig:legend-plot-1}.
 
 \begin{figure}[H]
   \centering
@@ -804,15 +785,14 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-df-shape-tita
 
 \subsubsection{Visualisasi distribusi data}
 \lstinputlisting[language=Python, caption={Visualisasi pie chart titanic}, label={lst:kode-vis-pie-titanic-1}]{resource/code/membaca-dan-exploratory-data-titanic_4.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Visualisasi pie chart titanic}, label={lst:out-vis-pie-titanic-1}]{resource/output/membaca-dan-exploratory-data-titanic_4_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-vis-pie-titanic-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{data = df['Survived'].value\_counts()}: Menghitung jumlah masing-masing kelas unik di kolom 'Survived' (bertahan hidup / tidak).
   \item \texttt{data.plot(kind='pie', autopct='\%.2f\%\%')}: Memplot data tersebut menjadi diagram lingkaran (pie chart) dengan format persentase dua angka di belakang koma.
   \item \texttt{plt.show()}: Menampilkan pie chart ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-vis-pie-titanic-1}, sedangkan representasi proporsi keselamatannya disajikan pada Gambar \ref{fig:vis-distribusi-pie-1}.
+\par Representasi proporsi keselamatan dari hasil eksekusi Kode \ref{lst:kode-vis-pie-titanic-1} disajikan pada Gambar \ref{fig:vis-distribusi-pie-1}.
 
 \begin{figure}[H]
   \centering
@@ -824,14 +804,13 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-df-shape-tita
 \par Berdasarkan Gambar \ref{fig:vis-distribusi-pie-1}, diagram lingkaran memperlihatkan rasio kelangsungan hidup (\textit{survival rate}) dari seluruh penumpang dalam dataset Titanic. Kategori 0 yang merepresentasikan penumpang tidak selamat (meninggal dunia) mendominasi dengan proporsi sebesar 61.62\%, sedangkan kategori 1 yang merepresentasikan penumpang selamat (\textit{survived}) hanya mencakup 38.38\%. Visualisasi ini secara gamblang menggambarkan besarnya fatalitas dari tragedi tenggelamnya kapal Titanic sekaligus mengidentifikasi ketidakseimbangan kelas (\textit{class imbalance}) pada variabel target klasifikasi tersebut.
 
 \lstinputlisting[language=Python, caption={Visualisasi hist titanic}, label={lst:kode-vis-hist-titanic-1}]{resource/code/membaca-dan-exploratory-data-titanic_5.py}
-\par \textbf{Output:}
-\lstinputlisting[caption={Output Visualisasi hist titanic}, label={lst:out-vis-hist-titanic-1}]{resource/output/membaca-dan-exploratory-data-titanic_5_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-vis-hist-titanic-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
   \item \texttt{df.hist(figsize=(10, 10))}: Membuat histogram dari seluruh kolom numerik di dataset sekaligus, dalam ukuran 10x10 inci.
   \item \texttt{plt.show()}: Menampilkan kumpulan histogram tersebut ke layar.
 \end{itemize}
-\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-vis-hist-titanic-1}, sedangkan representasi matriks histogram multivariatnya disajikan pada Gambar \ref{fig:vis-distribusi-hist-1}.
+\par Representasi matriks histogram multivariat dari hasil eksekusi Kode \ref{lst:kode-vis-hist-titanic-1} disajikan pada Gambar \ref{fig:vis-distribusi-hist-1}.
 
 \begin{figure}[H]
   \centering
