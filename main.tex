@@ -104,18 +104,18 @@ Pertemuan \Pertemuan\\
 % tambahkan entri BibTeX ke file ref.bib terlebih dulu.
 
 % Title Page
-\begin{titlingpage} 
+\begin{titlingpage}
   \begin{center}
 
     \vspace{4cm}
-    \begin{Large} 
+    \begin{Large}
       \textbf{\thetitle} \\
     \end{Large}
     \vspace{2cm}
-    
-    \includegraphics[height=8cm]{resource/lambang ugm.png}\\ 
+
+    \includegraphics[height=8cm]{resource/lambang ugm.png}\\
     \vspace{2cm}
-    
+
     \textbf{Disusun oleh:}\\[0.8em]
     \begin{minipage}{0.8\textwidth}
       \raggedright
@@ -128,7 +128,7 @@ Pertemuan \Pertemuan\\
         \end{tabular}
       \end{large}
     \end{minipage}
-    
+
     \vspace{2cm}
     \begin{Large}
       \textbf{Program Studi D-IV Teknologi Rekayasa Perangkat Lunak} \\
@@ -138,7 +138,7 @@ Pertemuan \Pertemuan\\
       \textbf{Yogyakarta}\\
       \textbf{2026}\\
     \end{Large}
-    
+
   \end{center}
 \end{titlingpage}
 
@@ -207,11 +207,11 @@ Pertemuan \Pertemuan\\
 \section{Tujuan Praktikum}
 \begin{enumerate}
   \item Mahasiswa menguasai konsep fundamental Artificial Intelligence (AI).
-        
+
   \item Mahasiswa memahami prinsip dan dasar-dasar Machine Learning (ML).
-        
+
   \item Mahasiswa mampu mempraktikkan tahapan awal dalam analisis data.
-        
+
   \item Mahasiswa mampu mengidentifikasi serta mengaplikasikan teknik dasar pra-pemrosesan data (data preprocessing).
 \end{enumerate}
 
@@ -245,7 +245,7 @@ Pertemuan \Pertemuan\\
 %contoh gambar dan kode
 % \begin{figure}[H]
 %     \centering
-%     \includegraphics[width=0.5\textwidth]{resource/contoh-gambar.png}
+%     \includegraphics[width=0.8\textwidth]{resource/contoh-gambar.png}
 %     \caption{Contoh Gambar}
 %     \label{fig:contoh-gambar}
 % \end{figure}
@@ -257,17 +257,17 @@ Pertemuan \Pertemuan\\
 
 \section{Hasil dan Pembahasan}
 \subsection{Exploratory Data Analysis (EDA)}
-\subsection{Impor Pustaka}
+\subsubsection{Impor Pustaka}
 \lstinputlisting[language=Python, caption={Impor Pustaka}, label={lst:kode-impor-pustaka-1}]{resource/code/membaca-dan-memahami-data_1.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Impor Pustaka}, label={lst:out-impor-pustaka-1}]{resource/output/membaca-dan-memahami-data_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-impor-pustaka-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{import pandas as pd}: Mengimpor library pandas untuk manipulasi dan analisis data (khususnya tabel DataFrame).
-    \item \texttt{import matplotlib.pyplot as plt}: Mengimpor modul pyplot untuk visualisasi data secara grafis.
-    \item \texttt{import numpy as np}: Mengimpor library numpy untuk perhitungan komputasi matriks/array berkinerja tinggi.
+  \item \texttt{import pandas as pd}: Mengimpor library pandas untuk manipulasi dan analisis data (khususnya tabel DataFrame).
+  \item \texttt{import matplotlib.pyplot as plt}: Mengimpor modul pyplot untuk visualisasi data secara grafis.
+  \item \texttt{import numpy as np}: Mengimpor library numpy untuk perhitungan komputasi matriks/array berkinerja tinggi.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-impor-pustaka-1}.
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-impor-pustaka-1} (Tidak ada).
 
 
 \subsubsection{Load dataset}
@@ -276,9 +276,9 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-impor-pustaka
 \lstinputlisting[caption={Output Load dataset}, label={lst:out-load-dataset-1}]{resource/output/membaca-dan-memahami-data_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-load-dataset-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df\_churning = pd.read\_csv(...)}: Membaca dataset 'BankChurners.csv' dari URL github menggunakan delimitasi koma, kemudian disimpan sebagai \texttt{df\_churning}.
+  \item \texttt{df\_churning = pd.read\_csv(...)}: Membaca dataset 'BankChurners.csv' yang ditaruh di github menggunakan delimitasi koma, kemudian disimpan sebagai \texttt{df\_churning}.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-load-dataset-1}.
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-load-dataset-1} (Tidak ada).
 
 \subsubsection{Melihat lima baris pertama dengan df.head()}
 \lstinputlisting[language=Python, caption={Melihat lima baris pertama dengan df.head()}, label={lst:kode-melihat-lima-baris-pertama-1}]{resource/code/membaca-dan-memahami-data_3.py}
@@ -286,7 +286,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-load-dataset-
 \lstinputlisting[caption={Output Melihat lima baris pertama dengan df.head()}, label={lst:out-melihat-lima-baris-pertama-1}]{resource/output/membaca-dan-memahami-data_3_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-melihat-lima-baris-pertama-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df\_churning.head()}: Menampilkan lima observasi pertama (bagian paling atas) dari dataset untuk melihat nilai data.
+  \item \texttt{df\_churning.head()}: Menampilkan lima observasi pertama (bagian paling atas) dari dataset untuk melihat nilai data.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-melihat-lima-baris-pertama-1}.
 
@@ -296,7 +296,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-melihat-lima-
 \lstinputlisting[caption={Output Melihat lima baris terakhir dengan df.tail()}, label={lst:out-melihat-lima-baris-terakhir-1}]{resource/output/membaca-dan-memahami-data_4_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-melihat-lima-baris-terakhir-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df\_churning.tail()}: Menampilkan lima observasi terakhir (bagian paling bawah) dari dataset.
+  \item \texttt{df\_churning.tail()}: Menampilkan lima observasi terakhir (bagian paling bawah) dari dataset.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-melihat-lima-baris-terakhir-1}.
 
@@ -306,33 +306,43 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-melihat-lima-
 \lstinputlisting[caption={Output Menyimpan nilai dari class menjadi 2 dataframe yang berbeda}, label={lst:out-menyimpan-nilai-class-1}]{resource/output/membaca-dan-memahami-data_5_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-menyimpan-nilai-class-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{existing\_data = df\_churning[...]}: Melakukan filter hanya pada baris di mana pelanggan masih aktif ('Existing Customer').
-    \item \texttt{churning\_data = df\_churning[...]}: Melakukan filter hanya pada baris di mana pelanggan berhenti/churn ('Attrited Customer').
+  \item \texttt{existing\_data = df\_churning[...]}: Melakukan filter hanya pada baris di mana pelanggan masih aktif ('Existing Customer').
+  \item \texttt{churning\_data = df\_churning[...]}: Melakukan filter hanya pada baris di mana pelanggan berhenti/churn ('Attrited Customer').
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-menyimpan-nilai-class-1}.
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-menyimpan-nilai-class-1} (Tidak ada output).
 
 \subsubsection{Line chart}
 \lstinputlisting[language=Python, caption={Line chart}, label={lst:kode-line-chart-1}]{resource/code/line-plot_1.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Line chart}, label={lst:out-line-chart-1}]{resource/output/line-plot_1_out.txt}
+
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-line-chart-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{x = np.array(...)}: Mendefinisikan array angka di sumbu x.
-    \item \texttt{y1 = np.array(...)} dan \texttt{y2 = np.array(...)}: Mendefinisikan dua array sebagai himpunan nilai di sumbu y.
-    \item \texttt{plt.plot(x, y1, marker='o')}: Memplot garis pertama dengan penanda berupa titik.
-    \item \texttt{plt.plot(x, y2, marker='x')}: Memplot garis kedua dengan penanda berupa silang (X).
-    \item \texttt{plt.show()}: Menampilkan garis perbandingan (line plot) ke layar.
+  \item \texttt{x = np.array([2, 4, 6, 8])}: Mendefinisikan array angka pada sumbu x sebagai titik koordinat horizontal.
+  \item \texttt{y1 = np.array([3, 8, 1, 10])} dan \texttt{y2 = np.array([4, 7, 10, 12])}: Mendefinisikan dua himpunan array angka koordinat pada sumbu y.
+  \item \texttt{plt.plot(x, y1, marker='o')}: Memplot garis data pertama ($y_1$) dengan adanya sebuah penanda berupa titik lingkaran (\textit{circle marker}).
+  \item \texttt{plt.plot(x, y2, marker='x')}: Memplot garis data kedua ($y_2$) dengan penanda berupa tanda silang (\textit{cross marker}).
+  \item \texttt{plt.show()}: Menampilkan kanvas visualisasi grafik garis (\textit{line plot}) ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-line-chart-1}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:line-chart-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/1-linechart.png}
+  \caption{Visualisasi Line Chart Dua Garis}
+  \label{fig:line-chart-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:line-chart-1}, grafik menampilkan perbandingan pergerakan tren data antara deret $y_1$ (garis biru dengan penanda lingkaran) dan deret $y_2$ (garis oranye dengan penanda silang) terhadap koordinat sumbu $x$ ($2, 4, 6, 8$). Garis $y_1$ menunjukkan dinamika nilai yang sangat fluktuatif; diawali dari nilai 3 pada $x=2$, melonjak tajam ke angka 8 pada $x=4$, lalu merosot drastis ke titik terendah bernilai 1 pada $x=6$, dan akhirnya kembali melesat ke nilai 10 pada $x=8$. Sebaliknya, garis $y_2$ memperlihatkan tren peningkatan positif yang stabil dan konsisten sepanjang penambahan nilai sumbu $x$, yakni berawal dari nilai 4 pada $x=2$, bertambah ke 7 pada $x=4$, 10 pada $x=6$, hingga mencapai titik puncak di angka 12 pada $x=8$. Visualisasi ini menunjukkan efektivitas fungsi \texttt{plt.plot()} dalam menyajikan perbandingan dinamika tren dari beberapa deret data secara simultan pada satu bidang koordinat kartesius.
 
 \lstinputlisting[language=Python, caption={Line chart iot}, label={lst:kode-line-chart-2}]{resource/code/line-plot_2.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Line chart iot}, label={lst:out-line-chart-2}]{resource/output/line-plot_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-line-chart-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df\_iot = pd.read\_csv(...)}: Membaca data runtun waktu (time series) sensor IoT dari URL Github.
-    \item \texttt{df\_iot['date'] = pd.to\_datetime(...)}: Mengkonversi nilai string pada kolom 'date' menjadi tipe data datetime agar dapat dikenali sebagai tanggal/waktu.
-    \item \texttt{df\_iot.head()}: Menampilkan lima baris pertama dari dataframe tersebut.
+  \item \texttt{df\_iot = pd.read\_csv(...)}: Membaca data runtun waktu (time series) sensor IoT dari URL Github.
+  \item \texttt{df\_iot['date'] = pd.to\_datetime(...)}: Mengkonversi nilai string pada kolom 'date' menjadi tipe data datetime agar dapat dikenali sebagai tanggal/waktu.
+  \item \texttt{df\_iot.head()}: Menampilkan lima baris pertama dari dataframe tersebut.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}.
 
@@ -341,14 +351,20 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-2}
 \lstinputlisting[caption={Output Line chart iot plot}, label={lst:out-line-chart-3}]{resource/output/line-plot_3_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-line-chart-3}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{plt.figure(figsize=(15, 3))}: Membuat kanvas baru yang panjangnya disesuaikan untuk runtun waktu (15x3 inci).
-    \item \texttt{plt.plot(df\_iot['date'], df\_iot['Humidity'])}: Memplot kelembapan (Humidity) seiring berjalannya waktu (date) sebagai diagram garis.
-    \item \texttt{plt.show()}: Menampilkan line plot pergerakan data kelembapan.
+  \item \texttt{plt.figure(figsize=(15, 3))}: Membuat kanvas baru yang panjangnya disesuaikan untuk runtun waktu (15x3 inci).
+  \item \texttt{plt.plot(df\_iot['date'], df\_iot['Humidity'])}: Memplot kelembapan (Humidity) seiring berjalannya waktu (date) sebagai diagram garis.
+  \item \texttt{plt.show()}: Menampilkan line plot pergerakan data kelembapan.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-3}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-line-chart-3}, sedangkan visualisasi grafik deret waktunya disajikan pada Gambar \ref{fig:line-chart-iot-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/2-linechartiot.png}
+  \caption{Visualisasi Line Chart Data Sensor IoT}
+  \label{fig:line-chart-iot-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:line-chart-iot-1}, grafik garis menyajikan fluktuasi kelembapan (\textit{Humidity}) terhadap waktu (\textit{date}) dari tanggal 5 hingga 10 Februari 2015. Pola grafik menunjukkan dinamika kelembapan yang bervariasi dengan rentang nilai antara 17\% hingga mendekati 40\%. Pada periode awal (5--7 Februari 2015), kelembapan cenderung rendah dan menyentuh titik minimum di bawah 20\% pada sekitar tanggal 7 Februari. Selanjutnya, terjadi kenaikan tajam yang signifikan pada tanggal 8 Februari dan mencapai puncak tertingginya mendekati angka 40\% pada rentang 9 hingga 10 Februari 2015 sebelum kembali melandai. Visualisasi dengan kanvas memanjang (15x3 inci) ini memudahkan pemantauan tren runtun waktu (\textit{time series}) sensor IoT secara berkelanjutan.
 
 \subsubsection{Pie chart}
 \lstinputlisting[language=Python, caption={Pie chart}, label={lst:kode-pie-chart-1}]{resource/code/pie-chart_1.py}
@@ -356,28 +372,43 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-line-chart-3}
 \lstinputlisting[caption={Output Pie chart}, label={lst:out-pie-chart-1}]{resource/output/pie-chart_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-pie-chart-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{y = np.array(...)}: Membuat array persentase (ukuran porsi pie).
-    \item \texttt{mylables = [...]}: Menentukan teks label dari masing-masing porsi diagram.
-    \item \texttt{plt.pie(y, labels=mylables, autopct='\%.2f\%\%')}: Menggambar diagram pie, memberi labelnya, lalu menampilkan persentasenya berformat dua angka di belakang koma.
-    \item \texttt{plt.show()}: Menampilkan diagram pie tersebut ke layar.
+  \item \texttt{y = np.array([35, 25, 25, 15])}: Mendefinisikan array numerik yang merepresentasikan proporsi nilai masing-masing kategori pekerjaan.
+  \item \texttt{mylables = [...]}: Menentukan teks label nama kategori profesi (Web Programer, Data Scientist, DB Admin, dan Manager).
+  \item \texttt{plt.pie(y, labels=mylables, autopct='\%0.2f\%\%')}: Menggambar diagram lingkaran (\textit{pie chart}), menetapkan label kategori, serta memformat tampilan persentase dengan presisi dua angka desimal.
+  \item \texttt{plt.show()}: Menampilkan visualisasi diagram pie ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-pie-chart-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-pie-chart-1}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:pie-chart-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/3-piechart.png}
+  \caption{Visualisasi Pie Chart Distribusi Profesi}
+  \label{fig:pie-chart-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:pie-chart-1}, diagram lingkaran memperlihatkan proporsi dari empat kategori profesi secara jelas. Kategori \textit{Web Programer} mendominasi porsi terbesar dengan persentase 35.00\%, diikuti oleh \textit{Data Scientist} dan \textit{DB Admin} yang masing-masing memiliki porsi seimbang sebesar 25.00\%. Sementara itu, kategori \textit{Manager} menempati proporsi paling kecil yaitu sebesar 15.00\%. Diagram ini membuktikan kemampuan \textit{pie chart} dalam menampilkan perbandingan kontribusi relatif setiap bagian terhadap keseluruhan populasi data 100\%.
 
 \lstinputlisting[language=Python, caption={Pie chart marital status}, label={lst:kode-pie-chart-2}]{resource/code/pie-chart_2.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Pie chart marital status}, label={lst:out-pie-chart-2}]{resource/output/pie-chart_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-pie-chart-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{data = df\_churning['Marital\_Status'].value\_counts()}: Menghitung nilai masing-masing kategori status pernikahan dari dataframe df\_churning.
-    \item \texttt{label = data.index}: Mengambil nilai nama status pernikahan sebagai label plot.
-    \item \texttt{plt.pie(data, labels=label, autopct='\%.5f\%\%')}: Memplot data status pernikahan dalam bentuk pie chart yang menampilkan persentase dengan format lima digit desimal di belakang koma.
-    \item \texttt{plt.title(...)}: Memberikan judul pada pie chart tersebut.
-    \item \texttt{plt.show()}: Menampilkan pie chart ke layar.
+  \item \texttt{data = df\_churning['Marital\_Status'].value\_counts()}: Menghitung frekuensi kemunculan setiap kategori status pernikahan pelanggan dari kolom 'Marital\_Status'.
+  \item \texttt{label = data.index}: Mengambil nama-nama kategori unik status pernikahan sebagai label irisan grafik.
+  \item \texttt{plt.pie(data, labels=label, autopct='\%0.5f\%\%')}: Membuat diagram pie dengan format persentase berpresisi tinggi hingga lima angka di belakang koma.
+  \item \texttt{plt.title('Marital Status')}: Menambahkan judul 'Marital Status' pada bagian atas diagram.
+  \item \texttt{plt.show()}: Menampilkan diagram pie status pernikahan ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-pie-chart-2}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-pie-chart-2}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:pie-chart-marital-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/4-piechartmarital.png}
+  \caption{Visualisasi Pie Chart Status Pernikahan Pelanggan}
+  \label{fig:pie-chart-marital-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:pie-chart-marital-1}, visualisasi menyajikan komposisi status pernikahan dari seluruh nasabah dalam dataset churn. Pelanggan berstatus menikah (\textit{Married}) merupakan kelompok mayoritas dengan proporsi sebesar 46.28222\%, disusul oleh kelompok belum menikah (\textit{Single}) sebesar 38.93552\%. Kelompok dengan status tidak diketahui (\textit{Unknown}) dan bercerai (\textit{Divorced}) memiliki porsi minoritas yang hampir identik, masing-masing sebesar 7.39607\% dan 7.38620\%. Penggunaan parameter lima digit desimal memberikan tingkat ketelitian analisis demografi yang sangat tinggi.
 
 \subsubsection{Bar plot}
 \lstinputlisting[language=Python, caption={Bar plot}, label={lst:kode-bar-plot-1}]{resource/code/bar-chart_1.py}
@@ -385,28 +416,46 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-pie-chart-2}.
 \lstinputlisting[caption={Output Bar plot}, label={lst:out-bar-plot-1}]{resource/output/bar-chart_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-bar-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{x = np.array(...)}: Membuat array numpy untuk sumbu x.
-    \item \texttt{y = np.array(...)}: Membuat array numpy untuk sumbu y (nilai).
-    \item \texttt{plt.bar(x, y)}: Membuat diagram batang (bar chart) berdasarkan array x dan y.
-    \item \texttt{plt.show()}: Menampilkan visualisasi ke layar.
+  \item \texttt{y = np.array([35, 25, 25, 15])}: Mendefinisikan array nilai frekuensi untuk masing-masing batang.
+  \item \texttt{x = [...]}: Mendefinisikan label kategori profesi pada sumbu horizontal.
+  \item \texttt{plt.bar(x, y)}: Membuat diagram batang vertikal berdasarkan pasangan data kategori dan frekuensi.
+  \item \texttt{plt.xticks(rotation=45)}: Memutar teks label sumbu x sebesar 45 derajat agar mudah dibaca dan tidak saling bertumpuk.
+  \item \texttt{plt.ylabel('jumlah')}: Memberikan label 'jumlah' pada sumbu vertikal.
+  \item \texttt{plt.show()}: Menampilkan visualisasi diagram batang ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-bar-plot-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-bar-plot-1}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:bar-plot-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/5-barplot.png}
+  \caption{Visualisasi Bar Plot Distribusi Profesi}
+  \label{fig:bar-plot-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:bar-plot-1}, diagram batang vertikal memperlihatkan perbandingan kuantitatif absolut antarprofesi. Profesi \textit{Web Programer} memiliki frekuensi tertinggi dengan nilai 35, disusul \textit{Data Scientist} dan \textit{DB Admin} yang sama-sama mencapai 25, serta \textit{Manager} dengan nilai 15. Rotasi label sebesar 45 derajat terbukti membuat tipografi kategori di sumbu x tersusun rapi tanpa saling beririsan, memudahkan pembandingan nilai antarbatang secara cepat.
 
 \lstinputlisting[language=Python, caption={Bar plot churning}, label={lst:kode-bar-plot-2}]{resource/code/bar-chart_2.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Bar plot churning}, label={lst:out-bar-plot-2}]{resource/output/bar-chart_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-bar-plot-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{x = np.array(...)}: Membuat array kategori untuk sumbu x.
-    \item \texttt{y = np.array(...)}: Membuat array nilai untuk sumbu y.
-    \item \texttt{c = ["red", ... ]}: Membuat array warna untuk masing-masing batang.
-    \item \texttt{plt.bar(x, y, color=c)}: Membuat diagram batang dengan warna yang telah ditentukan.
-    \item \texttt{plt.show()}: Menampilkan diagram batang ke layar.
+  \item \texttt{y2 = existing\_data[...].value\_counts()}: Menghitung frekuensi status pernikahan untuk kelompok pelanggan aktif (\textit{existing}).
+  \item \texttt{y1 = churning\_data[...].value\_counts()}: Menghitung frekuensi status pernikahan untuk kelompok pelanggan berhenti (\textit{churning}).
+  \item \texttt{x1} dan \texttt{x2}: Mengatur posisi indeks koordinat batang menggunakan \texttt{np.arange()} agar dapat digeser bersebelahan (\textit{grouped bar}).
+  \item \texttt{plt.bar(x1, y1, width=bar\_width)} dan \texttt{plt.bar(x2+bar\_width, y2, ...)}: Memplot dua set batang berdampingan dengan lebar 0.4.
+  \item \texttt{plt.title(...)}, \texttt{plt.ylabel(...)}, dan \texttt{plt.xticks(...)}: Mengatur judul, label sumbu y, serta meletakkan label kategori di tengah-tengah kedua batang.
+  \item \texttt{plt.show()}: Menampilkan diagram batang berdampingan ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-bar-plot-2}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-bar-plot-2}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:bar-plot-marital-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/6-barplotmarital.png}
+  \caption{Visualisasi Grouped Bar Plot Status Pernikahan}
+  \label{fig:bar-plot-marital-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:bar-plot-marital-1}, diagram batang kelompok menyajikan komparasi langsung antara pelanggan \textit{churning} (batang biru di sebelah kiri) dan pelanggan \textit{existing} (batang oranye di sebelah kanan) pada tiap kategori pernikahan. Pada kategori \textit{Married}, jumlah nasabah aktif mencapai puncak mendekati 4000 orang sedangkan nasabah churn sekitar 700 orang. Kategori \textit{Single} menduduki posisi kedua dengan nasabah aktif sekitar 3300 orang dan nasabah churn sekitar 680 orang. Kategori \textit{Unknown} dan \textit{Divorced} memiliki jumlah nasabah aktif masing-masing sekitar 620 orang dengan nasabah churn sekitar 120 orang. Visualisasi ini menunjukkan bahwa proporsi churn relatif konstan (berkisar antara 15\%--17\%) pada seluruh kategori pernikahan.
 
 \subsubsection{Stacked bar plot}
 \lstinputlisting[language=Python, caption={Stacked bar plot}, label={lst:kode-stacked-bar-plot-1}]{resource/code/bar-chart_3.py}
@@ -414,15 +463,22 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-bar-plot-2}.
 \lstinputlisting[caption={Output Stacked bar plot}, label={lst:out-stacked-bar-plot-1}]{resource/output/bar-chart_3_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-stacked-bar-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{x = np.array(...)}: Membuat array sumbu x (huruf).
-    \item \texttt{y = np.array(...)}: Membuat array nilai untuk sumbu y.
-    \item \texttt{plt.barh(x, y)}: Membuat diagram batang horizontal (bar chart horizontal).
-    \item \texttt{plt.show()}: Menampilkan diagram batang horizontal ke layar.
+  \item \texttt{data1} dan \texttt{data2}: Menghitung frekuensi status pernikahan masing-masing untuk pelanggan \textit{existing} dan \textit{churning}.
+  \item \texttt{df\_new = pd.concat(..., axis=1)}: Menggabungkan kedua data frekuensi menjadi satu DataFrame baru dengan kolom 'existing' dan 'attired'.
+  \item \texttt{df\_new.plot.bar(stacked=True)}: Membuat diagram batang bertumpuk (\textit{stacked bar}) secara langsung melalui modul plot Pandas.
+  \item \texttt{plt.title('Marital Status')} dan \texttt{plt.ylabel('Count')}: Menambahkan judul grafik dan keterangan nama sumbu y.
+  \item \texttt{plt.show()}: Menampilkan diagram batang bertumpuk ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-stacked-bar-plot-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-stacked-bar-plot-1}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:stacked-bar-plot-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/7-stackedbarplot.png}
+  \caption{Visualisasi Stacked Bar Plot Status Pernikahan}
+  \label{fig:stacked-bar-plot-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:stacked-bar-plot-1}, diagram batang bertumpuk mengilustrasikan kontribusi kumulatif dari nasabah \textit{existing} (bagian bawah berwarna biru) dan nasabah \textit{attired} (bagian atas berwarna oranye) terhadap total populasi nasabah di setiap status pernikahan. Total nasabah pada kategori \textit{Married} merupakan yang tertinggi yaitu melampaui 4600 nasabah, disusul kategori \textit{Single} mendekati 4000 nasabah, sedangkan kategori \textit{Divorced} dan \textit{Unknown} masing-masing berada di bawah 800 nasabah. Format bertumpuk ini sangat efektif dalam memperlihatkan total volume keseluruhan nasabah per kategori sekaligus proporsi relatif status retensi nasabah di dalamnya.
 
 \subsubsection{Histogram}
 \lstinputlisting[language=Python, caption={Histogram}, label={lst:kode-histogram-1}]{resource/code/histogram_1.py}
@@ -430,33 +486,48 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-stacked-bar-p
 \lstinputlisting[caption={Output Histogram}, label={lst:out-histogram-1}]{resource/output/histogram_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-histogram-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{data = np.array(...)}: Mendefinisikan array nilai-nilai ujian.
-    \item \texttt{bins = [0, 25, ... ]}: Menentukan batas interval (bins) histogram.
-    \item \texttt{plt.hist(data, bins=bins)}: Membuat histogram dari data dengan batas bins yang ditentukan.
-    \item \texttt{plt.title(...)}: Memberi judul histogram.
-    \item \texttt{plt.xticks(bins)}: Menyesuaikan penanda sumbu x dengan batas interval (bins).
-    \item \texttt{plt.xlabel(...)} dan \texttt{plt.ylabel(...)}: Memberi label sumbu x dan sumbu y.
-    \item \texttt{plt.show()}: Menampilkan plot histogram ke layar.
+  \item \texttt{data = np.array(...)}: Mendefinisikan array nilai-nilai ujian.
+  \item \texttt{bins = [0, 25, ... ]}: Menentukan batas interval (bins) histogram.
+  \item \texttt{plt.hist(data, bins=bins)}: Membuat histogram dari data dengan batas bins yang ditentukan.
+  \item \texttt{plt.title(...)}: Memberi judul histogram.
+  \item \texttt{plt.xticks(bins)}: Menyesuaikan penanda sumbu x dengan batas interval (bins).
+  \item \texttt{plt.xlabel(...)} dan \texttt{plt.ylabel(...)}: Memberi label sumbu x dan sumbu y.
+  \item \texttt{plt.show()}: Menampilkan plot histogram ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-histogram-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-histogram-1}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:histogram-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/8-histogram.png}
+  \caption{Visualisasi Histogram Distribusi Nilai Siswa}
+  \label{fig:histogram-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:histogram-1}, grafik histogram mengelompokkan 15 data nilai siswa ke dalam empat rentang interval (\textit{bins}) dengan lebar masing-masing 25 poin. Terlihat bahwa kelompok interval nilai terendah ($0\le x < 25$) dan interval menengah ($50\le x < 75$) masing-masing memiliki frekuensi terbanyak yaitu sebanyak 5 siswa. Sementara itu, kelompok interval nilai $25\le x < 50$ memiliki frekuensi 3 siswa, dan interval nilai tertinggi ($75\le x \le 100$) hanya memuat 2 siswa. Penggunaan fungsi \texttt{plt.hist()} dengan penentuan \textit{bins} kustom dan \texttt{plt.xticks(bins)} memberikan pemahaman cepat terhadap bentuk sebaran dan pemusatan data diskrit maupun kontinu.
 
 \lstinputlisting[language=Python, caption={Histogram churning}, label={lst:kode-histogram-2}]{resource/code/histogram_2.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Histogram churning}, label={lst:out-histogram-2}]{resource/output/histogram_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-histogram-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{data1 = existing\_data[...]}: Mengambil umur pelanggan existing.
-    \item \texttt{data2 = churning\_data[...]}: Mengambil umur pelanggan churn.
-    \item \texttt{plt.hist(data1, label='existing')}: Membuat histogram dari data1 dan memberinya label.
-    \item \texttt{plt.hist(data2, label='churning')}: Membuat histogram dari data2 dan memberinya label.
-    \item \texttt{plt.title(...)} dan label sumbu: Memberikan judul, dan label sumbu x dan y.
-    \item \texttt{plt.legend()}: Menampilkan legenda untuk membedakan histogram.
-    \item \texttt{plt.show()}: Menampilkan histogram gabungan ke layar.
+  \item \texttt{data1 = existing\_data[...]}: Mengambil umur pelanggan existing.
+  \item \texttt{data2 = churning\_data[...]}: Mengambil umur pelanggan churn.
+  \item \texttt{plt.hist(data1, label='existing')}: Membuat histogram dari data1 dan memberinya label.
+  \item \texttt{plt.hist(data2, label='churning')}: Membuat histogram dari data2 dan memberinya label.
+  \item \texttt{plt.title(...)} dan label sumbu: Memberikan judul, dan label sumbu x dan y.
+  \item \texttt{plt.legend()}: Menampilkan legenda untuk membedakan histogram.
+  \item \texttt{plt.show()}: Menampilkan histogram gabungan ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-histogram-2}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-histogram-2}, sedangkan visualisasi distribusi komparatifnya disajikan pada Gambar \ref{fig:histogram-churning-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/9-histogram2.png}
+  \caption{Visualisasi Histogram Distribusi Usia Nasabah}
+  \label{fig:histogram-churning-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:histogram-churning-1}, visualisasi menyajikan perbandingan sebaran umur antara nasabah \textit{existing} (batang biru) dan nasabah \textit{churning} (batang oranye). Kedua kelompok nasabah memperlihatkan pola distribusi unimodal berbentuk lonceng (\textit{bell-shaped curve}) yang mendekati distribusi normal, di mana frekuensi terkonsentrasi pada rentang usia paruh baya yakni 40 hingga 55 tahun. Puncak tertinggi populasi nasabah \textit{existing} berada di sekitar usia 45--50 tahun dengan jumlah melampaui 2000 nasabah, begitu pula dengan nasabah \textit{churning} yang mencapai puncaknya di kisaran 370 nasabah pada rentang umur yang sama. Kesamaan pola sebaran ini mengindikasikan bahwa kecenderungan nasabah untuk berhenti tidak terisolasi pada kelompok usia tertentu saja, melainkan menyebar merata mengikuti proporsi demografi usia nasabah secara keseluruhan.
 
 \subsubsection{Scatter plot}
 \lstinputlisting[language=Python, caption={Scatter plot}, label={lst:kode-scatter-plot-1}]{resource/code/scatter-plot_1.py}
@@ -464,30 +535,45 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-histogram-2}.
 \lstinputlisting[caption={Output Scatter plot}, label={lst:out-scatter-plot-1}]{resource/output/scatter-plot_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-scatter-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{y1 = ...} dan \texttt{x1 = ...}: Mengambil nilai lama bulan mendaftar buku tabungan, dan usia pelanggan untuk pelanggan attrited (churn).
-    \item \texttt{y2 = ...} dan \texttt{x2 = ...}: Mengambil nilai yang sama (Months\_on\_book dan umur) untuk pelanggan existing.
-    \item \texttt{plt.scatter(x1, y1, label='churning')}: Membuat plot sebar (scatter plot) untuk pelanggan churn.
-    \item \texttt{plt.scatter(x2, y2, label='existing')}: Membuat scatter plot yang saling tindih untuk pelanggan existing.
-    \item \texttt{plt.title(...)}, \texttt{plt.ylabel(...)}, \texttt{plt.xlabel(...)}: Memberi keterangan judul dan label sumbu x y plot perbandingan scatter ini.
-    \item \texttt{plt.legend()}: Menampilkan legenda dan arti warna titik pada titik koordinat.
-    \item \texttt{plt.show()}: Menampilkan dua plot scatter ini secara bersamaan ke layar.
+  \item \texttt{y1 = ...} dan \texttt{x1 = ...}: Mengambil nilai lama bulan mendaftar buku tabungan, dan usia pelanggan untuk pelanggan attrited (churn).
+  \item \texttt{y2 = ...} dan \texttt{x2 = ...}: Mengambil nilai yang sama (Months\_on\_book dan umur) untuk pelanggan existing.
+  \item \texttt{plt.scatter(x1, y1, label='churning')}: Membuat plot sebar (scatter plot) untuk pelanggan churn.
+  \item \texttt{plt.scatter(x2, y2, label='existing')}: Membuat scatter plot yang saling tindih untuk pelanggan existing.
+  \item \texttt{plt.title(...)}, \texttt{plt.ylabel(...)}, \texttt{plt.xlabel(...)}: Memberi keterangan judul dan label sumbu x y plot perbandingan scatter ini.
+  \item \texttt{plt.legend()}: Menampilkan legenda dan arti warna titik pada titik koordinat.
+  \item \texttt{plt.show()}: Menampilkan dua plot scatter ini secara bersamaan ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-scatter-plot-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-scatter-plot-1}, sedangkan representasi diagram sebarnya disajikan pada Gambar \ref{fig:scatter-plot-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/10-scatterplot.png}
+  \caption{Visualisasi Scatter Plot Usia Nasabah vs Lama Berlangganan (Matplotlib)}
+  \label{fig:scatter-plot-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:scatter-plot-1}, diagram sebar memperlihatkan hubungan bivariat antara usia nasabah (\textit{age}) pada sumbu horizontal dan masa menjadi nasabah (\textit{Months on Book}) pada sumbu vertikal. Secara umum terlihat adanya korelasi positif linear yang cukup kuat, di mana semakin bertambah usia nasabah maka kecenderungan durasi kepemilikan produk perbankan nasabah tersebut juga semakin panjang. Selain pola diagonal linier, terlihat pula klaster titik-titik horizontal pekat pada nilai \textit{Months on Book} bernilai 36 bulan (3 tahun), yang mencerminkan konsentrasi waktu kontrak standar nasabah. Karena titik \textit{existing} (oranye) diplot setelah titik \textit{churning} (biru) dan memiliki jumlah data yang jauh lebih dominan, titik-titik oranye tampak menutupi sebagian besar kanvas, sehingga titik biru hanya terlihat menyembul di area batas tepi dan anomali.
 
 \lstinputlisting[language=Python, caption={Scatter plot df}, label={lst:kode-scatter-plot-2}]{resource/code/scatter-plot_2.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Scatter plot df}, label={lst:out-scatter-plot-2}]{resource/output/scatter-plot_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-scatter-plot-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{ax = existing\_data.plot.scatter(..., c='red')}: Membuat objek diagram sebar (scatter plot) untuk pelanggan existing berwarna merah menggunakan fungsi pandas \texttt{.plot.scatter()}, kemudian menyimpannya sebagai \texttt{ax}.
-    \item \texttt{churning\_data.plot.scatter(..., ax=ax, c='blue')}: Menambahkan scatter plot untuk pelanggan churn berwarna biru dan melekatkannya di grafik/axis (\texttt{ax}) yang sama.
-    \item \texttt{plt.title(...)}, \texttt{plt.ylabel(...)}, \texttt{plt.xlabel(...)}: Menyetel atribut judul dan teks keterangan untuk sumbu X maupun sumbu Y plot.
-    \item \texttt{plt.show()}: Menampilkan scatter plot menggunakan kapabilitas hybrid antara Pandas dan Matplotlib.
+  \item \texttt{ax = existing\_data.plot.scatter(..., c='red')}: Membuat objek diagram sebar (scatter plot) untuk pelanggan existing berwarna merah menggunakan fungsi pandas \texttt{.plot.scatter()}, kemudian menyimpannya sebagai \texttt{ax}.
+  \item \texttt{churning\_data.plot.scatter(..., ax=ax, c='blue')}: Menambahkan scatter plot untuk pelanggan churn berwarna biru dan melekatkannya di grafik/axis (\texttt{ax}) yang sama.
+  \item \texttt{plt.title(...)}, \texttt{plt.ylabel(...)}, \texttt{plt.xlabel(...)}: Menyetel atribut judul dan teks keterangan untuk sumbu X maupun sumbu Y plot.
+  \item \texttt{plt.show()}: Menampilkan scatter plot menggunakan kapabilitas hybrid antara Pandas dan Matplotlib.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-scatter-plot-2}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-scatter-plot-2}, sedangkan representasi grafis dengan pelapisan Pandas disajikan pada Gambar \ref{fig:scatter-plot-pandas-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/11-scatterplot2.png}
+  \caption{Visualisasi Scatter Plot Usia Nasabah vs Lama Berlangganan (Pandas)}
+  \label{fig:scatter-plot-pandas-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:scatter-plot-pandas-1}, implementasi visualisasi menggunakan metode \texttt{.plot.scatter()} dari Pandas menghasilkan susunan pelapisan yang berbeda di mana nasabah \textit{existing} diplot terlebih dahulu sebagai lapisan dasar berwarna merah, kemudian nasabah \textit{churning} berwarna biru ditumpangkan di atasnya menggunakan parameter \texttt{ax=ax}. Pengurutan pelapisan ini secara efektif membuat sebaran nasabah \textit{churning} (biru) tampak jelas berada di permukaan grafik di sepanjang rentang usia 26 hingga 68 tahun dan durasi \textit{Months on Book} 13 hingga 56 bulan. Pola sebaran titik biru yang merata pada seluruh area titik merah menunjukkan bahwa fenomena \textit{churn} terjadi di semua kelompok umur dan tidak bergantung secara eksklusif pada lamanya nasabah telah berlangganan.
 
 \subsubsection{Box plot}
 \lstinputlisting[language=Python, caption={Box plot}, label={lst:kode-box-plot-1}]{resource/code/box-plot_1.py}
@@ -495,26 +581,43 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-scatter-plot-
 \lstinputlisting[caption={Output Box plot}, label={lst:out-box-plot-1}]{resource/output/box-plot_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-box-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{data = np.random.normal(...)}: Menghasilkan data acak berdistribusi normal dengan rata-rata 250, standar deviasi 10, dan jumlah 250.
-    \item \texttt{plt.boxplot(data)}: Membuat plot kotak (box plot) dari data tersebut.
-    \item \texttt{plt.show()}: Menampilkan box plot ke layar.
+  \item \texttt{plt.boxplot(df\_churning['Customer\_Age'])}: Membuat plot kotak (\textit{box plot}) dari kolom usia pelanggan untuk melihat ringkasan sebaran lima angka (\textit{five-number summary}).
+  \item \texttt{plt.title('Customer age')}, \texttt{plt.ylabel('age')}: Menambahkan judul grafik dan label penjelas pada sumbu vertikal.
+  \item \texttt{plt.xticks([1], labels=['all customer'])}: Mengatur penanda dan label sumbu horizontal untuk kategori seluruh nasabah.
+  \item \texttt{plt.show()}: Menampilkan diagram box plot ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-box-plot-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-box-plot-1}, sedangkan representasi grafisnya disajikan pada Gambar \ref{fig:box-plot-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/12-boxplot.png}
+  \caption{Visualisasi Box Plot Usia Keseluruhan Nasabah}
+  \label{fig:box-plot-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:box-plot-1}, diagram kotak (\textit{box plot}) memberikan visualisasi statistik deskriptif lima angka dari variabel usia seluruh nasabah. Garis horizontal oranye di dalam kotak menunjukkan nilai median yang berada pada usia 46 tahun. Kotak antarkuartil (\textit{Interquartile Range} / IQR) dibatasi oleh kuartil pertama ($Q_1$) di sekitar usia 41 tahun dan kuartil ketiga ($Q_3$) di usia 52 tahun, yang menandakan bahwa 50\% populasi nasabah terkonsentrasi pada rentang usia 41 hingga 52 tahun. Garis batas (\textit{whiskers}) membentang ke bawah hingga usia minimum sekitar 26 tahun dan ke atas hingga batas maksimum sekitar 68 tahun. Selain itu, terdeteksi dua titik pencilan (\textit{outliers}) di atas \textit{whisker} atas pada usia 70 dan 73 tahun, yang mengindikasikan keberadaan sejumlah kecil nasabah lanjut usia di luar batas persebaran normal data.
 
 \lstinputlisting[language=Python, caption={Box plot concated}, label={lst:kode-box-plot-2}]{resource/code/box-plot_2.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Box plot concated}, label={lst:out-box-plot-2}]{resource/output/box-plot_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-box-plot-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{data1 = existing\_data['Customer\_Age']}: Mengambil kolom 'Customer\_Age' dari data pelanggan yang masih ada.
-    \item \texttt{data2 = churning\_data['Customer\_Age']}: Mengambil kolom 'Customer\_Age' dari data pelanggan yang telah churn.
-    \item \texttt{plt.boxplot([data1, data2])}: Membuat box plot secara bersamaan untuk membandingkan kedua data tersebut.
-    \item \texttt{plt.show()}: Menampilkan plot ke layar.
+  \item \texttt{data1 = existing\_data['Customer\_Age']} dan \texttt{data2 = churning\_data['Customer\_Age']}: Mengambil data usia nasabah dari kelompok \textit{existing} dan \textit{churning}.
+  \item \texttt{df\_new = pd.concat([data1, data2], keys=['existing', 'attrited'], axis=1)}: Menggabungkan kedua data menjadi DataFrame terstruktur dengan indeks kolom masing-masing status nasabah.
+  \item \texttt{df\_new.plot.box()}: Membuat diagram kotak komparatif berdampingan secara otomatis melalui pustaka Pandas.
+  \item \texttt{plt.title('Customer age')}, \texttt{plt.ylabel('age')}: Menambahkan judul dan teks penjelas sumbu y.
+  \item \texttt{plt.show()}: Menampilkan diagram perbandingan box plot ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-box-plot-2}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-box-plot-2}, sedangkan visualisasi perbandingan statistiknya disajikan pada Gambar \ref{fig:box-plot-comparative-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/13-boxplot2.png}
+  \caption{Visualisasi Perbandingan Box Plot Usia Nasabah Existing dan Attrited}
+  \label{fig:box-plot-comparative-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:box-plot-comparative-1}, perbandingan diagram kotak berdampingan antara nasabah \textit{existing} dan \textit{attrited} memperlihatkan karakteristik distribusi usia yang hampir identik. Nilai median pada kelompok nasabah \textit{existing} berada di angka 46 tahun dengan garis hijau di dalam kotak, sedangkan pada kelompok \textit{attrited} mediannya sedikit lebih tinggi yaitu pada angka 47 tahun. Rentang kotak IQR ($Q_1$ hingga $Q_3$) pada kedua kelompok sama-sama membentang dari usia sekitar 41 hingga 52 tahun. Perbedaan yang terlihat terletak pada keberadaan nilai pencilan (\textit{outliers}), di mana kelompok \textit{existing} memiliki data ekstrem pada usia 70 dan 73 tahun, sementara kelompok \textit{attrited} tidak memiliki pencilan dengan batas atas whisker berakhir di usia 68 tahun. Hal ini membuktikan bahwa faktor usia bukanlah pembeda signifikan (\textit{discriminating factor}) terhadap keputusan nasabah untuk berpindah (\textit{churn}).
 
 \subsubsection{Violin plot}
 \lstinputlisting[language=Python, caption={Violin plot}, label={lst:kode-violin-plot-1}]{resource/code/box-plot_3.py}
@@ -522,17 +625,23 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-box-plot-2}.
 \lstinputlisting[caption={Output Violin plot}, label={lst:out-violin-plot-1}]{resource/output/box-plot_3_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-violin-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{my\_dictionary = ...}: Menyimpan data1 dan data2 ke dalam bentuk dictionary dengan label 'existing' dan 'attrited'.
-    \item \texttt{plt.violinplot(list(my\_dictionary.values()))}: Membuat plot biola (violin plot) untuk melihat distribusi dari nilai pada dictionary.
-    \item \texttt{plt.title(...)}: Menambahkan judul plot.
-    \item \texttt{plt.ylabel(...)}: Menambahkan label pada sumbu y.
-    \item \texttt{plt.xticks(...)}: Mengatur label sumbu x sesuai dengan kunci (keys) pada dictionary.
-    \item \texttt{plt.show()}: Menampilkan plot ke layar.
+  \item \texttt{my\_dictionary = ...}: Menyimpan data1 dan data2 ke dalam bentuk dictionary dengan label 'existing' dan 'attrited'.
+  \item \texttt{plt.violinplot(list(my\_dictionary.values()))}: Membuat plot biola (violin plot) untuk melihat distribusi dari nilai pada dictionary.
+  \item \texttt{plt.title(...)}: Menambahkan judul plot.
+  \item \texttt{plt.ylabel(...)}: Menambahkan label pada sumbu y.
+  \item \texttt{plt.xticks(...)}: Mengatur label sumbu x sesuai dengan kunci (keys) pada dictionary.
+  \item \texttt{plt.show()}: Menampilkan plot ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-violin-plot-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-violin-plot-1}, sedangkan representasi grafik densitasnya disajikan pada Gambar \ref{fig:violin-plot-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/14-violinplot.png}
+  \caption{Visualisasi Violin Plot Usia Nasabah Existing dan Attrited}
+  \label{fig:violin-plot-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:violin-plot-1}, diagram \textit{violin plot} menggabungkan representasi rentang nilai ekstrem dengan estimasi kepadatan probabilitas (\textit{Kernel Density Estimation} / KDE) dari usia nasabah. Bagian terlebar dari badan biola menunjukkan konsentrasi kepadatan data tertinggi, yang tampak simetris dan menggembung di sekitar rentang usia 43 hingga 50 tahun baik pada kelompok nasabah \textit{existing} maupun nasabah \textit{attrited}. Garis vertikal di tengah biola memperlihatkan rentang nilai dari batas minimum sekitar 26 tahun hingga nilai maksimum 73 tahun untuk nasabah \textit{existing} dan 68 tahun untuk nasabah \textit{attrited}. Visualisasi ini mempertegas bentuk distribusi unimodal simetris pada kedua kelas nasabah yang tidak dapat ditunjukkan secara mendalam hanya melalui diagram kotak konvensional.
 
 \subsubsection{Sub plot}
 \lstinputlisting[language=Python, caption={Sub plot}, label={lst:kode-sub-plot-1}]{resource/code/box-plot_4.py}
@@ -540,20 +649,26 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-violin-plot-1
 \lstinputlisting[caption={Output Sub plot}, label={lst:out-sub-plot-1}]{resource/output/box-plot_4_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-sub-plot-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{plt.figure(figsize=(10, 10))}: Mengatur ukuran figure (kanvas) plot menjadi 10x10 inci.
-    \item \texttt{plt.subplot(2, 2, 1)}: Membagi area plot menjadi matriks 2x2 dan mengaktifkan area pertama.
-    \item \texttt{plt.boxplot(...)}: Membuat box plot untuk umur pelanggan existing.
-    \item \texttt{plt.subplot(2, 2, 2)}: Mengaktifkan area kedua untuk box plot umur pelanggan churn.
-    \item \texttt{plt.subplot(2, 2, 3)}: Mengaktifkan area ketiga untuk histogram umur pelanggan existing.
-    \item \texttt{existing\_data[...].plot.hist()}: Membuat histogram dari kolom 'Customer\_Age'.
-    \item \texttt{plt.ylim([0, 2100])}: Membatasi sumbu y maksimal di angka 2100 agar dapat dibandingkan.
-    \item \texttt{plt.subplot(2, 2, 4)}: Mengaktifkan area keempat untuk histogram umur pelanggan churn dengan warna merah.
-    \item \texttt{plt.show()}: Menampilkan seluruh plot secara bersamaan ke layar.
+  \item \texttt{plt.figure(figsize=(10, 10))}: Mengatur ukuran figure (kanvas) plot menjadi 10x10 inci.
+  \item \texttt{plt.subplot(2, 2, 1)}: Membagi area plot menjadi matriks 2x2 dan mengaktifkan area pertama.
+  \item \texttt{plt.boxplot(...)}: Membuat box plot untuk umur pelanggan existing.
+  \item \texttt{plt.subplot(2, 2, 2)}: Mengaktifkan area kedua untuk box plot umur pelanggan churn.
+  \item \texttt{plt.subplot(2, 2, 3)}: Mengaktifkan area ketiga untuk histogram umur pelanggan existing.
+  \item \texttt{existing\_data[...].plot.hist()}: Membuat histogram dari kolom 'Customer\_Age'.
+  \item \texttt{plt.ylim([0, 2100])}: Membatasi sumbu y maksimal di angka 2100 agar dapat dibandingkan.
+  \item \texttt{plt.subplot(2, 2, 4)}: Mengaktifkan area keempat untuk histogram umur pelanggan churn dengan warna merah.
+  \item \texttt{plt.show()}: Menampilkan seluruh plot secara bersamaan ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-sub-plot-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-sub-plot-1}, sedangkan konfigurasi multi-grafik disajikan pada Gambar \ref{fig:sub-plot-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/15-subplot.png}
+  \caption{Visualisasi Grid Subplot Komparasi Box Plot dan Histogram Usia Nasabah}
+  \label{fig:sub-plot-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:sub-plot-1}, tata letak \textit{subplot} matriks $2\times 2$ menyajikan analisis komprehensif demografi nasabah dengan memadukan dua teknik visualisasi berbeda. Panel baris atas memperlihatkan perbandingan diagram kotak usia antara nasabah \textit{existing} (kiri atas) dan nasabah \textit{attrited} (kanan atas) yang mengonfirmasi kesamaan ukuran pemusatan data (median ~46--47 tahun). Sementara itu, panel baris bawah menampilkan perbandingan histogram frekuensi usia nasabah \textit{existing} (biru, kiri bawah) dan nasabah \textit{attrited} (merah, kanan bawah). Dengan disamakannya batas skala sumbu y (\texttt{plt.ylim([0, 2100])}), ketimpangan rasio jumlah sampel (\textit{class imbalance}) terlihat sangat mencolok; frekuensi nasabah \textit{existing} mencapai puncaknya di atas 2000 nasabah, sedangkan puncak frekuensi nasabah \textit{attrited} berada jauh di bawahnya yakni sekitar 370 nasabah. Penataan \textit{subplot} ini mempermudah komparasi visual multi-variat dan multi-perspektif dalam satu kanvas terpadu.
 
 \subsubsection{Annotation}
 \lstinputlisting[language=Python, caption={Annotation}, label={lst:kode-annotation-1}]{resource/code/kustomisasi-plot_1.py}
@@ -561,16 +676,22 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-sub-plot-1}.
 \lstinputlisting[caption={Output Annotation}, label={lst:out-annotation-1}]{resource/output/kustomisasi-plot_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-annotation-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{data = df\_churning[...]}: Menyimpan kolom 'Customer\_Age' ke variabel data.
-    \item \texttt{plt.hist(data)}: Membuat histogram dari data.
-    \item \texttt{plt.text(60, 1600, ...)}: Menambahkan teks kustom (nilai median) pada koordinat (60, 1600) di plot.
-    \item \texttt{plt.text(60, 1800, ...)}: Menambahkan teks kustom (nilai rata-rata) pada koordinat (60, 1800) di plot.
-    \item \texttt{plt.show()}: Menampilkan plot yang telah dikustomisasi ke layar.
+  \item \texttt{data = df\_churning[...]}: Menyimpan kolom 'Customer\_Age' ke variabel data.
+  \item \texttt{plt.hist(data)}: Membuat histogram dari data.
+  \item \texttt{plt.text(60, 1600, ...)}: Menambahkan teks kustom (nilai median) pada koordinat (60, 1600) di plot.
+  \item \texttt{plt.text(60, 1800, ...)}: Menambahkan teks kustom (nilai rata-rata) pada koordinat (60, 1800) di plot.
+  \item \texttt{plt.show()}: Menampilkan plot yang telah dikustomisasi ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-annotation-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-annotation-1}, sedangkan visualisasi beranotasinya disajikan pada Gambar \ref{fig:annotation-plot-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/16-annotation.png}
+  \caption{Visualisasi Histogram dengan Anotasi Statistik Nilai Mean dan Median}
+  \label{fig:annotation-plot-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:annotation-plot-1}, visualisasi menyajikan histogram usia nasabah yang diperkaya dengan penambahan teks anotasi statistik ringkas menggunakan fungsi \texttt{plt.text()}. Anotasi ditempatkan secara terarah pada area kosong di sisi kanan atas grafik, yakni koordinat $(60, 1800)$ untuk menampilkan teks \textit{Mean Age: 46.33} dan koordinat $(60, 1600)$ untuk \textit{Median Age: 46.0} dengan format miring (\textit{italic}) berukuran 10 poin. Nilai rata-rata (\textit{mean}) 46.33 dan nilai tengah (\textit{median}) 46.0 yang hampir tepat berhimpit mengonfirmasi secara visual dan analitis bahwa sebaran data umur nasabah memiliki simetri yang sangat tinggi tanpa dipengaruhi oleh kemencengan (\textit{skewness}) ekstrem. Pemanfaatan anotasi langsung pada bidang plot ini meningkatkan efisiensi interpretasi pembaca karena parameter numerik penting dapat dipahami seketika tanpa harus membaca tabel statistik terpisah.
 
 \subsubsection{Axis}
 \lstinputlisting[language=Python, caption={Axis}, label={lst:kode-axis-1}]{resource/code/kustomisasi-plot_2.py}
@@ -578,19 +699,25 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-annotation-1}
 \lstinputlisting[caption={Output Axis}, label={lst:out-axis-1}]{resource/output/kustomisasi-plot_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-axis-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{x = np.array(...)}: Membuat array berisi tanggal sebagai penanda waktu di sumbu x.
-    \item \texttt{y1 = np.array(...)} dan \texttt{y2 = np.array(...)}: Membuat array berisi nilai suhu dari dua sensor berbeda.
-    \item \texttt{plt.plot(x, y1, marker='o', ...)}: Menggambar grafik garis untuk y1 dengan penanda titik bulat.
-    \item \texttt{plt.plot(x, y2, marker='*', ...)}: Menggambar grafik garis untuk y2 dengan penanda bentuk bintang.
-    \item \texttt{plt.legend()}: Memunculkan legenda grafik.
-    \item \texttt{plt.ylabel(...)} dan \texttt{plt.xlabel(...)}: Memberikan label sumbu dengan ukuran font spesifik (10).
-    \item \texttt{plt.ylim([-20, 30])}: Mengatur batas skala sumbu y agar rentangnya dari -20 sampai 30.
-    \item \texttt{plt.show()}: Menampilkan plot ke layar.
+  \item \texttt{x = np.array(...)}: Membuat array berisi tanggal sebagai penanda waktu di sumbu x.
+  \item \texttt{y1 = np.array(...)} dan \texttt{y2 = np.array(...)}: Membuat array berisi nilai suhu dari dua sensor berbeda.
+  \item \texttt{plt.plot(x, y1, marker='o', ...)}: Menggambar grafik garis untuk y1 dengan penanda titik bulat.
+  \item \texttt{plt.plot(x, y2, marker='*', ...)}: Menggambar grafik garis untuk y2 dengan penanda bentuk bintang.
+  \item \texttt{plt.legend()}: Memunculkan legenda grafik.
+  \item \texttt{plt.ylabel(...)} dan \texttt{plt.xlabel(...)}: Memberikan label sumbu dengan ukuran font spesifik (10).
+  \item \texttt{plt.ylim([-20, 30])}: Mengatur batas skala sumbu y agar rentangnya dari -20 sampai 30.
+  \item \texttt{plt.show()}: Menampilkan plot ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-axis-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-axis-1}, sedangkan visualisasi penyesuaian batas skalanya disajikan pada Gambar \ref{fig:axis-plot-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/17-axis.png}
+  \caption{Visualisasi Grafik Garis dengan Kustomisasi Batas Sumbu Y}
+  \label{fig:axis-plot-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:axis-plot-1}, grafik garis menyajikan pencatatan suhu dari dua sensor pemantau (\textit{iot 1} dengan penanda titik lingkaran dan \textit{iot 2} dengan penanda bintang) sepanjang empat hari observasi (01/02/2020 hingga 01/05/2020). Nilai pembacaan sensor \textit{iot 1} berfluktuasi antara $1^\circ$C hingga $10^\circ$C, sedangkan sensor \textit{iot 2} bergerak pada kisaran $4^\circ$C hingga $13^\circ$C. Fitur utama yang diuji pada visualisasi ini adalah pemanggilan fungsi \texttt{plt.ylim([-20, 30])}, yang secara eksplisit memperlebar rentang vertikal sumbu y menjadi $-20^\circ$C sampai $30^\circ$C. Penetapan rentang batas sumbu yang lapang ini memberikan batas ambang fisik lingkungan yang proporsional bagi pembacaan suhu riil, mencegah pembaca salah menafsirkan fluktuasi kecil sebagai perubahan ekstrem, serta menyisakan ruang yang sangat memadai bagi penempatan kotak legenda di sudut kanan atas bidang grafik.
 
 \subsubsection{Legend}
 \lstinputlisting[language=Python, caption={Legend}, label={lst:kode-legend-1}]{resource/code/kustomisasi-plot_3.py}
@@ -598,17 +725,23 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-axis-1}.
 \lstinputlisting[caption={Output Legend}, label={lst:out-legend-1}]{resource/output/kustomisasi-plot_3_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-legend-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{data1 = ...} dan \texttt{data2 = ...}: Mengambil dua set data umur dari pelanggan existing dan churn.
-    \item \texttt{plt.hist(data1, label=...)}: Menambahkan histogram data1 dengan label 'Existing customer'.
-    \item \texttt{plt.hist(data2, label=...)}: Menambahkan histogram data2 dengan label 'Attrited customer'.
-    \item \texttt{plt.title(...)}, \texttt{plt.ylabel(...)}, \texttt{plt.xlabel(...)}: Mengatur atribut judul dan teks sumbu.
-    \item \texttt{plt.legend()}: Menampilkan legenda di sudut plot.
-    \item \texttt{plt.show()}: Menampilkan grafik histogram secara utuh ke layar.
+  \item \texttt{data1 = ...} dan \texttt{data2 = ...}: Mengambil dua set data umur dari pelanggan existing dan churn.
+  \item \texttt{plt.hist(data1, label=...)}: Menambahkan histogram data1 dengan label 'Existing customer'.
+  \item \texttt{plt.hist(data2, label=...)}: Menambahkan histogram data2 dengan label 'Attrited customer'.
+  \item \texttt{plt.title(...)}, \texttt{plt.ylabel(...)}, \texttt{plt.xlabel(...)}: Mengatur atribut judul dan teks sumbu.
+  \item \texttt{plt.legend()}: Menampilkan legenda di sudut plot.
+  \item \texttt{plt.show()}: Menampilkan grafik histogram secara utuh ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-legend-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-legend-1}, sedangkan representasi grafik dengan elemen legendanya disajikan pada Gambar \ref{fig:legend-plot-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/18-legend.png}
+  \caption{Visualisasi Histogram Berganda dengan Penambahan Legenda}
+  \label{fig:legend-plot-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:legend-plot-1}, visualisasi menyajikan perpaduan dua grafik histogram usia nasabah yang dilengkapi dengan kotak legenda di sudut kanan atas diagram. Elemen legenda secara otomatis mengidentifikasi balok warna biru sebagai kategori \textit{Existing customer} dan balok warna oranye sebagai kategori \textit{Attrited customer} berkat parameter \texttt{label} yang didefinisikan pada setiap pemanggilan \texttt{plt.hist()}. Integrasi legenda melalui fungsi \texttt{plt.legend()} ini sangat vital dalam grafik multi-deret dan multi-layer, karena menghapus kerancuan tafsir visual pembaca serta memperjelas pemahaman terhadap perbedaan sebaran frekuensi antara kelompok nasabah aktif dan nasabah yang telah berhenti secara langsung.
 
 \subsection{Data Preprocessing}
 
@@ -618,11 +751,11 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-legend-1}.
 \lstinputlisting[caption={Output Impor pustaka preprocessing}, label={lst:out-preprocessing-impor-pustaka-1}]{resource/output/membaca-dan-memahami-data_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-preprocessing-impor-pustaka-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{import pandas as pd}: Mengimpor library pandas untuk manipulasi dan analisis data (khususnya tabel DataFrame).
-    \item \texttt{import matplotlib.pyplot as plt}: Mengimpor modul pyplot untuk visualisasi data secara grafis.
-    \item \texttt{import numpy as np}: Mengimpor library numpy untuk perhitungan komputasi matriks/array berkinerja tinggi.
+  \item \texttt{import pandas as pd}: Mengimpor library pandas untuk manipulasi dan analisis data (khususnya tabel DataFrame).
+  \item \texttt{import matplotlib.pyplot as plt}: Mengimpor modul pyplot untuk visualisasi data secara grafis.
+  \item \texttt{import numpy as np}: Mengimpor library numpy untuk perhitungan komputasi matriks/array berkinerja tinggi.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-preprocessing-impor-pustaka-1}.
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-preprocessing-impor-pustaka-1} (tidak ada output).
 
 
 \subsubsection{Load dataset}
@@ -631,9 +764,9 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-preprocessing
 \lstinputlisting[caption={Output Load dataset titanic}, label={lst:out-load-dataset-titanic-1}]{resource/output/impor-library-data-preprocessing_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-load-dataset-titanic-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df = pd.read\_csv(...)}: Membaca file CSV dari URL (Titanic Dataset) dan menyimpannya sebagai DataFrame pandas bernama df.
+  \item \texttt{df = pd.read\_csv(...)}: Membaca file CSV dari URL (Titanic Dataset) dan menyimpannya sebagai DataFrame pandas bernama df.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-load-dataset-titanic-1}.
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-load-dataset-titanic-1} (tidak ada outputnya).
 
 
 \subsubsection{Melihat lima baris data pertama dengan df.head()}
@@ -642,7 +775,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-load-dataset-
 \lstinputlisting[caption={Output df head titanic}, label={lst:out-df-head-titanic-1}]{resource/output/membaca-dan-exploratory-data-titanic_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-df-head-titanic-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df.head()}: Menampilkan 5 baris pertama dari DataFrame untuk melihat sampel data dari paling atas.
+  \item \texttt{df.head()}: Menampilkan 5 baris pertama dari DataFrame untuk melihat sampel data dari paling atas.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-df-head-titanic-1}.
 
@@ -653,7 +786,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-df-head-titan
 \lstinputlisting[caption={Output df tail titanic}, label={lst:out-df-tail-titanic-1}]{resource/output/membaca-dan-exploratory-data-titanic_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-df-tail-titanic-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df.tail()}: Menampilkan 5 baris terakhir dari DataFrame untuk melihat sampel data dari paling bawah.
+  \item \texttt{df.tail()}: Menampilkan 5 baris terakhir dari DataFrame untuk melihat sampel data dari paling bawah.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-df-tail-titanic-1}.
 
@@ -664,7 +797,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-df-tail-titan
 \lstinputlisting[caption={Output df shape titanic}, label={lst:out-df-shape-titanic-1}]{resource/output/membaca-dan-exploratory-data-titanic_3_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-df-shape-titanic-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df.shape}: Mengembalikan jumlah baris dan kolom (dimensi) yang ada di DataFrame dalam bentuk tupel (baris, kolom).
+  \item \texttt{df.shape}: Mengembalikan jumlah baris dan kolom (dimensi) yang ada di DataFrame dalam bentuk tupel (baris, kolom).
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-df-shape-titanic-1}.
 
@@ -675,24 +808,39 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-df-shape-tita
 \lstinputlisting[caption={Output Visualisasi pie chart titanic}, label={lst:out-vis-pie-titanic-1}]{resource/output/membaca-dan-exploratory-data-titanic_4_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-vis-pie-titanic-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{data = df['Survived'].value\_counts()}: Menghitung jumlah masing-masing kelas unik di kolom 'Survived' (bertahan hidup / tidak).
-    \item \texttt{data.plot(kind='pie', autopct='\%.2f\%\%')}: Memplot data tersebut menjadi diagram lingkaran (pie chart) dengan format persentase dua angka di belakang koma.
-    \item \texttt{plt.show()}: Menampilkan pie chart ke layar.
+  \item \texttt{data = df['Survived'].value\_counts()}: Menghitung jumlah masing-masing kelas unik di kolom 'Survived' (bertahan hidup / tidak).
+  \item \texttt{data.plot(kind='pie', autopct='\%.2f\%\%')}: Memplot data tersebut menjadi diagram lingkaran (pie chart) dengan format persentase dua angka di belakang koma.
+  \item \texttt{plt.show()}: Menampilkan pie chart ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-vis-pie-titanic-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-vis-pie-titanic-1}, sedangkan representasi proporsi keselamatannya disajikan pada Gambar \ref{fig:vis-distribusi-pie-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/19-visualisasidistribusidata.png}
+  \caption{Visualisasi Pie Chart Distribusi Keselamatan Penumpang Titanic}
+  \label{fig:vis-distribusi-pie-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:vis-distribusi-pie-1}, diagram lingkaran memperlihatkan rasio kelangsungan hidup (\textit{survival rate}) dari seluruh penumpang dalam dataset Titanic. Kategori 0 yang merepresentasikan penumpang tidak selamat (meninggal dunia) mendominasi dengan proporsi sebesar 61.62\%, sedangkan kategori 1 yang merepresentasikan penumpang selamat (\textit{survived}) hanya mencakup 38.38\%. Visualisasi ini secara gamblang menggambarkan besarnya fatalitas dari tragedi tenggelamnya kapal Titanic sekaligus mengidentifikasi ketidakseimbangan kelas (\textit{class imbalance}) pada variabel target klasifikasi tersebut.
 
 \lstinputlisting[language=Python, caption={Visualisasi hist titanic}, label={lst:kode-vis-hist-titanic-1}]{resource/code/membaca-dan-exploratory-data-titanic_5.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Visualisasi hist titanic}, label={lst:out-vis-hist-titanic-1}]{resource/output/membaca-dan-exploratory-data-titanic_5_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-vis-hist-titanic-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df.hist(figsize=(10, 10))}: Membuat histogram dari seluruh kolom numerik di dataset sekaligus, dalam ukuran 10x10 inci.
-    \item \texttt{plt.show()}: Menampilkan kumpulan histogram tersebut ke layar.
+  \item \texttt{df.hist(figsize=(10, 10))}: Membuat histogram dari seluruh kolom numerik di dataset sekaligus, dalam ukuran 10x10 inci.
+  \item \texttt{plt.show()}: Menampilkan kumpulan histogram tersebut ke layar.
 \end{itemize}
-Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-vis-hist-titanic-1}.
+\par Eksekusinya dapat dilihat secara langsung pada teks objek Output \ref{lst:out-vis-hist-titanic-1}, sedangkan representasi matriks histogram multivariatnya disajikan pada Gambar \ref{fig:vis-distribusi-hist-1}.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/20-visualisasidistribusidata2.png}
+  \caption{Visualisasi Matriks Histogram Fitur Numerik Titanic}
+  \label{fig:vis-distribusi-hist-1}
+\end{figure}
 
-% ada gambar
+\par Berdasarkan Gambar \ref{fig:vis-distribusi-hist-1}, pemanggilan metode \texttt{df.hist(figsize=(10, 10))} secara otomatis menghasilkan kisi sembilan histogram untuk seluruh variabel numerik dalam dataset Titanic. Kolom \textit{PassengerId} menunjukkan distribusi seragam (\textit{uniform}) karena berfungsi sebagai identifikasi unik. Kolom \textit{Survived} dan \textit{Pclass} mencerminkan distribusi diskrit bertingkat, di mana penumpang kelas 3 (\textit{Pclass} 3) berjumlah terbanyak mendekati 500 orang. Variabel \textit{Age} memperlihatkan distribusi miring ke kanan (\textit{right-skewed}) dengan konsentrasi usia penumpang pada rentang 20 hingga 35 tahun serta lonjakan kecil pada kelompok balita. Variabel relasi keluarga (\textit{SibSp} dan \textit{Parch}) serta tarif tiket (\textit{Fare}) menunjukkan kemiringan positif yang sangat tajam (\textit{extreme right-skewness}), di mana mayoritas penumpang bepergian sendiri tanpa keluarga dan membayar tarif di bawah 50 dolar, meskipun terdapat pencilan ekstrem tiket kelas atas yang mencapai tarif lebih dari 500 dolar.
 
 \subsubsection{Analisis korelasi antar variabel}
 \lstinputlisting[language=Python, caption={Korelasi antar variabel}, label={lst:kode-korelasi-variabel-1}]{resource/code/membaca-dan-exploratory-data-titanic_6.py}
@@ -700,7 +848,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-vis-hist-tita
 \lstinputlisting[caption={Output Korelasi antar variabel}, label={lst:out-korelasi-variabel-1}]{resource/output/membaca-dan-exploratory-data-titanic_6_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-korelasi-variabel-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df.corr(numeric\_only=True)}: Menghitung matriks korelasi hanya pada kolom yang bertipe angka, untuk melihat keterhubungan secara linier antar variabel.
+  \item \texttt{df.corr(numeric\_only=True)}: Menghitung matriks korelasi hanya pada kolom yang bertipe angka, untuk melihat keterhubungan secara linier antar variabel.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-korelasi-variabel-1}.
 
@@ -711,7 +859,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-korelasi-vari
 \lstinputlisting[caption={Output Descriptive statistics}, label={lst:out-descriptive-stats-1}]{resource/output/membaca-dan-exploratory-data-titanic_7_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-descriptive-stats-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df.describe()}: Menampilkan ringkasan statistik deskriptif dari kolom numerik seperti nilai mean, std, minimal, kuartil (25\%, 50\%, 75\%), dan nilai maksimal.
+  \item \texttt{df.describe()}: Menampilkan ringkasan statistik deskriptif dari kolom numerik seperti nilai mean, std, minimal, kuartil (25\%, 50\%, 75\%), dan nilai maksimal.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-descriptive-stats-1}.
 
@@ -722,7 +870,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-descriptive-s
 \lstinputlisting[caption={Output Mengecek missing values}, label={lst:out-cek-missing-values-1}]{resource/output/membaca-dan-exploratory-data-titanic_8_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-missing-values-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df.isnull().sum()}: Mengecek kolom-kolom apa saja yang memiliki baris kosong (\textit{missing value/null}) lalu menjumlahkannya per setiap kolom.
+  \item \texttt{df.isnull().sum()}: Mengecek kolom-kolom apa saja yang memiliki baris kosong (\textit{missing value/null}) lalu menjumlahkannya per setiap kolom.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-cek-missing-values-1}.
 
@@ -731,8 +879,8 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-cek-missing-v
 \lstinputlisting[caption={Output Mengecek duplicates}, label={lst:out-cek-duplicates-1}]{resource/output/penanganan-missing-values-dan-duplikasi_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-duplicates-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{print(df.duplicated().sum())}: Mengecek ada berapa jumlah baris data observasi yang terduplikat dan langsung menge-print hasilnya.
-    \item \texttt{df.drop\_duplicates(inplace=True)}: Menghapus baris-baris yang teridentifikasi sebagai duplikat secara permanen terhadap dataframe (inplace).
+  \item \texttt{print(df.duplicated().sum())}: Mengecek ada berapa jumlah baris data observasi yang terduplikat dan langsung menge-print hasilnya.
+  \item \texttt{df.drop\_duplicates(inplace=True)}: Menghapus baris-baris yang teridentifikasi sebagai duplikat secara permanen terhadap dataframe (inplace).
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-cek-duplicates-1}.
 
@@ -743,10 +891,10 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-cek-duplicate
 \lstinputlisting[caption={Output Imputation}, label={lst:out-imputation-1}]{resource/output/penanganan-missing-values-dan-duplikasi_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-imputation-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df['Age'] = df['Age'].fillna(df['Age'].median())}: Mengisi sel/baris kosong (missing value) pada kolom 'Age' (Umur) dengan nilai tengah (median) dari umur penumpang lain.
-    \item \texttt{df['Cabin'] = df['Cabin'].fillna(df['Cabin'].value\_counts().index[0])}: Mengisi sel kosong pada kolom 'Cabin' dengan nilai kabin kategorikal terbanyak/modus (index pertama dari value counts).
-    \item \texttt{df['Embarked'] = df['Embarked'].fillna(...)}: Mengisi sel kosong pada kolom pelabuhan ('Embarked') dengan tempat embarkasi yang paling sering muncul (modus).
-    \item \texttt{display(df.isnull().sum())}: Memastikan hasil imputasi dengan mengecek kembali bahwa semua kolom sudah tidak memiliki null / missing value.
+  \item \texttt{df['Age'] = df['Age'].fillna(df['Age'].median())}: Mengisi sel/baris kosong (missing value) pada kolom 'Age' (Umur) dengan nilai tengah (median) dari umur penumpang lain.
+  \item \texttt{df['Cabin'] = df['Cabin'].fillna(df['Cabin'].value\_counts().index[0])}: Mengisi sel kosong pada kolom 'Cabin' dengan nilai kabin kategorikal terbanyak/modus (index pertama dari value counts).
+  \item \texttt{df['Embarked'] = df['Embarked'].fillna(...)}: Mengisi sel kosong pada kolom pelabuhan ('Embarked') dengan tempat embarkasi yang paling sering muncul (modus).
+  \item \texttt{display(df.isnull().sum())}: Memastikan hasil imputasi dengan mengecek kembali bahwa semua kolom sudah tidak memiliki null / missing value.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-imputation-1}.
 
@@ -757,10 +905,10 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-imputation-1}
 \lstinputlisting[caption={Output Memeriksa categorical attribute}, label={lst:out-periksa-categorical-1}]{resource/output/penanganan-missing-values-dan-duplikasi_3_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-periksa-categorical-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df\_X = df.drop(..., axis=1)}: Menyeleksi variabel fitur prediktor (df\_X) dengan membuang kolom target ('Survived') dan atribut yang kurang relevan seperti ID, Name, Cabin, dan Ticket.
-    \item \texttt{df\_y = df['Survived']}: Mengambil kolom 'Survived' secara spesifik untuk dijadikan variabel target (df\_y).
-    \item \texttt{cats = df\_X.select\_dtypes(include=['object', 'bool']).columns}: Mencari tahu nama-nama kolom pada dataframe df\_X yang masih bertipe kategorikal (string/boolean).
-    \item \texttt{print(cats)}: Mencetak dan memastikan kolom-kolom mana saja yang harus di-encode lebih lanjut.
+  \item \texttt{df\_X = df.drop(..., axis=1)}: Menyeleksi variabel fitur prediktor (df\_X) dengan membuang kolom target ('Survived') dan atribut yang kurang relevan seperti ID, Name, Cabin, dan Ticket.
+  \item \texttt{df\_y = df['Survived']}: Mengambil kolom 'Survived' secara spesifik untuk dijadikan variabel target (df\_y).
+  \item \texttt{cats = df\_X.select\_dtypes(include=['object', 'bool']).columns}: Mencari tahu nama-nama kolom pada dataframe df\_X yang masih bertipe kategorikal (string/boolean).
+  \item \texttt{print(cats)}: Mencetak dan memastikan kolom-kolom mana saja yang harus di-encode lebih lanjut.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-periksa-categorical-1}.
 
@@ -771,10 +919,10 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-periksa-categ
 \lstinputlisting[caption={Output One hot encoding 1}, label={lst:out-ohe-1}]{resource/output/one-hot-encoding_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-ohe-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{ohe = OneHotEncoder(...)}: Membuat objek inisialisasi One Hot Encoding dengan parameter \texttt{sparse\_output=False} agar matriks kembalian dalam bentuk padat (dense array).
-    \item \texttt{ohe.fit(df\_X[['Sex', 'Embarked']])}: Mempelajari kategori unik apa saja dari fitur kategorikal 'Sex' dan 'Embarked'.
-    \item \texttt{df\_ohe = ohe.transform(...)}: Mengubah kolom kategorikal tersebut menjadi kolom-kolom biner baru (angka 1 dan 0) tanpa nilai hierarki.
-    \item \texttt{df\_ohe}: Menampilkan array hasil dari proses one-hot encoding tersebut.
+  \item \texttt{ohe = OneHotEncoder(...)}: Membuat objek inisialisasi One Hot Encoding dengan parameter \texttt{sparse\_output=False} agar matriks kembalian dalam bentuk padat (dense array).
+  \item \texttt{ohe.fit(df\_X[['Sex', 'Embarked']])}: Mempelajari kategori unik apa saja dari fitur kategorikal 'Sex' dan 'Embarked'.
+  \item \texttt{df\_ohe = ohe.transform(...)}: Mengubah kolom kategorikal tersebut menjadi kolom-kolom biner baru (angka 1 dan 0) tanpa nilai hierarki.
+  \item \texttt{df\_ohe}: Menampilkan array hasil dari proses one-hot encoding tersebut.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-ohe-1}.
 
@@ -783,8 +931,8 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-ohe-1}.
 \lstinputlisting[caption={Output One hot encoding get dummies}, label={lst:out-ohe-2}]{resource/output/pemisahan-fitur-dan-target_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-ohe-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df\_onehot = pd.get\_dummies(..., drop\_first=True)}: Menerapkan fungsi One-Hot Encoding dari pandas pada kolom 'Sex' dan 'Embarked' dengan argumen drop\_first untuk menghindari multikolinearitas (dummy variable trap).
-    \item \texttt{df\_onehot.head()}: Menampilkan lima baris DataFrame \texttt{df\_X} yang sudah ditambahkan representasi fitur one-hot yang berformat angka 1 dan 0.
+  \item \texttt{df\_onehot = pd.get\_dummies(..., drop\_first=True)}: Menerapkan fungsi One-Hot Encoding dari pandas pada kolom 'Sex' dan 'Embarked' dengan argumen drop\_first untuk menghindari multikolinearitas (dummy variable trap).
+  \item \texttt{df\_onehot.head()}: Menampilkan lima baris DataFrame \texttt{df\_X} yang sudah ditambahkan representasi fitur one-hot yang berformat angka 1 dan 0.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-ohe-2}.
 
@@ -795,12 +943,12 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-ohe-2}.
 \lstinputlisting[caption={Output Label encoding df X}, label={lst:out-label-encoding-1}]{resource/output/one-hot-encoding_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-label-encoding-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{cats = df\_X.select\_dtypes(include=['object', 'bool']).columns}: Mencari indeks/nama-nama kolom yang tipe datanya teks ('object') atau boolean ('bool').
-    \item \texttt{cat\_features = list(cats.values)}: Mengubah list objek index kolom kategorikal tersebut menjadi list standar Python.
-    \item \texttt{cat\_en = LabelEncoder()}: Membuat objek LabelEncoder untuk mengubah nilai kategorikal menjadi representasi numerik.
-    \item \texttt{for i in cat\_features: ...}: Melakukan pengulangan terhadap setiap kolom kategorikal.
-    \item \texttt{df\_X[i] = cat\_en.fit\_transform(df\_X[i])}: Menerapkan label encoding dengan mengubah string menjadi deret angka (0, 1, 2, dst) per masing-masing kolom kategorikal.
-    \item \texttt{df\_X}: Menampilkan dataframe fitur (df\_X) yang seluruhnya kini telah berbentuk numerik.
+  \item \texttt{cats = df\_X.select\_dtypes(include=['object', 'bool']).columns}: Mencari indeks/nama-nama kolom yang tipe datanya teks ('object') atau boolean ('bool').
+  \item \texttt{cat\_features = list(cats.values)}: Mengubah list objek index kolom kategorikal tersebut menjadi list standar Python.
+  \item \texttt{cat\_en = LabelEncoder()}: Membuat objek LabelEncoder untuk mengubah nilai kategorikal menjadi representasi numerik.
+  \item \texttt{for i in cat\_features: ...}: Melakukan pengulangan terhadap setiap kolom kategorikal.
+  \item \texttt{df\_X[i] = cat\_en.fit\_transform(df\_X[i])}: Menerapkan label encoding dengan mengubah string menjadi deret angka (0, 1, 2, dst) per masing-masing kolom kategorikal.
+  \item \texttt{df\_X}: Menampilkan dataframe fitur (df\_X) yang seluruhnya kini telah berbentuk numerik.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-label-encoding-1}.
 
@@ -809,10 +957,10 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-label-encodin
 \lstinputlisting[caption={Output Label encoding df y}, label={lst:out-label-encoding-2}]{resource/output/one-hot-encoding_3_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-label-encoding-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{le = LabelEncoder()}: Membuat objek LabelEncoder untuk menampung fungsi pemetaan kelas.
-    \item \texttt{le.fit(df\_y)}: Mempelajari nilai-nilai (kelas) unik yang ada pada kolom target df\_y.
-    \item \texttt{df\_y = le.fit\_transform(df\_y)}: Melakukan pemetaan string label kelas menjadi bentuk angka biner/numerik.
-    \item \texttt{df\_y}: Menampilkan nilai array target yang sudah sukses dienkode.
+  \item \texttt{le = LabelEncoder()}: Membuat objek LabelEncoder untuk menampung fungsi pemetaan kelas.
+  \item \texttt{le.fit(df\_y)}: Mempelajari nilai-nilai (kelas) unik yang ada pada kolom target df\_y.
+  \item \texttt{df\_y = le.fit\_transform(df\_y)}: Melakukan pemetaan string label kelas menjadi bentuk angka biner/numerik.
+  \item \texttt{df\_y}: Menampilkan nilai array target yang sudah sukses dienkode.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-label-encoding-2}.
 
@@ -823,9 +971,9 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-label-encodin
 \lstinputlisting[caption={Output Mengecek korelasi atribut}, label={lst:out-cek-korelasi-atribut-1}]{resource/output/label-encoding_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-korelasi-atribut-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{df\_y\_new = pd.DataFrame(df\_y, columns=['Survived'])}: Mengubah variabel target df\_y menjadi bentuk DataFrame dengan nama kolom 'Survived'.
-    \item \texttt{df\_gabung = pd.concat([df\_X, df\_y\_new], axis=1)}: Menggabungkan fitur (df\_X) dan target (df\_y\_new) secara vertikal (kolom sebelah kolom).
-    \item \texttt{df\_gabung.corr()}: Menghitung nilai matriks korelasi antarkolom untuk mengetahui hubungan linear antar fitur.
+  \item \texttt{df\_y\_new = pd.DataFrame(df\_y, columns=['Survived'])}: Mengubah variabel target df\_y menjadi bentuk DataFrame dengan nama kolom 'Survived'.
+  \item \texttt{df\_gabung = pd.concat([df\_X, df\_y\_new], axis=1)}: Menggabungkan fitur (df\_X) dan target (df\_y\_new) secara vertikal (kolom sebelah kolom).
+  \item \texttt{df\_gabung.corr()}: Menghitung nilai matriks korelasi antarkolom untuk mengetahui hubungan linear antar fitur.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-cek-korelasi-atribut-1}.
 
@@ -836,10 +984,10 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-cek-korelasi-
 \lstinputlisting[caption={Output Membagi dataset}, label={lst:out-membagi-dataset-1}]{resource/output/label-encoding_2_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-membagi-dataset-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{X\_train, X\_test, ... = train\_test\_split(...)}: Membagi dataset fitur (df\_X) dan target (df\_y) menjadi set data latih (train) dan set data uji (test).
-    \item \texttt{test\_size=0.3}: Menentukan persentase data uji sebesar 30\% dan data latih 70\%.
-    \item \texttt{random\_state=42}: Menetapkan kunci pengacakan ke nilai 42 agar hasil pembagian selalu konsisten diulang.
-    \item \texttt{X\_train}: Menampilkan fitur dari set data latih.
+  \item \texttt{X\_train, X\_test, ... = train\_test\_split(...)}: Membagi dataset fitur (df\_X) dan target (df\_y) menjadi set data latih (train) dan set data uji (test).
+  \item \texttt{test\_size=0.3}: Menentukan persentase data uji sebesar 30\% dan data latih 70\%.
+  \item \texttt{random\_state=42}: Menetapkan kunci pengacakan ke nilai 42 agar hasil pembagian selalu konsisten diulang.
+  \item \texttt{X\_train}: Menampilkan fitur dari set data latih.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-membagi-dataset-1}.
 
@@ -850,11 +998,11 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-membagi-datas
 \lstinputlisting[caption={Output Standard scaler 1}, label={lst:out-standard-scaler-1}]{resource/output/train-test-split_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-standard-scaler-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{scaler = StandardScaler()}: Menggunakan modul standarisasi standar pada \textit{scaler}, namun pada segmen kodenya sama persis seperti penerapan the standard scaler.
-    \item \texttt{scaler.fit(X\_train)}: Mengidentifikasi distribusi dan nilai \textit{mean} terhadap data fitur fitur latih (\texttt{X\_train}).
-    \item \texttt{X\_train = scaler.transform(X\_train)}: Menerapkan fungsi transformasi standarisasi normal.
-    \item \texttt{X\_test = scaler.transform(X\_test)}: Menerapkan transformasi set skala pada bagian dataset uji (X\_test).
-    \item \texttt{X\_train}: Menampilkan susunan nilai transformasi.
+  \item \texttt{scaler = StandardScaler()}: Menggunakan modul standarisasi standar pada \textit{scaler}, namun pada segmen kodenya sama persis seperti penerapan the standard scaler.
+  \item \texttt{scaler.fit(X\_train)}: Mengidentifikasi distribusi dan nilai \textit{mean} terhadap data fitur fitur latih (\texttt{X\_train}).
+  \item \texttt{X\_train = scaler.transform(X\_train)}: Menerapkan fungsi transformasi standarisasi normal.
+  \item \texttt{X\_test = scaler.transform(X\_test)}: Menerapkan transformasi set skala pada bagian dataset uji (X\_test).
+  \item \texttt{X\_train}: Menampilkan susunan nilai transformasi.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-standard-scaler-1}.
 
@@ -863,11 +1011,11 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-standard-scal
 \lstinputlisting[caption={Output Standard scaler 2}, label={lst:out-standard-scaler-2}]{resource/output/standard-scaler_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-standard-scaler-2}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{scaler = StandardScaler()}: Membuat objek dari kelas \texttt{StandardScaler} yang ditujukan untuk standarisasi (memusatkan data pada mean 0 dengan variansi 1).
-    \item \texttt{scaler.fit(X\_train)}: Melakukan estimasi perolehan mean dan simpangan baku (standard deviation) dari keseluruhan data fitur latih (\texttt{X\_train}).
-    \item \texttt{X\_train = scaler.transform(X\_train)}: Menerapkan fungsi transformasi standarisasi pada parameter data set latih.
-    \item \texttt{X\_test = scaler.transform(X\_test)}: Menerapkan standarisasi skala pada set fitur uji (X\_test) berdasarkan mean dan variansi yang dipelajari dari set fitur latih.
-    \item \texttt{X\_train}: Menampilkan nilai array dataset latih pascastandarisasi yang nilainya memusat di rata-rata angka nol.
+  \item \texttt{scaler = StandardScaler()}: Membuat objek dari kelas \texttt{StandardScaler} yang ditujukan untuk standarisasi (memusatkan data pada mean 0 dengan variansi 1).
+  \item \texttt{scaler.fit(X\_train)}: Melakukan estimasi perolehan mean dan simpangan baku (standard deviation) dari keseluruhan data fitur latih (\texttt{X\_train}).
+  \item \texttt{X\_train = scaler.transform(X\_train)}: Menerapkan fungsi transformasi standarisasi pada parameter data set latih.
+  \item \texttt{X\_test = scaler.transform(X\_test)}: Menerapkan standarisasi skala pada set fitur uji (X\_test) berdasarkan mean dan variansi yang dipelajari dari set fitur latih.
+  \item \texttt{X\_train}: Menampilkan nilai array dataset latih pascastandarisasi yang nilainya memusat di rata-rata angka nol.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-standard-scaler-2}.
 
@@ -876,11 +1024,11 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-standard-scal
 \lstinputlisting[caption={Output Min max scaler}, label={lst:out-min-max-scaler-1}]{resource/output/min-max-scaler_1_out.txt}
 \par Berdasarkan sintaks pada Kode \ref{lst:kode-min-max-scaler-1}, berikut adalah penjelasan dari eksekusi kode per barisnya:
 \begin{itemize}
-    \item \texttt{scaler = MinMaxScaler()}: Membuat objek scaler untuk penskalaan min-max (rentang nilai akan diubah menjadi antara 0 dan 1).
-    \item \texttt{scaler.fit(X\_train)}: Mempelajari nilai minimal dan maksimal pada data fitur latih.
-    \item \texttt{X\_train = scaler.transform(X\_train)}: Menerapkan transformasi rentang ke data fitur latih.
-    \item \texttt{X\_test = scaler.transform(X\_test)}: Menerapkan transformasi rentang yang sama ke data fitur uji.
-    \item \texttt{X\_train}: Menampilkan matriks data fitur latih yang sudah dinormalisasi (berada di antara 0 dan 1).
+  \item \texttt{scaler = MinMaxScaler()}: Membuat objek scaler untuk penskalaan min-max (rentang nilai akan diubah menjadi antara 0 dan 1).
+  \item \texttt{scaler.fit(X\_train)}: Mempelajari nilai minimal dan maksimal pada data fitur latih.
+  \item \texttt{X\_train = scaler.transform(X\_train)}: Menerapkan transformasi rentang ke data fitur latih.
+  \item \texttt{X\_test = scaler.transform(X\_test)}: Menerapkan transformasi rentang yang sama ke data fitur uji.
+  \item \texttt{X\_train}: Menampilkan matriks data fitur latih yang sudah dinormalisasi (berada di antara 0 dan 1).
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-min-max-scaler-1}.
 
