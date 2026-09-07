@@ -1,0 +1,15 @@
+Missing Values:
+ area_type          0
+availability       0
+location           1
+size              16
+society         5502
+total_sqft         0
+bath              73
+balcony          609
+price              0
+dtype: int64
+
+Duplicate rows: 529
+
+Cleaned Missing Values: 5328

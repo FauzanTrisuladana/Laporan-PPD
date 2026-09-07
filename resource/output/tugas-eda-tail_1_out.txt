@@ -1,0 +1,50 @@
+CLIENTNUM     Attrition_Flag  Customer_Age Gender  Dependent_count  \
+10122  772366833  Existing Customer            50      M                2   
+10123  710638233  Attrited Customer            41      M                2   
+10124  716506083  Attrited Customer            44      F                1   
+10125  717406983  Attrited Customer            30      M                2   
+10126  714337233  Attrited Customer            43      F                2   
+
+      Education_Level Marital_Status Income_Category Card_Category  \
+10122        Graduate         Single     $40K - $60K          Blue   
+10123         Unknown       Divorced     $40K - $60K          Blue   
+10124     High School        Married  Less than $40K          Blue   
+10125        Graduate        Unknown     $40K - $60K          Blue   
+10126        Graduate        Married  Less than $40K        Silver   
+
+       Months_on_book  ...  Credit_Limit  Total_Revolving_Bal  \
+10122              40  ...        4003.0                 1851   
+10123              25  ...        4277.0                 2186   
+10124              36  ...        5409.0                    0   
+10125              36  ...        5281.0                    0   
+10126              25  ...       10388.0                 1961   
+
+       Avg_Open_To_Buy  Total_Amt_Chng_Q4_Q1  Total_Trans_Amt  Total_Trans_Ct  \
+10122           2152.0                 0.703            15476             117   
+10123           2091.0                 0.804             8764              69   
+10124           5409.0                 0.819            10291              60   
+10125           5281.0                 0.535             8395              62   
+10126           8427.0                 0.703            10294              61   
+
+       Total_Ct_Chng_Q4_Q1  Avg_Utilization_Ratio  \
+10122                0.857                  0.462   
+10123                0.683                  0.511   
+10124                0.818                  0.000   
+10125                0.722                  0.000   
+10126                0.649                  0.189   
+
+       Naive_Bayes_Classifier_Attrition_Flag_Card_Category_Contacts_Count_12_mon_Dependent_count_Education_Level_Months_Inactive_12_mon_1  \
+10122                                           0.000191                                                                                    
+10123                                           0.995270                                                                                    
+10124                                           0.997880                                                                                    
+10125                                           0.996710                                                                                    
+10126                                           0.996620                                                                                    
+
+       Naive_Bayes_Classifier_Attrition_Flag_Card_Category_Contacts_Count_12_mon_Dependent_count_Education_Level_Months_Inactive_12_mon_2  
+10122                                           0.999810                                                                                   
+10123                                           0.004729                                                                                   
+10124                                           0.002118                                                                                   
+10125                                           0.003294                                                                                   
+10126                                           0.003377                                                                                   
+
+[5 rows x 23 columns]

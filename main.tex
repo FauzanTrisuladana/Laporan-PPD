@@ -8,6 +8,8 @@
 \usepackage{titlesec}
 \usepackage[backend=biber,style=ieee]{biblatex}
 \addbibresource{ref.bib}
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
 
 % Package tambahan untuk layout dan formatting
 \usepackage{geometry}           % untuk margin
@@ -120,7 +122,7 @@ Pertemuan \Pertemuan\\
     \begin{minipage}{0.8\textwidth}
       \raggedright
       \begin{large}
-        \begin{tabular}{@{}l@{\hspace{1.5em}}c@{\hspace{1.5em}}p{\textwidth}@{}}
+        \begin{tabular}{@{}l@{\hspace{1.5em}}c@{\hspace{1.5em}}l@{}}
           Nama           & : & \NamaMahasiswa  \\
           NIM            & : & \NIMMahasiswa   \\
           Kelas          & : & \KelasMahasiswa \\
@@ -1014,7 +1016,284 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-min-max-scale
 
 \subsection{Tugas}
 
+\par Bagian tugas ini memuat penyelesaian dan analisis dari penugasan praktikum yang terbagi menjadi dua bagian: \textit{Exploratory Data Analysis} (EDA) pada dataset nasabah kartu kredit (\textit{Credit Card Customers}) dan \textit{Data Preprocessing} pada dataset harga properti di Bengaluru (\textit{Bengaluru House Data}).
+
+\subsubsection{Tugas 1 - 1) Membaca dataset credit card customers}
+\par Pembacaan dataset dilakukan secara langsung dari repositori daring menggunakan fungsi \texttt{pd.read\_csv()}. Kode program disajikan pada Kode \ref{lst:kode-tugas-eda-baca-1}.
+
+\lstinputlisting[language=Python, caption={Membaca dataset BankChurners}, label={lst:kode-tugas-eda-baca-1}]{resource/code/tugas-eda-baca-dataset_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Membaca dataset BankChurners}, label={lst:out-tugas-eda-baca-1}]{resource/output/tugas-eda-baca-dataset_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-eda-baca-1}, berikut adalah penjelasan dari eksekusi kodenya:
+\begin{itemize}
+  \item \texttt{import pandas as pd}: Mengimpor pustaka pandas untuk manipulasi dan analisis data berbasis tabel \textit{DataFrame}.
+  \item \texttt{import matplotlib.pyplot as plt}: Mengimpor modul visualisasi grafik dari matplotlib.
+  \item \texttt{import numpy as np}: Mengimpor pustaka numpy untuk komputasi array dan matriks numerik.
+  \item \texttt{df = pd.read\_csv(...)}: Membaca berkas CSV dari tautan URL dan memuat seluruh observasi ke dalam objek \textit{DataFrame} bernama \texttt{df}.
+\end{itemize}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-tugas-eda-baca-1}.
+
+\par Guna meninjau lima baris data teratas secara ringkas, dipanggil metode \texttt{df.head()} pada Kode \ref{lst:kode-tugas-eda-head-1}.
+\lstinputlisting[language=Python, caption={Melihat lima baris data teratas BankChurners}, label={lst:kode-tugas-eda-head-1}]{resource/code/tugas-eda-head_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output df.head() BankChurners}, label={lst:out-tugas-eda-head-1}]{resource/output/tugas-eda-head_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-eda-head-1}, berikut penjelasan dari eksekusi kodenya:
+\begin{itemize}
+  \item \texttt{df.head()}: Menampilkan 5 baris pertama dari \textit{DataFrame} \texttt{df} secara terstruktur beserta seluruh nama atribut untuk inspeksi awal.
+\end{itemize}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-tugas-eda-head-1}.
+
+\par Selanjutnya, peninjauan terhadap lima baris data paling akhir dilakukan menggunakan fungsi \texttt{df.tail()} pada Kode \ref{lst:kode-tugas-eda-tail-1}.
+\lstinputlisting[language=Python, caption={Melihat lima baris data terbawah BankChurners}, label={lst:kode-tugas-eda-tail-1}]{resource/code/tugas-eda-tail_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output df.tail() BankChurners}, label={lst:out-tugas-eda-tail-1}]{resource/output/tugas-eda-tail_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-eda-tail-1}, berikut penjelasan dari eksekusi kodenya:
+\begin{itemize}
+  \item \texttt{df.tail()}: Menampilkan 5 baris paling bawah dari \textit{DataFrame} \texttt{df} guna memverifikasi konsistensi struktur data hingga akhir baris.
+\end{itemize}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-tugas-eda-tail-1}.
+
+\par Ringkasan statistik deskriptif dari variabel-variabel numerik diperoleh melalui pemanggilan fungsi \texttt{df.describe()} pada Kode \ref{lst:kode-tugas-eda-desc-1}.
+\lstinputlisting[language=Python, caption={Statistik deskriptif BankChurners}, label={lst:kode-tugas-eda-desc-1}]{resource/code/tugas-eda-describe_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output df.describe() BankChurners}, label={lst:out-tugas-eda-desc-1}]{resource/output/tugas-eda-describe_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-eda-desc-1}, berikut penjelasan dari eksekusi kodenya:
+\begin{itemize}
+  \item \texttt{df.describe()}: Menghitung ringkasan statistik deskriptif meliputi jumlah sampel (\textit{count}), rata-rata (\textit{mean}), simpangan baku (\textit{std}), nilai minimum (\textit{min}), kuartil, dan maksimum (\textit{max}) dari setiap fitur numerik.
+\end{itemize}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-tugas-eda-desc-1}.
+
+
+\subsubsection{Tugas 1 - 2) Tujuan penggunaan dataset credit card customers}
+\par Dataset \textit{Credit Card Customers} (\textit{Bank Churners}) digunakan secara khusus dalam domain analitik perbankan ritel untuk menyelesaikan permasalahan \textit{customer churn} atau \textit{customer attrition} (kondisi di mana nasabah menutup atau berhenti menggunakan fasilitas kartu kredit). Dalam dunia perbankan, mempertahankan nasabah yang sudah ada (\textit{customer retention}) membutuhkan biaya operasional dan promosi yang jauh lebih efisien dibandingkan dengan mengakuisisi nasabah baru (\textit{customer acquisition}). Ketika nasabah menutup akunnya secara permanen, pihak bank kehilangan potensi pendapatan berkelanjutan dari biaya tahunan, bunga pembiayaan, serta bagi hasil komisi transaksi pedagang (\textit{merchant interchange fees}).
+
+\par Secara terperinci, tujuan pokok dari penggunaan dataset ini meliputi:
+\begin{itemize}
+  \item Mengidentifikasi ciri nasabah berisiko \textit{churn}, seperti anjloknya frekuensi belanja, penurunan nominal transaksi, melonjaknya keluhan, serta minimnya pemakaian kredit.
+  \item Memetakan korelasi faktor demografi nasabah (kelompok usia, tingkat pendapatan, dan kelas kartu) terhadap potensi retensi produk.
+  \item Membangun sistem klasifikasi prediktif berbasis \textit{machine learning} sebagai peringatan dini (*early warning*) bagi pihak perbankan sebelum nasabah menutup akun.
+\end{itemize}
+
+
+\subsubsection{Tugas 1 - 3) Definisi atribut input dan output}
+\par Pada pemodelan pembelajaran mesin terarah (\textit{supervised learning}), variabel-variabel dataset ini dipetakan ke dalam dua klasifikasi utama:
+\begin{itemize}
+  \item \textbf{Atribut Output / Target (\textit{Dependent Variable})}:
+        \begin{itemize}
+          \item \texttt{Attrition\_Flag}: Variabel target biner estimasi model, yang bernilai \textit{'Existing Customer'} (nasabah aktif) atau \textit{'Attrited Customer'} (nasabah menutup akun).
+        \end{itemize}
+  \item \textbf{Atribut Input / Fitur (\textit{Independent Variables})}:
+        \begin{itemize}
+          \item \textbf{Demografi Nasabah}: usia, jenis kelamin, jumlah tanggungan keluarga, jenjang pendidikan, status pernikahan, dan kategori rentang pendapatan.
+          \item \textbf{Karakteristik Rekening}: kelas kartu, lama hubungan nasabah, jumlah kepemilikan produk, frekuensi inaktif, jumlah kontak aduan, batas limit kredit, saldo utang bergulir, sisa plafon belanja, dan rasio pemakaian kredit.
+          \item \textbf{Riwayat Transaksi}: akumulasi nilai belanja setahun, frekuensi total transaksi belanja, rasio pergeseran nominal Q4--Q1, dan rasio perubahan jumlah transaksi Q4--Q1.
+        \end{itemize}
+  \item \textbf{Atribut yang Dieliminasi (\textit{Excluded Features})}:
+        \begin{itemize}
+          \item \texttt{CLIENTNUM}: Nomor identitas unik nasabah yang tidak memiliki korelasi prediktif terhadap kecenderungan \textit{churn}.
+          \item Dua kolom probabilitas Naive Bayes bawaan: Skor prediksi eksternal yang harus dibuang guna mencegah kebocoran informasi target (\textit{data leakage}).
+        \end{itemize}
+\end{itemize}
+
+
+\subsubsection{Tugas 1 - 4) Penjelasan setiap atribut dataset credit card customers}
+\par Dataset \textit{Credit Card Customers} memiliki 23 atribut dengan fungsi masing-masing sebagai berikut:
+\begin{enumerate}[label=\alph*., leftmargin=*]
+  \item \texttt{CLIENTNUM}: Nomor identifikasi unik bagi setiap nasabah pemegang kartu kredit.
+  \item \texttt{Attrition\_Flag}: Status keaktifan akun nasabah (\textit{Existing Customer} atau \textit{Attrited Customer}).
+  \item \texttt{Customer\_Age}: Usia pemegang kartu kredit dalam satuan tahun.
+  \item \texttt{Gender}: Jenis kelamin nasabah (\textit{M} = Laki-laki, \textit{F} = Perempuan).
+  \item \texttt{Dependent\_count}: Jumlah tanggungan finansial dalam keluarga nasabah.
+  \item \texttt{Education\_Level}: Jenjang kualifikasi pendidikan formal tertinggi pemegang kartu.
+  \item \texttt{Marital\_Status}: Status pernikahan nasabah (\textit{Married, Single, Divorced, Unknown}).
+  \item \texttt{Income\_Category}: Kategori rentang pendapatan kotor tahunan nasabah.
+  \item \texttt{Card\_Category}: Tingkatan kelas kartu kredit yang diterbitkan (\textit{Blue, Silver, Gold, Platinum}).
+  \item \texttt{Months\_on\_book}: Durasi hubungan nasabah dengan bank dalam hitungan bulan.
+  \item \texttt{Total\_Relationship\_Count}: Jumlah total produk atau layanan perbankan yang dimiliki nasabah.
+  \item \texttt{Months\_Inactive\_12\_mon}: Jumlah bulan di mana nasabah tidak bertransaksi dalam 12 bulan terakhir.
+  \item \texttt{Contacts\_Count\_12\_mon}: Frekuensi kontak komunikasi antara nasabah dan bank dalam 12 bulan terakhir.
+  \item \texttt{Credit\_Limit}: Batas maksimum plafon kredit yang dialokasikan bank pada kartu nasabah.
+  \item \texttt{Total\_Revolving\_Bal}: Saldo utang bergulir yang belum dibayar lunas pada periode penagihan.
+  \item \texttt{Avg\_Open\_To\_Buy}: Sisa batas limit kredit rata-rata yang masih dapat dibelanjakan (12 bulan terakhir).
+  \item \texttt{Total\_Amt\_Chng\_Q4\_Q1}: Rasio perubahan nominal transaksi kuartal 4 dibandingkan kuartal 1.
+  \item \texttt{Total\_Trans\_Amt}: Total akumulasi nominal transaksi belanja selama 12 bulan terakhir.
+  \item \texttt{Total\_Trans\_Ct}: Frekuensi total banyaknya transaksi belanja yang dilakukan selama 12 bulan terakhir.
+  \item \texttt{Total\_Ct\_Chng\_Q4\_Q1}: Rasio perubahan frekuensi transaksi kuartal 4 dibandingkan kuartal 1.
+  \item \texttt{Avg\_Utilization\_Ratio}: Rasio rata-rata pemanfaatan limit kartu kredit (saldo bergulir dibagi batas kredit).
+  \item \texttt{Naive\_Bayes\_...\_1}: Skor probabilitas prediksi algoritma Naive Bayes eksternal untuk kelas pertama.
+  \item \texttt{Naive\_Bayes\_...\_2}: Skor probabilitas prediksi algoritma Naive Bayes eksternal untuk kelas kedua.
+\end{enumerate}
+
+
+\subsubsection{Tugas 2 - 1) Membaca dataset Bengaluru house price}
+\par Dataset harga properti dibaca langsung dari repositori daring menggunakan fungsi pustaka pandas \texttt{pd.read\_csv()}. Kode program disajikan pada Kode \ref{lst:kode-tugas-prep-baca-1}.
+
+\lstinputlisting[language=Python, caption={Membaca dataset Bengaluru House Price}, label={lst:kode-tugas-prep-baca-1}]{resource/code/tugas-preprocessing-baca-dataset_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Membaca dataset Bengaluru House Price}, label={lst:out-tugas-prep-baca-1}]{resource/output/tugas-preprocessing-baca-dataset_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-prep-baca-1}, berikut penjelasan dari eksekusi kodenya:
+\begin{itemize}
+  \item \texttt{import pandas as pd}, \texttt{matplotlib.pyplot as plt}, \texttt{numpy as np}: Mengimpor pustaka dasar pengolahan data tabular, pustaka perenderan grafik, dan komputasi array numerik.
+  \item \texttt{df = pd.read\_csv(...)}: Membaca berkas data harga rumah di Bengaluru dari tautan URL dan menyimpannya ke objek \textit{DataFrame} bernama \texttt{df}.
+\end{itemize}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-tugas-prep-baca-1}.
+
+\par Untuk memeriksa struktur dan lima baris awal observasi, dipanggil metode \texttt{df.head()} pada Kode \ref{lst:kode-tugas-prep-head-1}.
+\lstinputlisting[language=Python, caption={Melihat lima baris data teratas Bengaluru House}, label={lst:kode-tugas-prep-head-1}]{resource/code/tugas-preprocessing-head_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output df.head() Bengaluru House}, label={lst:out-tugas-prep-head-1}]{resource/output/tugas-preprocessing-head_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-prep-head-1}, berikut penjelasan dari eksekusi kodenya:
+\begin{itemize}
+  \item \texttt{df.head()}: Menampilkan sampel 5 baris pertama data yang menunjukkan fitur tipe area, ketersediaan, lokasi, ukuran kamar, masyarakat (\textit{society}), luas total (\textit{total\_sqft}), kamar mandi (\textit{bath}), balkon (\textit{balcony}), dan harga (\textit{price}).
+\end{itemize}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-tugas-prep-head-1}.
+
+\par Selanjutnya, pengecekan terhadap lima baris terbawah data dilakukan dengan memanggil fungsi \texttt{df.tail()} pada Kode \ref{lst:kode-tugas-prep-tail-1}.
+\lstinputlisting[language=Python, caption={Melihat lima baris data terbawah Bengaluru House}, label={lst:kode-tugas-prep-tail-1}]{resource/code/tugas-preprocessing-tail_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output df.tail() Bengaluru House}, label={lst:out-tugas-prep-tail-1}]{resource/output/tugas-preprocessing-tail_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-prep-tail-1}, berikut penjelasan dari eksekusi kodenya:
+\begin{itemize}
+  \item \texttt{df.tail()}: Menampilkan 5 baris terakhir dari \textit{DataFrame} untuk memastikan kelengkapan muatan 13.320 baris data observasi.
+\end{itemize}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-tugas-prep-tail-1}.
+
+
+\subsubsection{Tugas 2 - 2) Visualisasi histogram variabel numerik}
+\par Visualisasi sebaran variabel numerik dibuat untuk kolom harga (\textit{price}), kamar mandi (\textit{bath}), dan balkon (\textit{balcony}) menggunakan pustaka Seaborn sebagaimana diimplementasikan pada Kode \ref{lst:kode-tugas-prep-hist-1}.
+
+\lstinputlisting[language=Python, caption={Visualisasi histogram variabel numerik Bengaluru House}, label={lst:kode-tugas-prep-hist-1}]{resource/code/tugas-preprocessing-histogram_1.py}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-prep-hist-1}, berikut penjelasan dari eksekusi kodenya:
+\begin{itemize}
+  \item \texttt{import seaborn as sns}: Mengimpor pustaka Seaborn untuk visualisasi data statistik.
+  \item \texttt{fig, axes = plt.subplots(1, 3, ...)}: Menyiapkan kanvas ukuran 18$\times$5 inci dengan konfigurasi 3 kolom subplot.
+  \item \texttt{sns.histplot(df['price'], ...)}: Membentuk histogram harga dengan kurva estimasi densitas kernel (\textit{KDE}).
+  \item \texttt{sns.histplot(df['bath'].dropna(), ...)}: Membuat grafik sebaran kamar mandi setelah menyaring nilai kosong.
+  \item \texttt{sns.histplot(df['balcony'].dropna(), ...)}: Membuat grafik sebaran balkon setelah menyaring nilai kosong.
+  \item \texttt{plt.show()}: Menampilkan seluruh grafik histogram ke layar.
+\end{itemize}
+\par Representasi visual matriks histogram hasil eksekusi Kode \ref{lst:kode-tugas-prep-hist-1} disajikan pada Gambar \ref{fig:tugas-prep-hist-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\textwidth]{resource/dokumentasi/tugas-histogram-bengaluru.png}
+  \caption{Visualisasi Histogram Distribusi Variabel Numerik (Price, Bath, Balcony)}
+  \label{fig:tugas-prep-hist-1}
+\end{figure}
+
+\par Berdasarkan visualisasi pada Gambar \ref{fig:tugas-prep-hist-1}, analisis pola distribusi yang teramati diuraikan sebagai berikut:
+\begin{itemize}
+  \item \textbf{Distribusi \textit{Price} (Harga)}: Memperlihatkan pola distribusi yang sangat miring ke arah kanan (\textit{extremely positively/right-skewed}). Mayoritas harga properti berkonsentrasi padat pada rentang nilai rendah hingga menengah di bawah 200--300 lakh INR. Kurva memiliki ekor kanan yang sangat panjang (\textit{long right tail}) akibat adanya pencilan ekstrem (\textit{outliers}) berupa hunian mewah bertarif hingga 3.600 lakh INR.
+  \item \textbf{Distribusi \textit{Bath} (Kamar Mandi)}: Menunjukkan sebaran diskrit bertingkat di mana nilai modus (frekuensi terbanyak) berada pada unit berfasilitas 2 kamar mandi, disusul oleh 3 kamar mandi. Terdapat sedikit hunian berkapasitas 4 hingga 5 kamar mandi, serta terdeteksi anomali pencatatan data ekstrem yang mencapai 40 kamar mandi.
+  \item \textbf{Distribusi \textit{Balcony} (Balkon)}: Menunjukkan sebaran diskrit diskontinu dengan rentang nilai antara 0 hingga 3 balkon. Sebagian besar hunian di Bengaluru dilengkapi oleh 1 atau 2 balkon, sedangkan hunian tanpa balkon (0) dan hunian dengan 3 balkon memiliki proporsi yang relatif lebih sedikit.
+\end{itemize}
+
+
+\subsubsection{Tugas 2 - 3) Perhitungan dan visualisasi korelasi antar variabel}
+\par Pengukuran koefisien korelasi linear Pearson antarfitur numerik dan visualisasi peta panas (\textit{heatmap}) diimplementasikan pada Kode \ref{lst:kode-tugas-prep-korelasi-1}.
+
+\lstinputlisting[language=Python, caption={Visualisasi matriks korelasi fitur numerik Bengaluru House}, label={lst:kode-tugas-prep-korelasi-1}]{resource/code/tugas-preprocessing-korelasi_1.py}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-prep-korelasi-1}, berikut penjelasan dari eksekusi kodenya:
+\begin{itemize}
+  \item \texttt{plt.figure(figsize=(8, 6))}: Menetapkan ukuran kanvas gambar sebesar 8$\times$6 inci.
+  \item \texttt{df.corr(...)}: Menghitung matriks koefisien korelasi Pearson antarsemua atribut numerik.
+  \item \texttt{sns.heatmap(..., cmap='coolwarm', fmt='.2f')}: Merender diagram peta panas korelasi beserta anotasi nilai di tiap selnya.
+  \item \texttt{plt.title(...)} dan \texttt{plt.show()}: Memberikan tajuk grafik dan menampilkan visualisasi ke layar.
+\end{itemize}
+\par Representasi visual matriks korelasi hasil eksekusi Kode \ref{lst:kode-tugas-prep-korelasi-1} disajikan pada Gambar \ref{fig:tugas-prep-korelasi-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.65\textwidth]{resource/dokumentasi/tugas-korelasi-bengaluru.png}
+  \caption{Visualisasi Matriks Heatmap Korelasi Fitur Numerik Bengaluru House}
+  \label{fig:tugas-prep-korelasi-1}
+\end{figure}
+
+\par Berdasarkan peta panas pada Gambar \ref{fig:tugas-prep-korelasi-1}, analisis keterikatan hubungan antarvariabel diuraikan sebagai berikut:
+\begin{itemize}
+  \item \textbf{Korelasi antara \textit{Bath} dan \textit{Price} ($r = 0.46$)}: Menunjukkan hubungan korelasi linier positif dengan kekuatan moderat. Penambahan jumlah kamar mandi berbanding lurus secara signifikan dengan kenaikan harga jual rumah, karena jumlah kamar mandi merefleksikan luas lantai bangunan dan kemewahan unit.
+  \item \textbf{Korelasi antara \textit{Balcony} dan \textit{Price} ($r = 0.12$)}: Menunjukkan korelasi linier positif yang sangat lemah. Keberadaan maupun jumlah balkon tidak memberikan pengaruh determinan langsung terhadap kenaikan harga jual properti jika dibandingkan dengan variabel luas bangunan atau kamar mandi.
+  \item \textbf{Korelasi antara \textit{Bath} dan \textit{Balcony} ($r = 0.20$)}: Berkorelasi positif lemah hingga sedang, mengindikasikan bahwa unit hunian dengan fasilitas kamar mandi lebih banyak memiliki kecenderungan menyediakan jumlah balkon yang lebih banyak pula.
+\end{itemize}
+
+
+\subsubsection{Tugas 2 - 4) Descriptive statistics, missing values, dan duplikasi}
+\par Prosedur pengecekan nilai kosong (\textit{missing value}), duplikasi baris data, serta penanganannya diimplementasikan pada Kode \ref{lst:kode-tugas-prep-eda-clean-1}.
+
+\lstinputlisting[language=Python, caption={Pengecekan dan penanganan missing value serta duplikasi}, label={lst:kode-tugas-prep-eda-clean-1}]{resource/code/tugas-preprocessing-eda-cleaning_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pengecekan missing value dan duplikasi}, label={lst:out-tugas-prep-eda-clean-1}]{resource/output/tugas-preprocessing-eda-cleaning_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-prep-eda-clean-1}, berikut penjelasan per baris kodenya:
+\begin{itemize}
+  \item \texttt{df.isnull().sum()}: Menghitung total nilai kosong di setiap kolom. Teridentifikasi \textit{missing values} pada kolom \texttt{society} (5.502 entri), \texttt{balcony} (609 entri), \texttt{bath} (73 entri), \texttt{size} (16 entri), dan \texttt{location} (1 entri).
+  \item \texttt{df.duplicated().sum()}: Mendeteksi keberadaan 529 baris data observasi yang memiliki duplikasi identik secara penuh.
+  \item \texttt{df = df.drop\_duplicates()}: Menghapus seluruh baris data duplikat agar setiap observasi bersifat unik.
+  \item \texttt{df['size'] = df['size'].fillna(...)}: Mengimputasi nilai hilang pada kolom teks kategorikal \texttt{size} dengan nilai modus (nilai yang paling dominan muncul).
+  \item \texttt{df['bath'] = df['bath'].fillna(...)}: Mengimputasi nilai hilang pada kolom numerik jumlah kamar mandi menggunakan nilai median.
+  \item \texttt{df['balcony'] = df['balcony'].fillna(...)}: Mengimputasi nilai hilang pada kolom balkon menggunakan nilai median.
+  \item \texttt{df.dropna(subset=['location'], inplace=True)}: Menghapus 1 baris observasi yang kehilangan nilai lokasi karena lokasi merupakan variabel geografis krusial yang tidak dapat disintesis secara acak.
+  \item \texttt{print(..., df.isnull().sum().sum())}: Menghitung kembali sisa total nilai kosong setelah prosedur pembersihan.
+\end{itemize}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-tugas-prep-eda-clean-1}.
+
+\par \textbf{Penjelasan Tindakan yang Perlu Dilakukan}:
+\begin{itemize}
+  \item \textbf{Tindakan terhadap Duplikasi Data}: Seluruh rekaman data duplikat wajib dibuang (\textit{drop duplicates}). Duplikasi observasi yang dibiarkan akan memberikan bobot ganda yang tidak proporsional pada pola tertentu, menyebabkan model mengalami distorsi bias, serta berisiko menimbulkan kebocoran evaluasi (\textit{evaluation leakage}) saat data latih dan uji saling berbagi sampel identik.
+  \item \textbf{Tindakan terhadap Missing Value}:
+        \begin{enumerate}[label=\alph*.]
+          \item \textit{Imputasi Median untuk Fitur Numerik}: Diterapkan pada kolom \texttt{bath} dan \texttt{balcony} karena nilai median bersifat tegar (\textit{robust}) terhadap pencilan ekstrem, berbeda dengan nilai rata-rata (\textit{mean}) yang sangat mudah bergeser akibat keberadaan data anomali bernilai besar.
+          \item \textit{Imputasi Modus untuk Fitur Kategorikal}: Diterapkan pada variabel string seperti \texttt{size} karena nilai terbanyak (\textit{mode}) merepresentasikan estimasi kategori yang paling mendekati kenyataan tanpa merusak distribusi kelas asli.
+          \item \textit{Penghapusan Baris (Listwise Deletion)}: Diterapkan pada data kosong pada variabel kunci yang jumlah kasusnya sangat sedikit (seperti 1 baris pada \texttt{location}), sehingga pembuangan baris tersebut tidak mengurangi ukuran sampel data secara bermakna.
+          \item \textit{Penghapusan Kolom (Feature Dropping)}: Apabila suatu kolom memiliki persentase kekosongan yang sangat tinggi (seperti kolom \texttt{society} yang kehilangan lebih dari 40\% data), tindakan terbaik secara analitis adalah meniadakan kolom tersebut dari variabel prediktor guna menghindari distorsi derau (\textit{noise}) akibat imputasi sintesis berlebihan.
+        \end{enumerate}
+\end{itemize}
+
+
+\subsubsection{Tugas 2 - 5) Preprocessing lanjutan}
+\par Tahapan pra-pemrosesan lanjutan mencakup ekstraksi fitur numerik BHK dari kolom \texttt{size}, penerapan teknik \textit{One-Hot Encoding} pada variabel kategorikal nominal \texttt{area\_type}, pembagian data latih dan uji dengan proporsi 80:20, serta standarisasi fitur dengan \texttt{StandardScaler}. Kode program disajikan pada Kode \ref{lst:kode-tugas-prep-lanjutan-1}.
+
+\lstinputlisting[language=Python, caption={Preprocessing lanjutan dataset Bengaluru House}, label={lst:kode-tugas-prep-lanjutan-1}]{resource/code/tugas-preprocessing-lanjutan_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Preprocessing lanjutan dataset Bengaluru House}, label={lst:out-tugas-prep-lanjutan-1}]{resource/output/tugas-preprocessing-lanjutan_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-prep-lanjutan-1}, berikut penjelasan per baris kodenya:
+\begin{itemize}
+  \item \texttt{df['bhk'] = df['size'].apply(...)}: Mengekstrak angka dari teks ukuran kamar (misal \texttt{'2 BHK'} menjadi integer \texttt{2}) sebagai fitur numerik diskrit.
+  \item \texttt{X = df[...]} dan \texttt{y = df['price']}: Memisahkan matriks fitur prediktor (\texttt{X}) dan variabel target regresi (\texttt{y}).
+  \item \texttt{pd.get\_dummies(..., drop\_first=True)}: Menerapkan \textit{One-Hot Encoding} pada kolom \texttt{area\_type} tanpa redundansi.
+  \item \texttt{X\_train, ..., y\_test = train\_test\_split(...)}: Membagi dataset menjadi 80\% data latih dan 20\% data uji dengan \textit{random state} 42.
+  \item \texttt{scaler = StandardScaler()}: Menginisialisasi objek transformasi standarisasi Z-score.
+  \item \texttt{X\_train\_scaled = scaler.fit\_transform(X\_train)}: Menghitung mean dan standar deviasi data latih lalu mentransformasikannya.
+  \item \texttt{X\_test\_scaled = scaler.transform(X\_test)}: Menerapkan transformasi standarisasi ke data uji dengan parameter data latih demi mencegah \textit{data leakage}.
+  \item \texttt{print(...)} dan \texttt{display(...)}: Menampilkan bentuk matriks latih terstandarisasi (10.232 baris, 6 kolom) serta lima baris pertamanya.
+\end{itemize}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-tugas-prep-lanjutan-1}.
+
+\par \textbf{Penjelasan Alasan Penggunaan Masing-Masing Teknik}:
+\begin{itemize}
+  \item \textbf{Penyandian Variabel Kategorikal (\textit{One-Hot Encoding} vs \textit{Label Encoding})}:
+        \begin{itemize}
+          \item \textit{One-Hot Encoding}: Dipilih untuk fitur \texttt{area\_type} karena kategorinya bertipe nominal tanpa urutan hierarki alamiah. Metode ini memetakan setiap kategori unik menjadi kolom biner bernilai 0 atau 1. Penggunaan argumen \texttt{drop\_first=True} meniadakan satu kolom referensi agar tidak terjadi multikolinearitas sempurna (\textit{dummy variable trap}) yang dapat membuat matriks kalkulasi regresi menjadi singular.
+          \item \textit{Label Encoding}: Cocok digunakan apabila variabel kategorikal memiliki sifat ordinal (memiliki tingkatan logis, seperti strata pendidikan atau kelas layanan). Pada data nominal, \textit{label encoding} dihindari untuk model linier dan berbasis jarak karena dapat memicu asumsi numerik palsu bahwa kategori berangka tinggi memiliki bobot lebih bernilai dibandingkan kategori berangka rendah.
+        \end{itemize}
+  \item \textbf{Pembagian Partisi Data (\textit{Train-Test Split} 80:20)}:
+        \par Pembagian dataset dengan proporsi 80\% data latih dan 20\% data uji merupakan standar baku empiris. Proporsi 80\% memberikan volume data yang mencukupi bagi algoritma untuk menangkap pola relasi prediktif, sedangkan 20\% disisihkan sebagai sampel data yang belum pernah dilihat (\textit{unseen data}) untuk menguji keandalan generalisasi model secara obyektif serta mendeteksi gejala \textit{overfitting} atau \textit{underfitting}.
+  \item \textbf{Penerapan Standarisasi (\textit{Standardization / StandardScaler})}:
+        \par Standarisasi mentransformasikan fitur numerik agar berpusat pada nilai mean nol ($\mu = 0$) dan standar deviasi satu ($\sigma = 1$). Alasan penerapannya meliputi:
+        \begin{enumerate}[label=\alph*.]
+          \item Menghilangkan kesenjangan skala antarfitur, sehingga fitur bernilai angka besar tidak mendominasi gradien atau bobot model dibandingkan fitur berskala kecil.
+          \item Mempercepat konvergensi algoritma penurunan gradien (\textit{gradient descent}) serta menjaga keakuratan algoritma berbasis jarak (\textit{distance-based models}) seperti KNN, SVM, dan regresi linier.
+          \item Lebih tegar (\textit{robust}) terhadap keberadaan pencilan (\textit{outliers}) jika dibandingkan dengan normalisasi min-max (\textit{MinMaxScaler}). Pada normalisasi min-max, adanya pencilan ekstrim akan memadatkan mayoritas data normal ke dalam rentang yang teramat sempit mendekati nol, sedangkan standarisasi tetap menjaga sebaran variansi data secara alami.
+        \end{enumerate}
+\end{itemize}
+
 \section{Kesimpulan}
+\par Berdasarkan seluruh rangkaian praktikum yang telah dilaksanakan mengenai \textit{Exploratory Data Analysis} (EDA) dan \textit{Data Preprocessing}, dapat ditarik beberapa kesimpulan pokok sebagai berikut:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Pentingnya Exploratory Data Analysis (EDA)}: EDA merupakan tahapan fundamental dalam siklus penambangan data untuk memahami karakteristik struktural dataset, mengenali pola sebaran frekuensi, mengidentifikasi ketidakseimbangan kelas (\textit{class imbalance}), serta mendeteksi anomali atau pencilan (\textit{outliers}) melalui kombinasi ringkasan statistik deskriptif dan visualisasi grafik (seperti histogram, pie chart, boxplot, dan matriks korelasi).
+  \item \textbf{Esensi Penanganan Kualitas Data}: Dataset dunia nyata umumnya mengandung ketidaksempurnaan berupa duplikasi baris dan nilai kosong (\textit{missing values}). Duplikasi data wajib dihapus guna mencegah bias dan \textit{overfitting}. Penanganan \textit{missing values} harus disesuaikan dengan jenis atribut: imputasi median diterapkan pada fitur numerik yang memiliki pencilan, imputasi modus diterapkan pada fitur kategorikal, penghapusan baris diterapkan pada kehilangan data kunci berfrekuensi rendah, dan penghapusan fitur diterapkan jika proporsi nilai kosong terlalu dominan.
+  \item \textbf{Peran Kritis Pra-Pemrosesan Lanjutan}: Transformasi data lanjutan—meliputi rekayasa fitur (\textit{feature engineering}), penyandian variabel kategorikal (\textit{One-Hot Encoding} untuk data nominal dan \textit{Label Encoding} untuk data ordinal), pembagian partisi data (\textit{train-test split} 80:20), serta standarisasi fitur numerik (\textit{StandardScaler})—terbukti sangat penting dalam mempersiapkan representasi data yang bersih, seimbang, bebas multikolinearitas, dan terkalibrasi secara optimal sebelum diumpankan ke dalam algoritma pembelajaran mesin (\textit{machine learning}).
+\end{enumerate}
+
 
 \section{Daftar Pustaka}
 \printbibliography[heading=none]

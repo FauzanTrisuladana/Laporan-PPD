@@ -1,0 +1,13 @@
+area_type   availability               location       size  \
+13315        Built-up  Area  Ready To Move             Whitefield  5 Bedroom   
+13316  Super built-up  Area  Ready To Move          Richards Town      4 BHK   
+13317        Built-up  Area  Ready To Move  Raja Rajeshwari Nagar      2 BHK   
+13318  Super built-up  Area         18-Jun        Padmanabhanagar      4 BHK   
+13319  Super built-up  Area  Ready To Move           Doddathoguru      1 BHK   
+
+       society total_sqft  bath  balcony  price  
+13315  ArsiaEx       3453   4.0      0.0  231.0  
+13316      NaN       3600   5.0      NaN  400.0  
+13317  Mahla T       1141   2.0      1.0   60.0  
+13318  SollyCl       4689   4.0      1.0  488.0  
+13319      NaN        550   1.0      1.0   17.0
