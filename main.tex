@@ -7,6 +7,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{multirow}
+\usepackage{array}
 \usepackage{titling}
 \usepackage{titlesec}
 \usepackage[backend=biber,style=ieee]{biblatex}
@@ -93,7 +94,7 @@
 % Info dokumen
 \newcommand{\Pertemuan}{3}
 \newcommand{\Materi}{Classification}
-\title{Laporan Praktikum \\ Penambangan Data\\
+\title{Laporan Praktikum \\ Praktikum Penambangan Data\\
 Pertemuan \Pertemuan\\
 \Materi}
 \newcommand{\NamaMahasiswa}{Muhammad Fauzan Putra Trisuladana}
@@ -255,7 +256,7 @@ Pertemuan \Pertemuan\\
   \sigma(z) = \frac{1}{1 + e^{-z}}
   \label{eq:sigmoid}
 \end{equation}
-di mana $z = \mathbf{w}^T \mathbf{x} + b$ merepresentasikan kombinasi linier bobot ($\mathbf{w}$), vektor fitur ($\mathbf{x}$), dan bias ($b$). Luaran probabilitas ini selanjutnya dikonversikan menjadi label kelas biner melalui ambang batas (\textit{threshold}), umumnya bernilai 0.5 \cite{ibm_logistic_regression}. Meskipun memiliki formulasi yang relatif sederhana, \textit{Logistic Regression} sangat efisien secara komputasi, tidak rentan terhadap penyesuaian parameter yang rumit, dan bekerja dengan optimal pada dataset yang memiliki pemisahan batas keputusan bersifat linier (\textit{linearly separable}).
+di mana $z = \mathbf{w}^T \mathbf{x} + b$ merepresentasikan kombinasi linier antara vektor \textit{weights} ($\mathbf{w}$), vektor fitur ($\mathbf{x}$), dan \textit{intercept} atau \textit{bias} ($b$). Luaran probabilitas ini selanjutnya dikonversikan menjadi label kelas biner melalui ambang batas (\textit{threshold}), umumnya bernilai 0.5 \cite{ibm_logistic_regression}. Meskipun memiliki formulasi yang relatif sederhana, \textit{Logistic Regression} sangat efisien secara komputasi, tidak rentan terhadap penyesuaian parameter yang rumit, dan bekerja dengan optimal pada dataset yang memiliki pemisahan batas keputusan bersifat linier (\textit{linearly separable}).
 
 \subsubsection{K-Nearest Neighbors (KNN)}
 \par \textit{K-Nearest Neighbors} (KNN) adalah algoritma klasifikasi berbasis instansi (\textit{instance-based learning}) yang bersifat non-parametrik dan tergolong sebagai \textit{lazy learner}, di mana model tidak membentuk fungsi representasi global selama fase pelatihan melainkan menyimpan seluruh data sampel \cite{ibm_knn}. Ketika menerima data uji baru, KNN menentukan prediksi kelas berdasarkan label mayoritas (\textit{majority voting}) dari $k$ tetangga terdekat dalam ruang fitur \cite{scikit_classification}. Kedekatan antar titik data umumnya diukur menggunakan metrik jarak geometris, seperti jarak Euclidean (\textit{Euclidean distance}):
@@ -266,24 +267,24 @@ di mana $z = \mathbf{w}^T \mathbf{x} + b$ merepresentasikan kombinasi linier bob
 di mana $\mathbf{p}$ dan $\mathbf{q}$ merupakan dua titik data berdimensi $n$. Kinerja algoritma KNN sangat dipengaruhi oleh pemilihan nilai hiperparameter $k$ dan struktur distribusi data \cite{ibm_knn}. Pemilihan nilai $k$ yang terlalu kecil membuat model rentan terhadap gangguan derau (\textit{noise}), sedangkan nilai $k$ yang terlalu besar dapat mengaburkan batas pemisah antar kelas. Selain itu, penskalaan fitur (\textit{feature scaling}) menjadi tahapan pra-pemrosesan yang esensial agar atribut dengan rentang nilai besar tidak mendominasi perhitungan jarak.
 
 \subsubsection{Decision Tree}
-\par \textit{Decision Tree} atau pohon keputusan adalah algoritma klasifikasi hierarkis yang memodelkan proses pengambilan keputusan layaknya struktur bagan pohon, yang terdiri atas simpul akar (\textit{root node}), simpul keputusan internal (\textit{internal decision nodes}), cabang (\textit{branches}), dan simpul daun (\textit{leaf nodes}) yang merepresentasikan label kelas akhir \cite{ibm_decision_tree}. Algoritma ini bekerja dengan cara mempartisi ruang fitur secara rekursif berdasarkan atribut yang memberikan pemisahan informasi paling optimal pada setiap simpul \cite{scikit_classification}. Ukuran ketidakmurnian (\textit{impurity}) yang lazim digunakan dalam pemilihan fitur pemisah mencakup indeks ketidakmurnian Gini (\textit{Gini impurity}) dan entropi atau perolehan informasi (\textit{information gain}) \cite{ibm_decision_tree}. Indeks Gini dirumuskan sebagai:
+\par \textit{Decision Tree} adalah algoritma klasifikasi hierarkis yang memodelkan proses pengambilan keputusan layaknya struktur bagan pohon, yang terdiri atas simpul akar (\textit{root node}), simpul keputusan internal (\textit{internal decision nodes}), cabang (\textit{branches}), dan simpul daun (\textit{leaf nodes}) yang merepresentasikan label kelas akhir \cite{ibm_decision_tree}. Algoritma ini bekerja dengan cara mempartisi ruang fitur secara rekursif berdasarkan atribut yang memberikan pemisahan informasi paling optimal pada setiap simpul \cite{scikit_classification}. Ukuran ketidakmurnian (\textit{impurity}) yang lazim digunakan dalam pemilihan fitur pemisah mencakup indeks ketidakmurnian Gini (\textit{Gini impurity}) dan entropi atau perolehan informasi (\textit{information gain}) \cite{ibm_decision_tree}. Indeks Gini dirumuskan sebagai:
 \begin{equation}
   \text{Gini}(D) = 1 - \sum_{i=1}^{C} p_i^2
   \label{eq:gini}
 \end{equation}
-di mana $p_i$ menyatakan proporsi kemunculan kelas $i$ pada himpunan data simpul $D$ dengan total $C$ kelas. Keunggulan utama dari \textit{Decision Tree} adalah interpretabilitasnya yang sangat tinggi karena aturan inferensi dapat divisualisasikan secara intuitif \cite{dicoding_classification}. Kendati demikian, pohon keputusan tunggal memiliki kelemahan berupa kecenderungan mengalami penyesuaian berlebih (\textit{overfitting}) terhadap variansi data latih jika tidak dilakukan pemangkasan cabang (\textit{pruning}) atau pembatasan kedalaman pohon (\textit{max depth}).
+di mana $p_i$ menyatakan proporsi kemunculan kelas $i$ pada himpunan data simpul $D$ dengan total $C$ kelas. Keunggulan utama dari \textit{Decision Tree} adalah interpretabilitasnya yang sangat tinggi karena aturan inferensi dapat divisualisasikan secara intuitif \cite{dicoding_classification}. Kendati demikian, model \textit{Decision Tree} tunggal memiliki kelemahan berupa kecenderungan mengalami penyesuaian berlebih (\textit{overfitting}) terhadap variansi data latih jika tidak dilakukan pemangkasan cabang (\textit{pruning}) atau pembatasan kedalaman pohon (\textit{max depth}).
 
 \subsubsection{Random Forest}
-\par \textit{Random Forest} adalah algoritma pembelajaran ansambel (\textit{ensemble learning}) yang mengintegrasikan prediksi dari sekumpulan pohon keputusan independen untuk meningkatkan ketepatan dan stabilitas model secara signifikan \cite{ibm_random_forest}. Algoritma ini mengadopsi prinsip \textit{bagging} (\textit{Bootstrap Aggregating}), di mana setiap pohon dilatih menggunakan sampel data acak dengan pengembalian (\textit{bootstrap sample}) dari dataset utama \cite{scikit_classification}. Selain pengacakan data observasi, \textit{Random Forest} juga menerapkan pemilihan acak pada subset fitur di setiap pemecahan simpul pohon untuk memastikan bahwa pohon-pohon yang terbentuk memiliki korelasi yang sangat rendah satu sama lain (\textit{decorrelated trees}) \cite{ibm_random_forest}. Keputusan klasifikasi akhir ditentukan melalui pemungutan suara terbanyak (\textit{majority voting}) dari seluruh pohon dalam ansambel. Pendekatan ini secara efektif menekan risiko \textit{overfitting}, meningkatkan ketahanan terhadap pencilan (\textit{outliers}), serta menghasilkan performa generalisasi yang tangguh pada dataset tabular berdimensi tinggi.
+\par \textit{Random Forest} adalah algoritma pembelajaran ansambel (\textit{ensemble learning}) yang mengintegrasikan prediksi dari sekumpulan \textit{decision trees} independen untuk meningkatkan ketepatan dan stabilitas model secara signifikan \cite{ibm_random_forest}. Algoritma ini mengadopsi prinsip \textit{bagging} (\textit{Bootstrap Aggregating}), di mana setiap pohon dilatih menggunakan sampel data acak dengan pengembalian (\textit{bootstrap sample}) dari dataset utama \cite{scikit_classification}. Selain pengacakan data observasi, \textit{Random Forest} juga menerapkan pemilihan acak pada subset fitur di setiap pemecahan simpul pohon untuk memastikan bahwa pohon-pohon yang terbentuk memiliki korelasi yang sangat rendah satu sama lain (\textit{decorrelated trees}) \cite{ibm_random_forest}. Keputusan klasifikasi akhir ditentukan melalui pemungutan suara terbanyak (\textit{majority voting}) dari seluruh pohon dalam ansambel. Pendekatan ini secara efektif menekan risiko \textit{overfitting}, meningkatkan ketahanan terhadap pencilan (\textit{outliers}), serta menghasilkan performa generalisasi yang tangguh pada dataset tabular berdimensi tinggi.
 
 \subsubsection{AdaBoost (Adaptive Boosting)}
-\par \textit{Adaptive Boosting} atau AdaBoost adalah algoritma \textit{ensemble learning} berbasis strategi \textit{boosting} yang bekerja secara berurutan (\textit{sequential}) untuk menggabungkan serangkaian pembelajar lemah (\textit{weak learners}) menjadi satu model prediksi yang kuat (\textit{strong learner}) \cite{scikit_adaboost}. Pada algoritma AdaBoost, model pembelajar lemah yang paling umum digunakan adalah pohon keputusan berskala dangkal yang hanya terdiri dari satu pemisahan simpul atau dikenal sebagai \textit{decision stump} \cite{scikit_adaboost}. Karakteristik khas dari AdaBoost terletak pada mekanisme penyesuaian bobot sampel secara adaptif (\textit{adaptive instance re-weighting}), di mana sampel data yang salah diklasifikasikan pada iterasi saat ini akan diberikan bobot penalti yang lebih besar pada iterasi berikutnya \cite{ibm_classification}. Hal ini memaksa model pada tahap lanjutan untuk lebih memusatkan pembelajaran pada observasi yang sukar diklasifikasikan. Pada tahap akhir, seluruh model pembelajar digabungkan melalui pemungutan suara terbobot (\textit{weighted voting}) berdasarkan tingkat akurasi masing-masing pembelajar, sehingga performa klasifikasi meningkat secara nyata terutama pada data yang kompleks.
+\par \textit{Adaptive Boosting} atau AdaBoost adalah algoritma \textit{ensemble learning} berbasis strategi \textit{boosting} yang bekerja secara berurutan (\textit{sequential}) untuk menggabungkan serangkaian \textit{weak learners} menjadi satu model prediksi yang kuat (\textit{strong learner}) \cite{scikit_adaboost}. Pada algoritma AdaBoost, model \textit{weak learner} yang paling umum digunakan adalah \textit{Decision Tree} berskala satu pemisahan simpul yang dikenal sebagai \textit{decision stump} \cite{scikit_adaboost}. Karakteristik khas dari AdaBoost terletak pada mekanisme penyesuaian bobot sampel secara adaptif (\textit{adaptive instance re-weighting}), di mana sampel data yang salah diklasifikasikan pada iterasi saat ini akan diberikan bobot penalti yang lebih besar pada iterasi berikutnya \cite{ibm_classification}. Hal ini memaksa model pada tahap lanjutan untuk lebih memusatkan pembelajaran pada observasi yang sukar diklasifikasikan. Pada tahap akhir, seluruh model pembelajar digabungkan melalui pemungutan suara terbobot (\textit{weighted voting}) berdasarkan tingkat akurasi masing-masing pembelajar, sehingga performa klasifikasi meningkat secara nyata terutama pada data yang kompleks.
 
 \subsection{Metrik Evaluasi Classification}
 \par Evaluasi performa model klasifikasi merupakan langkah fundamental untuk mengukur tingkat keberhasilan dan keandalan sistem dalam mengenali pola data \cite{scikit_metrics}. Evaluasi dilakukan secara kuantitatif dengan membandingkan label hasil prediksi model terhadap label nilai aktual yang sebenarnya (\textit{ground truth}) pada data uji \cite{dqlab_classification_metrics}. Informasi komparasi antara nilai prediksi dan nilai aktual tersebut disusun secara sistematis ke dalam suatu matriks kontingensi yang disebut \textit{confusion matrix} \cite{trivusi_confusion_matrix}.
 
 \subsubsection{Confusion Matrix}
-\par \textit{Confusion Matrix} atau matriks konfusi adalah tabel representasi visual dua dimensi yang memerinci kinerja model klasifikasi dengan memetakan jumlah prediksi yang benar dan yang keliru ke dalam kategori kelas aktual versus kelas prediksi \cite{trivusi_confusion_matrix}. Pada skenario klasifikasi biner, \textit{confusion matrix} membagi hasil prediksi ke dalam empat kuadran fundamental \cite{scikit_metrics}:
+\par \textit{Confusion Matrix} adalah tabel representasi visual dua dimensi yang memerinci kinerja model klasifikasi dengan memetakan jumlah prediksi yang benar dan yang keliru ke dalam kategori kelas aktual versus kelas prediksi \cite{trivusi_confusion_matrix}. Pada skenario klasifikasi biner, \textit{confusion matrix} membagi hasil prediksi ke dalam empat kuadran fundamental \cite{scikit_metrics}:
 \begin{enumerate}
   \item \textbf{True Positive (TP)}: Jumlah sampel kelas positif aktual yang berhasil diprediksi secara tepat sebagai kelas positif.
   \item \textbf{True Negative (TN)}: Jumlah sampel kelas negatif aktual yang berhasil diprediksi secara tepat sebagai kelas negatif.
@@ -365,7 +366,7 @@ di mana $p_i$ menyatakan proporsi kemunculan kelas $i$ pada himpunan data simpul
   \item \texttt{pandas}, \texttt{numpy}, \texttt{matplotlib.pyplot}: Mengimpor pustaka fundamental untuk manipulasi DataFrame tabular, komputasi numerik larik n-dimensi, dan visualisasi grafik.
   \item \texttt{train\_test\_split}: Mengimpor fungsi pemartisi dataset menjadi subset data latih (\textit{training}) dan data uji (\textit{testing}).
   \item \texttt{LabelEncoder}, \texttt{StandardScaler}: Mengimpor modul pengkodean fitur kategorikal ke bilangan bulat diskrit serta standardisasi distribusi fitur numerik ($\mu=0, \sigma=1$).
-  \item Metrik Scikit-Learn: Mengimpor fungsi evaluasi performa klasifikasi (\textit{accuracy}, \textit{precision}, \textit{recall}, \textit{F1-score}) serta modul visualisasi matriks konfusi.
+  \item Metrik Scikit-Learn: Mengimpor fungsi evaluasi performa klasifikasi (\textit{accuracy}, \textit{precision}, \textit{recall}, \textit{F1-score}) serta modul visualisasi \textit{confusion matrix}.
   \item Algoritma Klasifikasi: Mengimpor kelas \texttt{LogisticRegression}, \texttt{KNeighborsClassifier}, \texttt{DecisionTreeClassifier}, \texttt{RandomForestClassifier}, dan \texttt{AdaBoostClassifier}.
 \end{itemize}
 Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-impor-pustaka-1} (Tidak ada output).
@@ -489,7 +490,7 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-data-preproce
 \lstinputlisting[language=Python, caption={Pemodelan dan Evaluasi Logistic Regression}, label={lst:kode-pemodelan-logistic-regression-1}]{resource/code/pemodelan-logistic-regression_1.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Evaluasi Logistic Regression}, label={lst:out-pemodelan-logistic-regression-1}]{resource/output/pemodelan-logistic-regression_1_out.txt}
-\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-logistic-regression-1}, model klasifikasi \textit{Logistic Regression} diinisialisasi dan dilatih menggunakan metode \texttt{.fit(X\_train, y\_train)}. Selanjutnya, model melakukan prediksi terhadap data uji \texttt{X\_test} yang disimpan ke dalam vektor \texttt{y\_pred}. Evaluasi dihitung berdasarkan metrik akurasi, presisi makro, recall makro, F1-score makro, serta visualisasi matriks konfusi menggunakan \texttt{ConfusionMatrixDisplay}. Visualisasi matriks konfusi dari model \textit{Logistic Regression} ditampilkan pada Gambar \ref{fig:cm-logistic-regression}.
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-logistic-regression-1}, model klasifikasi \textit{Logistic Regression} diinisialisasi dan dilatih menggunakan metode \texttt{.fit(X\_train, y\_train)}. Selanjutnya, model melakukan prediksi terhadap data uji \texttt{X\_test} yang disimpan ke dalam vektor \texttt{y\_pred}. Evaluasi dihitung berdasarkan metrik akurasi, \textit{macro precision}, \textit{macro recall}, \textit{macro F1-score}, serta visualisasi \textit{confusion matrix} menggunakan \texttt{ConfusionMatrixDisplay}. Visualisasi \textit{confusion matrix} dari model \textit{Logistic Regression} ditampilkan pada Gambar \ref{fig:cm-logistic-regression}.
 
 \begin{figure}[H]
   \centering
@@ -498,25 +499,25 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-data-preproce
   \label{fig:cm-logistic-regression}
 \end{figure}
 
-\par Berdasarkan Gambar \ref{fig:cm-logistic-regression} dan nilai evaluasi pada Output \ref{lst:out-pemodelan-logistic-regression-1}, model \textit{Logistic Regression} mencatatkan nilai Akurasi sebesar 0.9419 (94.19\%), Presisi makro 0.4710 (47.10\%), Recall makro 0.5000 (50.00\%), dan F1-Score makro 0.4851 (48.51\%). Meskipun angka akurasinya tampak tinggi, matriks konfusi membeberkan fakta bahwa dari total 1533 data uji, model memprediksi 1444 sampel True Negative (TN) dengan benar, namun menghasilkan 89 False Negative (FN) dan 0 True Positive (TP). Hal ini berarti model memprediksi seluruh sampel data uji sebagai kelas mayoritas 0 (tidak stroke) dan sama sekali gagal mendeteksi satu pun pasien penderita stroke aktual. Fenomena ini merupakan bukti empiris dari paradoks akurasi (\textit{accuracy paradox}) pada dataset tidak seimbang (\textit{imbalanced dataset}), di mana ambang batas probabilitas standar 0.5 pada fungsi sigmoid tidak pernah terlampaui oleh sampel positif karena bobot peluang kejadian penyakit yang sangat langka.
+\par Berdasarkan Gambar \ref{fig:cm-logistic-regression} dan nilai evaluasi pada Output \ref{lst:out-pemodelan-logistic-regression-1}, model \textit{Logistic Regression} mencatatkan nilai Akurasi sebesar 0.9419 (94.19\%), \textit{macro precision} 0.4710 (47.10\%), \textit{macro recall} 0.5000 (50.00\%), dan \textit{macro F1-score} 0.4851 (48.51\%). Meskipun angka akurasinya tampak tinggi, \textit{confusion matrix} membeberkan fakta bahwa dari total 1533 data uji, model memprediksi 1444 sampel True Negative (TN) dengan benar, namun menghasilkan 89 False Negative (FN) dan 0 True Positive (TP). Hal ini berarti model memprediksi seluruh sampel data uji sebagai kelas mayoritas 0 (tidak stroke) dan sama sekali gagal mendeteksi satu pun pasien penderita stroke aktual. Fenomena ini merupakan bukti empiris dari paradoks akurasi (\textit{accuracy paradox}) pada dataset tidak seimbang (\textit{imbalanced dataset}), di mana ambang batas probabilitas standar 0.5 pada fungsi sigmoid tidak pernah terlampaui oleh sampel positif karena bobot peluang kejadian penyakit yang sangat langka.
 
-\subsubsection{Koefisien Bobot Fitur Logistic Regression}
-\lstinputlisting[language=Python, caption={Koefisien Bobot Fitur Logistic Regression}, label={lst:kode-model-logreg-coef-1}]{resource/code/model-logreg-coef_1.py}
+\subsubsection{Feature Coefficients Model Logistic Regression}
+\lstinputlisting[language=Python, caption={Pemeriksaan Feature Coefficients (\texttt{coef\_}) Logistic Regression}, label={lst:kode-model-logreg-coef-1}]{resource/code/model-logreg-coef_1.py}
 \par \textbf{Output:}
-\lstinputlisting[caption={Output Koefisien Bobot Fitur Logistic Regression}, label={lst:out-model-logreg-coef-1}]{resource/output/model-logreg-coef_1_out.txt}
-\par Berdasarkan sintaks pada Kode \ref{lst:kode-model-logreg-coef-1}, atribut \texttt{model.coef\_} diakses untuk memeriksa nilai koefisien regresi ($\beta_i$) dari masing-masing fitur masukan. Sebagaimana tertera pada Output \ref{lst:out-model-logreg-coef-1}, koefisien dengan magnitudo positif tertinggi terdapat pada fitur ke-2, yaitu usia (\texttt{age}) dengan nilai koefisien mencapai +1.5525. Secara klinis dan matematis, hal ini menunjukkan bahwa variabel usia merupakan faktor prediktor paling dominan yang secara signifikan meningkatkan nilai log-odds kemungkinan seseorang terkena stroke, disusul oleh fitur kadar glukosa rata-rata (+0.1974) dan penyakit jantung (+0.1037).
+\lstinputlisting[caption={Output Feature Coefficients Logistic Regression}, label={lst:out-model-logreg-coef-1}]{resource/output/model-logreg-coef_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-model-logreg-coef-1}, atribut \texttt{model.coef\_} diakses untuk memeriksa nilai \textit{feature coefficients} ($\beta_i$) dari masing-masing fitur masukan. Sebagaimana tertera pada Output \ref{lst:out-model-logreg-coef-1}, nilai \textit{coefficient} dengan magnitudo positif tertinggi terdapat pada fitur ke-2, yaitu usia (\texttt{age}) dengan nilai mencapai +1.5525. Secara klinis dan matematis, hal ini menunjukkan bahwa variabel usia merupakan faktor prediktor paling dominan yang secara signifikan meningkatkan nilai log-odds kemungkinan seseorang terkena stroke, disusul oleh fitur kadar glukosa rata-rata (+0.1974) dan penyakit jantung (+0.1037).
 
-\subsubsection{Nilai Intersep Model Logistic Regression}
-\lstinputlisting[language=Python, caption={Nilai Intersep Model Logistic Regression}, label={lst:kode-model-logreg-intercept-1}]{resource/code/model-logreg-intercept_1.py}
+\subsubsection{Intercept Model Logistic Regression}
+\lstinputlisting[language=Python, caption={Pemeriksaan Intercept Model Logistic Regression}, label={lst:kode-model-logreg-intercept-1}]{resource/code/model-logreg-intercept_1.py}
 \par \textbf{Output:}
-\lstinputlisting[caption={Output Nilai Intersep Model Logistic Regression}, label={lst:out-model-logreg-intercept-1}]{resource/output/model-logreg-intercept_1_out.txt}
-\par Berdasarkan sintaks pada Kode \ref{lst:kode-model-logreg-intercept-1}, atribut \texttt{model.intercept\_} dipanggil untuk melihat nilai perpotongan atau bias ($\beta_0$) dari model regresi logistik. Berdasarkan angka pada Output \ref{lst:out-model-logreg-intercept-1}, nilai intersep bernilai sangat negatif, yaitu $-4.0453$. Nilai bias konstan yang bernilai negatif ini mencerminkan proporsi dasar (\textit{base rate}) kejadian stroke yang sangat rendah dalam populasi; fungsi logistik bergeser ke kiri sehingga memerlukan kombinasi nilai fitur positif yang luar biasa tinggi untuk dapat mengangkat nilai probabilitas prediksi melampaui ambang batas klasifikasi 0.5.
+\lstinputlisting[caption={Output Intercept Model Logistic Regression}, label={lst:out-model-logreg-intercept-1}]{resource/output/model-logreg-intercept_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-model-logreg-intercept-1}, atribut \texttt{model.intercept\_} dipanggil untuk melihat nilai \textit{intercept} atau \textit{bias} ($\beta_0$) dari model \textit{Logistic Regression}. Berdasarkan angka pada Output \ref{lst:out-model-logreg-intercept-1}, nilai \textit{intercept} bernilai sangat negatif, yaitu $-4.0453$. Nilai \textit{bias} konstan yang negatif ini mencerminkan proporsi dasar (\textit{base rate}) kejadian stroke yang sangat rendah dalam populasi; fungsi logistik bergeser ke kiri sehingga memerlukan kombinasi nilai fitur positif yang luar biasa tinggi untuk dapat mengangkat nilai probabilitas prediksi melampaui ambang batas klasifikasi 0.5.
 
 \subsubsection{Klasifikasi dengan K-Nearest Neighbors (KNN)}
 \lstinputlisting[language=Python, caption={Pemodelan dan Evaluasi K-Nearest Neighbors}, label={lst:kode-pemodelan-knn-1}]{resource/code/pemodelan-knn_1.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Evaluasi K-Nearest Neighbors}, label={lst:out-pemodelan-knn-1}]{resource/output/pemodelan-knn_1_out.txt}
-\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-knn-1}, algoritma non-parametrik \textit{K-Nearest Neighbors} (KNN) dikonfigurasikan dengan hiperparameter jumlah tetangga terdekat $k=10$ (\texttt{n\_neighbors=10}) lalu dilatih pada data latih $X_{train}$ dan $y_{train}$. Representasi visual dari matriks konfusi yang dihasilkan oleh model KNN disajikan pada Gambar \ref{fig:cm-knn}.
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-knn-1}, algoritma non-parametrik \textit{K-Nearest Neighbors} (KNN) dikonfigurasikan dengan hiperparameter jumlah tetangga terdekat $k=10$ (\texttt{n\_neighbors=10}) lalu dilatih pada data latih $X_{train}$ dan $y_{train}$. Representasi visual dari \textit{confusion matrix} yang dihasilkan oleh model KNN disajikan pada Gambar \ref{fig:cm-knn}.
 
 \begin{figure}[H]
   \centering
@@ -525,13 +526,13 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-data-preproce
   \label{fig:cm-knn}
 \end{figure}
 
-\par Berdasarkan Gambar \ref{fig:cm-knn} dan Output \ref{lst:out-pemodelan-knn-1}, model KNN menghasilkan nilai Akurasi sebesar 0.9419 (94.19\%), Presisi makro 0.4710 (47.10\%), dan Recall makro 0.5000 (50.00\%). Matriks konfusi memperlihatkan $TN = 1444$, $FP = 0$, $FN = 89$, dan $TP = 0$. Serupa dengan performa regresi logistik, model KNN mengalami kegagalan deteksi total pada kelas positif (Recall kelas 1 adalah 0\%). Hal ini terjadi karena dalam penentuan kelas berbasis pemungutan suara mayoritas (\textit{majority voting}) dari 10 tetangga terdekat, kepadatan sampel kelas 0 yang mencapai 95\% di dalam ruang fitur Euclidean selalu mendominasi lingkungan tetangga di sekitar setiap titik data uji, sehingga probabilitas terpilihnya kelas 1 selalu kalah suara.
+\par Berdasarkan Gambar \ref{fig:cm-knn} dan Output \ref{lst:out-pemodelan-knn-1}, model KNN menghasilkan nilai Akurasi sebesar 0.9419 (94.19\%), \textit{macro precision} 0.4710 (47.10\%), dan \textit{macro recall} 0.5000 (50.00\%). \textit{Confusion matrix} memperlihatkan $TN = 1444$, $FP = 0$, $FN = 89$, dan $TP = 0$. Serupa dengan performa \textit{Logistic Regression}, model KNN mengalami kegagalan deteksi total pada kelas positif (Recall kelas 1 adalah 0\%). Hal ini terjadi karena dalam penentuan kelas berbasis pemungutan suara mayoritas (\textit{majority voting}) dari 10 tetangga terdekat, kepadatan sampel kelas 0 yang mencapai 95\% di dalam ruang fitur Euclidean selalu mendominasi lingkungan tetangga di sekitar setiap titik data uji, sehingga probabilitas terpilihnya kelas 1 selalu kalah suara.
 
 \subsubsection{Klasifikasi dengan Decision Tree}
 \lstinputlisting[language=Python, caption={Pemodelan dan Evaluasi Decision Tree}, label={lst:kode-pemodelan-decision-tree-1}]{resource/code/pemodelan-decision-tree_1.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Evaluasi Decision Tree}, label={lst:out-pemodelan-decision-tree-1}]{resource/output/pemodelan-decision-tree_1_out.txt}
-\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-decision-tree-1}, model \textit{Decision Tree Classifier} diinisialisasi dengan fungsi kriteria pemisahan berbasis entropi atau perolehan informasi (\texttt{criterion="entropy"}). Model pohon keputusan ini mempartisi ruang fitur secara rekursif hingga membentuk simpul-simpul aturan keputusan. Visualisasi matriks konfusi dari eksekusi model \textit{Decision Tree} ditampilkan pada Gambar \ref{fig:cm-decision-tree}.
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-decision-tree-1}, model \textit{Decision Tree Classifier} diinisialisasi dengan fungsi kriteria pemisahan berbasis entropi atau perolehan informasi (\texttt{criterion="entropy"}). Model \textit{Decision Tree} ini mempartisi ruang fitur secara rekursif hingga membentuk simpul-simpul aturan keputusan. Visualisasi \textit{confusion matrix} dari eksekusi model \textit{Decision Tree} ditampilkan pada Gambar \ref{fig:cm-decision-tree}.
 
 \begin{figure}[H]
   \centering
@@ -540,13 +541,13 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-data-preproce
   \label{fig:cm-decision-tree}
 \end{figure}
 
-\par Berdasarkan Gambar \ref{fig:cm-decision-tree} dan Output \ref{lst:out-pemodelan-decision-tree-1}, algoritma \textit{Decision Tree} menghasilkan tingkat Akurasi sebesar 0.9061 (90.61\%), Presisi makro sebesar 0.5446 (54.46\%), dan Recall makro sebesar 0.5389 (53.89\%). Matriks konfusi mencatat perolehan $TN = 1378$, $FP = 66$, $FN = 78$, dan yang terpenting adalah $TP = 11$. Berbeda secara fundamental dari model sebelumnya, pohon keputusan membuktikan kemampuannya untuk mendeteksi 11 kasus pasien positif stroke yang sesungguhnya. Batas keputusan non-linier berbasis partisi ortogonal pada pohon keputusan mampu mengisolasi sub-ruang fitur spesifik di mana kasus stroke terkonsentrasi. Meskipun demikian, akibat sensitivitas struktur pohon terhadap variansi lokal tanpa adanya pembatasan kedalaman (\textit{max\_depth pruning}), model menghasilkan 66 alarm palsu (\textit{False Positive}) dan mengalami penurunan akurasi global menjadi 90.61\%.
+\par Berdasarkan Gambar \ref{fig:cm-decision-tree} dan Output \ref{lst:out-pemodelan-decision-tree-1}, algoritma \textit{Decision Tree} menghasilkan tingkat Akurasi sebesar 0.9061 (90.61\%), \textit{macro precision} sebesar 0.5446 (54.46\%), dan \textit{macro recall} sebesar 0.5389 (53.89\%). \textit{Confusion matrix} mencatat perolehan $TN = 1378$, $FP = 66$, $FN = 78$, dan yang terpenting adalah $TP = 11$. Berbeda secara fundamental dari model sebelumnya, \textit{Decision Tree} membuktikan kemampuannya untuk mendeteksi 11 kasus pasien positif stroke yang sesungguhnya. Batas keputusan non-linier berbasis partisi ortogonal pada \textit{Decision Tree} mampu mengisolasi sub-ruang fitur spesifik di mana kasus stroke terkonsentrasi. Meskipun demikian, akibat sensitivitas struktur pohon terhadap variansi lokal tanpa adanya pembatasan kedalaman (\textit{max\_depth pruning}), model menghasilkan 66 alarm palsu (\textit{False Positive}) dan mengalami penurunan akurasi global menjadi 90.61\%.
 
 \subsubsection{Klasifikasi dengan Random Forest}
 \lstinputlisting[language=Python, caption={Pemodelan dan Evaluasi Random Forest}, label={lst:kode-pemodelan-random-forest-1}]{resource/code/pemodelan-random-forest_1.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Evaluasi Random Forest}, label={lst:out-pemodelan-random-forest-1}]{resource/output/pemodelan-random-forest_1_out.txt}
-\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-random-forest-1}, algoritma ansambel \textit{Random Forest Classifier} diterapkan dengan menggabungkan sekumpulan pohon keputusan independen yang dilatih menggunakan teknik \textit{bagging} dan pemilihan fitur acak. Visualisasi matriks konfusi dari model \textit{Random Forest} disajikan pada Gambar \ref{fig:cm-random-forest}.
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-random-forest-1}, algoritma ansambel \textit{Random Forest Classifier} diterapkan dengan menggabungkan sekumpulan \textit{decision trees} independen yang dilatih menggunakan teknik \textit{bagging} dan pemilihan fitur acak. Visualisasi \textit{confusion matrix} dari model \textit{Random Forest} disajikan pada Gambar \ref{fig:cm-random-forest}.
 
 \begin{figure}[H]
   \centering
@@ -555,13 +556,13 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-data-preproce
   \label{fig:cm-random-forest}
 \end{figure}
 
-\par Berdasarkan Gambar \ref{fig:cm-random-forest} dan Output \ref{lst:out-pemodelan-random-forest-1}, model \textit{Random Forest} memperoleh Akurasi sebesar 0.9406 (94.06\%), Presisi makro 0.4709 (47.09\%), dan Recall makro 0.4993 (49.93\%). Matriks konfusi menunjukkan hasil berupa $TN = 1442$, $FP = 2$, $FN = 89$, dan $TP = 0$. Agregasi banyak pohon pada \textit{Random Forest} terbukti sangat efektif menekan variansi dan meredam kesalahan alarm palsu sehingga nilai False Positive menyusut drastis dari 66 pada pohon tunggal menjadi hanya 2 kasus. Namun demikian, karena sampel bootstrap diambil secara acak seragam dari data latih yang timpang, mayoritas pohon dalam ansambel tetap didominasi oleh aturan kelas 0, sehingga suara agregat ansambel tetap menenggelamkan prediksi kelas minoritas ($TP = 0$).
+\par Berdasarkan Gambar \ref{fig:cm-random-forest} dan Output \ref{lst:out-pemodelan-random-forest-1}, model \textit{Random Forest} memperoleh Akurasi sebesar 0.9406 (94.06\%), \textit{macro precision} 0.4709 (47.09\%), dan \textit{macro recall} 0.4993 (49.93\%). \textit{Confusion matrix} menunjukkan hasil berupa $TN = 1442$, $FP = 2$, $FN = 89$, dan $TP = 0$. Agregasi banyak pohon pada \textit{Random Forest} terbukti sangat efektif menekan variansi dan meredam kesalahan alarm palsu sehingga nilai False Positive menyusut drastis dari 66 pada pohon tunggal menjadi hanya 2 kasus. Namun demikian, karena sampel bootstrap diambil secara acak seragam dari data latih yang timpang, mayoritas pohon dalam ansambel tetap didominasi oleh aturan kelas 0, sehingga suara agregat ansambel tetap menenggelamkan prediksi kelas minoritas ($TP = 0$).
 
 \subsubsection{Klasifikasi dengan AdaBoost}
 \lstinputlisting[language=Python, caption={Pemodelan dan Evaluasi AdaBoost}, label={lst:kode-pemodelan-adaboost-1}]{resource/code/pemodelan-adaboost_1.py}
 \par \textbf{Output:}
 \lstinputlisting[caption={Output Evaluasi AdaBoost}, label={lst:out-pemodelan-adaboost-1}]{resource/output/pemodelan-adaboost_1_out.txt}
-\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-adaboost-1}, algoritma ansambel penguatan adaptif (\textit{Adaptive Boosting} atau AdaBoost) dilatih pada data menggunakan kelas \texttt{AdaBoostClassifier()}. Visualisasi matriks konfusi dari model AdaBoost disajikan pada Gambar \ref{fig:cm-adaboost}.
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-adaboost-1}, algoritma \textit{ensemble} AdaBoost (\textit{Adaptive Boosting}) dilatih pada data menggunakan kelas \texttt{AdaBoostClassifier()}. Visualisasi \textit{confusion matrix} dari model AdaBoost disajikan pada Gambar \ref{fig:cm-adaboost}.
 
 \begin{figure}[H]
   \centering
@@ -570,9 +571,310 @@ Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-data-preproce
   \label{fig:cm-adaboost}
 \end{figure}
 
-\par Berdasarkan Gambar \ref{fig:cm-adaboost} dan nilai keluaran pada Output \ref{lst:out-pemodelan-adaboost-1}, model AdaBoost menghasilkan nilai Akurasi sebesar 0.9419 (94.19\%), Presisi makro sebesar 0.4710 (47.10\%), dan Recall makro sebesar 0.5000 (50.00\%). Matriks konfusi mencatat $TN = 1444$, $FP = 0$, $FN = 89$, dan $TP = 0$. Pada konfigurasi bawaan (\textit{default}) dengan pembelajar lemah berupa tunggul keputusan (\textit{decision stump}), pembobotan adaptif pada setiap iterasi belum mampu mengatasi ketimpangan rasio 95:5 secara optimal tanpa adanya teknik penyeimbangan data sintetis (seperti SMOTE) atau penyesuaian bobot penalti kelas. Akibatnya, luaran model AdaBoost kembali mengonvergensi prediksi ke kelas mayoritas secara seragam.
+\par Berdasarkan Gambar \ref{fig:cm-adaboost} dan nilai keluaran pada Output \ref{lst:out-pemodelan-adaboost-1}, model AdaBoost menghasilkan nilai Akurasi sebesar 0.9419 (94.19\%), \textit{macro precision} sebesar 0.4710 (47.10\%), dan \textit{macro recall} sebesar 0.5000 (50.00\%). \textit{Confusion matrix} mencatat $TN = 1444$, $FP = 0$, $FN = 89$, dan $TP = 0$. Pada konfigurasi bawaan (\textit{default}) dengan \textit{weak learner} berupa \textit{decision stump}, mekanisme \textit{instance re-weighting} adaptif pada setiap iterasi belum mampu mengatasi ketimpangan rasio 95:5 secara optimal tanpa adanya teknik penyeimbangan data sintetis (seperti SMOTE) atau penyesuaian \textit{class weights}. Akibatnya, luaran model AdaBoost kembali mengonvergensi prediksi ke kelas mayoritas secara seragam.
+
+\subsection{Tugas}
+\par Pada subbab ini disajikan penyelesaian tugas praktikum klasifikasi penambangan data sesuai dengan penugasan pada buku panduan praktikum halaman 109. Tugas ini menggunakan dataset publik \textit{Loan Status Prediction} yang bersumber dari repositori Kaggle \cite{kaggle_loan_dataset}. Rangkaian tugas ini mencakup analisis tujuan dataset, pendefinisian variabel input dan output, implementasi pra-pemrosesan data, perancangan model klasifikasi pembelajaran mesin (\textit{Logistic Regression}, \textit{K-Nearest Neighbors}, \textit{Decision Tree}, \textit{Random Forest}, dan \textit{AdaBoost}), penyusunan tabel komparasi performa, serta analisis penentuan model terbaik untuk domain kelayakan pinjaman finansial.
+
+\subsubsection{Tugas 1: Tujuan Penggunaan Dataset Loan Status Prediction}
+\par Pemanfaatan dataset \textit{Loan Status Prediction} memiliki tujuan fundamental dalam mentransformasi proses bisnis perbankan konvensional menuju sistem otomatisasi analitik berbasis kecerdasan komputasional \cite{han2022data}. Dalam industri finansial, keputusan persetujuan kredit pinjaman (\textit{loan underwriting}) merupakan pilar inti yang menentukan profitabilitas sekaligus ketahanan institusi terhadap risiko kerugian modal. Berdasarkan konteks tersebut, tujuan utama penggunaan dataset ini dapat dijabarkan sebagai berikut:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Otomatisasi Penilaian Kelayakan Kredit (\textit{Credit Scoring})}: Menggantikan proses evaluasi manual permohonan kredit yang memakan waktu lama, membutuhkan sumber daya manusia intensif, dan rentan terhadap inkonsistensi subjektif dengan sistem inferensi otomatis berbasis model pembelajaran mesin yang mampu memberikan estimasi keputusan secara seketika (\textit{real-time}).
+  \item \textbf{Mitigasi Risiko Kredit (\textit{Credit Risk Management})}: Mengidentifikasi dan memisahkan debitur yang berisiko tinggi mengalami kredit macet (\textit{non-performing loan}/NPL) dari debitur yang taat membayar. Kesalahan dalam meloloskan pinjaman kepada nasabah yang tidak layak dapat mengakibatkan kerugian finansial langsung bagi bank, sehingga model prediktif ditargetkan mampu meminimalkan kesalahan klasifikasi tersebut.
+  \item \textbf{Eksplorasi Pola Sosio-Demografis dan Finansial Debitur}: Menemukan asosiasi tersembunyi antara karakteristik demografis nasabah (seperti status pernikahan, jumlah tanggungan, dan tingkat pendidikan), stabilitas ekonomi (pendapatan pemohon, pendapatan penjamin, status wirausaha), aspek permohonan pinjaman (besaran plafon dan tenor), serta riwayat kepatuhan kredit masa lalu terhadap probabilitas pelunasan pinjaman.
+  \item \textbf{Penyusunan Model Klasifikasi Biner yang Andal}: Mengembangkan, melatih, dan membandingkan performa serangkaian algoritma klasifikasi terawasi (\textit{supervised learning}) guna memilih arsitektur pemodelan dengan tingkat akurasi, presisi, dan \textit{recall} yang optimal dalam mengklasifikasikan status permohonan kredit ke dalam label disetujui (\textit{Approved} / Y) atau ditolak (\textit{Rejected} / N).
+\end{enumerate}
+
+\subsubsection{Tugas 2: Definisi Atribut Input dan Output}
+\par Dataset \textit{Loan Status Prediction} terdiri atas 381 baris data observasi dan 13 kolom variabel. Sebelum model klasifikasi dibangun, setiap atribut harus diidentifikasi peran dan karakteristiknya. Kolom \texttt{Loan\_ID} merupakan pengenal unik (\textit{unique identifier}) bagi setiap pemohon yang tidak memiliki korelasi statistik atau hubungan kausalitas terhadap keputusan kredit nasabah. Oleh karena itu, atribut ini dieksklusikan (\textit{dropped}) dari matriks pembelajaran guna mencegah \textit{overfitting} akibat penghafalan entitas.
+\par Atribut-atribut selebihnya dibagi menjadi dua kelompok utama, yaitu atribut input (fitur independen yang menjadi masukan prediktor) dan atribut output (variabel dependen target yang diprediksi). Rincian definisi, tipe data awal, skala pengukuran, dan peran seluruh atribut disajikan pada Tabel \ref{tab:definisi-atribut-loan}.
+
+\begin{table}[H]
+  \centering
+  \small
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{|c|l|c|c|>{\raggedright\arraybackslash}p{6.6cm}|}
+    \hline
+    \textbf{No} & \textbf{Nama Atribut}       & \textbf{Tipe Data} & \textbf{Peran} & \textbf{Deskripsi}                                                                                             \\ \hline
+    1           & \texttt{Loan\_ID}           & Object             & Eksklusi       & Nomor identifikasi unik permohonan pinjaman (dieliminasi dari matriks fitur).                                  \\ \hline
+    2           & \texttt{Gender}             & Object             & Input          & Jenis kelamin pemohon (\textit{Male} atau \textit{Female}).                                                    \\ \hline
+    3           & \texttt{Married}            & Object             & Input          & Status pernikahan pemohon pinjaman (\textit{Yes} atau \textit{No}).                                            \\ \hline
+    4           & \texttt{Dependents}         & Object             & Input          & Jumlah anggota keluarga yang menjadi tanggungan finansial pemohon (0, 1, 2, 3+).                               \\ \hline
+    5           & \texttt{Education}          & Object             & Input          & Jenjang pendidikan formal pemohon (\textit{Graduate} atau \textit{Not Graduate}).                              \\ \hline
+    6           & \texttt{Self\_Employed}     & Object             & Input          & Status apakah pemohon bekerja mandiri/wiraswasta (\textit{Yes} atau \textit{No}).                              \\ \hline
+    7           & \texttt{ApplicantIncome}    & Int64              & Input          & Jumlah pendapatan bulanan pemohon utama pinjaman (dalam satuan mata uang/USD).                                 \\ \hline
+    8           & \texttt{CoapplicantIncome}  & Float64            & Input          & Jumlah pendapatan bulanan penjamin atau pasangan pemohon (dalam satuan mata uang/USD).                         \\ \hline
+    9           & \texttt{LoanAmount}         & Float64            & Input          & Jumlah total plafon pinjaman yang diajukan nasabah (dalam ribuan USD).                                         \\ \hline
+    10          & \texttt{Loan\_Amount\_Term} & Float64            & Input          & Jangka waktu atau tenor pelunasan kredit dalam satuan bulan (misalnya 360 bulan).                              \\ \hline
+    11          & \texttt{Credit\_History}    & Float64            & Input          & Rekam jejak kepatuhan kredit pemohon (1.0 = memenuhi kriteria kredit, 0.0 = menunggak/buruk).                  \\ \hline
+    12          & \texttt{Property\_Area}     & Object             & Input          & Lokasi geografis aset jaminan atau properti pemohon (\textit{Urban}, \textit{Semiurban}, \textit{Rural}).      \\ \hline
+    13          & \texttt{Loan\_Status}       & Object             & Output         & Keputusan akhir kelayakan kredit nasabah (Y = \textit{Approved} / Disetujui, N = \textit{Rejected} / Ditolak). \\ \hline
+  \end{tabular}
+  \caption{Definisi dan Spesifikasi Atribut Dataset \textit{Loan Status Prediction}}
+  \label{tab:definisi-atribut-loan}
+\end{table}
+
+\par Berdasarkan Tabel \ref{tab:definisi-atribut-loan}, atribut output \texttt{Loan\_Status} bertindak sebagai target klasifikasi biner. Atribut input terdiri atas kombinasi fitur kategorikal (baik nominal maupun ordinal) dan fitur numerik kontinu/diskret yang merepresentasikan profil menyeluruh dari setiap calon debitur.
+
+\subsubsection{Tugas 3: Pemodelan Klasifikasi Machine Learning}
+\par Implementasi pemodelan klasifikasi pada dataset \textit{Loan Status Prediction} dilakukan secara bertahap melalui lingkungan komputasi Python Google Colab. Tahapan ini mencakup pengimporan pustaka analitik, pemuatan data, eksplorasi data awal (\textit{Exploratory Data Analysis}), pembersihan dan pra-pemrosesan data, pembagian partisi data latih dan uji, standarisasi skala, serta pelatihan dan pengujian lima model klasifikasi: \textit{Logistic Regression}, \textit{K-Nearest Neighbors} (KNN), \textit{Decision Tree}, \textit{Random Forest}, dan \textit{AdaBoost}.
+
+\paragraph{1. Pengimporan Pustaka Analitik}
+\par Langkah awal dimulai dengan mengimpor seluruh modul pendukung manipulasi data, visualisasi, pra-pemrosesan, algoritma klasifikasi, serta metrik evaluasi dari ekosistem pustaka Scikit-Learn, Pandas, NumPy, dan Matplotlib sebagaimana ditunjukkan pada Kode \ref{lst:kode-tugas-impor-pustaka-1}.
+
+\lstinputlisting[language=Python, caption={Pengimporan Pustaka untuk Pengerjaan Tugas}, label={lst:kode-tugas-impor-pustaka-1}]{resource/code/tugas-impor-pustaka_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pengimporan Pustaka Tugas}, label={lst:out-tugas-impor-pustaka-1}]{resource/output/tugas-impor-pustaka_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-impor-pustaka-1} dan Output \ref{lst:out-tugas-impor-pustaka-1}, seluruh pustaka berhasil dimuat ke dalam memori sesi kerja tanpa menghasilkan galat dependensi. Modul yang dimuat mencakup pemroses partisi data (\texttt{train\_test\_split}), penyandi label (\texttt{LabelEncoder}), penyetara skala fitur (\texttt{StandardScaler}), metrik evaluasi kinerja klasifikasi (\texttt{accuracy\_score}, \texttt{precision\_score}, \texttt{recall\_score}, \texttt{confusion\_matrix}, \texttt{ConfusionMatrixDisplay}), serta algoritma pembelajaran mesin yang ditugaskan.
+
+\paragraph{2. Pemuatan Dataset}
+\par Dataset dibaca langsung dari repositori daring GitHub menggunakan fungsi \texttt{pd.read\_csv()} dan disimpan ke dalam variabel \textit{dataframe} \texttt{df} pada Kode \ref{lst:kode-tugas-load-dataset-1}.
+
+\lstinputlisting[language=Python, caption={Pemuatan Dataset Loan Status Prediction}, label={lst:kode-tugas-load-dataset-1}]{resource/code/tugas-load-dataset_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemuatan Dataset Tugas}, label={lst:out-tugas-load-dataset-1}]{resource/output/tugas-load-dataset_1_out.txt}
+\par \textbf{Analisis:} Sintaks pada Kode \ref{lst:kode-tugas-load-dataset-1} berhasil mengeksekusi pengunduhan dan penguraian file CSV dari repositori daring ke dalam struktur data tabular Pandas. Output \ref{lst:out-tugas-load-dataset-1} mengonfirmasi keberhasilan proses tanpa adanya kendala jaringan maupun pembacaan skema.
+
+\paragraph{3. Eksplorasi Data Awal (EDA)}
+\par Eksplorasi data awal dilakukan untuk memahami struktur baris, sebaran nilai statistik deskriptif, keberadaan data kosong, serta pola visualisasi distribusi target dan fitur numerik. Kode \ref{lst:kode-tugas-eda-head-1} dan Kode \ref{lst:kode-tugas-eda-tail-1} mengekstraksi lima baris teratas dan terbawah dari dataset.
+
+\lstinputlisting[language=Python, caption={Inspeksi Lima Baris Teratas Dataset Tugas}, label={lst:kode-tugas-eda-head-1}]{resource/code/tugas-eda-head_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Lima Baris Teratas Dataset Tugas}, label={lst:out-tugas-eda-head-1}]{resource/output/tugas-eda-head_1_out.txt}
+\par \textbf{Analisis:} Output \ref{lst:out-tugas-eda-head-1} menyajikan sampel data awal yang memperlihatkan keragaman tipe variabel. Terlihat bahwa fitur pendapatan (\texttt{ApplicantIncome} dan \texttt{CoapplicantIncome}) memiliki skala angka ribuan, sedangkan fitur tenor dan plafon pinjaman berada pada skala ratusan, menandakan perlunya penyetaraan skala.
+
+\lstinputlisting[language=Python, caption={Inspeksi Lima Baris Terbawah Dataset Tugas}, label={lst:kode-tugas-eda-tail-1}]{resource/code/tugas-eda-tail_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Lima Baris Terbawah Dataset Tugas}, label={lst:out-tugas-eda-tail-1}]{resource/output/tugas-eda-tail_1_out.txt}
+\par \textbf{Analisis:} Output \ref{lst:out-tugas-eda-tail-1} memperlihatkan indeks baris data terbawah mencapai nomor indeks 380, yang mengonfirmasi bahwa dataset terdiri atas 381 baris catatan permohonan kredit.
+
+\lstinputlisting[language=Python, caption={Ringkasan Statistik Deskriptif Fitur Numerik}, label={lst:kode-tugas-eda-describe-1}]{resource/code/tugas-eda-describe_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Ringkasan Statistik Deskriptif Dataset Tugas}, label={lst:out-tugas-eda-describe-1}]{resource/output/tugas-eda-describe_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan Output \ref{lst:out-tugas-eda-describe-1}, diperoleh ringkasan parameter statistik deskriptif pada fitur-fitur numerik. Rata-rata pendapatan pemohon (\texttt{ApplicantIncome}) adalah 3579.85 USD dengan rentang 150 hingga 9703 USD. Nilai pendapatan penjamin (\texttt{CoapplicantIncome}) memiliki batas maksimum mencapai 33837 USD dengan standar deviasi sebesar 2340.82 USD. Rata-rata jumlah pinjaman (\texttt{LoanAmount}) adalah 104.99 ribu USD dengan rentang antara 9 hingga 150 ribu USD. Tenor pinjaman (\texttt{Loan\_Amount\_Term}) mayoritas berada pada nilai 360 bulan (30 tahun), dan rata-rata skor \texttt{Credit\_History} bernilai 0.84 yang mengindikasikan mayoritas nasabah dalam dataset memiliki rekam jejak kepatuhan kredit yang baik.
+
+\lstinputlisting[language=Python, caption={Pemeriksaan Nilai Kosong pada Dataset Tugas}, label={lst:kode-tugas-eda-missing-value-1}]{resource/code/tugas-eda-missing-value_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Nilai Kosong Dataset Tugas}, label={lst:out-tugas-eda-missing-value-1}]{resource/output/tugas-eda-missing-value_1_out.txt}
+\par \textbf{Analisis:} Output \ref{lst:out-tugas-eda-missing-value-1} mengungkapkan keberadaan nilai kosong (\textit{missing values}) pada lima fitur, yaitu: \texttt{Gender} (5 nilai kosong), \texttt{Dependents} (8 nilai kosong), \texttt{Self\_Employed} (21 nilai kosong), \texttt{Loan\_Amount\_Term} (11 nilai kosong), dan \texttt{Credit\_History} (30 nilai kosong). Keberadaan nilai kosong ini wajib ditangani pada tahap pra-pemrosesan agar model pembelajaran mesin dapat memproses seluruh matriks sampel tanpa galat.
+
+\lstinputlisting[language=Python, caption={Visualisasi Diagram Lingkaran Distribusi Target Kredit}, label={lst:kode-tugas-eda-pie-chart-1}]{resource/code/tugas-eda-pie-chart_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Visualisasi Diagram Lingkaran Target}, label={lst:out-tugas-eda-pie-chart-1}]{resource/output/tugas-eda-pie-chart_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-eda-pie-chart-1}, proporsi distribusi kelas target \texttt{Loan\_Status} divisualisasikan dalam bentuk diagram lingkaran (\textit{pie chart}) pada Gambar \ref{fig:tugas-piechart-loan}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-1-piechart-loan.png}
+  \caption{Distribusi Proporsi Kelas Target Kelayakan Pinjaman (\textit{Loan Status})}
+  \label{fig:tugas-piechart-loan}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan Gambar \ref{fig:tugas-piechart-loan}, dari total 381 data pemohon kredit, terdapat 271 permohonan yang disetujui (label Y, setara dengan 71.1\%) dan 110 permohonan yang ditolak (label N, setara dengan 28.9\%). Rasio sebaran ini menunjukkan bahwa kelas target berada dalam proporsi moderat (sekitar 7:3) dan tidak mengalami ketimpangan ekstrem sebagaimana kasus dataset telekomunikasi sebelumnya.
+
+\lstinputlisting[language=Python, caption={Visualisasi Histogram Fitur-Fitur Numerik}, label={lst:kode-tugas-eda-histogram-1}]{resource/code/tugas-eda-histogram_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Visualisasi Histogram Fitur Numerik}, label={lst:out-tugas-eda-histogram-1}]{resource/output/tugas-eda-histogram_1_out.txt}
+\par Sintaks pada Kode \ref{lst:kode-tugas-eda-histogram-1} menghasilkan visualisasi sebaran frekuensi untuk seluruh fitur numerik yang ditampilkan pada Gambar \ref{fig:tugas-histogram-loan}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-2-histogram-loan.png}
+  \caption{Distribusi Histogram Fitur-Fitur Numerik Dataset Tugas}
+  \label{fig:tugas-histogram-loan}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan Gambar \ref{fig:tugas-histogram-loan}, variabel \texttt{ApplicantIncome}, \texttt{CoapplicantIncome}, serta \texttt{LoanAmount} memperlihatkan sebaran condong ke kanan (\textit{right-skewed}), di mana sebagian besar debitur memiliki pendapatan dan plafon pinjaman pada batas menengah ke bawah dengan sedikit pencilan berpendapatan tinggi. Fitur \texttt{Loan\_Amount\_Term} terakumulasi secara dominan pada nilai diskret 360 bulan, sedangkan \texttt{Credit\_History} memiliki sebaran bimodal yang terfokus pada nilai 1.0 (kredit patuh) dan 0.0 (kredit bermasalah).
+
+\paragraph{4. Pra-Pemrosesan Data (\textit{Data Preprocessing})}
+\par Tahap pra-pemrosesan data merupakan fondasi penentu kualitas generalisasi model pembelajaran mesin \cite{han2022data}. Prosedur pra-pemrosesan diimplementasikan pada Kode \ref{lst:kode-tugas-preprocessing-1}, yang mencakup penghapusan kolom identitas (\texttt{Loan\_ID}), pemisahan matriks prediktor $X$ dan target $y$, penyandian target label biner, imputasi nilai kosong berbasis statistik, penyandian seluruh fitur kategorikal melalui \texttt{LabelEncoder}, pembagian partisi data latih dan uji (rasio 70:30 dengan \texttt{random\_state=42}), serta standarisasi fitur numerik menggunakan \texttt{StandardScaler}.
+
+\lstinputlisting[language=Python, caption={Implementasi Pra-Pemrosesan Data Komprehensif}, label={lst:kode-tugas-preprocessing-1}]{resource/code/tugas-preprocessing_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pra-Pemrosesan Data Tugas}, label={lst:out-tugas-preprocessing-1}]{resource/output/tugas-preprocessing_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-preprocessing-1} dan Output \ref{lst:out-tugas-preprocessing-1}, penanganan nilai kosong diterapkan secara adaptif:
+\begin{itemize}[leftmargin=*]
+  \item Untuk fitur numerik yang diskret dan memiliki sebaran tidak teratur (\texttt{Loan\_Amount\_Term} dan \texttt{Credit\_History}), imputasi dilakukan menggunakan nilai median (\texttt{median()}) guna mencegah distorsi nilai akibat pencilan.
+  \item Untuk fitur kategorikal (\texttt{Gender}, \texttt{Dependents}, dan \texttt{Self\_Employed}), imputasi dilakukan menggunakan modus atau nilai yang paling sering muncul (\texttt{mode()[0]}).
+  \item Seluruh fitur bertipe objek diidentifikasi secara otomatis dan ditransformasikan menjadi representasi bilangan bulat terurut menggunakan \texttt{LabelEncoder}.
+  \item Matriks fitur $X$ dan vektor label $y$ dikonversi menjadi larik NumPy bertipe \texttt{float}, kemudian dipartisi menjadi $70\%$ data latih (266 sampel) dan $30\%$ data uji (115 sampel).
+  \item Objek \texttt{StandardScaler} diestimasi (\texttt{fit}) secara ketat hanya pada data latih $X_{train}$ dan selanjutnya mentransformasikan data latih serta data uji guna mencegah terjadinya kebocoran informasi (\textit{data leakage}).
+\end{itemize}
+
+\par Verifikasi atas hasil pra-pemrosesan data dilakukan melalui eksekusi Kode \ref{lst:kode-tugas-cek-x-1}, Kode \ref{lst:kode-tugas-cek-y-1}, Kode \ref{lst:kode-tugas-cek-x-train-1}, dan Kode \ref{lst:kode-tugas-cek-x-test-1}.
+
+\lstinputlisting[language=Python, caption={Verifikasi Dimensi Matriks Fitur $X$}, label={lst:kode-tugas-cek-x-1}]{resource/code/tugas-preprocessing-cek-x_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Dimensi Matriks Fitur $X$}, label={lst:out-tugas-cek-x-1}]{resource/output/tugas-preprocessing-cek-x_1_out.txt}
+\par \textbf{Analisis:} Output \ref{lst:out-tugas-cek-x-1} membuktikan bahwa matriks fitur $X$ memiliki 11 kolom atribut prediktor bersih setelah kolom identitas \texttt{Loan\_ID} dan target \texttt{Loan\_Status} dipisahkan.
+
+\lstinputlisting[language=Python, caption={Verifikasi Nilai Vektor Label Target $y$}, label={lst:kode-tugas-cek-y-1}]{resource/code/tugas-preprocessing-cek-y_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Nilai Vektor Label Target $y$}, label={lst:out-tugas-cek-y-1}]{resource/output/tugas-preprocessing-cek-y_1_out.txt}
+\par \textbf{Analisis:} Output \ref{lst:out-tugas-cek-y-1} membuktikan bahwa variabel label target \texttt{Loan\_Status} telah berhasil dikodekan menjadi representasi biner numerik, di mana status penolakan (\textit{No}) bernilai 0 dan persetujuan (\textit{Yes}) bernilai 1.
+
+\lstinputlisting[language=Python, caption={Pemeriksaan Nilai Fitur Latih Ternormalisasi $X_{train}$}, label={lst:kode-tugas-cek-x-train-1}]{resource/code/tugas-preprocessing-cek-x-train_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Fitur Latih Ternormalisasi $X_{train}$}, label={lst:out-tugas-cek-x-train-1}]{resource/output/tugas-preprocessing-cek-x-train_1_out.txt}
+\par \textbf{Analisis:} Output \ref{lst:out-tugas-cek-x-train-1} menunjukkan bahwa fitur-fitur pada $X_{train}$ telah terdistribusi mengelilingi nilai rata-rata 0 dan variansi bernilai 1, siap diolah secara numerik oleh algoritma klasifikasi.
+
+\lstinputlisting[language=Python, caption={Pemeriksaan Nilai Fitur Uji Ternormalisasi $X_{test}$}, label={lst:kode-tugas-cek-x-test-1}]{resource/code/tugas-preprocessing-cek-x-test_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Fitur Uji Ternormalisasi $X_{test}$}, label={lst:out-tugas-cek-x-test-1}]{resource/output/tugas-preprocessing-cek-x-test_1_out.txt}
+\par \textbf{Analisis:} Output \ref{lst:out-tugas-cek-x-test-1} menunjukkan bahwa data uji $X_{test}$ telah berhasil distandarisasi menggunakan parameter skala dari data latih, memastikan konsistensi distribusi fitur antara fase pelatihan dan evaluasi.
+
+\paragraph{5. Klasifikasi dengan Logistic Regression}
+\par Algoritma \textit{Logistic Regression} dilatih pada data menggunakan kelas \texttt{LogisticRegression()} pada Kode \ref{lst:kode-tugas-model-logreg-1}. Model ini memetakan kombinasi linier dari fitur-fitur input ke dalam fungsi sigmoid untuk menghasilkan probabilitas status kelayakan kredit nasabah.
+
+\lstinputlisting[language=Python, caption={Pelatihan dan Evaluasi Model Logistic Regression}, label={lst:kode-tugas-model-logreg-1}]{resource/code/tugas-model-logistic-regression_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Model Logistic Regression Tugas}, label={lst:out-tugas-model-logreg-1}]{resource/output/tugas-model-logistic-regression_1_out.txt}
+\par Visualisasi \textit{confusion matrix} dari model \textit{Logistic Regression} disajikan pada Gambar \ref{fig:tugas-cm-logreg}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-3-cm-logistic-regression.png}
+  \caption{Confusion Matrix Model Logistic Regression pada Dataset Tugas}
+  \label{fig:tugas-cm-logreg}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan Output \ref{lst:out-tugas-model-logreg-1} dan Gambar \ref{fig:tugas-cm-logreg}, model \textit{Logistic Regression} menghasilkan Akurasi sebesar 0.8087 (80.87\%), \textit{macro precision} sebesar 0.8617 (86.17\%), \textit{macro recall} sebesar 0.6938 (69.38\%), serta \textit{macro F1-score} sebesar 0.7189 (71.89\%). \textit{Confusion matrix} mencatat $TN = 14$, $FP = 21$, $FN = 1$, dan $TP = 79$. Model menunjukkan kemampuan yang sangat tinggi dalam mendeteksi nasabah yang layak menerima pinjaman ($TP = 79$ dari 80 nasabah aktual), namun masih meloloskan 21 pemohon yang sebenarnya tidak layak ($FP = 21$).
+\par Nilai \textit{feature coefficients} dan \textit{intercept} model \textit{Logistic Regression} diekstraksi melalui Kode \ref{lst:kode-tugas-logreg-coef-1} dan Kode \ref{lst:kode-tugas-logreg-intercept-1}.
+
+\lstinputlisting[language=Python, caption={Pemeriksaan Feature Coefficients (\texttt{coef\_}) Logistic Regression}, label={lst:kode-tugas-logreg-coef-1}]{resource/code/tugas-model-logreg-coef_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Feature Coefficients Logistic Regression}, label={lst:out-tugas-logreg-coef-1}]{resource/output/tugas-model-logreg-coef_1_out.txt}
+\par \textbf{Analisis:} Output \ref{lst:out-tugas-logreg-coef-1} memperlihatkan bahwa fitur pada indeks ke-9, yaitu \texttt{Credit\_History}, memiliki nilai \textit{coefficient} positif terbesar yaitu $+1.6864$. Hal ini membuktikan secara matematis bahwa rekam jejak kepatuhan kredit merupakan faktor pendorong paling dominan dalam penentuan persetujuan pinjaman perbankan pada model \textit{Logistic Regression}.
+
+\lstinputlisting[language=Python, caption={Pemeriksaan Intercept (\texttt{intercept\_}) Logistic Regression}, label={lst:kode-tugas-logreg-intercept-1}]{resource/code/tugas-model-logreg-intercept_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Intercept Logistic Regression}, label={lst:out-tugas-logreg-intercept-1}]{resource/output/tugas-model-logreg-intercept_1_out.txt}
+\par \textbf{Analisis:} Output \ref{lst:out-tugas-logreg-intercept-1} menunjukkan nilai \textit{intercept} model sebesar $+1.0181$, yang menunjukkan kecenderungan dasar model untuk menyetujui kredit ketika seluruh fitur input berada pada nilai rata-rata nol setelah standarisasi.
+
+\paragraph{6. Klasifikasi dengan K-Nearest Neighbors (KNN)}
+\par Algoritma \textit{K-Nearest Neighbors} (KNN) dilatih menggunakan kelas \texttt{KNeighborsClassifier} dengan parameter $k=10$ pada Kode \ref{lst:kode-tugas-model-knn-1}.
+
+\lstinputlisting[language=Python, caption={Pelatihan dan Evaluasi Model K-Nearest Neighbors}, label={lst:kode-tugas-model-knn-1}]{resource/code/tugas-model-knn_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Model KNN Tugas}, label={lst:out-tugas-model-knn-1}]{resource/output/tugas-model-knn_1_out.txt}
+\par Visualisasi \textit{confusion matrix} dari model KNN disajikan pada Gambar \ref{fig:tugas-cm-knn}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-4-cm-knn.png}
+  \caption{Confusion Matrix Model K-Nearest Neighbors pada Dataset Tugas}
+  \label{fig:tugas-cm-knn}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan Output \ref{lst:out-tugas-model-knn-1} dan Gambar \ref{fig:tugas-cm-knn}, model KNN dengan parameter $k=10$ menghasilkan Akurasi sebesar 0.8174 (81.74\%), \textit{macro precision} sebesar 0.8960 (89.60\%), dan \textit{macro recall} sebesar 0.7000 (70.00\%). \textit{Confusion matrix} mencatat $TN = 14$, $FP = 21$, $FN = 0$, dan $TP = 80$. KNN berhasil mengklasifikasikan seluruh 80 sampel pemohon yang layak ($FN = 0$ dan $TP = 80$), namun memiliki kelemahan serupa dengan \textit{Logistic Regression} di mana 21 pemohon berisiko tinggi salah diklasifikasikan sebagai pemohon yang layak ($FP = 21$).
+
+\paragraph{7. Klasifikasi dengan Decision Tree}
+\par Pemodelan \textit{Decision Tree} diimplementasikan menggunakan kelas \texttt{DecisionTreeClassifier} dengan kriteria entropi (\texttt{criterion="entropy"}) pada Kode \ref{lst:kode-tugas-model-decision-tree-1}, yang memanfaatkan perolehan informasi (\textit{information gain}) dalam mempartisi ruang fitur.
+
+\lstinputlisting[language=Python, caption={Pelatihan dan Evaluasi Model Decision Tree}, label={lst:kode-tugas-model-decision-tree-1}]{resource/code/tugas-model-decision-tree_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Model Decision Tree Tugas}, label={lst:out-tugas-model-decision-tree-1}]{resource/output/tugas-model-decision-tree_1_out.txt}
+\par Visualisasi \textit{confusion matrix} dari model \textit{Decision Tree} disajikan pada Gambar \ref{fig:tugas-cm-decision-tree}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-5-cm-decision-tree.png}
+  \caption{Confusion Matrix Model Decision Tree pada Dataset Tugas}
+  \label{fig:tugas-cm-decision-tree}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan Output \ref{lst:out-tugas-model-decision-tree-1} dan Gambar \ref{fig:tugas-cm-decision-tree}, model \textit{Decision Tree} menghasilkan Akurasi sebesar 0.7478 (74.78\%), \textit{macro precision} sebesar 0.7000 (70.00\%), dan \textit{macro recall} sebesar 0.6821 (68.21\%). \textit{Confusion matrix} mencatat $TN = 18$, $FP = 17$, $FN = 12$, dan $TP = 68$. Meskipun \textit{Decision Tree} mampu menolak 18 nasabah berisiko ($TN = 18$), model ini menghasilkan 12 kesalahan \textit{False Negative} ($FN = 12$) di mana nasabah yang sebenarnya layak justru ditolak permohonannya. Tingkat akurasi keseluruhan yang relatif lebih rendah mencerminkan kecenderungan \textit{Decision Tree} tunggal untuk mengalami variansi tinggi dan \textit{overfitting} terhadap data latih.
+
+\paragraph{8. Klasifikasi dengan Random Forest}
+\par Algoritma \textit{ensemble} berbasis \textit{bagging} \textit{Random Forest} diimplementasikan menggunakan kelas \texttt{RandomForestClassifier()} pada Kode \ref{lst:kode-tugas-model-random-forest-1}.
+
+\lstinputlisting[language=Python, caption={Pelatihan dan Evaluasi Model Random Forest}, label={lst:kode-tugas-model-random-forest-1}]{resource/code/tugas-model-random-forest_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Model Random Forest Tugas}, label={lst:out-tugas-model-random-forest-1}]{resource/output/tugas-model-random-forest_1_out.txt}
+\par Visualisasi \textit{confusion matrix} dari model \textit{Random Forest} disajikan pada Gambar \ref{fig:tugas-cm-random-forest}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-6-cm-random-forest.png}
+  \caption{Confusion Matrix Model Random Forest pada Dataset Tugas}
+  \label{fig:tugas-cm-random-forest}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan Output \ref{lst:out-tugas-model-random-forest-1} dan Gambar \ref{fig:tugas-cm-random-forest}, model \textit{Random Forest} menghasilkan Akurasi tertinggi di antara seluruh model yang diuji, yaitu sebesar 0.8261 (82.61\%), dengan \textit{macro precision} sebesar 0.8736 (87.36\%) dan \textit{macro recall} tertinggi sebesar 0.7223 (72.23\%). \textit{Confusion matrix} mencatat $TN = 16$, $FP = 19$, $FN = 1$, dan $TP = 79$. Penggabungan prediksi dari puluhan \textit{decision trees} acak berhasil mereduksi variansi model tunggal secara signifikan, sehingga menghasilkan klasifikasi yang paling seimbang dan akurat pada data uji.
+
+\paragraph{9. Klasifikasi dengan AdaBoost}
+\par Sebagai model komparasi ansambel berbasis \textit{boosting}, algoritma AdaBoost diimplementasikan menggunakan kelas \texttt{AdaBoostClassifier()} pada Kode \ref{lst:kode-tugas-model-adaboost-1}.
+
+\lstinputlisting[language=Python, caption={Pelatihan dan Evaluasi Model AdaBoost}, label={lst:kode-tugas-model-adaboost-1}]{resource/code/tugas-model-adaboost_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Model AdaBoost Tugas}, label={lst:out-tugas-model-adaboost-1}]{resource/output/tugas-model-adaboost_1_out.txt}
+\par Visualisasi \textit{confusion matrix} dari model AdaBoost disajikan pada Gambar \ref{fig:tugas-cm-adaboost}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-7-cm-adaboost.png}
+  \caption{Confusion Matrix Model AdaBoost pada Dataset Tugas}
+  \label{fig:tugas-cm-adaboost}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan Output \ref{lst:out-tugas-model-adaboost-1} dan Gambar \ref{fig:tugas-cm-adaboost}, model AdaBoost menghasilkan Akurasi sebesar 0.8174 (81.74\%), \textit{macro precision} sebesar 0.8677 (86.77\%), dan \textit{macro recall} sebesar 0.7080 (70.80\%). \textit{Confusion matrix} mencatat $TN = 15$, $FP = 20$, $FN = 1$, dan $TP = 79$. Performanya mendekati \textit{Random Forest} dan mengungguli \textit{Decision Tree} tunggal berkat mekanisme \textit{instance re-weighting} berulang pada sampel-sampel yang sulit diprediksi.
+
+\subsubsection{Tugas 4: Tabel Performa Model Machine Learning}
+\par Berdasarkan hasil pengujian dan evaluasi seluruh model klasifikasi yang telah dibangun pada subbab sebelumnya, perbandingan metrik kinerja kuantitatif disajikan secara sistematis pada Tabel \ref{tab:performa-model-tugas}. Metrik yang dicantumkan mencakup \textit{Accuracy}, \textit{Precision}, dan \textit{Recall} sebagaimana diminta dalam butir penugasan, dilengkapi dengan rincian \textit{confusion matrix} untuk memberikan transparansi diagnostik yang menyeluruh.
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+    \textbf{Model}               & \textbf{Accuracy}         & \textbf{Precision}        & \textbf{Recall}           \\ \hline
+    Logistic Regression          & 0.8087 (80.87\%)          & 0.8617 (86.17\%)          & 0.6938 (69.38\%)          \\ \hline
+    K-Nearest Neighbors ($k=10$) & 0.8174 (81.74\%)          & \textbf{0.8960 (89.60\%)} & 0.7000 (70.00\%)          \\ \hline
+    Decision Tree (Entropy)      & 0.7478 (74.78\%)          & 0.7000 (70.00\%)          & 0.6821 (68.21\%)          \\ \hline
+    Random Forest                & \textbf{0.8261 (82.61\%)} & 0.8736 (87.36\%)          & \textbf{0.7223 (72.23\%)} \\ \hline
+    AdaBoost                     & 0.8174 (81.74\%)          & 0.8677 (86.77\%)          & 0.7080 (70.80\%)          \\ \hline
+  \end{tabular}
+  \caption{Tabel Komparasi Performa Model \textit{Machine Learning} pada Kasus \textit{Loan Status Prediction}}
+  \label{tab:performa-model-tugas}
+\end{table}
+
+\par Berdasarkan Tabel \ref{tab:performa-model-tugas}, terdapat beberapa temuan komparatif penting:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Akurasi}: Model \textit{Random Forest} menempati peringkat pertama dengan akurasi 82.61\%, disusul secara bersamaan oleh \textit{K-Nearest Neighbors} dan \textit{AdaBoost} pada 81.74\%, \textit{Logistic Regression} pada 80.87\%, dan \textit{Decision Tree} pada posisi terendah sebesar 74.78\%.
+  \item \textbf{Precision}: Nilai \textit{precision} tertinggi diraih oleh \textit{K-Nearest Neighbors} (89.60\%), diikuti oleh \textit{Random Forest} (87.36\%), \textit{AdaBoost} (86.77\%), dan \textit{Logistic Regression} (86.17\%). Tingginya nilai \textit{precision} menunjukkan bahwa ketika model-model ini memprediksi suatu permohonan disetujui, probabilitas kebenaran prediksi tersebut sangat terpercaya.
+  \item \textbf{Recall}: Nilai \textit{macro recall} tertinggi dicapai oleh \textit{Random Forest} (72.23\%), diikuti oleh \textit{AdaBoost} (70.80\%) dan KNN (70.00\%). Nilai \textit{recall} yang tinggi mencerminkan kemampuan model dalam mengenali proporsi kelas minoritas (nasabah yang tidak layak) secara lebih sensitif dibandingkan model linier konvensional.
+\end{enumerate}
+
+\subsubsection{Tugas 5: Analisis Pemilihan Model Terbaik}
+\par Berdasarkan seluruh hasil eksperimen kuantitatif dan karakteristik domain bisnis kredit perbankan, model klasifikasi \textbf{paling baik} untuk kasus dataset \textit{Loan Status Prediction} adalah \textbf{Random Forest}.
+\par Alasan komprehensif yang mendasari pemilihan \textit{Random Forest} sebagai model terbaik dijabarkan sebagai berikut:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Keunggulan Metrik Evaluasi Menyeluruh}:
+        \textit{Random Forest} mendominasi metrik evaluasi utama dengan mencatatkan nilai \textbf{Akurasi tertinggi (82.61\%)} dan nilai \textbf{\textit{recall} tertinggi (72.23\%)}, serta mempertahankan tingkat \textbf{\textit{precision} yang sangat kuat (87.36\%)}. Kombinasi harmonis antara \textit{precision} dan \textit{recall} ini menghasilkan kemampuan generalisasi yang paling solid pada data pengujian yang belum pernah dilihat sebelumnya.
+        
+  \item \textbf{Sensitivitas Risiko Kredit (Keseimbangan TP dan TN)}:
+        Dalam industri perbankan dan pembiayaan, risiko kerugian akibat salah meloloskan nasabah macet (\textit{False Positive}) jauh lebih fatal daripada kerugian oportunitas menolak nasabah layak.
+        \begin{itemize}[leftmargin=*]
+          \item Model KNN dan \textit{Logistic Regression} mengalami kegagalan deteksi risiko karena meloloskan sebanyak 21 nasabah yang sebenarnya tidak layak ($FP = 21$), hanya mampu mengenali 14 nasabah bermasalah ($TN = 14$).
+          \item Sebaliknya, \textit{Random Forest} berhasil mengenali dan menolak 16 nasabah bermasalah ($TN = 16$), menurunkan angka kelolosan berisiko menjadi 19 ($FP = 19$), sekaligus mempertahankan deteksi persetujuan yang hampir sempurna ($TP = 79$ dari 80, dengan hanya 1 kesalahan penolakan $FN = 1$).
+        \end{itemize}
+        
+  \item \textbf{Ketegaran Model Ansambel (\textit{Ensemble Robustness})}:
+        Model \textit{Decision Tree} tunggal terbukti rentan terhadap variansi tinggi, menghasilkan akurasi terendah (74.78\%) serta kesalahan tipe II ($FN = 12$). \textit{Random Forest} mengatasi kelemahan ini melalui prinsip \textit{bagging} dan pengacakan fitur (\textit{random feature subspace}). Dengan membangun ratusan pohon dari sampel acak (\textit{bootstrap}) dan memadukan hasil akhirnya melalui mekanisme \textit{majority voting}, variansi dan kecenderungan \textit{overfitting} berhasil ditekan secara drastis \cite{han2022data}.
+        
+  \item \textbf{Kemampuan Menangani Interaksi Fitur Non-Linier}:
+        Fitur-fitur kelayakan kredit, seperti interaksi antara \texttt{Credit\_History}, \texttt{ApplicantIncome}, dan \texttt{LoanAmount}, memiliki batas keputusan yang kompleks dan tidak murni linier. \textit{Random Forest} mampu menangkap batasan keputusan non-linier tersebut secara jauh lebih fleksibel dibandingkan \textit{Logistic Regression} linier, tanpa memerlukan asumsi distribusi parametrik yang kaku.
+\end{enumerate}
+\par Dengan demikian, \textit{Random Forest} menjadi model yang paling direkomendasikan untuk diintegrasikan ke dalam arsitektur sistem pendukung keputusan (\textit{Decision Support System}) persetujuan kredit perbankan secara operasional.
 
 \section{Kesimpulan}
+\par Berdasarkan seluruh rangkaian praktikum penambangan data yang telah dilaksanakan mengenai materi klasifikasi terawasi (\textit{Supervised Classification}), baik pada studi kasus retensi pelanggan telekomunikasi maupun penugasan kelayakan pinjaman (\textit{Loan Status Prediction}), dapat ditarik beberapa kesimpulan pokok sebagai berikut:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Esensi Pra-Pemrosesan Data}: Tahapan pra-pemrosesan data—mencakup eliminasi fitur identitas (\texttt{Loan\_ID}), imputasi median untuk fitur numerik berskewness, imputasi modus untuk fitur kategorikal, transformasi penyandian (\textit{Label Encoding}), pemisahan partisi data (\textit{train-test split}), dan standarisasi skala (\textit{StandardScaler})—merupakan syarat mutlak untuk membangun representasi data yang bersih, stabil, dan bebas dari kebocoran informasi (\textit{data leakage}).
+  \item \textbf{Pengaruh Sebaran Data terhadap Performa Algoritma}: Distribusi frekuensi kelas target sangat mempengaruhi perilaku model pembelajaran mesin. Pada dataset dengan ketimpangan kelas yang ekstrim (95:5 pada data telekomunikasi), model cenderung mengalami paradoks akurasi dengan mengonvergensi prediksi ke kelas mayoritas. Sebaliknya, pada dataset dengan rasio kelas yang moderat (7:3 pada kasus kelayakan kredit), algoritma mampu mempelajari pola diskriminatif kedua kelas secara proporsional.
+  \item \textbf{Peran Metrik Evaluasi Multidimensi}: Akurasi semata belum cukup untuk mengukur keandalan klasifikasi. Penggunaan \textit{confusion matrix}, \textit{precision}, dan \textit{recall} memberikan wawasan penting seputar sebaran kesalahan Tipe I (\textit{False Positive}) dan Tipe II (\textit{False Negative}), yang berdampak langsung pada manajemen risiko bisnis.
+  \item \textbf{Superioritas Pendekatan Ansambel}: Perbandingan empiris membuktikan bahwa model \textit{ensemble} \textit{Random Forest} menghasilkan performa terbaik secara konsisten dengan Akurasi mencapai 82.61\%, \textit{macro precision} 87.36\%, dan \textit{macro recall} 72.23\%. Pendekatan \textit{bagging} pada \textit{Random Forest} berhasil meredam variansi tinggi dan kecenderungan \textit{overfitting} yang menjadi kelemahan fatal pada model \textit{Decision Tree} tunggal, serta memberikan batasan keputusan non-linier yang lebih tegar dibandingkan model parametrik linier (\textit{Logistic Regression}) dan algoritma berbasis kedekatan lokal (KNN).
+\end{enumerate}
 
 \section{Daftar Pustaka}
 \printbibliography[heading=none]

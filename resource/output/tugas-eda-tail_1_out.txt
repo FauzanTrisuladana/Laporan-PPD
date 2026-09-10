@@ -1,0 +1,20 @@
+Loan_ID  Gender Married Dependents Education Self_Employed  \
+376  LP002953    Male     Yes         3+  Graduate            No   
+377  LP002974    Male     Yes          0  Graduate            No   
+378  LP002978  Female      No          0  Graduate            No   
+379  LP002979    Male     Yes         3+  Graduate            No   
+380  LP002990  Female      No          0  Graduate           Yes   
+
+     ApplicantIncome  CoapplicantIncome  LoanAmount  Loan_Amount_Term  \
+376             5703                0.0       128.0             360.0   
+377             3232             1950.0       108.0             360.0   
+378             2900                0.0        71.0             360.0   
+379             4106                0.0        40.0             180.0   
+380             4583                0.0       133.0             360.0   
+
+     Credit_History Property_Area Loan_Status  
+376             1.0         Urban           Y  
+377             1.0         Rural           Y  
+378             1.0         Rural           Y  
+379             1.0         Rural           Y  
+380             0.0     Semiurban           N

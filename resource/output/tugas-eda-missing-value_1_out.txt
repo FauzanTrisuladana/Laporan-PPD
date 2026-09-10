@@ -1,0 +1,14 @@
+Loan_ID               0
+Gender                5
+Married               0
+Dependents            8
+Education             0
+Self_Employed        21
+ApplicantIncome       0
+CoapplicantIncome     0
+LoanAmount            0
+Loan_Amount_Term     11
+Credit_History       30
+Property_Area         0
+Loan_Status           0
+dtype: int64
