@@ -4,6 +4,9 @@
 \usepackage[utf8]{inputenc}     % untuk karakter UTF-8
 \usepackage[T1]{fontenc}        % encoding font
 \usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
 \usepackage{titling}
 \usepackage{titlesec}
 \usepackage[backend=biber,style=ieee]{biblatex}
@@ -88,8 +91,8 @@
 }
 
 % Info dokumen
-\newcommand{\Pertemuan}{11}
-\newcommand{\Materi}{Ci/Cd Pipeline Lokal dengan Gitea Action}
+\newcommand{\Pertemuan}{3}
+\newcommand{\Materi}{Classification}
 \title{Laporan Praktikum \\ Penambangan Data\\
 Pertemuan \Pertemuan\\
 \Materi}
@@ -207,14 +210,133 @@ Pertemuan \Pertemuan\\
 \end{center}
 
 \section{Tujuan Praktikum}
-\begin{enumerate}
-  \item Something
+\begin{enumerate}[label=\Alph*.]
+  \item Mahasiswa mampu menguasai prinsip kerja dan landasan teoritis dari berbagai algoritma klasifikasi populer, seperti \textit{Logistic Regression}, \textit{K-Nearest Neighbors} (KNN), \textit{Decision Tree}, serta \textit{Random Forest}.
+  \item Mahasiswa mampu memahami fungsi, peran, dan signifikansi metrik evaluasi performa seperti \textit{accuracy}, \textit{precision}, dan \textit{recall} dalam mengukur keandalan model klasifikasi.
+  \item Mahasiswa mampu mengimplementasikan dan melatih beragam model klasifikasi secara praktis menggunakan ekosistem pustaka \textit{machine learning} pada Python.
+  \item Mahasiswa mampu membandingkan dan mengevaluasi efektivitas setiap algoritma melalui penyusunan tabel performa komparatif berbasis metrik evaluasi.
 \end{enumerate}
 
 \section{Dasar Teori}
 
-\subsection{Something}
-\par Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. \cite{}
+\subsection{Python}
+\par Python adalah bahasa pemrograman tingkat tinggi yang bersifat \textit{open-source} dan serbaguna (\textit{general-purpose}) yang diciptakan oleh Guido van Rossum \cite{telkom_python}. Bahasa ini dirancang dengan filosofi yang mengutamakan keterbacaan kode (\textit{code readability}), sehingga sintaksnya sederhana dan mudah dipahami baik oleh pemula maupun profesional \cite{dicoding_python}. Berkat komunitas pendukung yang besar serta ketersediaan ekosistem pustaka (\textit{library}) yang sangat lengkap, Python kini menjadi bahasa standar industri untuk berbagai keperluan komputasi modern, mulai dari pengembangan web, otomatisasi, analisis data, hingga pengembangan kecerdasan buatan (\textit{Artificial Intelligence}) \cite{telkom_python}.
+
+\subsection{Google Colab}
+\par Google Colab (Colaboratory) adalah layanan komputasi awan (\textit{cloud computing}) berbasis Jupyter Notebook yang disediakan secara gratis oleh Google \cite{glints_colab}. Platform ini memungkinkan penggunanya untuk menulis dan mengeksekusi kode bahasa Python secara langsung melalui peramban (\textit{browser}) tanpa perlu melakukan instalasi atau konfigurasi perangkat lunak di komputer lokal \cite{binus_colab}. Salah satu keunggulan utama dari Google Colab adalah tersedianya akses komputasi performa tinggi, seperti pengolah grafis (GPU) dan \textit{Tensor Processing Unit} (TPU) secara cuma-cuma, yang sangat esensial untuk mempercepat proses komputasi data dan pelatihan model \textit{machine learning} yang kompleks \cite{binus_colab}. Selain itu, layaknya Google Docs, Colab mendukung kolaborasi tim secara \textit{real-time} dan terintegrasi langsung dengan media penyimpanan Google Drive \cite{glints_colab}.
+
+\subsection{Numpy}
+\par NumPy (Numerical Python) adalah pustaka (*library*) bersifat \textit{open-source} dalam ekosistem Python yang dirancang khusus untuk komputasi numerik dan saintifik \cite{dqlab_numpy}. NumPy menyediakan struktur data utama berupa objek array n-dimensi yang sangat efisien yang disebut \texttt{ndarray}. Dibandingkan dengan struktur \textit{list} bawaan pada Python, NumPy menggunakan manajemen memori yang jauh lebih efisien serta memungkinkan penerapan operasi matematis secara vektorisasi yang mempercepat waktu eksekusi tanpa memerlukan iterasi (\textit{looping}) secara manual \cite{ruangguru_numpy}. Oleh karena itu, pustaka ini sering kali menjadi tulang punggung bagi berbagai *library* analisis data dan \textit{machine learning}.
+
+\subsection{Pandas}
+\par Pandas adalah pustaka perangkat lunak \textit{open-source} pada bahasa pemrograman Python yang berfokus pada tahapan manipulasi dan analisis data terstruktur \cite{datacamp_pandas}. Pustaka ini dibangun di atas fondasi NumPy dan menawarkan struktur data yang kuat seperti \texttt{Series} (array berlabel satu dimensi) dan \texttt{DataFrame} (struktur data tabular dua dimensi layaknya tabel SQL atau lembar kerja Excel) \cite{dqlab_pandas}. Keunggulan utama Pandas terletak pada fleksibilitasnya dalam membaca berbagai format data, fitur-fitur pembersihan data (\textit{data cleaning}), serta kemampuan komprehensif untuk pengolahan data agregat, filter, dan penggabungan dataset \cite{datacamp_pandas}.
+
+\subsection{Artificial Intelligence}
+\par Artificial Intelligence (AI) atau kecerdasan buatan adalah bidang di dalam ilmu komputer yang dikhususkan untuk memecahkan masalah kognitif yang umumnya terkait dengan kecerdasan manusia, seperti pembelajaran, pemecahan masalah, dan pengenalan pola \cite{ibm_ai}. AI bertujuan untuk menciptakan sistem yang mampu berpikir dan bertindak layaknya manusia dalam menangani berbagai situasi komputasi \cite{dicoding_ai}. Secara umum, AI mencakup berbagai sub-bidang, mulai dari robotika, pemrosesan bahasa alami (NLP), hingga \textit{machine learning}, yang seluruhnya berupaya untuk meniru kemampuan adaptasi dan penalaran kognitif manusia.
+
+\subsection{Machine Learning}
+\par Machine Learning (ML) adalah salah satu cabang utama dari kecerdasan buatan (AI) yang berfokus pada pengembangan algoritma dan model statistik yang memungkinkan komputer untuk belajar dari data \cite{aws_ml}. Alih-alih diprogram secara eksplisit untuk menyelesaikan suatu tugas, sistem \textit{machine learning} menggunakan pola dan inferensi yang diekstrak dari sekumpulan data historis untuk membuat prediksi atau keputusan \cite{dqlab_ml}. Model yang dibangun akan secara otomatis meningkatkan kinerjanya seiring dengan bertambahnya jumlah data dan pengalaman yang diberikan, sehingga sangat relevan untuk diaplikasikan dalam sistem rekomendasi, deteksi penipuan, hingga pengenalan gambar.
+
+\subsection{EDA (Exploratory Data Analysis)}
+\par Exploratory Data Analysis (EDA) adalah suatu pendekatan dalam analisis data yang bertujuan untuk merangkum dan memvisualisasikan karakteristik utama dari sebuah dataset, sering kali menggunakan metode grafis atau statistika deskriptif \cite{ibm_eda}. Tahapan ini sangat krusial dalam alur kerja ilmu data karena membantu praktisi untuk mendeteksi anomali, menemukan pola tersembunyi, menguji hipotesis, dan memverifikasi asumsi dasar sebelum beranjak pada pemodelan algoritma \cite{dqlab_eda}. Melalui EDA, seorang analis dapat memahami struktur dan kualitas data dengan lebih baik, sehingga dapat menentukan strategi yang tepat untuk pemrosesan data selanjutnya.
+
+\subsection{Data Preprocessing}
+\par Data Preprocessing atau pra-pemrosesan data adalah tahapan persiapan awal dalam proses penambangan data (\textit{data mining}) yang bertujuan untuk mengubah data mentah menjadi format yang bersih, terstruktur, dan siap digunakan untuk pelatihan model \textit{machine learning} \cite{techtarget_preprocessing}. Data yang dikumpulkan dari dunia nyata umumnya bersifat tidak lengkap (\textit{missing values}), mengandung kebingaran (\textit{noisy}), atau memiliki format yang tidak konsisten \cite{trivusi_preprocessing}. Oleh karena itu, tahapan pra-pemrosesan ini mencakup berbagai teknik fundamental seperti pembersihan data (\textit{data cleaning}), transformasi data (\textit{data transformation}), hingga reduksi dimensi (\textit{dimensionality reduction}) guna memastikan kualitas dan keandalan data.
+
+\subsection{Classification}
+\par Klasifikasi (\textit{classification}) merupakan salah satu teknik utama dalam pembelajaran terbimbing (\textit{supervised learning}) yang bertujuan untuk memprediksi label atau kategori diskrit dari suatu sampel data berdasarkan fitur-fitur atribut yang dimilikinya \cite{ibm_classification}. Dalam paradigma ini, model klasifikasi dilatih menggunakan sekumpulan data berlabel (\textit{labeled training data}), di mana algoritma secara sistematis memetakan relasi matematis antara variabel fitur masukan (\textit{input features}) dengan variabel target luaran (\textit{target variable}) \cite{dicoding_classification}. Setelah proses pembelajaran selesai, fungsi hipotesis yang terbentuk dapat digunakan untuk melakukan inferensi dan menetapkan kelas yang tepat pada data baru yang belum pernah dilihat sebelumnya (\textit{unseen data}) \cite{scikit_classification}. Di industri modern, klasifikasi memiliki peran sentral dalam berbagai domain komputasi, seperti penyaringan email spam, diagnosis penyakit pada rekam medis, deteksi transaksi anomali atau penipuan (\textit{fraud detection}), hingga sistem pemeringkatan rekomendasi konten \cite{ibm_classification}.
+
+\subsection{Algoritma Classification}
+\par Dalam ranah penambangan data dan \textit{machine learning}, terdapat beragam pendekatan algoritma yang dapat diimplementasikan untuk menyelesaikan permasalahan klasifikasi. Pemilihan algoritma yang tepat umumnya bergantung pada karakteristik distribusi data, ukuran dataset, linearitas hubungan antar variabel, serta tingkat interpretabilitas model yang diinginkan \cite{scikit_classification}. Berbagai pustaka komputasi populer seperti Scikit-Learn menyediakan implementasi algoritma yang efisien dan dapat diandalkan untuk analisis data berskala luas \cite{scikit_classification}.
+
+\subsubsection{Logistic Regression}
+\par \textit{Logistic Regression} adalah algoritma klasifikasi probabilistik yang dikembangkan dari konsep dasar regresi linier untuk memodelkan variabel target bertipe kategorikal, khususnya kasus biner \cite{ibm_logistic_regression}. Alih-alih memprediksi nilai kontinu secara langsung, algoritma ini menghitung kombinasi linier dari fitur masukan lalu memetakannya ke dalam rentang nilai probabilitas antara 0 hingga 1 menggunakan fungsi aktivasi logistik atau \textit{sigmoid} \cite{dicoding_classification}. Fungsi \textit{sigmoid} dinyatakan dalam persamaan matematis:
+\begin{equation}
+  \sigma(z) = \frac{1}{1 + e^{-z}}
+  \label{eq:sigmoid}
+\end{equation}
+di mana $z = \mathbf{w}^T \mathbf{x} + b$ merepresentasikan kombinasi linier bobot ($\mathbf{w}$), vektor fitur ($\mathbf{x}$), dan bias ($b$). Luaran probabilitas ini selanjutnya dikonversikan menjadi label kelas biner melalui ambang batas (\textit{threshold}), umumnya bernilai 0.5 \cite{ibm_logistic_regression}. Meskipun memiliki formulasi yang relatif sederhana, \textit{Logistic Regression} sangat efisien secara komputasi, tidak rentan terhadap penyesuaian parameter yang rumit, dan bekerja dengan optimal pada dataset yang memiliki pemisahan batas keputusan bersifat linier (\textit{linearly separable}).
+
+\subsubsection{K-Nearest Neighbors (KNN)}
+\par \textit{K-Nearest Neighbors} (KNN) adalah algoritma klasifikasi berbasis instansi (\textit{instance-based learning}) yang bersifat non-parametrik dan tergolong sebagai \textit{lazy learner}, di mana model tidak membentuk fungsi representasi global selama fase pelatihan melainkan menyimpan seluruh data sampel \cite{ibm_knn}. Ketika menerima data uji baru, KNN menentukan prediksi kelas berdasarkan label mayoritas (\textit{majority voting}) dari $k$ tetangga terdekat dalam ruang fitur \cite{scikit_classification}. Kedekatan antar titik data umumnya diukur menggunakan metrik jarak geometris, seperti jarak Euclidean (\textit{Euclidean distance}):
+\begin{equation}
+  d(\mathbf{p}, \mathbf{q}) = \sqrt{\sum_{i=1}^{n} (p_i - q_i)^2}
+  \label{eq:euclidean}
+\end{equation}
+di mana $\mathbf{p}$ dan $\mathbf{q}$ merupakan dua titik data berdimensi $n$. Kinerja algoritma KNN sangat dipengaruhi oleh pemilihan nilai hiperparameter $k$ dan struktur distribusi data \cite{ibm_knn}. Pemilihan nilai $k$ yang terlalu kecil membuat model rentan terhadap gangguan derau (\textit{noise}), sedangkan nilai $k$ yang terlalu besar dapat mengaburkan batas pemisah antar kelas. Selain itu, penskalaan fitur (\textit{feature scaling}) menjadi tahapan pra-pemrosesan yang esensial agar atribut dengan rentang nilai besar tidak mendominasi perhitungan jarak.
+
+\subsubsection{Decision Tree}
+\par \textit{Decision Tree} atau pohon keputusan adalah algoritma klasifikasi hierarkis yang memodelkan proses pengambilan keputusan layaknya struktur bagan pohon, yang terdiri atas simpul akar (\textit{root node}), simpul keputusan internal (\textit{internal decision nodes}), cabang (\textit{branches}), dan simpul daun (\textit{leaf nodes}) yang merepresentasikan label kelas akhir \cite{ibm_decision_tree}. Algoritma ini bekerja dengan cara mempartisi ruang fitur secara rekursif berdasarkan atribut yang memberikan pemisahan informasi paling optimal pada setiap simpul \cite{scikit_classification}. Ukuran ketidakmurnian (\textit{impurity}) yang lazim digunakan dalam pemilihan fitur pemisah mencakup indeks ketidakmurnian Gini (\textit{Gini impurity}) dan entropi atau perolehan informasi (\textit{information gain}) \cite{ibm_decision_tree}. Indeks Gini dirumuskan sebagai:
+\begin{equation}
+  \text{Gini}(D) = 1 - \sum_{i=1}^{C} p_i^2
+  \label{eq:gini}
+\end{equation}
+di mana $p_i$ menyatakan proporsi kemunculan kelas $i$ pada himpunan data simpul $D$ dengan total $C$ kelas. Keunggulan utama dari \textit{Decision Tree} adalah interpretabilitasnya yang sangat tinggi karena aturan inferensi dapat divisualisasikan secara intuitif \cite{dicoding_classification}. Kendati demikian, pohon keputusan tunggal memiliki kelemahan berupa kecenderungan mengalami penyesuaian berlebih (\textit{overfitting}) terhadap variansi data latih jika tidak dilakukan pemangkasan cabang (\textit{pruning}) atau pembatasan kedalaman pohon (\textit{max depth}).
+
+\subsubsection{Random Forest}
+\par \textit{Random Forest} adalah algoritma pembelajaran ansambel (\textit{ensemble learning}) yang mengintegrasikan prediksi dari sekumpulan pohon keputusan independen untuk meningkatkan ketepatan dan stabilitas model secara signifikan \cite{ibm_random_forest}. Algoritma ini mengadopsi prinsip \textit{bagging} (\textit{Bootstrap Aggregating}), di mana setiap pohon dilatih menggunakan sampel data acak dengan pengembalian (\textit{bootstrap sample}) dari dataset utama \cite{scikit_classification}. Selain pengacakan data observasi, \textit{Random Forest} juga menerapkan pemilihan acak pada subset fitur di setiap pemecahan simpul pohon untuk memastikan bahwa pohon-pohon yang terbentuk memiliki korelasi yang sangat rendah satu sama lain (\textit{decorrelated trees}) \cite{ibm_random_forest}. Keputusan klasifikasi akhir ditentukan melalui pemungutan suara terbanyak (\textit{majority voting}) dari seluruh pohon dalam ansambel. Pendekatan ini secara efektif menekan risiko \textit{overfitting}, meningkatkan ketahanan terhadap pencilan (\textit{outliers}), serta menghasilkan performa generalisasi yang tangguh pada dataset tabular berdimensi tinggi.
+
+\subsubsection{AdaBoost (Adaptive Boosting)}
+\par \textit{Adaptive Boosting} atau AdaBoost adalah algoritma \textit{ensemble learning} berbasis strategi \textit{boosting} yang bekerja secara berurutan (\textit{sequential}) untuk menggabungkan serangkaian pembelajar lemah (\textit{weak learners}) menjadi satu model prediksi yang kuat (\textit{strong learner}) \cite{scikit_adaboost}. Pada algoritma AdaBoost, model pembelajar lemah yang paling umum digunakan adalah pohon keputusan berskala dangkal yang hanya terdiri dari satu pemisahan simpul atau dikenal sebagai \textit{decision stump} \cite{scikit_adaboost}. Karakteristik khas dari AdaBoost terletak pada mekanisme penyesuaian bobot sampel secara adaptif (\textit{adaptive instance re-weighting}), di mana sampel data yang salah diklasifikasikan pada iterasi saat ini akan diberikan bobot penalti yang lebih besar pada iterasi berikutnya \cite{ibm_classification}. Hal ini memaksa model pada tahap lanjutan untuk lebih memusatkan pembelajaran pada observasi yang sukar diklasifikasikan. Pada tahap akhir, seluruh model pembelajar digabungkan melalui pemungutan suara terbobot (\textit{weighted voting}) berdasarkan tingkat akurasi masing-masing pembelajar, sehingga performa klasifikasi meningkat secara nyata terutama pada data yang kompleks.
+
+\subsection{Metrik Evaluasi Classification}
+\par Evaluasi performa model klasifikasi merupakan langkah fundamental untuk mengukur tingkat keberhasilan dan keandalan sistem dalam mengenali pola data \cite{scikit_metrics}. Evaluasi dilakukan secara kuantitatif dengan membandingkan label hasil prediksi model terhadap label nilai aktual yang sebenarnya (\textit{ground truth}) pada data uji \cite{dqlab_classification_metrics}. Informasi komparasi antara nilai prediksi dan nilai aktual tersebut disusun secara sistematis ke dalam suatu matriks kontingensi yang disebut \textit{confusion matrix} \cite{trivusi_confusion_matrix}.
+
+\subsubsection{Confusion Matrix}
+\par \textit{Confusion Matrix} atau matriks konfusi adalah tabel representasi visual dua dimensi yang memerinci kinerja model klasifikasi dengan memetakan jumlah prediksi yang benar dan yang keliru ke dalam kategori kelas aktual versus kelas prediksi \cite{trivusi_confusion_matrix}. Pada skenario klasifikasi biner, \textit{confusion matrix} membagi hasil prediksi ke dalam empat kuadran fundamental \cite{scikit_metrics}:
+\begin{enumerate}
+  \item \textbf{True Positive (TP)}: Jumlah sampel kelas positif aktual yang berhasil diprediksi secara tepat sebagai kelas positif.
+  \item \textbf{True Negative (TN)}: Jumlah sampel kelas negatif aktual yang berhasil diprediksi secara tepat sebagai kelas negatif.
+  \item \textbf{False Positive (FP)}: Jumlah sampel kelas negatif aktual yang secara keliru diprediksi sebagai kelas positif (dikenal sebagai kesalahan Tipe I atau \textit{Type I Error}).
+  \item \textbf{False Negative (FN)}: Jumlah sampel kelas positif aktual yang secara keliru diprediksi sebagai kelas negatif (dikenal sebagai kesalahan Tipe II atau \textit{Type II Error}).
+\end{enumerate}
+\par Pemetaan keempat komponen tersebut diilustrasikan pada Tabel \ref{tab:confusion-matrix}. Nilai-nilai TP, TN, FP, dan FN ini menjadi landasan dasar untuk menghitung metrik performa lanjutan seperti \textit{accuracy}, \textit{precision}, \textit{recall}, dan \textit{F1-score} \cite{trivusi_confusion_matrix}.
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \multirow{2}{*}{\textbf{Nilai Aktual}} & \multicolumn{2}{c|}{\textbf{Prediksi Model}}                       \\ \cline{2-3}
+                                           & \textbf{Positif}                             & \textbf{Negatif}    \\ \hline
+    \textbf{Positif}                       & True Positive (TP)                           & False Negative (FN) \\ \hline
+    \textbf{Negatif}                       & False Positive (FP)                          & True Negative (TN)  \\ \hline
+  \end{tabular}
+  \caption{Struktur Komponen \textit{Confusion Matrix} Klasifikasi Biner}
+  \label{tab:confusion-matrix}
+\end{table}
+
+\subsubsection{Accuracy}
+\par \textit{Accuracy} atau akurasi merupakan metrik evaluasi paling umum yang menunjukkan proporsi total prediksi yang benar (gabungan prediksi positif benar dan negatif benar) terhadap keseluruhan jumlah observasi data yang diuji \cite{scikit_metrics}. Formulasi matematis akurasi dinyatakan dalam Persamaan \eqref{eq:accuracy}:
+\begin{equation}
+  \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+  \label{eq:accuracy}
+\end{equation}
+\par Meskipun akurasi memberikan indikasi performa menyeluruh secara cepat, metrik ini memiliki keterbatasan yang signifikan saat diterapkan pada dataset yang tidak seimbang (\textit{imbalanced dataset}) \cite{dqlab_classification_metrics}. Pada kondisi ketidakseimbangan kelas yang ekstrem, model dapat menghasilkan akurasi yang tampak tinggi hanya dengan selalu memprediksi kelas mayoritas, fenomena ini kerap dikenal sebagai paradoks akurasi (\textit{accuracy paradox}).
+
+\subsubsection{Precision}
+\par \textit{Precision} atau presisi mengukur rasio ketepatan model dalam menghasilkan prediksi positif, yaitu proporsi kasus yang benar-benar positif dibandingkan dengan seluruh sampel yang diprediksi bernilai positif oleh model \cite{scikit_metrics}. Rumus matematis presisi didefinisikan dalam Persamaan \eqref{eq:precision}:
+\begin{equation}
+  \text{Precision} = \frac{TP}{TP + FP}
+  \label{eq:precision}
+\end{equation}
+\par Metrik presisi menjadi fokus evaluasi utama pada skenario di mana biaya atau akibat dari terjadinya \textit{False Positive} sangat tinggi \cite{dqlab_classification_metrics}. Contohnya adalah pada sistem penyaringan surel spam, di mana sistem harus memiliki presisi tinggi guna menjamin surel sah yang penting tidak keliru dimasukkan ke dalam folder spam.
+
+\subsubsection{Recall}
+\par \textit{Recall} (juga disebut sensitivitas atau \textit{Sensitivity} / \textit{True Positive Rate}) mengukur kemampuan model dalam menjaring dan menemukan seluruh sampel yang sesungguhnya bernilai positif dari dataset aktual \cite{scikit_metrics}. Perhitungan \textit{recall} dirumuskan dalam Persamaan \eqref{eq:recall}:
+\begin{equation}
+  \text{Recall} = \frac{TP}{TP + FN}
+  \label{eq:recall}
+\end{equation}
+\par Metrik \textit{recall} sangat diutamakan dalam domain klasifikasi yang memiliki toleransi rendah terhadap terjadinya \textit{False Negative} \cite{dqlab_classification_metrics}. Sebagai contoh konkret, pada diagnosis medis penyakit kritis seperti kanker, sistem klasifikasi dituntut memiliki tingkat \textit{recall} setinggi mungkin agar tidak ada pasien terinfeksi yang luput dari penanganan medis akibat salah terprediksi sebagai pasien sehat.
+
+\subsubsection{F1-Score}
+\par Dalam penerapannya, sering kali terjadi kompromi (\textit{trade-off}) antara nilai \textit{precision} dan \textit{recall}, di mana peningkatan salah satu metrik cenderung menekan nilai metrik yang lain \cite{scikit_metrics}. Untuk mengatasi hal tersebut, \textit{F1-Score} diperkenalkan sebagai rata-rata harmonik (\textit{harmonic mean}) antara presisi dan \textit{recall}, sehingga menyajikan skor evaluasi komprehensif yang seimbang \cite{dqlab_classification_metrics}. Nilai rata-rata harmonik dipilih karena memberikan bobot penalti yang berat jika terdapat ketimpangan tajam di antara kedua metrik. Formulasi matematis \textit{F1-Score} dirumuskan dalam Persamaan \eqref{eq:f1-score}:
+\begin{equation}
+  \text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}
+  \label{eq:f1-score}
+\end{equation}
+\par Metrik \textit{F1-Score} sangat berguna saat menganalisis performa dari algoritma klasifikasi pada dataset yang bersifat \textit{imbalanced}, karena model dituntut untuk mempertahankan presisi tinggi sekaligus meminimalkan kejadian positif yang terlewatkan secara simultan \cite{scikit_metrics}.
 
 
 %contoh gambar dan kode
