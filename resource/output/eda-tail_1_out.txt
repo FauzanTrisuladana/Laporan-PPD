@@ -1,0 +1,20 @@
+id  gender   age  hypertension  heart_disease ever_married  \
+5105  18234  Female  80.0             1              0          Yes   
+5106  44873  Female  81.0             0              0          Yes   
+5107  19723  Female  35.0             0              0          Yes   
+5108  37544    Male  51.0             0              0          Yes   
+5109  44679  Female  44.0             0              0          Yes   
+
+          work_type Residence_type  avg_glucose_level   bmi   smoking_status  \
+5105        Private          Urban              83.75   NaN     never smoked   
+5106  Self-employed          Urban             125.20  40.0     never smoked   
+5107  Self-employed          Rural              82.99  30.6     never smoked   
+5108        Private          Rural             166.29  25.6  formerly smoked   
+5109       Govt_job          Urban              85.28  26.2          Unknown   
+
+      stroke  
+5105       0  
+5106       0  
+5107       0  
+5108       0  
+5109       0

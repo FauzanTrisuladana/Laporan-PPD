@@ -354,7 +354,223 @@ di mana $p_i$ menyatakan proporsi kemunculan kelas $i$ pada himpunan data simpul
 
 \section{Hasil dan Pembahasan}
 
-\par Sesuai dengan tujuan praktikum, berikut adalah hasil yang diperoleh dan pembahasan terkait materi yang telah dipelajari.
+\subsection{Persiapan Lingkungan dan Pemuatan Data}
+
+\subsubsection{Impor Pustaka}
+\lstinputlisting[language=Python, caption={Impor Pustaka}, label={lst:kode-impor-pustaka-1}]{resource/code/impor-pustaka_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Impor Pustaka}, label={lst:out-impor-pustaka-1}]{resource/output/impor-pustaka_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-impor-pustaka-1}, berikut adalah penjelasan dari eksekusi pustaka yang diimpor:
+\begin{itemize}
+  \item \texttt{pandas}, \texttt{numpy}, \texttt{matplotlib.pyplot}: Mengimpor pustaka fundamental untuk manipulasi DataFrame tabular, komputasi numerik larik n-dimensi, dan visualisasi grafik.
+  \item \texttt{train\_test\_split}: Mengimpor fungsi pemartisi dataset menjadi subset data latih (\textit{training}) dan data uji (\textit{testing}).
+  \item \texttt{LabelEncoder}, \texttt{StandardScaler}: Mengimpor modul pengkodean fitur kategorikal ke bilangan bulat diskrit serta standardisasi distribusi fitur numerik ($\mu=0, \sigma=1$).
+  \item Metrik Scikit-Learn: Mengimpor fungsi evaluasi performa klasifikasi (\textit{accuracy}, \textit{precision}, \textit{recall}, \textit{F1-score}) serta modul visualisasi matriks konfusi.
+  \item Algoritma Klasifikasi: Mengimpor kelas \texttt{LogisticRegression}, \texttt{KNeighborsClassifier}, \texttt{DecisionTreeClassifier}, \texttt{RandomForestClassifier}, dan \texttt{AdaBoostClassifier}.
+\end{itemize}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-impor-pustaka-1} (Tidak ada output).
+
+\subsubsection{Pemuatan Dataset (Load Dataset)}
+\lstinputlisting[language=Python, caption={Pemuatan Dataset}, label={lst:kode-load-dataset-1}]{resource/code/load-dataset_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemuatan Dataset}, label={lst:out-load-dataset-1}]{resource/output/load-dataset_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-load-dataset-1}, dataset dibaca secara daring dari repositori GitHub menggunakan fungsi \texttt{pd.read\_csv()}. Berkas data yang dimuat adalah rekam medis risiko stroke pasien, kemudian disimpan ke variabel DataFrame \texttt{df}. Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-load-dataset-1} (Tidak ada output).
+
+
+\subsection{Exploratory Data Analysis (EDA)}
+
+\subsubsection{Inspeksi Lima Baris Pertama (df.head())}
+\lstinputlisting[language=Python, caption={Melihat Lima Baris Pertama Dataset}, label={lst:kode-eda-head-1}]{resource/code/eda-head_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Lima Baris Pertama Dataset}, label={lst:out-eda-head-1}]{resource/output/eda-head_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-head-1}, fungsi \texttt{df.head()} dipanggil untuk menampilkan lima baris observasi teratas dari DataFrame \texttt{df}. Sebagaimana ditunjukkan pada Output \ref{lst:out-eda-head-1}, dataset ini memiliki 12 atribut yang mencakup \texttt{id}, variabel demografis (\texttt{gender}, \texttt{age}, \texttt{ever\_married}, \texttt{Residence\_type}), variabel klinis (\texttt{hypertension}, \texttt{heart\_disease}, \texttt{avg\_glucose\_level}, \texttt{bmi}), variabel perilaku (\texttt{smoking\_status}, \texttt{work\_type}), serta atribut target biner \texttt{stroke}. Pada baris observasi indeks ke-1, tampak atribut \texttt{bmi} memiliki nilai \texttt{NaN} (\textit{Not a Number}) yang menandakan adanya data hilang sejak tahap awal observasi.
+
+\subsubsection{Inspeksi Lima Baris Terakhir (df.tail())}
+\lstinputlisting[language=Python, caption={Melihat Lima Baris Terakhir Dataset}, label={lst:kode-eda-tail-1}]{resource/code/eda-tail_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Lima Baris Terakhir Dataset}, label={lst:out-eda-tail-1}]{resource/output/eda-tail_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-tail-1}, fungsi \texttt{df.tail()} digunakan untuk meninjau lima baris observasi paling bawah dari dataset. Melalui Output \ref{lst:out-eda-tail-1}, terlihat bahwa indeks observasi terakhir bernilai 5109, yang berarti secara keseluruhan dataset terdiri atas 5110 baris data observasi. Pada bagian akhir dataset ini, seluruh sampel yang ditampilkan memiliki nilai variabel target \texttt{stroke} sebesar 0 (tidak mengalami stroke), yang mengisyaratkan bahwa distribusi data target mungkin tidak tersebar merata secara acak antar baris.
+
+\subsubsection{Statistik Deskriptif Atribut Numerik (df.describe())}
+\lstinputlisting[language=Python, caption={Statistik Deskriptif Dataset}, label={lst:kode-eda-describe-1}]{resource/code/eda-describe_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Statistik Deskriptif Dataset}, label={lst:out-eda-describe-1}]{resource/output/eda-describe_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-describe-1}, fungsi \texttt{df.describe()} dijalankan untuk merangkum ukuran statistik deskriptif dari kolom-kolom bertipe data numerik. Berdasarkan representasi angka pada Output \ref{lst:out-eda-describe-1}, terlihat bahwa atribut \texttt{age} memiliki rentang usia dari 0.08 tahun hingga 82.0 tahun dengan rata-rata 43.23 tahun. Kadar glukosa rata-rata (\texttt{avg\_glucose\_level}) berada pada angka 106.15 mg/dL dengan simpangan baku sebesar 45.28 mg/dL. Lebih lanjut, pada atribut indeks massa tubuh (\texttt{bmi}), nilai penghitungan (\textit{count}) hanya berjumlah 4909 sampel, berbeda dengan total observasi 5110 pada atribut numerik lainnya. Fakta kuantitatif ini membuktikan bahwa terdapat 201 baris data dengan nilai hilang (\textit{missing value}) pada kolom \texttt{bmi} yang memerlukan penanganan khusus sebelum pelatihan model.
+
+\subsubsection{Visualisasi Distribusi Kelas Target Stroke}
+\lstinputlisting[language=Python, caption={Visualisasi Distribusi Kelas Target Stroke}, label={lst:kode-eda-pie-chart-1}]{resource/code/eda-pie-chart_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Distribusi Target Stroke}, label={lst:out-eda-pie-chart-1}]{resource/output/eda-pie-chart_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-pie-chart-1}, frekuensi kemunculan nilai pada variabel target dihitung menggunakan fungsi \texttt{df['stroke'].value\_counts()} lalu divisualisasikan dalam bentuk diagram lingkaran (\textit{pie chart}) dengan menampilkan persentase proporsi secara otomatis (\texttt{autopct} 1 desimal). Luaran grafis dari eksekusi kode ini disajikan pada Gambar \ref{fig:pie-target-stroke}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/1-piechart-stroke.png}
+  \caption{Visualisasi Proporsi Distribusi Target Stroke}
+  \label{fig:pie-target-stroke}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:pie-target-stroke}, diagram lingkaran memperlihatkan ketimpangan distribusi kelas yang sangat tajam antara kategori negatif dan positif. Proporsi pasien yang tidak mengalami stroke (kelas 0) mendominasi secara absolut dengan persentase mencapai 95.1\%, sedangkan proporsi pasien yang terdiagnosis stroke (kelas 1) hanya mencakup 4.9\% dari keseluruhan populasi dataset. Ketimpangan ekstrem ini menunjukkan bahwa dataset stroke tergolong sebagai himpunan data yang sangat tidak seimbang (\textit{highly imbalanced dataset}). Implikasi penting dari temuan visual ini adalah bahwa metrik akurasi (\textit{accuracy}) semata tidak akan mencerminkan keandalan model secara adil, karena model yang memprediksi seluruh data sebagai kelas negatif pun masih akan memperoleh akurasi semu sebesar 95.1\%.
+
+\subsubsection{Visualisasi Sebaran Fitur Numerik (Histogram)}
+\lstinputlisting[language=Python, caption={Histogram Sebaran Fitur Numerik}, label={lst:kode-eda-histogram-1}]{resource/code/eda-histogram_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Histogram Sebaran Fitur Numerik}, label={lst:out-eda-histogram-1}]{resource/output/eda-histogram_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-histogram-1}, fungsi \texttt{df.hist(figsize=(10, 10))} dipanggil untuk menghasilkan kisi histogram bagi seluruh atribut numerik pada dataset secara simultan. Visualisasi komprehensif dari distribusi fitur tersebut disajikan pada Gambar \ref{fig:histogram-fitur}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/2-histogram-fitur.png}
+  \caption{Visualisasi Histogram Distribusi Seluruh Fitur Dataset}
+  \label{fig:histogram-fitur}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:histogram-fitur}, grafik histogram memperlihatkan pola sebaran karakteristik setiap fitur numerik secara beragam. Atribut usia (\texttt{age}) menunjukkan sebaran yang cukup merata di berbagai kelompok umur dengan kenaikan frekuensi pada usia 40--60 tahun. Pada atribut kadar glukosa (\texttt{avg\_glucose\_level}), grafik condong ke kiri dengan ekor panjang ke kanan (\textit{right-skewed}), di mana sebagian besar sampel berkumpul pada rentang 70--100 mg/dL, sementara terdapat sebagian kecil sampel dengan kadar glukosa sangat tinggi mencapai di atas 200 mg/dL. Atribut \texttt{bmi} memiliki bentuk lonceng yang menyerupai kurva distribusi normal berpusat pada nilai 28--30 kg/m$^2$, namun terdapat pencilan (\textit{outlier}) pada nilai ekstrem hingga mendekati 100 kg/m$^2$. Sementara itu, atribut biner seperti \texttt{hypertension}, \texttt{heart\_disease}, dan \texttt{stroke} memperlihatkan frekuensi nilai 0 yang mendominasi secara masif dibandingkan nilai 1.
+
+\subsubsection{Pemeriksaan Nilai Hilang (Missing Values)}
+\lstinputlisting[language=Python, caption={Pemeriksaan Nilai Hilang}, label={lst:kode-eda-missing-value-1}]{resource/code/eda-missing-value_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemeriksaan Nilai Hilang}, label={lst:out-eda-missing-value-1}]{resource/output/eda-missing-value_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-missing-value-1}, metode \texttt{df.isnull().sum()} dieksekusi untuk menjumlahkan banyaknya nilai kosong atau \texttt{NaN} pada setiap kolom data. Sebagaimana tampak pada representasi teks di Output \ref{lst:out-eda-missing-value-1}, kolom \texttt{bmi} terbukti memiliki nilai hilang sebanyak 201 observasi, sedangkan 11 kolom lainnya memiliki nilai hilang sebesar 0 (bersih sempurna). Keberadaan 201 nilai hilang ini menuntut perlakuan pra-pemrosesan melalui strategi imputasi sebelum data dipasok ke algoritma klasifikasi.
+
+\subsubsection{Identifikasi Fitur Kategorikal}
+\lstinputlisting[language=Python, caption={Identifikasi Fitur Bertipe Kategorikal}, label={lst:kode-eda-fitur-kategorikal-1}]{resource/code/eda-fitur-kategorikal_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Fitur Bertipe Kategorikal}, label={lst:out-eda-fitur-kategorikal-1}]{resource/output/eda-fitur-kategorikal_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-fitur-kategorikal-1}, variabel fitur independen $X$ diisolasi dengan menghapus kolom pengenal \texttt{id} serta kolom target \texttt{stroke}, kemudian dicari kolom-kolom yang memiliki tipe data objek teks atau biner menggunakan \texttt{select\_dtypes(include=['object', 'bool'])}. Output \ref{lst:out-eda-fitur-kategorikal-1} menunjukkan terdapat lima fitur kategorikal, yaitu \texttt{gender}, \texttt{ever\_married}, \texttt{work\_type}, \texttt{Residence\_type}, dan \texttt{smoking\_status}. Seluruh fitur berbasis teks ini wajib dikonversikan menjadi format bilangan numerik agar dapat diproses oleh kalkulasi persamaan aljabar pada model klasifikasi.
+
+
+\subsection{Pra-Pemrosesan Data (Data Preprocessing)}
+
+\subsubsection{Pipeline Pra-Pemrosesan Data}
+\lstinputlisting[language=Python, caption={Pipeline Pra-Pemrosesan Data}, label={lst:kode-data-preprocessing-1}]{resource/code/data-preprocessing_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pipeline Pra-Pemrosesan Data}, label={lst:out-data-preprocessing-1}]{resource/output/data-preprocessing_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-data-preprocessing-1}, pipeline pembersihan dan transformasi data secara utuh dijalankan melalui tahapan-tahapan sistematis berikut:
+\begin{enumerate}
+  \item \textbf{Pemisahan Variabel Fitur dan Target}: Menghapus atribut \texttt{id} (karena hanya berperan sebagai indeks unik tanpa makna korelasi terhadap stroke) dan kolom \texttt{stroke} dari variabel independen \texttt{df\_X}, serta menyimpan kolom target \texttt{stroke} ke dalam \texttt{df\_y}.
+  \item \textbf{Pengkodean Variabel Target}: Menerapkan objek \texttt{LabelEncoder()} pada variabel luaran \texttt{df\_y} untuk memastikan label target biner berada dalam format nilai diskrit 0 atau 1.
+  \item \textbf{Imputasi Nilai Hilang (\textit{Missing Value Imputation})}: Mengganti 201 nilai kosong pada kolom \texttt{bmi} dengan nilai median melalui fungsi \texttt{fillna(df\_X['bmi'].median())}. Nilai median dipilih alih-alih nilai rata-rata (\textit{mean}) karena nilai median jauh lebih tahan (\textit{robust}) terhadap pengaruh nilai-nilai ekstrem atau pencilan (\textit{outliers}) pada distribusi \texttt{bmi}.
+  \item \textbf{Pengkodean Fitur Kategorikal}: Menerapkan transformasi \texttt{LabelEncoder()} secara iteratif pada seluruh fitur kategorikal (\texttt{gender}, \texttt{ever\_married}, \texttt{work\_type}, \texttt{Residence\_type}, dan \texttt{smoking\_status}) guna mengubah nilai teks menjadi representasi angka bulat.
+  \item \textbf{Konversi Struktur Larik NumPy}: Mengubah struktur tabel \texttt{df\_X} dan \texttt{df\_y} menjadi larik berdimensi banyak (\texttt{ndarray}) bertipe desimal (\texttt{float}) melalui pemanggilan fungsi \texttt{.astype(float)} serta atribut \texttt{.values}.
+  \item \textbf{Pembagian Data Uji dan Data Latih (\textit{Hold-out Validation})}: Mempartisi himpunan data menggunakan fungsi \texttt{train\_test\_split()} dengan rasio 70\% untuk data latih ($X_{train}, y_{train}$) dan 30\% untuk data uji ($X_{test}, y_{test}$). Parameter \texttt{random\_state=42} disematkan untuk menjamin replikasi partisi data yang konsisten pada setiap eksekusi.
+  \item \textbf{Penskalaan Fitur (\textit{Feature Scaling})}: Menerapkan standardisasi z-score dengan kelas \texttt{StandardScaler} untuk menyamakan skala seluruh fitur masukan dan mencegah kebocoran data.
+\end{enumerate}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-data-preprocessing-1} (Tidak ada output).
+
+\subsubsection{Verifikasi Matriks Fitur Masukan (X)}
+\lstinputlisting[language=Python, caption={Verifikasi Matriks Fitur Masukan X}, label={lst:kode-preprocessing-cek-x-1}]{resource/code/preprocessing-cek-x_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Matriks Fitur Masukan X}, label={lst:out-preprocessing-cek-x-1}]{resource/output/preprocessing-cek-x_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-preprocessing-cek-x-1}, variabel larik $X$ ditampilkan ke konsol untuk mengonfirmasi bahwa seluruh nilai atribut telah berhasil diubah menjadi format numerik desimal. Sebagaimana tampak pada Output \ref{lst:out-preprocessing-cek-x-1}, variabel $X$ kini berupa matriks dua dimensi NumPy yang menampung 10 fitur prediksi per observasi tanpa adanya nilai teks maupun missing value \texttt{NaN}.
+
+\subsubsection{Verifikasi Vektor Target (y)}
+\lstinputlisting[language=Python, caption={Verifikasi Vektor Target y}, label={lst:kode-preprocessing-cek-y-1}]{resource/code/preprocessing-cek-y_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Vektor Target y}, label={lst:out-preprocessing-cek-y-1}]{resource/output/preprocessing-cek-y_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-preprocessing-cek-y-1}, variabel target $y$ ditampilkan untuk memeriksa konsistensi label kelas klasifikasi. Berdasarkan Output \ref{lst:out-preprocessing-cek-y-1}, variabel $y$ kini berformat larik satu dimensi NumPy bertipe data \texttt{float} yang memuat label biner 0.0 (sehat/tanpa stroke) dan 1.0 (terkena stroke).
+
+\subsubsection{Verifikasi Data Latih (X\_train)}
+\lstinputlisting[language=Python, caption={Verifikasi Data Latih X\_train}, label={lst:kode-preprocessing-cek-x-train-1}]{resource/code/preprocessing-cek-x-train_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Data Latih X\_train}, label={lst:out-preprocessing-cek-x-train-1}]{resource/output/preprocessing-cek-x-train_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-preprocessing-cek-x-train-1}, matriks fitur data latih $X_{train}$ dievaluasi setelah proses transformasi penskalaan \texttt{StandardScaler}. Pada Output \ref{lst:out-preprocessing-cek-x-train-1}, seluruh elemen matriks telah terstandarisasi ke dalam skala nilai kontinu yang berpusat pada nilai 0 dengan standar deviasi bernilai 1. Hal ini meniadakan dominasi variabel dengan rentang angka besar (misalnya fitur \texttt{avg\_glucose\_level}) terhadap variabel berskala kecil pada saat proses optimasi algoritma berlangsung.
+
+\subsubsection{Verifikasi Data Uji (X\_test)}
+\lstinputlisting[language=Python, caption={Verifikasi Data Uji X\_test}, label={lst:kode-preprocessing-cek-x-test-1}]{resource/code/preprocessing-cek-x-test_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Data Uji X\_test}, label={lst:out-preprocessing-cek-x-test-1}]{resource/output/preprocessing-cek-x-test_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-preprocessing-cek-x-test-1}, matriks data uji $X_{test}$ diperiksa untuk memastikan bahwa transformasi data uji menggunakan parameter mean dan variansi dari $X_{train}$ berhasil diterapkan dengan sempurna. Sebagaimana ditunjukkan pada Output \ref{lst:out-preprocessing-cek-x-test-1}, nilai-nilai data uji berada dalam rentang z-score terstandarisasi yang siap digunakan untuk proses evaluasi generalisasi model.
+
+
+\subsection{Pemodelan Klasifikasi dan Evaluasi Performa}
+
+\subsubsection{Klasifikasi dengan Logistic Regression}
+\lstinputlisting[language=Python, caption={Pemodelan dan Evaluasi Logistic Regression}, label={lst:kode-pemodelan-logistic-regression-1}]{resource/code/pemodelan-logistic-regression_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Logistic Regression}, label={lst:out-pemodelan-logistic-regression-1}]{resource/output/pemodelan-logistic-regression_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-logistic-regression-1}, model klasifikasi \textit{Logistic Regression} diinisialisasi dan dilatih menggunakan metode \texttt{.fit(X\_train, y\_train)}. Selanjutnya, model melakukan prediksi terhadap data uji \texttt{X\_test} yang disimpan ke dalam vektor \texttt{y\_pred}. Evaluasi dihitung berdasarkan metrik akurasi, presisi makro, recall makro, F1-score makro, serta visualisasi matriks konfusi menggunakan \texttt{ConfusionMatrixDisplay}. Visualisasi matriks konfusi dari model \textit{Logistic Regression} ditampilkan pada Gambar \ref{fig:cm-logistic-regression}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/3-cm-logistic-regression.png}
+  \caption{Confusion Matrix Model Logistic Regression}
+  \label{fig:cm-logistic-regression}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:cm-logistic-regression} dan nilai evaluasi pada Output \ref{lst:out-pemodelan-logistic-regression-1}, model \textit{Logistic Regression} mencatatkan nilai Akurasi sebesar 0.9419 (94.19\%), Presisi makro 0.4710 (47.10\%), Recall makro 0.5000 (50.00\%), dan F1-Score makro 0.4851 (48.51\%). Meskipun angka akurasinya tampak tinggi, matriks konfusi membeberkan fakta bahwa dari total 1533 data uji, model memprediksi 1444 sampel True Negative (TN) dengan benar, namun menghasilkan 89 False Negative (FN) dan 0 True Positive (TP). Hal ini berarti model memprediksi seluruh sampel data uji sebagai kelas mayoritas 0 (tidak stroke) dan sama sekali gagal mendeteksi satu pun pasien penderita stroke aktual. Fenomena ini merupakan bukti empiris dari paradoks akurasi (\textit{accuracy paradox}) pada dataset tidak seimbang (\textit{imbalanced dataset}), di mana ambang batas probabilitas standar 0.5 pada fungsi sigmoid tidak pernah terlampaui oleh sampel positif karena bobot peluang kejadian penyakit yang sangat langka.
+
+\subsubsection{Koefisien Bobot Fitur Logistic Regression}
+\lstinputlisting[language=Python, caption={Koefisien Bobot Fitur Logistic Regression}, label={lst:kode-model-logreg-coef-1}]{resource/code/model-logreg-coef_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Koefisien Bobot Fitur Logistic Regression}, label={lst:out-model-logreg-coef-1}]{resource/output/model-logreg-coef_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-model-logreg-coef-1}, atribut \texttt{model.coef\_} diakses untuk memeriksa nilai koefisien regresi ($\beta_i$) dari masing-masing fitur masukan. Sebagaimana tertera pada Output \ref{lst:out-model-logreg-coef-1}, koefisien dengan magnitudo positif tertinggi terdapat pada fitur ke-2, yaitu usia (\texttt{age}) dengan nilai koefisien mencapai +1.5525. Secara klinis dan matematis, hal ini menunjukkan bahwa variabel usia merupakan faktor prediktor paling dominan yang secara signifikan meningkatkan nilai log-odds kemungkinan seseorang terkena stroke, disusul oleh fitur kadar glukosa rata-rata (+0.1974) dan penyakit jantung (+0.1037).
+
+\subsubsection{Nilai Intersep Model Logistic Regression}
+\lstinputlisting[language=Python, caption={Nilai Intersep Model Logistic Regression}, label={lst:kode-model-logreg-intercept-1}]{resource/code/model-logreg-intercept_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Nilai Intersep Model Logistic Regression}, label={lst:out-model-logreg-intercept-1}]{resource/output/model-logreg-intercept_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-model-logreg-intercept-1}, atribut \texttt{model.intercept\_} dipanggil untuk melihat nilai perpotongan atau bias ($\beta_0$) dari model regresi logistik. Berdasarkan angka pada Output \ref{lst:out-model-logreg-intercept-1}, nilai intersep bernilai sangat negatif, yaitu $-4.0453$. Nilai bias konstan yang bernilai negatif ini mencerminkan proporsi dasar (\textit{base rate}) kejadian stroke yang sangat rendah dalam populasi; fungsi logistik bergeser ke kiri sehingga memerlukan kombinasi nilai fitur positif yang luar biasa tinggi untuk dapat mengangkat nilai probabilitas prediksi melampaui ambang batas klasifikasi 0.5.
+
+\subsubsection{Klasifikasi dengan K-Nearest Neighbors (KNN)}
+\lstinputlisting[language=Python, caption={Pemodelan dan Evaluasi K-Nearest Neighbors}, label={lst:kode-pemodelan-knn-1}]{resource/code/pemodelan-knn_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi K-Nearest Neighbors}, label={lst:out-pemodelan-knn-1}]{resource/output/pemodelan-knn_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-knn-1}, algoritma non-parametrik \textit{K-Nearest Neighbors} (KNN) dikonfigurasikan dengan hiperparameter jumlah tetangga terdekat $k=10$ (\texttt{n\_neighbors=10}) lalu dilatih pada data latih $X_{train}$ dan $y_{train}$. Representasi visual dari matriks konfusi yang dihasilkan oleh model KNN disajikan pada Gambar \ref{fig:cm-knn}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/4-cm-knn.png}
+  \caption{Confusion Matrix Model K-Nearest Neighbors (k=10)}
+  \label{fig:cm-knn}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:cm-knn} dan Output \ref{lst:out-pemodelan-knn-1}, model KNN menghasilkan nilai Akurasi sebesar 0.9419 (94.19\%), Presisi makro 0.4710 (47.10\%), dan Recall makro 0.5000 (50.00\%). Matriks konfusi memperlihatkan $TN = 1444$, $FP = 0$, $FN = 89$, dan $TP = 0$. Serupa dengan performa regresi logistik, model KNN mengalami kegagalan deteksi total pada kelas positif (Recall kelas 1 adalah 0\%). Hal ini terjadi karena dalam penentuan kelas berbasis pemungutan suara mayoritas (\textit{majority voting}) dari 10 tetangga terdekat, kepadatan sampel kelas 0 yang mencapai 95\% di dalam ruang fitur Euclidean selalu mendominasi lingkungan tetangga di sekitar setiap titik data uji, sehingga probabilitas terpilihnya kelas 1 selalu kalah suara.
+
+\subsubsection{Klasifikasi dengan Decision Tree}
+\lstinputlisting[language=Python, caption={Pemodelan dan Evaluasi Decision Tree}, label={lst:kode-pemodelan-decision-tree-1}]{resource/code/pemodelan-decision-tree_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Decision Tree}, label={lst:out-pemodelan-decision-tree-1}]{resource/output/pemodelan-decision-tree_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-decision-tree-1}, model \textit{Decision Tree Classifier} diinisialisasi dengan fungsi kriteria pemisahan berbasis entropi atau perolehan informasi (\texttt{criterion="entropy"}). Model pohon keputusan ini mempartisi ruang fitur secara rekursif hingga membentuk simpul-simpul aturan keputusan. Visualisasi matriks konfusi dari eksekusi model \textit{Decision Tree} ditampilkan pada Gambar \ref{fig:cm-decision-tree}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/5-cm-decision-tree.png}
+  \caption{Confusion Matrix Model Decision Tree (Entropy)}
+  \label{fig:cm-decision-tree}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:cm-decision-tree} dan Output \ref{lst:out-pemodelan-decision-tree-1}, algoritma \textit{Decision Tree} menghasilkan tingkat Akurasi sebesar 0.9061 (90.61\%), Presisi makro sebesar 0.5446 (54.46\%), dan Recall makro sebesar 0.5389 (53.89\%). Matriks konfusi mencatat perolehan $TN = 1378$, $FP = 66$, $FN = 78$, dan yang terpenting adalah $TP = 11$. Berbeda secara fundamental dari model sebelumnya, pohon keputusan membuktikan kemampuannya untuk mendeteksi 11 kasus pasien positif stroke yang sesungguhnya. Batas keputusan non-linier berbasis partisi ortogonal pada pohon keputusan mampu mengisolasi sub-ruang fitur spesifik di mana kasus stroke terkonsentrasi. Meskipun demikian, akibat sensitivitas struktur pohon terhadap variansi lokal tanpa adanya pembatasan kedalaman (\textit{max\_depth pruning}), model menghasilkan 66 alarm palsu (\textit{False Positive}) dan mengalami penurunan akurasi global menjadi 90.61\%.
+
+\subsubsection{Klasifikasi dengan Random Forest}
+\lstinputlisting[language=Python, caption={Pemodelan dan Evaluasi Random Forest}, label={lst:kode-pemodelan-random-forest-1}]{resource/code/pemodelan-random-forest_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Random Forest}, label={lst:out-pemodelan-random-forest-1}]{resource/output/pemodelan-random-forest_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-random-forest-1}, algoritma ansambel \textit{Random Forest Classifier} diterapkan dengan menggabungkan sekumpulan pohon keputusan independen yang dilatih menggunakan teknik \textit{bagging} dan pemilihan fitur acak. Visualisasi matriks konfusi dari model \textit{Random Forest} disajikan pada Gambar \ref{fig:cm-random-forest}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/6-cm-random-forest.png}
+  \caption{Confusion Matrix Model Random Forest}
+  \label{fig:cm-random-forest}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:cm-random-forest} dan Output \ref{lst:out-pemodelan-random-forest-1}, model \textit{Random Forest} memperoleh Akurasi sebesar 0.9406 (94.06\%), Presisi makro 0.4709 (47.09\%), dan Recall makro 0.4993 (49.93\%). Matriks konfusi menunjukkan hasil berupa $TN = 1442$, $FP = 2$, $FN = 89$, dan $TP = 0$. Agregasi banyak pohon pada \textit{Random Forest} terbukti sangat efektif menekan variansi dan meredam kesalahan alarm palsu sehingga nilai False Positive menyusut drastis dari 66 pada pohon tunggal menjadi hanya 2 kasus. Namun demikian, karena sampel bootstrap diambil secara acak seragam dari data latih yang timpang, mayoritas pohon dalam ansambel tetap didominasi oleh aturan kelas 0, sehingga suara agregat ansambel tetap menenggelamkan prediksi kelas minoritas ($TP = 0$).
+
+\subsubsection{Klasifikasi dengan AdaBoost}
+\lstinputlisting[language=Python, caption={Pemodelan dan Evaluasi AdaBoost}, label={lst:kode-pemodelan-adaboost-1}]{resource/code/pemodelan-adaboost_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi AdaBoost}, label={lst:out-pemodelan-adaboost-1}]{resource/output/pemodelan-adaboost_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pemodelan-adaboost-1}, algoritma ansambel penguatan adaptif (\textit{Adaptive Boosting} atau AdaBoost) dilatih pada data menggunakan kelas \texttt{AdaBoostClassifier()}. Visualisasi matriks konfusi dari model AdaBoost disajikan pada Gambar \ref{fig:cm-adaboost}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/7-cm-adaboost.png}
+  \caption{Confusion Matrix Model AdaBoost}
+  \label{fig:cm-adaboost}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:cm-adaboost} dan nilai keluaran pada Output \ref{lst:out-pemodelan-adaboost-1}, model AdaBoost menghasilkan nilai Akurasi sebesar 0.9419 (94.19\%), Presisi makro sebesar 0.4710 (47.10\%), dan Recall makro sebesar 0.5000 (50.00\%). Matriks konfusi mencatat $TN = 1444$, $FP = 0$, $FN = 89$, dan $TP = 0$. Pada konfigurasi bawaan (\textit{default}) dengan pembelajar lemah berupa tunggul keputusan (\textit{decision stump}), pembobotan adaptif pada setiap iterasi belum mampu mengatasi ketimpangan rasio 95:5 secara optimal tanpa adanya teknik penyeimbangan data sintetis (seperti SMOTE) atau penyesuaian bobot penalti kelas. Akibatnya, luaran model AdaBoost kembali mengonvergensi prediksi ke kelas mayoritas secara seragam.
 
 \section{Kesimpulan}
 
