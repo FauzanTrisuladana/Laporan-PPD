@@ -1,0 +1,16 @@
+______________________
+MLP
+RMSE : 1243.150
+Pearson correlation coefficient: 0.751
+______________________
+KNN
+RMSE : 1357.710
+Pearson correlation coefficient: 0.696
+______________________
+DT
+RMSE : 1854.465
+Pearson correlation coefficient: 0.484
+______________________
+RF
+RMSE : 1324.452
+Pearson correlation coefficient: 0.716

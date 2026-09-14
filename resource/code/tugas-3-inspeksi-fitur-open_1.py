@@ -1,0 +1,1 @@
+df_ori['Open'].iloc[:10]
