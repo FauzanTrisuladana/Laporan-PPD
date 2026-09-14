@@ -19,15 +19,15 @@
 \usepackage{geometry}           % untuk margin
 \usepackage{setspace}           % untuk spasi baris
 \usepackage{fancyhdr}           % untuk header/footer
-\usepackage{hyperref}           % untuk link dan bookmark
-\usepackage{xurl}               % agar URL panjang bisa wrap/pindah baris dengan rapi
+\usepackage{float}              % untuk posisi gambar
 \usepackage{listings}           % untuk code Python
 \usepackage{xcolor}             % untuk warna
-\usepackage{float}              % untuk posisi gambar
 \usepackage{tocloft}            % Untuk membuat daftar isi menampilkan "Bab 1. Pendahuluan" instead of "1. Pendahuluan",
 \usepackage{lipsum}             % untuk lorem ipsum
 \usepackage{indentfirst}        % untuk indent paragraf pertama
 \usepackage{enumitem}           % untuk kustomisasi penomoran list (A., B., dst)
+\usepackage{xurl}               % agar URL panjang bisa wrap/pindah baris dengan rapi
+\usepackage{hyperref}           % untuk link dan bookmark
 
 % Pengaturan layout
 \geometry{left=3cm, right=2cm, top=2cm, bottom=2cm}
@@ -38,10 +38,14 @@
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 
-% Penomoran figure mengikuti section (misal, Gambar A.1, A.2, ...)
+% Penomoran figure dan table mengikuti section (misal, Gambar C.1, Tabel C.1, ...)
 \renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\renewcommand{\theHfigure}{\thesection.\arabic{figure}}
+\renewcommand{\theHtable}{\thesection.\arabic{table}}
 \makeatletter
 \@addtoreset{figure}{section}
+\@addtoreset{table}{section}
 \makeatother
 
 % Format chapter
@@ -60,7 +64,7 @@
 
 \lstdefinestyle{vscode-dark}{
   language=Python,
-  basicstyle=\ttfamily\small\color{vscodeFg},
+  basicstyle=\ttfamily\footnotesize\linespread{1.0}\selectfont\color{vscodeFg},
   backgroundcolor=\color{vscodeBg},
   keywordstyle=\color{vscodeKeyword}\bfseries,
   commentstyle=\color{vscodeComment},
@@ -74,8 +78,8 @@
   columns=fullflexible,
   keepspaces=true,
   tabsize=2,
-  xleftmargin=2cm,
-  xrightmargin=1cm,
+  xleftmargin=1.2cm,
+  xrightmargin=0.2cm,
   captionpos=b,
   morekeywords={np, pd, plt, sns, array, DataFrame, Series, read_csv, read_excel, head, tail, info, describe, plot, scatter, bar, hist, fit, predict, transform, merge, concat, groupby, drop, fillna, dropna, iloc, loc}
 }
@@ -111,18 +115,20 @@ Pertemuan \Pertemuan\\
 % tambahkan entri BibTeX ke file ref.bib terlebih dulu.
 
 % Title Page
-\begin{titlingpage} 
+\hypersetup{pageanchor=false}
+\begin{titlingpage}
   \begin{center}
 
     \vspace{4cm}
-    \begin{Large} 
+    \begin{Large}
       \textbf{\thetitle} \\
     \end{Large}
     \vspace{2cm}
-    
-    \includegraphics[height=8cm]{resource/lambang ugm.png}\\ 
+
+    \includegraphics[height=8cm]{resource/lambang ugm.png}\\
+
     \vspace{2cm}
-    
+
     \textbf{Disusun oleh:}\\[0.8em]
     \begin{minipage}{0.8\textwidth}
       \raggedright
@@ -135,7 +141,7 @@ Pertemuan \Pertemuan\\
         \end{tabular}
       \end{large}
     \end{minipage}
-    
+
     \vspace{2cm}
     \begin{Large}
       \textbf{Program Studi D-IV Teknologi Rekayasa Perangkat Lunak} \\
@@ -145,9 +151,10 @@ Pertemuan \Pertemuan\\
       \textbf{Yogyakarta}\\
       \textbf{2026}\\
     \end{Large}
-    
+
   \end{center}
 \end{titlingpage}
+\hypersetup{pageanchor=true}
 
 % Header/Footer
 \pagestyle{fancy}
@@ -212,8 +219,11 @@ Pertemuan \Pertemuan\\
 \end{center}
 
 \section{Tujuan Praktikum}
-\begin{enumerate}
-  \item Something
+\begin{enumerate}[label=\Alph*.]
+  \item Mahasiswa mampu memahami konsep dasar regresi.
+  \item Mahasiswa mengetahui prinsip kerja berbagai algoritma regresi, khususnya \textit{Linear Regression}, \textit{Decision Tree Regression}, dan \textit{Random Forest Regression}.
+  \item Mahasiswa dapat menerapkan berbagai algoritma regresi untuk membangun model.
+  \item Mahasiswa mampu mengevaluasi performa model regresi menggunakan metrik RMSE, $R^2$, dan koefisien korelasi ($R$).
 \end{enumerate}
 
 \section{Dasar Teori}
@@ -241,101 +251,6 @@ Pertemuan \Pertemuan\\
 
 \subsection{Data Preprocessing}
 \par Data Preprocessing atau pra-pemrosesan data adalah tahapan persiapan awal dalam proses penambangan data (\textit{data mining}) yang bertujuan untuk mengubah data mentah menjadi format yang bersih, terstruktur, dan siap digunakan untuk pelatihan model \textit{machine learning} \cite{techtarget_preprocessing}. Data yang dikumpulkan dari dunia nyata umumnya bersifat tidak lengkap (\textit{missing values}), mengandung kebingaran (\textit{noisy}), atau memiliki format yang tidak konsisten \cite{trivusi_preprocessing}. Oleh karena itu, tahapan pra-pemrosesan ini mencakup berbagai teknik fundamental seperti pembersihan data (\textit{data cleaning}), transformasi data (\textit{data transformation}), hingga reduksi dimensi (\textit{dimensionality reduction}) guna memastikan kualitas dan keandalan data.
-
-\subsection{Classification}
-\par Klasifikasi (\textit{classification}) merupakan salah satu teknik utama dalam pembelajaran terbimbing (\textit{supervised learning}) yang bertujuan untuk memprediksi label atau kategori diskrit dari suatu sampel data berdasarkan fitur-fitur atribut yang dimilikinya \cite{ibm_classification}. Dalam paradigma ini, model klasifikasi dilatih menggunakan sekumpulan data berlabel (\textit{labeled training data}), di mana algoritma secara sistematis memetakan relasi matematis antara variabel fitur masukan (\textit{input features}) dengan variabel target luaran (\textit{target variable}) \cite{dicoding_classification}. Setelah proses pembelajaran selesai, fungsi hipotesis yang terbentuk dapat digunakan untuk melakukan inferensi dan menetapkan kelas yang tepat pada data baru yang belum pernah dilihat sebelumnya (\textit{unseen data}) \cite{scikit_classification}. Di industri modern, klasifikasi memiliki peran sentral dalam berbagai domain komputasi, seperti penyaringan email spam, diagnosis penyakit pada rekam medis, deteksi transaksi anomali atau penipuan (\textit{fraud detection}), hingga sistem pemeringkatan rekomendasi konten \cite{ibm_classification}.
-
-\subsection{Algoritma Classification}
-\par Dalam ranah penambangan data dan \textit{machine learning}, terdapat beragam pendekatan algoritma yang dapat diimplementasikan untuk menyelesaikan permasalahan klasifikasi. Pemilihan algoritma yang tepat umumnya bergantung pada karakteristik distribusi data, ukuran dataset, linearitas hubungan antar variabel, serta tingkat interpretabilitas model yang diinginkan \cite{scikit_classification}. Berbagai pustaka komputasi populer seperti Scikit-Learn menyediakan implementasi algoritma yang efisien dan dapat diandalkan untuk analisis data berskala luas \cite{scikit_classification}.
-
-\subsubsection{Logistic Regression}
-\par \textit{Logistic Regression} adalah algoritma klasifikasi probabilistik yang dikembangkan dari konsep dasar regresi linier untuk memodelkan variabel target bertipe kategorikal, khususnya kasus biner \cite{ibm_logistic_regression}. Alih-alih memprediksi nilai kontinu secara langsung, algoritma ini menghitung kombinasi linier dari fitur masukan lalu memetakannya ke dalam rentang nilai probabilitas antara 0 hingga 1 menggunakan fungsi aktivasi logistik atau \textit{sigmoid} \cite{dicoding_classification}. Fungsi \textit{sigmoid} dinyatakan dalam persamaan matematis:
-\begin{equation}
-  \sigma(z) = \frac{1}{1 + e^{-z}}
-  \label{eq:sigmoid}
-\end{equation}
-di mana $z = \mathbf{w}^T \mathbf{x} + b$ merepresentasikan kombinasi linier antara vektor \textit{weights} ($\mathbf{w}$), vektor fitur ($\mathbf{x}$), dan \textit{intercept} atau \textit{bias} ($b$). Luaran probabilitas ini selanjutnya dikonversikan menjadi label kelas biner melalui ambang batas (\textit{threshold}), umumnya bernilai 0.5 \cite{ibm_logistic_regression}. Meskipun memiliki formulasi yang relatif sederhana, \textit{Logistic Regression} sangat efisien secara komputasi, tidak rentan terhadap penyesuaian parameter yang rumit, dan bekerja dengan optimal pada dataset yang memiliki pemisahan batas keputusan bersifat linier (\textit{linearly separable}).
-
-\subsubsection{K-Nearest Neighbors (KNN)}
-\par \textit{K-Nearest Neighbors} (KNN) adalah algoritma klasifikasi berbasis instansi (\textit{instance-based learning}) yang bersifat non-parametrik dan tergolong sebagai \textit{lazy learner}, di mana model tidak membentuk fungsi representasi global selama fase pelatihan melainkan menyimpan seluruh data sampel \cite{ibm_knn}. Ketika menerima data uji baru, KNN menentukan prediksi kelas berdasarkan label mayoritas (\textit{majority voting}) dari $k$ tetangga terdekat dalam ruang fitur \cite{scikit_classification}. Kedekatan antar titik data umumnya diukur menggunakan metrik jarak geometris, seperti jarak Euclidean (\textit{Euclidean distance}):
-\begin{equation}
-  d(\mathbf{p}, \mathbf{q}) = \sqrt{\sum_{i=1}^{n} (p_i - q_i)^2}
-  \label{eq:euclidean}
-\end{equation}
-di mana $\mathbf{p}$ dan $\mathbf{q}$ merupakan dua titik data berdimensi $n$. Kinerja algoritma KNN sangat dipengaruhi oleh pemilihan nilai hiperparameter $k$ dan struktur distribusi data \cite{ibm_knn}. Pemilihan nilai $k$ yang terlalu kecil membuat model rentan terhadap gangguan derau (\textit{noise}), sedangkan nilai $k$ yang terlalu besar dapat mengaburkan batas pemisah antar kelas. Selain itu, penskalaan fitur (\textit{feature scaling}) menjadi tahapan pra-pemrosesan yang esensial agar atribut dengan rentang nilai besar tidak mendominasi perhitungan jarak.
-
-\subsubsection{Decision Tree}
-\par \textit{Decision Tree} adalah algoritma klasifikasi hierarkis yang memodelkan proses pengambilan keputusan layaknya struktur bagan pohon, yang terdiri atas simpul akar (\textit{root node}), simpul keputusan internal (\textit{internal decision nodes}), cabang (\textit{branches}), dan simpul daun (\textit{leaf nodes}) yang merepresentasikan label kelas akhir \cite{ibm_decision_tree}. Algoritma ini bekerja dengan cara mempartisi ruang fitur secara rekursif berdasarkan atribut yang memberikan pemisahan informasi paling optimal pada setiap simpul \cite{scikit_classification}. Ukuran ketidakmurnian (\textit{impurity}) yang lazim digunakan dalam pemilihan fitur pemisah mencakup indeks ketidakmurnian Gini (\textit{Gini impurity}) dan entropi atau perolehan informasi (\textit{information gain}) \cite{ibm_decision_tree}. Indeks Gini dirumuskan sebagai:
-\begin{equation}
-  \text{Gini}(D) = 1 - \sum_{i=1}^{C} p_i^2
-  \label{eq:gini}
-\end{equation}
-di mana $p_i$ menyatakan proporsi kemunculan kelas $i$ pada himpunan data simpul $D$ dengan total $C$ kelas. Keunggulan utama dari \textit{Decision Tree} adalah interpretabilitasnya yang sangat tinggi karena aturan inferensi dapat divisualisasikan secara intuitif \cite{dicoding_classification}. Kendati demikian, model \textit{Decision Tree} tunggal memiliki kelemahan berupa kecenderungan mengalami penyesuaian berlebih (\textit{overfitting}) terhadap variansi data latih jika tidak dilakukan pemangkasan cabang (\textit{pruning}) atau pembatasan kedalaman pohon (\textit{max depth}).
-
-\subsubsection{Random Forest}
-\par \textit{Random Forest} adalah algoritma pembelajaran ansambel (\textit{ensemble learning}) yang mengintegrasikan prediksi dari sekumpulan \textit{decision trees} independen untuk meningkatkan ketepatan dan stabilitas model secara signifikan \cite{ibm_random_forest}. Algoritma ini mengadopsi prinsip \textit{bagging} (\textit{Bootstrap Aggregating}), di mana setiap pohon dilatih menggunakan sampel data acak dengan pengembalian (\textit{bootstrap sample}) dari dataset utama \cite{scikit_classification}. Selain pengacakan data observasi, \textit{Random Forest} juga menerapkan pemilihan acak pada subset fitur di setiap pemecahan simpul pohon untuk memastikan bahwa pohon-pohon yang terbentuk memiliki korelasi yang sangat rendah satu sama lain (\textit{decorrelated trees}) \cite{ibm_random_forest}. Keputusan klasifikasi akhir ditentukan melalui pemungutan suara terbanyak (\textit{majority voting}) dari seluruh pohon dalam ansambel. Pendekatan ini secara efektif menekan risiko \textit{overfitting}, meningkatkan ketahanan terhadap pencilan (\textit{outliers}), serta menghasilkan performa generalisasi yang tangguh pada dataset tabular berdimensi tinggi.
-
-\subsubsection{AdaBoost (Adaptive Boosting)}
-\par \textit{Adaptive Boosting} atau AdaBoost adalah algoritma \textit{ensemble learning} berbasis strategi \textit{boosting} yang bekerja secara berurutan (\textit{sequential}) untuk menggabungkan serangkaian \textit{weak learners} menjadi satu model prediksi yang kuat (\textit{strong learner}) \cite{scikit_adaboost}. Pada algoritma AdaBoost, model \textit{weak learner} yang paling umum digunakan adalah \textit{Decision Tree} berskala satu pemisahan simpul yang dikenal sebagai \textit{decision stump} \cite{scikit_adaboost}. Karakteristik khas dari AdaBoost terletak pada mekanisme penyesuaian bobot sampel secara adaptif (\textit{adaptive instance re-weighting}), di mana sampel data yang salah diklasifikasikan pada iterasi saat ini akan diberikan bobot penalti yang lebih besar pada iterasi berikutnya \cite{ibm_classification}. Hal ini memaksa model pada tahap lanjutan untuk lebih memusatkan pembelajaran pada observasi yang sukar diklasifikasikan. Pada tahap akhir, seluruh model pembelajar digabungkan melalui pemungutan suara terbobot (\textit{weighted voting}) berdasarkan tingkat akurasi masing-masing pembelajar, sehingga performa klasifikasi meningkat secara nyata terutama pada data yang kompleks.
-
-\subsection{Metrik Evaluasi Classification}
-\par Evaluasi performa model klasifikasi merupakan langkah fundamental untuk mengukur tingkat keberhasilan dan keandalan sistem dalam mengenali pola data \cite{scikit_metrics}. Evaluasi dilakukan secara kuantitatif dengan membandingkan label hasil prediksi model terhadap label nilai aktual yang sebenarnya (\textit{ground truth}) pada data uji \cite{dqlab_classification_metrics}. Informasi komparasi antara nilai prediksi dan nilai aktual tersebut disusun secara sistematis ke dalam suatu matriks kontingensi yang disebut \textit{confusion matrix} \cite{trivusi_confusion_matrix}.
-
-\subsubsection{Confusion Matrix}
-\par \textit{Confusion Matrix} adalah tabel representasi visual dua dimensi yang memerinci kinerja model klasifikasi dengan memetakan jumlah prediksi yang benar dan yang keliru ke dalam kategori kelas aktual versus kelas prediksi \cite{trivusi_confusion_matrix}. Pada skenario klasifikasi biner, \textit{confusion matrix} membagi hasil prediksi ke dalam empat kuadran fundamental \cite{scikit_metrics}:
-\begin{enumerate}
-  \item \textbf{True Positive (TP)}: Jumlah sampel kelas positif aktual yang berhasil diprediksi secara tepat sebagai kelas positif.
-  \item \textbf{True Negative (TN)}: Jumlah sampel kelas negatif aktual yang berhasil diprediksi secara tepat sebagai kelas negatif.
-  \item \textbf{False Positive (FP)}: Jumlah sampel kelas negatif aktual yang secara keliru diprediksi sebagai kelas positif (dikenal sebagai kesalahan Tipe I atau \textit{Type I Error}).
-  \item \textbf{False Negative (FN)}: Jumlah sampel kelas positif aktual yang secara keliru diprediksi sebagai kelas negatif (dikenal sebagai kesalahan Tipe II atau \textit{Type II Error}).
-\end{enumerate}
-\par Pemetaan keempat komponen tersebut diilustrasikan pada Tabel \ref{tab:confusion-matrix}. Nilai-nilai TP, TN, FP, dan FN ini menjadi landasan dasar untuk menghitung metrik performa lanjutan seperti \textit{accuracy}, \textit{precision}, \textit{recall}, dan \textit{F1-score} \cite{trivusi_confusion_matrix}.
-
-\begin{table}[H]
-  \centering
-  \renewcommand{\arraystretch}{1.3}
-  \begin{tabular}{|c|c|c|}
-    \hline
-    \multirow{2}{*}{\textbf{Nilai Aktual}} & \multicolumn{2}{c|}{\textbf{Prediksi Model}}                       \\ \cline{2-3}
-                                           & \textbf{Positif}                             & \textbf{Negatif}    \\ \hline
-    \textbf{Positif}                       & True Positive (TP)                           & False Negative (FN) \\ \hline
-    \textbf{Negatif}                       & False Positive (FP)                          & True Negative (TN)  \\ \hline
-  \end{tabular}
-  \caption{Struktur Komponen \textit{Confusion Matrix} Klasifikasi Biner}
-  \label{tab:confusion-matrix}
-\end{table}
-
-\subsubsection{Accuracy}
-\par \textit{Accuracy} atau akurasi merupakan metrik evaluasi paling umum yang menunjukkan proporsi total prediksi yang benar (gabungan prediksi positif benar dan negatif benar) terhadap keseluruhan jumlah observasi data yang diuji \cite{scikit_metrics}. Formulasi matematis akurasi dinyatakan dalam Persamaan \eqref{eq:accuracy}:
-\begin{equation}
-  \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
-  \label{eq:accuracy}
-\end{equation}
-\par Meskipun akurasi memberikan indikasi performa menyeluruh secara cepat, metrik ini memiliki keterbatasan yang signifikan saat diterapkan pada dataset yang tidak seimbang (\textit{imbalanced dataset}) \cite{dqlab_classification_metrics}. Pada kondisi ketidakseimbangan kelas yang ekstrem, model dapat menghasilkan akurasi yang tampak tinggi hanya dengan selalu memprediksi kelas mayoritas, fenomena ini kerap dikenal sebagai paradoks akurasi (\textit{accuracy paradox}).
-
-\subsubsection{Precision}
-\par \textit{Precision} atau presisi mengukur rasio ketepatan model dalam menghasilkan prediksi positif, yaitu proporsi kasus yang benar-benar positif dibandingkan dengan seluruh sampel yang diprediksi bernilai positif oleh model \cite{scikit_metrics}. Rumus matematis presisi didefinisikan dalam Persamaan \eqref{eq:precision}:
-\begin{equation}
-  \text{Precision} = \frac{TP}{TP + FP}
-  \label{eq:precision}
-\end{equation}
-\par Metrik presisi menjadi fokus evaluasi utama pada skenario di mana biaya atau akibat dari terjadinya \textit{False Positive} sangat tinggi \cite{dqlab_classification_metrics}. Contohnya adalah pada sistem penyaringan surel spam, di mana sistem harus memiliki presisi tinggi guna menjamin surel sah yang penting tidak keliru dimasukkan ke dalam folder spam.
-
-\subsubsection{Recall}
-\par \textit{Recall} (juga disebut sensitivitas atau \textit{Sensitivity} / \textit{True Positive Rate}) mengukur kemampuan model dalam menjaring dan menemukan seluruh sampel yang sesungguhnya bernilai positif dari dataset aktual \cite{scikit_metrics}. Perhitungan \textit{recall} dirumuskan dalam Persamaan \eqref{eq:recall}:
-\begin{equation}
-  \text{Recall} = \frac{TP}{TP + FN}
-  \label{eq:recall}
-\end{equation}
-\par Metrik \textit{recall} sangat diutamakan dalam domain klasifikasi yang memiliki toleransi rendah terhadap terjadinya \textit{False Negative} \cite{dqlab_classification_metrics}. Sebagai contoh konkret, pada diagnosis medis penyakit kritis seperti kanker, sistem klasifikasi dituntut memiliki tingkat \textit{recall} setinggi mungkin agar tidak ada pasien terinfeksi yang luput dari penanganan medis akibat salah terprediksi sebagai pasien sehat.
-
-\subsubsection{F1-Score}
-\par Dalam penerapannya, sering kali terjadi kompromi (\textit{trade-off}) antara nilai \textit{precision} dan \textit{recall}, di mana peningkatan salah satu metrik cenderung menekan nilai metrik yang lain \cite{scikit_metrics}. Untuk mengatasi hal tersebut, \textit{F1-Score} diperkenalkan sebagai rata-rata harmonik (\textit{harmonic mean}) antara presisi dan \textit{recall}, sehingga menyajikan skor evaluasi komprehensif yang seimbang \cite{dqlab_classification_metrics}. Nilai rata-rata harmonik dipilih karena memberikan bobot penalti yang berat jika terdapat ketimpangan tajam di antara kedua metrik. Formulasi matematis \textit{F1-Score} dirumuskan dalam Persamaan \eqref{eq:f1-score}:
-\begin{equation}
-  \text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}
-  \label{eq:f1-score}
-\end{equation}
-\par Metrik \textit{F1-Score} sangat berguna saat menganalisis performa dari algoritma klasifikasi pada dataset yang bersifat \textit{imbalanced}, karena model dituntut untuk mempertahankan presisi tinggi sekaligus meminimalkan kejadian positif yang terlewatkan secara simultan \cite{scikit_metrics}.
 
 \subsection{Regression}
 \par Regresi atau \textit{regression} merupakan salah satu metode statistik dan pilar analisis fundamental dalam ranah \textit{machine learning} yang digunakan untuk memodelkan hubungan fungsional antara satu atau lebih variabel independen (\textit{features}) dengan variabel dependen (\textit{target}) yang bersifat numerik atau kontinu \cite{dqlab_regression}. Tujuan utama dari pemodelan regresi mencakup pemahaman pola keterkaitan antara fitur dan target, peramalan atau estimasi nilai pada masa depan berdasarkan data historis, serta identifikasi seberapa besar pengaruh atau kontribusi dari masing-masing fitur terhadap luaran (\textit{output}) \cite{ibm_linear_regression}.
@@ -433,9 +348,505 @@ di mana $\bar{\hat{y}} = \frac{1}{n}\sum_{i=1}^n \hat{y}_i$ melambangkan rata-ra
 
 \section{Hasil dan Pembahasan}
 
-\par Sesuai dengan tujuan praktikum, berikut adalah hasil yang diperoleh dan pembahasan terkait materi yang telah dipelajari.
+\par Pada bagian ini dipaparkan hasil pelaksanaan praktikum penambangan data modul keempat mengenai pemodelan \textit{Regression}. Pembahasan dibagi menjadi tahapan persiapan lingkungan dan pemuatan data, \textit{Exploratory Data Analysis} (EDA), \textit{data preprocessing}, pemodelan regresi pada dataset \texttt{kc\_house\_data.csv}, serta penyelesaian komprehensif seluruh butir penugasan praktikum pada dataset \texttt{CarPrice\_Assignment.csv}.
+
+\subsection{Persiapan Lingkungan dan Pemuatan Data}
+
+\subsubsection{Impor Pustaka}
+\lstinputlisting[language=Python, caption={Impor Pustaka untuk Pemodelan Regresi}, label={lst:kode-impor-pustaka-1}]{resource/code/impor-pustaka_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Impor Pustaka}, label={lst:out-impor-pustaka-1}]{resource/output/impor-pustaka_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-impor-pustaka-1}, berikut adalah rincian dari modul dan pustaka yang diimpor untuk mendukung alur kerja eksperimen:
+\begin{itemize}
+  \item \texttt{pandas} dan \texttt{numpy}: Mengimpor pustaka fundamental untuk manipulasi struktur tabular berbasis \textit{DataFrame} serta komputasi numerik larik multidimensi.
+  \item \texttt{matplotlib.pyplot} dan \texttt{seaborn}: Mengimpor modul visualisasi grafis untuk merancang tata letak matriks histogram sebaran data dan grafik batang evaluasi perbandingan model.
+  \item Algoritma Regresi: Mengimpor kelas \path{LinearRegression}, \path{DecisionTreeRegressor}, dan \path{RandomForestRegressor} dari Scikit-Learn untuk membangun model regresi linier parametrik, pohon keputusan non-parametrik, dan ansambel berbasis \textit{bagging}.
+  \item \texttt{train\_test\_split}: Mengimpor fungsi pemartisi dataset ke dalam subset data latih (\textit{training set}) dan data uji (\textit{testing set}) secara terkontrol.
+  \item Metrik Evaluasi: Mengimpor fungsi \path{mean_squared_error} dan \path{r2_score} guna menghitung nilai galat kuadrat rata-rata (\textit{Mean Squared Error}/MSE dan \textit{Root Mean Squared Error}/RMSE) serta koefisien determinasi ($R^2$).
+\end{itemize}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-impor-pustaka-1} (Tidak ada output).
+
+\subsubsection{Pemuatan Dataset King County House Sales}
+\lstinputlisting[language=Python, caption={Pemuatan Dataset Penjualan Rumah kc\_house\_data}, label={lst:kode-load-dataset-1}]{resource/code/load-dataset_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemuatan Dataset kc\_house\_data}, label={lst:out-load-dataset-1}]{resource/output/load-dataset_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-load-dataset-1}, berkas data \texttt{kc\_house\_data.csv} dibaca secara daring langsung dari repositori GitHub menggunakan fungsi \texttt{pd.read\_csv()}. Berkas data yang dimuat menampung riwayat transaksi penjualan properti hunian di King County, Washington (Amerika Serikat), yang mencakup data harga transaksi aktual beserta atribut dimensi fisik bangunan, kualitas rancang bangun, dan koordinat geografis. Objek data tabular ini kemudian disimpan ke dalam variabel \textit{DataFrame} \texttt{df}. Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-load-dataset-1} (Tidak ada output).
+
+
+\subsection{Exploratory Data Analysis (EDA)}
+
+\subsubsection{Inspeksi Lima Baris Pertama (df.head())}
+\lstinputlisting[language=Python, caption={Inspeksi Lima Baris Teratas Dataset}, label={lst:kode-eda-head-1}]{resource/code/eda-head_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Lima Baris Teratas Dataset}, label={lst:out-eda-head-1}]{resource/output/eda-head_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-head-1}, fungsi \texttt{df.head()} dipanggil untuk menampilkan lima baris observasi teratas dari \textit{DataFrame} \texttt{df}. Sebagaimana ditunjukkan pada Output \ref{lst:out-eda-head-1}, dataset memuat 21 atribut yang dapat dikelompokkan ke dalam beberapa dimensi karakteristik utama:
+\begin{itemize}
+  \item \textbf{Identitas dan Waktu:} Kolom \path{id} sebagai nomor pengenal unik transaksi dan \path{date} sebagai tanggal pencatatan penjualan properti.
+  \item \textbf{Variabel Target Kontinu:} Kolom \path{price} yang menyatakan nilai nominal harga jual rumah dalam satuan Dolar AS (USD).
+  \item \textbf{Dimensi Fisik Bangunan dan Lahan:} Meliputi jumlah kamar tidur (\path{bedrooms}), jumlah kamar mandi (\path{bathrooms}), luas ruang hunian (\path{sqft_living}), total luas tapak lahan (\path{sqft_lot}), jumlah lantai (\path{floors}), luas bangunan di atas tanah (\path{sqft_above}), dan luas ruang bawah tanah (\path{sqft_basement}).
+  \item \textbf{Kualitas dan Kondisi Struktur:} Mencakup indikator lokasi tepi air (\path{waterfront}), tingkat pemandangan (\path{view}), kondisi fisik bangunan (\path{condition}), serta mutu desain konstruksi (\path{grade}) dengan skala penilaian bertingkat.
+  \item \textbf{Aspek Temporal dan Spasial:} Mencakup tahun pembangunan (\path{yr_built}), tahun pemugaran (\path{yr_renovated}), kode pos (\path{zipcode}), serta koordinat lintang-bujur (\path{lat}, \path{long}).
+  \item \textbf{Karakteristik Lingkungan Sekitar:} Rata-rata luas ruang hunian dan luas lahan dari 15 rumah tetangga terdekat (\path{sqft_living15}, \path{sqft_lot15}).
+\end{itemize}
+
+\subsubsection{Inspeksi Lima Baris Terakhir (df.tail())}
+\lstinputlisting[language=Python, caption={Inspeksi Lima Baris Terbawah Dataset}, label={lst:kode-eda-tail-1}]{resource/code/eda-tail_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Lima Baris Terbawah Dataset}, label={lst:out-eda-tail-1}]{resource/output/eda-tail_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-tail-1}, fungsi \texttt{df.tail()} digunakan untuk meninjau lima baris observasi paling bawah dari dataset. Melalui representasi pada Output \ref{lst:out-eda-tail-1}, terlihat bahwa indeks observasi terakhir bernilai 21612, yang mengonfirmasi bahwa dataset secara keseluruhan terdiri atas total populasi sebanyak 21.613 baris observasi transaksi penjualan properti. Struktur nilai pada baris akhir memperlihatkan kelengkapan format data numerik yang konsisten di seluruh atribut tanpa adanya anomali baris yang terpotong.
+
+\subsubsection{Statistik Deskriptif Atribut Numerik (df.describe())}
+\lstinputlisting[language=Python, caption={Statistik Deskriptif Fitur Numerik}, label={lst:kode-eda-describe-1}]{resource/code/eda-describe_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Statistik Deskriptif Fitur Numerik}, label={lst:out-eda-describe-1}]{resource/output/eda-describe_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-describe-1}, fungsi \texttt{df.describe()} dijalankan untuk merangkum ukuran pemusatan dan penyebaran statistik deskriptif dari seluruh atribut numerik dataset. Melalui angka-angka pada Output \ref{lst:out-eda-describe-1}, variabel target harga properti (\path{price}) mencatatkan nilai rata-rata sebesar \$540.088,10 dengan deviasi standar mencapai \$367.127,20. Nilai transaksi terendah berada pada \$75.000,00, kuartil pertama (25\%) \$321.950,00, median (50\%) \$450.000,00, kuartil ketiga (75\%) \$645.000,00, serta nilai transaksi tertinggi mencapai \$7.700.000,00. Disparitas yang substansial antara nilai rata-rata (\$540.088,10) dan nilai median (\$450.000,00) mengonfirmasi adanya fenomena kemiringan positif (\textit{positive skewness}) yang dipicu oleh keberadaan kluster hunian mewah bernilai fantastis. Dari perspektif fisik bangunan, rata-rata rumah memiliki 3,37 kamar tidur, 2,11 kamar mandi, luas ruang hunian 2.079,90 kaki persegi, tahun pendirian rata-rata 1971, serta skor mutu arsitektur konstruksi (\path{grade}) rata-rata pada skala 7,66 dari skala penilaian 1 hingga 13.
+
+\subsubsection{Visualisasi Sebaran Fitur Numerik (Histogram)}
+\lstinputlisting[language=Python, caption={Visualisasi Histogram Fitur Dataset}, label={lst:kode-eda-histogram-1}]{resource/code/eda-histogram_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/1-histogram-fitur-kc-house.png}
+  \caption{Visualisasi Histogram Distribusi Seluruh Fitur Dataset Penjualan Rumah}
+  \label{fig:histogram-fitur-kc-house}
+\end{figure}
+
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-histogram-1}, fungsi \texttt{df.hist(figsize=(10, 10))} dipanggil untuk menghasilkan kisi histogram bagi seluruh atribut numerik secara simultan sebagaimana disajikan pada Gambar \ref{fig:histogram-fitur-kc-house}. Berdasarkan visualisasi grafik tersebut, terlihat pola sebaran fitur yang sangat heterogen dan dapat dikelompokkan ke dalam empat kategori utama:
+\begin{itemize}
+  \item \textbf{Distribusi Condong ke Kanan (\textit{Right-Skewed}):} Variabel target \path{price} beserta atribut dimensi area bangunan (\path{sqft_living}, \path{sqft_lot}, \path{sqft_above}, dan \path{sqft_basement}) membentuk kurva asimetris dengan ekor panjang ke arah kanan. Mayoritas transaksi berada pada segmen rumah berharga di bawah \$1.000.000,00, sedangkan sebagian kecil properti eksklusif bernilai sangat tinggi membentuk ekor distribusi.
+  \item \textbf{Distribusi Diskrit Bertingkat:} Variabel \path{bedrooms}, \path{bathrooms}, \path{floors}, \path{condition}, dan \path{grade} membentuk puncak-puncak frekuensi diskrit teratur yang berpusat pada spesifikasi standar rumah tangga keluarga (3--4 kamar tidur dan grade 7--8).
+  \item \textbf{Distribusi Temporal dan Bimodal:} Fitur tahun pembangunan (\path{yr_built}) memperlihatkan peningkatan volume pembangunan perumahan yang stabil sejak dekade 1940-an hingga puncaknya pada pertengahan tahun 2000-an.
+  \item \textbf{Distribusi Biner Ekstrem:} Atribut \path{waterfront} dan \path{view} didominasi secara masif oleh nilai 0, menandakan bahwa properti dengan pemandangan terbuka atau tepi danau merupakan aset langka dalam populasi.
+\end{itemize}
+
+\subsubsection{Analisis Korelasi Antar Fitur (df.corr())}
+\lstinputlisting[language=Python, caption={Perhitungan Matriks Korelasi Numerik}, label={lst:kode-eda-korelasi-1}]{resource/code/eda-korelasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\tiny\linespread{0.9}\selectfont\color{vscodeFg}, caption={Output Matriks Korelasi Numerik}, label={lst:out-eda-korelasi-1}]{resource/output/eda-korelasi_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-korelasi-1}, metode \texttt{df.corr(numeric\_only=True)} dipanggil untuk menghitung koefisien korelasi linier Pearson ($r$) antar fitur numerik. Melalui representasi pada Output \ref{lst:out-eda-korelasi-1}, fitur yang memiliki hubungan linier paling kuat terhadap harga rumah (\texttt{price}) dapat dirinci sebagai berikut:
+\begin{itemize}
+  \item Luas ruang hidup (\texttt{sqft\_living}) memiliki korelasi positif tertinggi sebesar $r = 0{,}7020$, menegaskan bahwa luas area hunian utama merupakan faktor utama penentu harga properti.
+  \item Tingkat mutu rancang bangun (\texttt{grade}) berada di posisi kedua dengan $r = 0{,}6674$, membuktikan bahwa material konstruksi dan standar arsitektur memberikan premi valuasi yang besar.
+  \item Luas bangunan di atas tanah (\texttt{sqft\_above}) mencatatkan korelasi kuat sebesar $r = 0{,}6056$.
+  \item Luas hunian 15 tetangga terdekat (\texttt{sqft\_living15}) dan jumlah kamar mandi (\texttt{bathrooms}) masing-masing menyumbang korelasi signifikan sebesar $r = 0{,}5854$ dan $r = 0{,}5251$.
+  \item Sebaliknya, atribut pengenal (\texttt{id}) dan kode pos (\texttt{zipcode}) menunjukkan korelasi yang mendekati nol ($r = -0{,}0168$ dan $r = -0{,}0532$), menegaskan bahwa nilai kode administratif tidak memiliki hubungan linier langsung terhadap harga tanpa transformasi spasial.
+\end{itemize}
+Temuan kuantitatif ini membuktikan bahwa dimensi luas dan kualitas konstruksi fisik merupakan faktor paling dominan dalam menentukan nilai jual properti di King County.
+
+\subsubsection{Pemeriksaan Missing Values}
+\lstinputlisting[language=Python, caption={Pemeriksaan Missing Values}, label={lst:kode-eda-missing-value-1}]{resource/code/eda-missing-value_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemeriksaan Missing Values}, label={lst:out-eda-missing-value-1}]{resource/output/eda-missing-value_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-eda-missing-value-1}, fungsi \texttt{df.isnull().sum()} dipanggil untuk mendeteksi adanya data hilang pada setiap kolom. Berdasarkan laporan pada Output \ref{lst:out-eda-missing-value-1}, sebanyak 20 atribut memiliki nilai lengkap (0 \textit{missing values}), kecuali atribut \texttt{sqft\_above} yang memiliki 2 baris bernilai \textit{null}. Proporsi data hilang ini sangat minim (kurang dari 0,01\% dari total 21.613 observasi), sehingga penanganan yang paling tepat adalah menerapkan strategi \textit{mean imputation} pada tahap pra-pemrosesan data untuk menjaga keutuhan ukuran sampel.
+
+
+\subsection{Data Preprocessing}
+
+\subsubsection{Pipeline Data Preprocessing dan Pemisahan Fitur-Target}
+\lstinputlisting[language=Python, caption={Data Preprocessing dan Pemisahan Fitur-Target}, label={lst:kode-data-preprocessing-1}]{resource/code/data-preprocessing_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Data Preprocessing}, label={lst:out-data-preprocessing-1}]{resource/output/data-preprocessing_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-data-preprocessing-1}, pipeline pembersihan dan transformasi data secara utuh dijalankan melalui tahapan-tahapan sistematis berikut:
+\begin{enumerate}
+  \item \textbf{Pemisahan Variabel Fitur dan Target}: Menghapus atribut pengenal non-prediktif (\path{id}) dan penanda tanggal transaksi (\path{date}) serta kolom target \path{price} dari matriks masukan \path{df_X}, serta mengisolasi kolom target kontinu \path{price} ke dalam vektor target \path{df_y}.
+  \item \textbf{Validasi Tipe Data Fitur}: Memeriksa keberadaan kolom bertipe teks objek atau boolean menggunakan pemanggilan fungsi \path{select_dtypes(include=['object', 'bool'])}. Output \ref{lst:out-data-preprocessing-1} menghasilkan indeks kosong (\path{Index([], dtype='object')}), memastikan bahwa seluruh 18 fitur masukan yang tersisa telah berformat numerik murni tanpa tipe data campuran.
+  \item \textbf{Imputasi Nilai Hilang (\textit{Missing Value Imputation})}: Mengganti 2 baris bernilai kosong pada kolom \path{sqft_above} menggunakan nilai rata-rata kolomnya melalui fungsi \path{fillna(df_X['sqft_above'].mean())}, sehingga integritas ukuran matriks tetap terjaga utuh tanpa pemotongan observasi.
+  \item \textbf{Konversi Struktur Larik NumPy}: Mengonversi objek \textit{DataFrame} \path{df_X} dan \textit{Series} \path{df_y} menjadi larik numerik NumPy multidimensi bertipe desimal (\path{float}) murni melalui metode \path{.astype(float)} dan atribut \path{.values}.
+\end{enumerate}
+Eksekusinya dapat dilihat secara langsung pada Output \ref{lst:out-data-preprocessing-1}.
+
+
+\subsection{Pemodelan Regresi dan Evaluasi Performa}
+
+\subsubsection{Pemodelan Linear Regression}
+\lstinputlisting[language=Python, caption={Pelatihan Model Linear Regression}, label={lst:kode-model-linear-regression-1}]{resource/code/pemodelan-linear-regression_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pelatihan Model Linear Regression}, label={lst:out-model-linear-regression-1}]{resource/output/pemodelan-linear-regression_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-model-linear-regression-1}, data dipartisi menjadi 70\% subset latih dan 30\% subset uji menggunakan fungsi \path{train_test_split} (parameter \path{test_size=0.3} dan \path{random_state=42}). Model \textit{Linear Regression} diinisialisasi melalui kelas \texttt{LinearRegression()} lalu dilatih menggunakan metode kuadrat terkecil biasa (\textit{Ordinary Least Squares}/OLS) melalui fungsi \path{reg.fit(X_train, y_train)}. Prosedur optimasi OLS bertujuan meminimalkan jumlah kuadrat residual galat estimasi (\textit{residual sum of squares}) pada ruang dimensi masukan:
+\begin{equation}
+  \min_{\beta_0, \boldsymbol{\beta}} \sum_{i=1}^{n} \left( y_i - \left( \beta_0 + \sum_{j=1}^{p} \beta_j x_{ij} \right) \right)^2
+\end{equation}
+
+\par Sebagaimana dilaporkan pada Output \ref{lst:out-model-linear-regression-1}, model membukukan koefisien determinasi pada data latih sebesar $0{,}6995$ (69,95\%) dan pada data uji sebesar $0{,}6991$ (69,91\%). Selisih skor determinasi yang sangat tipis ($<0{,}0004$) membuktikan bahwa model regresi linier memiliki variansi yang stabil dan terbebas dari gejala \textit{overfitting}, meskipun kapasitas representasi fungsi linier terbatas pada angka 69,91\%.
+\par Lebih lanjut, inspeksi terhadap nilai koefisien regresi (\textit{feature coefficients}) $\beta_j$ dan nilai konstanta (\textit{intercept}) $\beta_0$ pada Output \ref{lst:out-model-linear-regression-1} membeberkan interpretasi ekonomi dan spasial yang mendalam:
+\begin{itemize}
+  \item \textbf{Fitur Lintang (\path{lat}):} Koefisien positif sebesar +\$595.234,40, membuktikan bahwa perumahan di belahan utara King County (Seattle dan Bellevue) memiliki nilai prestisius tinggi.
+  \item \textbf{Fitur Tepi Air (\path{waterfront}):} Koefisien positif sebesar +\$543.879,87. Properti dengan pemandangan danau atau laut menikmati premi harga rata-rata lebih dari setengah juta Dolar AS dibanding rumah tanpa perairan.
+  \item \textbf{Fitur Mutu Konstruksi (\path{grade}):} Koefisien positif sebesar +\$94.898,98. Kenaikan tiap satu tingkat standar arsitektur menaikkan valuasi dasar sekitar \$95.000.
+  \item \textbf{Fitur Kamar Tidur (\path{bedrooms}):} Koefisien negatif sebesar -\$34.345,77. Pada luas hunian yang konstan (\textit{ceteris paribus}), penambahan kamar tidur mempersempit ukuran tiap kamar sehingga menurunkan nilai jual.
+\end{itemize}
+Konstanta perpotongan (\textit{intercept}) terestimasi pada angka $+6.697.083{,}21$. Perbandingan sepuluh sampel pertama antara prediksi model dan nilai riil (misalnya sampel pertama: prediksi \$458.529,94 vs riil \$365.000,00; sampel kedua: prediksi \$748.988,15 vs riil \$865.000,00) memperlihatkan bahwa model linier mampu mengikuti rentang harga pasar rata-rata secara proporsional.
+
+\subsubsection{Evaluasi Model Linear Regression}
+\lstinputlisting[language=Python, caption={Evaluasi Metrik RMSE dan R2 Linear Regression}, label={lst:kode-evaluasi-linear-regression-1}]{resource/code/evaluasi-linear-regression_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Linear Regression}, label={lst:out-evaluasi-linear-regression-1}]{resource/output/evaluasi-linear-regression_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-evaluasi-linear-regression-1}, performa prediksi model dievaluasi secara kuantitatif menggunakan metrik \textit{Root Mean Squared Error} (RMSE) dan koefisien determinasi $R^2$ pada subset data uji. Sebagaimana disajikan pada Output \ref{lst:out-evaluasi-linear-regression-1}, model \textit{Linear Regression} menghasilkan nilai RMSE sebesar $208.425{,}27$ dan nilai $R^2$ sebesar $0{,}6991$. Secara empiris, metrik RMSE sebesar \$208.425,27 merefleksikan besaran simpangan deviasi standar dari residual galat estimasi harga rumah dalam satuan Dolar AS, sedangkan $R^2 = 0{,}6991$ menunjukkan bahwa kombinasi linier dari 18 fitur masukan mampu menerangkan 69,91\% dari total variabilitas harga properti di King County.
+
+\subsubsection{Visualisasi Hasil Prediksi Linear Regression}
+\lstinputlisting[language=Python, caption={Visualisasi Prediksi vs Nilai Riil Linear Regression}, label={lst:kode-visualisasi-linear-regression-1}]{resource/code/visualisasi-linear-regression_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/2-bar-linear-regression.png}
+  \caption{Grafik Batang Perbandingan Nilai Prediksi dan Nilai Sebenarnya pada Model Linear Regression}
+  \label{fig:bar-linear-regression}
+\end{figure}
+
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-linear-regression-1}, visualisasi perbandingan antara nilai riil (\textit{real values}) dan estimasi model (\textit{predicted values}) disajikan untuk 50 sampel data uji pertama melalui diagram batang pada Gambar \ref{fig:bar-linear-regression}. Diagram batang memperlihatkan bahwa model \textit{Linear Regression} mampu mengikuti fluktuasi harga rumah pada segmen harga menengah dengan deviasi yang wajar. Akan tetapi, pada observasi dengan harga pasar ekstrem (misalnya sampel ke-21 yang bernilai di atas \$1,5 juta), model linier mengalami kesalahan peremehan harga (\textit{underestimation}) yang sangat tajam. Fenomena ini membuktikan keterbatasan mendasar dari bidang hiperlinier yang kaku dalam memetakan kurva eksponensial pada kluster properti mewah.
+
+\subsubsection{Pemodelan Decision Tree Regression}
+\lstinputlisting[language=Python, caption={Pelatihan Model Decision Tree Regression}, label={lst:kode-model-decision-tree-1}]{resource/code/pemodelan-decision-tree_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pelatihan Model Decision Tree Regression}, label={lst:out-model-decision-tree-1}]{resource/output/pemodelan-decision-tree_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-model-decision-tree-1}, algoritma non-parametrik \textit{Decision Tree Regression} diinisialisasi melalui kelas \texttt{DecisionTreeRegressor()} dengan kriteria pemisahan bawaan berbasis reduksi variansi MSE tanpa pembatasan kedalaman pohon (\path{max_depth=None}). Pohon keputusan mempartisi ruang fitur secara rekursif menjadi subruang ortogonal yang homogen. Sebagaimana dilaporkan pada Output \ref{lst:out-model-decision-tree-1}, model membukukan skor determinasi pada data latih yang hampir sempurna yaitu $0{,}9994$ (99,94\%), namun skor determinasi pada data uji merosot tajam menjadi $0{,}7317$ (73,17\%).
+\par Kesenjangan skor yang sangat lebar sebesar 26,77\% ini merupakan bukti empiris klasik terjadinya gejala \textit{overfitting}. Tanpa mekanisme pemangkasan (\textit{pruning}), pohon keputusan terus membelah simpul hingga ke tingkat observasi tunggal (daun murni), sehingga menghafal derau (\textit{noise}) dan pencilan data latih alih-alih mempelajari pola generalisasi. Hal ini terlihat nyata pada sepuluh sampel luaran pertama: pada sampel ke-4, nilai transaksi aktual adalah \$1.490.000,00, namun diproyeksikan oleh pohon keputusan sebesar \$2.250.000,00 (selisih galat lokal melambung tinggi hingga \$760.000,00).
+
+\subsubsection{Evaluasi Model Decision Tree Regression}
+\lstinputlisting[language=Python, caption={Evaluasi Metrik RMSE dan R2 Decision Tree Regression}, label={lst:kode-evaluasi-decision-tree-1}]{resource/code/evaluasi-decision-tree_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Decision Tree Regression}, label={lst:out-evaluasi-decision-tree-1}]{resource/output/evaluasi-decision-tree_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-evaluasi-decision-tree-1}, kinerja model diukur menggunakan metrik RMSE dan $R^2$ pada data uji. Berdasarkan Output \ref{lst:out-evaluasi-decision-tree-1}, model \textit{Decision Tree Regression} menghasilkan nilai RMSE sebesar $196.820{,}15$ dan koefisien determinasi $R^2$ sebesar $0{,}7317$. Menariknya, meskipun mengalami \textit{overfitting}, model \textit{Decision Tree} berhasil memangkas galat RMSE sekitar \$11.605,12 dan menaikkan $R^2$ sebesar 3,26\% dibandingkan \textit{Linear Regression}. Hal ini membuktikan bahwa kemampuan partisi hierarkis non-linier dari pohon keputusan tetap memberikan keunggulan dalam mengelompokkan pola harga lokal yang tidak mampu ditangkap oleh bidang linier.
+
+\subsubsection{Visualisasi Hasil Prediksi Decision Tree Regression}
+\lstinputlisting[language=Python, caption={Visualisasi Prediksi vs Nilai Riil Decision Tree Regression}, label={lst:kode-visualisasi-decision-tree-1}]{resource/code/visualisasi-decision-tree_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/3-bar-decision-tree.png}
+  \caption{Grafik Batang Perbandingan Nilai Prediksi dan Nilai Sebenarnya pada Model Decision Tree Regression}
+  \label{fig:bar-decision-tree}
+\end{figure}
+
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-decision-tree-1}, grafik batang perbandingan nilai riil dan estimasi \textit{Decision Tree} untuk 50 sampel data uji pertama disajikan pada Gambar \ref{fig:bar-decision-tree}. Diagram batang menunjukkan bahwa estimasi model pada sebagian besar rumah bernilai standar berada cukup dekat dengan nilai riil. Namun demikian, akibat sifat fungsi prediksi konstanta bertingkat (\textit{piecewise constant step function}), terlihat lonjakan galat lokal yang sporadis pada observasi tertentu di mana nilai estimasi melompat jauh melampaui harga aktualnya.
+
+\subsubsection{Pemodelan Random Forest Regression}
+\lstinputlisting[language=Python, caption={Pelatihan Model Random Forest Regression}, label={lst:kode-model-random-forest-1}]{resource/code/pemodelan-random-forest_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pelatihan Model Random Forest Regression}, label={lst:out-model-random-forest-1}]{resource/output/pemodelan-random-forest_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-model-random-forest-1}, algoritma ansambel \textit{Random Forest Regression} diimplementasikan melalui kelas \texttt{RandomForestRegressor()} guna mereduksi kelemahan variansi tinggi dari pohon keputusan tunggal. Model ini membangun kumpulan 100 pohon keputusan acak melalui teknik \textit{bagging} (\textit{bootstrap aggregating}) yang dipadukan dengan seleksi subruang fitur acak (\textit{random feature subspace}). Berdasarkan formulasi teori ansambel, perataan keluaran dari $B$ pohon yang terdekolerasi efektif mereduksi variansi total model:
+\begin{equation}
+  \text{Var}(\bar{X}) = \rho \sigma^2 + \frac{1 - \rho}{B} \sigma^2
+\end{equation}
+di mana $\rho$ menyatakan korelasi antar-pohon dan $B$ adalah jumlah pohon.
+
+\par Sebagaimana dilaporkan pada Output \ref{lst:out-model-random-forest-1}, model memperoleh skor determinasi pada data latih sebesar $0{,}9825$ (98,25\%) dan skor pada data uji melonjak drastis mencapai $0{,}8562$ (85,62\%). Agregasi rata-rata dari ratusan pohon terbukti secara empiris berhasil meredam variansi lokal, sehingga performa generalisasi pada data uji meningkat secara impresif. Luaran sepuluh sampel pertama menunjukkan perbaikan estimasi yang nyata: pada sampel ke-4 yang sebelumnya meleset \$760.000 pada pohon tunggal, kini diestimasi pada \$2.104.866,50, sementara sampel kedua riil bernilai \$865.000 diprediksi sangat presisi pada \$853.752,00.
+
+\subsubsection{Evaluasi Model Random Forest Regression}
+\lstinputlisting[language=Python, caption={Evaluasi Metrik RMSE dan R2 Random Forest Regression}, label={lst:kode-evaluasi-random-forest-1}]{resource/code/evaluasi-random-forest_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Random Forest Regression}, label={lst:out-evaluasi-random-forest-1}]{resource/output/evaluasi-random-forest_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-evaluasi-random-forest-1}, metrik RMSE dan $R^2$ dihitung untuk mengevaluasi akurasi akhir model \textit{Random Forest Regression}. Berdasarkan Output \ref{lst:out-evaluasi-random-forest-1}, model mencatatkan nilai RMSE sebesar $144.083{,}19$ dan koefisien determinasi $R^2$ sebesar $0{,}8562$. Nilai galat RMSE ini berkurang secara masif lebih dari \$64.342 dibandingkan \textit{Linear Regression} dan lebih dari \$52.736 dibandingkan \textit{Decision Tree}, serta berhasil menerangkan 85,62\% variabilitas harga rumah di King County.
+
+\subsubsection{Visualisasi Hasil Prediksi Random Forest Regression}
+\lstinputlisting[language=Python, caption={Visualisasi Prediksi vs Nilai Riil Random Forest Regression}, label={lst:kode-visualisasi-random-forest-1}]{resource/code/visualisasi-random-forest_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/4-bar-random-forest.png}
+  \caption{Grafik Batang Perbandingan Nilai Prediksi dan Nilai Sebenarnya pada Model Random Forest Regression}
+  \label{fig:bar-random-forest}
+\end{figure}
+
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-random-forest-1}, grafik batang perbandingan nilai aktual dan estimasi model \textit{Random Forest} untuk 50 sampel data uji disajikan pada Gambar \ref{fig:bar-random-forest}. Pasangan batang nilai aktual (biru) dan nilai prediksi (oranye) memperlihatkan tingkat keselarasan yang paling konsisten dan presisi di antara seluruh model yang diuji. Pada hampir setiap sampel observasi, tinggi batang estimasi berimpit erat dengan nilai aktualnya, membuktikan stabilitas dan kemampuan aproksimasi fungsi yang halus (\textit{smooth approximation}) dari model ansambel \textit{Random Forest}.
+
+
+\subsection{Tugas \& Analisis}
+
+\par Pada subbab ini disajikan penyelesaian lengkap dari seluruh butir penugasan praktikum modul keempat mengenai \textit{Regression} menggunakan dataset \textit{Car Price Prediction} (\path{CarPrice_Assignment.csv}) sesuai dengan instruksi penugasan pada Buku Modul Praktikum Penambangan Data.
+
+\subsubsection{Tugas 1: Tujuan Penggunaan Dataset dan Definisi Atribut Input-Output}
+\textbf{Soal:} Jelaskan apa tujuan penggunaan dataset ini dan definisikan atribut yang menjadi input dan output-nya!
+
+\par \textbf{Analisis:}
+\par \textbf{1. Tujuan Penggunaan Dataset Car Price Prediction:}
+\par Pemanfaatan dataset \textit{Car Price Prediction} yang dirilis oleh Geely Auto memiliki tujuan strategis dalam domain pemodelan analitik prediktif di industri otomotif \cite{han2022data}. Dalam memasuki pangsa pasar otomotif Amerika Serikat yang sangat kompetitif, produsen mobil memerlukan pemahaman mendalam mengenai faktor-faktor penentu valuasi kendaraan di mata konsumen. Berdasarkan konteks bisnis dan rekayasa data tersebut, tujuan utama penggunaan dataset ini dirumuskan sebagai berikut:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Pengembangan Model Prediktif Valuasi Kendaraan:} Membangun dan melatih model pembelajaran mesin berbasis regresi kontinu yang mampu memperkirakan nilai \textit{fair market price} dari suatu unit mobil berdasarkan spesifikasi teknis dan dimensi fisiknya.
+  \item \textbf{Optimasi \textit{Pricing Strategy}:} Membantu divisi bisnis manufaktur dalam menyusun strategi penetapan harga yang kompetitif bagi lini produk baru agar tidak mengalami \textit{overpricing} (yang menurunkan daya saing) atau \textit{underpricing} (yang menggerus margin keuntungan).
+  \item \textbf{Identifikasi \textit{Feature Relevance}:} Mengidentifikasi parameter rancang bangun fisik, konfigurasi mesin, dan konsumsi bahan bakar yang memberikan bobot pengaruh paling signifikan dalam menentukan harga pasar kendaraan.
+\end{enumerate}
+
+\par \textbf{2. Definisi dan Spesifikasi Atribut Input dan Output:}
+\par Dataset \textit{Car Price Prediction} terdiri atas 205 baris sampel observasi kendaraan dan 26 atribut. Kolom \texttt{car\_ID} merupakan pengenal unik numerik tanpa nilai prediktif, sedangkan kolom \texttt{CarName} memuat nama merek dan model dengan kardinalitas kategori yang sangat beragam (dieliminasi saat pemodelan untuk mencegah \textit{overfitting}). Kolom \texttt{carbody} juga dieksklusikan dari matriks masukan pemodelan regresi pada eksperimen ini.
+\par Atribut target tunggal adalah \texttt{price}, yang merepresentasikan harga jual aktual kendaraan dalam satuan Dolar AS (USD). Sebanyak 22 atribut lainnya berfungsi sebagai fitur input prediktor. Rincian spesifikasi, tipe data, peran, dan deskripsi seluruh atribut dataset disajikan secara komprehensif pada Tabel \ref{tab:definisi-atribut-carprice}.
+
+\begin{table}[H]
+  \centering
+  \scriptsize
+  \renewcommand{\arraystretch}{1.15}
+  \begin{tabular}{|c|l|c|c|>{\raggedright\arraybackslash}p{6.8cm}|}
+    \hline
+    \textbf{No} & \textbf{Nama Atribut}     & \textbf{Tipe Data} & \textbf{Peran} & \textbf{Deskripsi}                                                                                                               \\ \hline
+    1           & \texttt{car\_ID}          & Int64              & Eksklusi       & Nomor identifikasi unik kendaraan (dieliminasi dari matriks fitur karena tidak prediktif).                                       \\ \hline
+    2           & \texttt{symboling}        & Int64              & Input          & Tingkat risiko asuransi aktuaria kendaraan dengan skala $-3$ (sangat aman) hingga $+3$ (berisiko tinggi).                        \\ \hline
+    3           & \texttt{CarName}          & Object             & Eksklusi       & Nama merek dan varian model kendaraan (dieliminasi untuk mencegah kategorial dengan kardinalitas terlalu tinggi).                \\ \hline
+    4           & \texttt{fueltype}         & Object             & Input          & Jenis bahan bakar yang digunakan kendaraan (\textit{gas} atau \textit{diesel}).                                                  \\ \hline
+    5           & \texttt{aspiration}       & Object             & Input          & Sistem aspirasi induksi udara mesin kendaraan (\textit{std} atau \textit{turbo}).                                                \\ \hline
+    6           & \texttt{doornumber}       & Object             & Input          & Jumlah pintu fisik kendaraan (\textit{two} atau \textit{four}).                                                                  \\ \hline
+    7           & \texttt{carbody}          & Object             & Eksklusi       & Tipe rancang bangun bodi kendaraan (\textit{sedan}, \textit{hatchback}, \textit{wagon}, \textit{hardtop}, \textit{convertible}). \\ \hline
+    8           & \texttt{drivewheel}       & Object             & Input          & Konfigurasi sistem roda penggerak kendaraan (\textit{rwd}, \textit{fwd}, \textit{4wd}).                                          \\ \hline
+    9           & \texttt{enginelocation}   & Object             & Input          & Letak penempatan posisi mesin kendaraan (\textit{front} atau \textit{rear}).                                                     \\ \hline
+    10          & \texttt{wheelbase}        & Float64            & Input          & Jarak horizontal antara pusat sumbu roda depan dan roda belakang (inci).                                                         \\ \hline
+    11          & \texttt{carlength}        & Float64            & Input          & Panjang dimensi eksterior total kendaraan dari ujung depan ke ujung belakang (inci).                                             \\ \hline
+    12          & \texttt{carwidth}         & Float64            & Input          & Lebar dimensi eksterior total bodi kendaraan (inci).                                                                             \\ \hline
+    13          & \texttt{carheight}        & Float64            & Input          & Tinggi dimensi eksterior total kendaraan dari permukaan tanah ke atap (inci).                                                    \\ \hline
+    14          & \texttt{curbweight}       & Int64              & Input          & Bobot kosong total kendaraan tanpa penumpang atau muatan bagasi (pon/\textit{lbs}).                                              \\ \hline
+    15          & \texttt{enginetype}       & Object             & Input          & Jenis rancangan arsitektur mesin (\textit{ohc}, \textit{ohcv}, \textit{dohc}, \textit{l}, \textit{rotor}, dsb.).                 \\ \hline
+    16          & \texttt{cylindernumber}   & Object             & Input          & Jumlah silinder pada ruang pembakaran mesin (\textit{four}, \textit{six}, \textit{five}, \textit{eight}, dsb.).                  \\ \hline
+    17          & \texttt{enginesize}       & Int64              & Input          & Kapasitas volume silinder mesin kendaraan dalam satuan inci kubik (\textit{cubic inches}).                                       \\ \hline
+    18          & \texttt{fuelsystem}       & Object             & Input          & Sistem penyaluran dan injeksi bahan bakar mesin (\textit{mpfi}, \textit{2bbl}, \textit{idi}, \textit{1bbl}, dsb.).               \\ \hline
+    19          & \texttt{boreratio}        & Float64            & Input          & Ukuran diameter lubang silinder pembakaran mesin kendaraan (inci).                                                               \\ \hline
+    20          & \texttt{stroke}           & Float64            & Input          & Jarak langkah pergerakan piston dari titik mati atas ke titik mati bawah di dalam silinder (inci).                               \\ \hline
+    21          & \texttt{compressionratio} & Float64            & Input          & Rasio perbandingan volume ruang bakar saat piston berada di titik terendah terhadap titik tertinggi.                             \\ \hline
+    22          & \texttt{horsepower}       & Int64              & Input          & Besaran daya luaran tenaga mekanis mesin kendaraan dalam satuan \textit{horsepower} (hp).                                        \\ \hline
+    23          & \texttt{peakrpm}          & Int64              & Input          & Kecepatan putaran poros engkol mesin maksimum per menit saat daya puncak dihasilkan (rpm).                                       \\ \hline
+    24          & \texttt{citympg}          & Int64              & Input          & Tingkat efisiensi konsumsi bahan bakar kendaraan pada rute perjalanan dalam kota (\textit{miles per gallon}).                    \\ \hline
+    25          & \texttt{highwaympg}       & Int64              & Input          & Tingkat efisiensi konsumsi bahan bakar kendaraan pada rute perjalanan jalan tol (\textit{miles per gallon}).                     \\ \hline
+    26          & \texttt{price}            & Float64            & Output         & Harga jual aktual kendaraan di pasar dalam satuan Dolar AS (USD) sebagai variabel target kontinu.                                \\ \hline
+  \end{tabular}
+  \caption{Definisi dan Spesifikasi Atribut Dataset \textit{Car Price Prediction}}
+  \label{tab:definisi-atribut-carprice}
+\end{table}
+
+\par Berdasarkan Tabel \ref{tab:definisi-atribut-carprice}, atribut target \texttt{price} bertindak sebagai variabel dependen kontinu tunggal yang akan diestimasi nilainya. Sebanyak 22 atribut difungsikan sebagai variabel input independen prediktor yang mencakup dimensi fisik, spesifikasi mekanis mesin, dan efisiensi bahan bakar. Atribut kategorikal ditransformasikan ke dalam variabel biner melalui \textit{one-hot encoding} pada tahap pra-pemrosesan sebelum dilakukan pelatihan model regresi.
+
+
+\subsubsection{Tugas 2: Identifikasi Variabel yang Paling Mempengaruhi Output}
+\textbf{Soal:} Sebutkan variabel yang paling mempengaruhi output atau mempunyai nilai korelasi tinggi!
+
+\lstinputlisting[language=Python, caption={Perhitungan Matriks Korelasi Pearson Dataset Tugas}, label={lst:kode-tugas-eda-korelasi-1}]{resource/code/tugas-eda-korelasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\tiny\linespread{0.9}\selectfont\color{vscodeFg}, caption={Output Matriks Korelasi Pearson Dataset Tugas}, label={lst:out-tugas-eda-korelasi-1}]{resource/output/tugas-eda-korelasi_1_out.txt}
+
+\par \textbf{Analisis:} Berdasarkan nilai koefisien korelasi Pearson pada Output \ref{lst:out-tugas-eda-korelasi-1}, berikut adalah urutan variabel yang memiliki nilai korelasi tertinggi terhadap variabel target harga mobil (\texttt{price}):
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Korelasi Positif Kuat (Meningkatkan Nilai Jual Kendaraan):}
+        \begin{itemize}
+          \item \texttt{enginesize} ($r = +0{,}8741$): Memiliki korelasi linier positif paling tinggi di antara seluruh fitur. Semakin besar kapasitas silinder mesin, semakin besar tenaga mekanik yang dihasilkan serta biaya rekayasa produksinya, sehingga harga jual mobil melonjak secara signifikan.
+          \item \texttt{curbweight} ($r = +0{,}8353$): Bobot kosong kendaraan berkorelasi sangat kuat dengan harga. Mobil dengan sasis kokoh, dimensi bodi besar, dan material peredam berkualitas tinggi memiliki bobot lebih berat yang lazim dijumpai pada segmen premium atau mewah.
+          \item \texttt{horsepower} ($r = +0{,}8081$): Tenaga kuda mesin merupakan daya tarik performa utama yang secara langsung mendorong tingginya nilai valuasi pasar mobil \textit{sports} atau eksekutif.
+          \item \texttt{carwidth} ($r = +0{,}7593$): Lebar dimensi bodi kendaraan berkorelasi positif tinggi, merefleksikan kenyamanan kabin dan kelas ukuran mobil mewah.
+          \item \texttt{carlength} ($r = +0{,}6829$): Panjang total bodi kendaraan yang menandakan segmen sedan panjang atau mobil kelas atas.
+          \item \texttt{wheelbase} ($r = +0{,}5778$): Jarak antar sumbu roda yang mempengaruhi kelegaan interior dan kestabilan berkendara.
+          \item \texttt{boreratio} ($r = +0{,}5532$): Diameter lubang silinder mesin yang berhubungan erat dengan volume pembakaran tenaga mesin.
+        \end{itemize}
+  \item \textbf{Korelasi Negatif Kuat (Menurunkan Nilai Jual Kendaraan):}
+        \begin{itemize}
+          \item \texttt{highwaympg} ($r = -0{,}6976$) dan \texttt{citympg} ($r = -0{,}6858$): Konsumsi bahan bakar (\textit{miles per gallon}) menunjukkan korelasi terbalik yang kuat terhadap harga mobil. Mobil yang dirancang sangat hemat bahan bakar umumnya berada pada kategori mobil kompak atau ekonomi dengan mesin kecil dan fitur minimalis. Sebaliknya, mobil mewah bertenaga besar dengan mesin silinder banyak cenderung mengonsumsi lebih banyak bahan bakar sehingga memiliki nilai MPG yang rendah.
+        \end{itemize}
+\end{enumerate}
+\par Dengan demikian, variabel yang \textbf{paling mempengaruhi \textit{output}} secara dominan adalah \texttt{enginesize} ($r = 0{,}8741$), diikuti oleh \texttt{curbweight} ($r = 0{,}8353$), dan \texttt{horsepower} ($r = 0{,}8081$).
+
+
+\subsubsection{Tugas 3: Pemodelan Regresi Machine Learning}
+\textbf{Soal:} Silahkan membuat model regresi dengan Linear Regression, Decision Tree Regression, Random Forest Regression dari dataset diatas!
+
+\par Alur kerja pemodelan regresi pada dataset \textit{Car Price Prediction} diimplementasikan secara terstruktur mulai dari inisialisasi lingkungan komputasi, pemuatan dataset, eksplorasi data awal (EDA), pra-pemrosesan melalui \textit{one-hot encoding}, partisi \textit{training set} dan \textit{testing set} (rasio 70:30), hingga pelatihan, evaluasi, dan visualisasi performa dari tiga algoritma regresi: \textit{Linear Regression}, \textit{Decision Tree Regression}, dan \textit{Random Forest Regression}.
+
+\paragraph{1. Pengimporan Pustaka Analitik}
+\par Pustaka pendukung komputasi matriks, manipulasi tabel, visualisasi, algoritma regresi, serta metrik evaluasi Scikit-Learn diimpor sebagaimana disajikan pada Kode \ref{lst:kode-tugas-impor-pustaka-1}.
+
+\lstinputlisting[language=Python, caption={Impor Pustaka untuk Dataset Tugas}, label={lst:kode-tugas-impor-pustaka-1}]{resource/code/tugas-impor-pustaka_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Impor Pustaka Tugas}, label={lst:out-tugas-impor-pustaka-1}]{resource/output/tugas-impor-pustaka_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-impor-pustaka-1} dan konfirmasi pada Output \ref{lst:out-tugas-impor-pustaka-1}, seluruh modul dan pustaka yang dibutuhkan—meliputi \texttt{pandas} dan \texttt{numpy} untuk pemrosesan data tabular, \texttt{matplotlib.pyplot} untuk visualisasi grafik, fungsi \path{train_test_split}, kelas algoritma \path{LinearRegression}, \path{DecisionTreeRegressor}, dan \path{RandomForestRegressor}, serta fungsi metrik evaluasi \path{mean_squared_error} dan \path{r2_score}—berhasil diinisialisasi ke dalam sesi komputasi tanpa menimbulkan kendala dependensi (Tidak ada output).
+
+\paragraph{2. Pemuatan Dataset}
+\par Berkas data \texttt{CarPrice\_Assignment.csv} dimuat langsung secara daring dari repositori GitHub menggunakan fungsi \texttt{pd.read\_csv()} pada Kode \ref{lst:kode-tugas-load-dataset-1}.
+
+\lstinputlisting[language=Python, caption={Pemuatan Dataset Car Price Prediction}, label={lst:kode-tugas-load-dataset-1}]{resource/code/tugas-load-dataset_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemuatan Dataset Car Price Prediction}, label={lst:out-tugas-load-dataset-1}]{resource/output/tugas-load-dataset_1_out.txt}
+\par \textbf{Analisis:} Sintaks pada Kode \ref{lst:kode-tugas-load-dataset-1} memuat dataset ke dalam objek \textit{DataFrame} Pandas \texttt{df}. Keberhasilan pemuatan data divalidasi pada Output \ref{lst:out-tugas-load-dataset-1} (Tidak ada output). Dataset ini berisi catatan spesifikasi teknis dan harga pasar dari 205 unit kendaraan yang siap digunakan untuk tahapan analisis data eksploratif.
+
+\paragraph{3. Eksplorasi Data Awal (EDA)}
+\par Eksplorasi awal dilakukan melalui inspeksi lima baris teratas (\path{df.head()}), lima baris terbawah (\path{df.tail()}), statistik deskriptif (\path{df.describe()}), visualisasi sebaran fitur (\path{df.hist()}), dan pemeriksaan nilai hilang (\path{df.isnull().sum()}).
+
+\lstinputlisting[language=Python, caption={Inspeksi Lima Baris Pertama Dataset Tugas}, label={lst:kode-tugas-eda-head-1}]{resource/code/tugas-eda-head_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Lima Baris Pertama Dataset Tugas}, label={lst:out-tugas-eda-head-1}]{resource/output/tugas-eda-head_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-eda-head-1} dan representasi data pada Output \ref{lst:out-tugas-eda-head-1}, dataset memuat 26 atribut komprehensif yang mencakup pengenal unik (\path{car_ID}, \path{CarName}), spesifikasi rancang bangun dimensi fisik (\path{wheelbase}, \path{carlength}, \path{carwidth}, \path{carheight}, \path{curbweight}), parameter mekanis ruang bakar mesin (\path{enginetype}, \path{cylindernumber}, \path{enginesize}, \path{fuelsystem}, \path{horsepower}), metrik konsumsi bahan bakar (\path{citympg}, \path{highwaympg}), serta atribut target harga jual kendaraan (\path{price}). Observasi lima baris teratas memperlihatkan contoh model Alfa Romeo dengan rentang harga pembuka mulai dari \$13.495 hingga \$16.500.
+
+\lstinputlisting[language=Python, caption={Inspeksi Lima Baris Terakhir Dataset Tugas}, label={lst:kode-tugas-eda-tail-1}]{resource/code/tugas-eda-tail_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Lima Baris Terakhir Dataset Tugas}, label={lst:out-tugas-eda-tail-1}]{resource/output/tugas-eda-tail_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan eksekusi Kode \ref{lst:kode-tugas-eda-tail-1} sebagaimana ditunjukkan pada Output \ref{lst:out-tugas-eda-tail-1}, baris observasi terakhir berada pada indeks 204 (dengan nomor \path{car_ID} bernilai 205). Fakta ini mengonfirmasi bahwa total ukuran populasi dataset terdiri atas 205 baris sampel kendaraan, dengan seluruh nilai atribut pada bagian akhir tersusun secara lengkap dan konsisten.
+
+\lstinputlisting[language=Python, caption={Statistik Deskriptif Fitur Numerik Dataset Tugas}, label={lst:kode-tugas-eda-describe-1}]{resource/code/tugas-eda-describe_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Statistik Deskriptif Dataset Tugas}, label={lst:out-tugas-eda-describe-1}]{resource/output/tugas-eda-describe_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan eksekusi fungsi pada Kode \ref{lst:kode-tugas-eda-describe-1} yang tertera pada Output \ref{lst:out-tugas-eda-describe-1}, variabel target harga mobil (\path{price}) memiliki nilai rata-rata sebesar \$13.276,71 dengan simpangan baku sebesar \$7.988,77, harga terendah sebesar \$5.118,00, dan harga tertinggi mencapai \$45.400,00. Pada aspek mekanis, rata-rata volume silinder mesin (\path{enginesize}) adalah 126,90 inci kubik, bobot kosong (\path{curbweight}) rata-rata 2.555,57 pon, dan daya mesin (\path{horsepower}) rata-rata 104,11 hp. Tingginya selisih antara nilai minimum dan maksimum di seluruh fitur teknis memperlihatkan keragaman segmen mobil yang sangat lebar di dalam dataset.
+
+\lstinputlisting[language=Python, caption={Visualisasi Histogram Fitur Dataset Tugas}, label={lst:kode-tugas-eda-histogram-1}]{resource/code/tugas-eda-histogram_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-1-histogram-carprice.png}
+  \caption{Visualisasi Histogram Distribusi Fitur pada Dataset Car Price Prediction}
+  \label{fig:tugas-histogram-carprice}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan eksekusi Kode \ref{lst:kode-tugas-eda-histogram-1} dan representasi visual pada Gambar \ref{fig:tugas-histogram-carprice}, variabel target \path{price} serta atribut performa mesin (\path{enginesize} dan \path{horsepower}) memperlihatkan pola distribusi condong ke kanan (\textit{right-skewed}). Mayoritas kendaraan berada pada segmen pasar reguler berdaya mesin moderat, sedangkan mobil mewah atau bertenaga tinggi (\textit{sports car}) membentuk ekor panjang tipis ke arah nilai tinggi. Sebaliknya, variabel rasio kompresi (\path{compressionratio}) memperlihatkan konsentrasi ekstrem pada angka 9:1 untuk mesin bensin, dengan sedikit pencilan di atas 20:1 untuk mesin diesel.
+
+\lstinputlisting[language=Python, caption={Pemeriksaan Missing Values Dataset Tugas}, label={lst:kode-tugas-eda-missing-value-1}]{resource/code/tugas-eda-missing-value_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemeriksaan Missing Values Dataset Tugas}, label={lst:out-tugas-eda-missing-value-1}]{resource/output/tugas-eda-missing-value_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-eda-missing-value-1} dan laporan kuantitatif pada Output \ref{lst:out-tugas-eda-missing-value-1}, terkonfirmasi bahwa seluruh 26 kolom memiliki nilai kosong sebesar 0 (lengkap sempurna). Kondisi data yang bersih ini menjamin bahwa dataset tidak memerlukan prosedur pembersihan nilai hilang (\textit{missing value imputation}) sehingga seluruh 205 baris sampel dapat diikutsertakan ke tahap pra-pemrosesan.
+
+\paragraph{4. Data Preprocessing}
+\par Tahap pra-pemrosesan data dilakukan melalui serangkaian prosedur transformasi sistematis pada Kode \ref{lst:kode-tugas-preprocessing-1}:
+\begin{enumerate}
+  \item \textbf{Pemisahan Variabel Fitur dan Target}: Kolom pengenal non-prediktif (\path{car_ID}), kolom teks nama merek dengan kardinalitas tinggi (\path{CarName}), serta kolom \path{carbody} dieliminasi dari matriks fitur masukan \path{df_X}, sementara kolom target kontinu \path{price} diisolasi ke dalam variabel \path{df_y}.
+  \item \textbf{Transformasi Variabel Kategorikal (\textit{One-Hot Encoding})}: Seluruh atribut bertipe kategorikal ditransformasikan ke dalam format biner menggunakan fungsi \path{pd.get_dummies()} dengan menyematkan argumen \path{drop_first=True}. Langkah ini meniadakan kolom referensi dasar per atribut guna mencegah kolinearitas sempurna (\textit{dummy variable trap}) pada persamaan regresi.
+  \item \textbf{Konversi Format Larik NumPy}: Matriks fitur dan vektor target dikonversi menjadi larik multidimensi NumPy bertipe desimal (\path{float}) murni guna memenuhi format input algoritma Scikit-Learn.
+\end{enumerate}
+Hasil akhir proses pra-pemrosesan disajikan pada Output \ref{lst:out-tugas-preprocessing-1}.
+
+\lstinputlisting[language=Python, caption={Data Preprocessing dan One-Hot Encoding Dataset Tugas}, label={lst:kode-tugas-preprocessing-1}]{resource/code/tugas-preprocessing_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Data Preprocessing Dataset Tugas}, label={lst:out-tugas-preprocessing-1}]{resource/output/tugas-preprocessing_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-preprocessing-1} dan laporan pada Output \ref{lst:out-tugas-preprocessing-1}, fitur non-prediktif dan target berhasil dipisahkan dengan baik. Penerapan \textit{one-hot encoding} dengan parameter \path{drop_first=True} menghasilkan matriks fitur masukan berdimensi bersih tanpa menyisakan atribut kategorikal teks. Matriks fitur dan vektor target selanjutnya dikonversi ke dalam larik bertipe \path{float} murni.
+
+\paragraph{5. Pemodelan dengan Linear Regression}
+\par Pelatihan, evaluasi metrik, dan visualisasi grafik model \textit{Linear Regression} disajikan pada Kode \ref{lst:kode-tugas-model-linear-regression-1}, Kode \ref{lst:kode-tugas-evaluasi-linear-regression-1}, dan Kode \ref{lst:kode-tugas-visualisasi-linear-regression-1}.
+
+\lstinputlisting[language=Python, caption={Pelatihan Model Linear Regression pada Dataset Tugas}, label={lst:kode-tugas-model-linear-regression-1}]{resource/code/tugas-model-linear-regression_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pelatihan Linear Regression Tugas}, label={lst:out-tugas-model-linear-regression-1}]{resource/output/tugas-model-linear-regression_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-model-linear-regression-1} dan hasil pada Output \ref{lst:out-tugas-model-linear-regression-1}, model \textit{Linear Regression} dilatih pada 70\% data latih dan diuji pada 30\% data uji (\path{random_state=42}). Model memperoleh skor determinasi pada data latih sebesar $0{,}9428$ (94,28\%) dan pada data uji sebesar $0{,}8947$ (89,47\%), dengan konstanta intersep sebesar $-23.387{,}80$. Selisih yang relatif kecil antara skor latih dan uji menunjukkan bahwa model membentuk bidang estimasi linier yang stabil tanpa mengalami \textit{overfitting} parah.
+\par Nilai koefisien regresi mengonfirmasi pengaruh positif dari fitur kapasitas silinder (\path{enginesize}) sebesar $+167{,}73$, bobot kosong (\path{curbweight}) sebesar $+2{,}60$, dan tenaga kuda (\path{horsepower}) sebesar $+123{,}43$, sementara fitur konsumsi jalan tol (\path{highwaympg}) memiliki koefisien negatif $-704{,}25$. Luaran sepuluh sampel pertama (misalnya sampel ke-1: riil \$30.760,00 vs prediksi \$28.837,73; sampel ke-5: riil \$28.248,00 vs prediksi \$28.440,87) memperlihatkan bahwa aproksimasi linier mampu melacak skala harga pasar kendaraan secara proporsional.
+
+\lstinputlisting[language=Python, caption={Evaluasi Metrik RMSE dan R2 Linear Regression Tugas}, label={lst:kode-tugas-evaluasi-linear-regression-1}]{resource/code/tugas-evaluasi-linear-regression_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Linear Regression Tugas}, label={lst:out-tugas-evaluasi-linear-regression-1}]{resource/output/tugas-evaluasi-linear-regression_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan evaluasi kuantitatif pada Kode \ref{lst:kode-tugas-evaluasi-linear-regression-1} dan Output \ref{lst:out-tugas-evaluasi-linear-regression-1}, model \textit{Linear Regression} mencatatkan nilai galat RMSE sebesar $2.701{,}38$ dan $R^2$ sebesar $0{,}8947$. Hasil ini menunjukkan bahwa model linier mampu menerangkan sekitar 89,47\% variansi harga kendaraan pada data uji, dengan rata-rata deviasi estimasi sekitar \$2.701,38 dari harga riil transaksi.
+
+\lstinputlisting[language=Python, caption={Visualisasi Prediksi vs Nilai Sebenarnya Linear Regression Tugas}, label={lst:kode-tugas-visualisasi-linear-regression-1}]{resource/code/tugas-visualisasi-linear-regression_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-2-bar-linear-regression.png}
+  \caption{Grafik Batang Perbandingan Nilai Prediksi dan Nilai Sebenarnya Model Linear Regression pada Dataset Tugas}
+  \label{fig:tugas-bar-linear-regression}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan eksekusi Kode \ref{lst:kode-tugas-visualisasi-linear-regression-1} dan representasi visual pada Gambar \ref{fig:tugas-bar-linear-regression}, grafik batang memperlihatkan bahwa model \textit{Linear Regression} mampu mengikuti tren kenaikan harga mobil pada sebagian besar sampel uji. Namun demikian, pada sampel kendaraan mewah dengan harga di atas \$25.000, masih terlihat adanya deviasi selisih yang cukup renggang akibat keterbatasan relasi linier dalam memetakan harga unit mobil berkonfigurasi khusus.
+
+\paragraph{6. Pemodelan dengan Decision Tree Regression}
+\par Model \textit{Decision Tree Regression} diimplementasikan melalui kelas \texttt{DecisionTreeRegressor()} pada Kode \ref{lst:kode-tugas-model-decision-tree-1}, dievaluasi pada Kode \ref{lst:kode-tugas-evaluasi-decision-tree-1}, dan divisualisasikan pada Kode \ref{lst:kode-tugas-visualisasi-decision-tree-1}.
+
+\lstinputlisting[language=Python, caption={Pelatihan Model Decision Tree Regression pada Dataset Tugas}, label={lst:kode-tugas-model-decision-tree-1}]{resource/code/tugas-model-decision-tree_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pelatihan Decision Tree Regression Tugas}, label={lst:out-tugas-model-decision-tree-1}]{resource/output/tugas-model-decision-tree_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks Kode \ref{lst:kode-tugas-model-decision-tree-1} dan hasil pada Output \ref{lst:out-tugas-model-decision-tree-1}, model \textit{Decision Tree} menghasilkan skor determinasi pada data latih yang hampir sempurna sebesar $0{,}9986$ (99,86\%), namun skor determinasi pada data uji turun menjadi $0{,}8778$ (87,78\%). Kesenjangan skor sebesar 12,08\% ini mencerminkan tingginya variansi pohon keputusan tunggal tanpa pemangkasan (\path{max_depth=None}) yang cenderung menghafal derau data latih.
+\par Pada sepuluh sampel pertama, tampak kecenderungan \textit{overshooting} pada segmen kendaraan tertentu: pada sampel ke-1 riil bernilai \$30.760,00, diprediksi melambung menjadi \$36.880,00 (selisih lebih dari \$6.120), membuktikan ketidakstabilan batas partisi pohon tunggal.
+
+\lstinputlisting[language=Python, caption={Evaluasi Metrik RMSE dan R2 Decision Tree Regression Tugas}, label={lst:kode-tugas-evaluasi-decision-tree-1}]{resource/code/tugas-evaluasi-decision-tree_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Decision Tree Regression Tugas}, label={lst:out-tugas-evaluasi-decision-tree-1}]{resource/output/tugas-evaluasi-decision-tree_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan hasil evaluasi pada Kode \ref{lst:kode-tugas-evaluasi-decision-tree-1} dan Output \ref{lst:out-tugas-evaluasi-decision-tree-1}, model menghasilkan RMSE sebesar $2.909{,}68$ dan $R^2$ sebesar $0{,}8778$. Nilai galat RMSE \textit{Decision Tree} tercatat paling tinggi di antara ketiga model (lebih besar sekitar \$208 dibanding model linier), membuktikan bahwa sensitivitas batas partisi pohon tunggal sangat rentan terhadap fluktuasi lokal data uji.
+
+\lstinputlisting[language=Python, caption={Visualisasi Prediksi vs Nilai Sebenarnya Decision Tree Regression Tugas}, label={lst:kode-tugas-visualisasi-decision-tree-1}]{resource/code/tugas-visualisasi-decision-tree_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-3-bar-decision-tree.png}
+  \caption{Grafik Batang Perbandingan Nilai Prediksi dan Nilai Sebenarnya Model Decision Tree Regression pada Dataset Tugas}
+  \label{fig:tugas-bar-decision-tree}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan eksekusi Kode \ref{lst:kode-tugas-visualisasi-decision-tree-1} dan representasi visual pada Gambar \ref{fig:tugas-bar-decision-tree}, prediksi \textit{Decision Tree} menghasilkan estimasi diskrit berundak (\textit{stepwise constant}). Pada beberapa sampel observasi tertentu, terjadi deviasi prediksi yang cukup tajam akibat sifat deterministik partisi biner yang mengelompokkan mobil berkarakteristik mirip ke dalam daun keputusan yang sama.
+
+\paragraph{7. Pemodelan dengan Random Forest Regression}
+\par Algoritma ansambel \textit{Random Forest} diimplementasikan melalui kelas \texttt{RandomForestRegressor()} pada Kode \ref{lst:kode-tugas-model-random-forest-1}, dievaluasi pada Kode \ref{lst:kode-tugas-evaluasi-random-forest-1}, dan divisualisasikan pada Kode \ref{lst:kode-tugas-visualisasi-random-forest-1}.
+
+\lstinputlisting[language=Python, caption={Pelatihan Model Random Forest Regression pada Dataset Tugas}, label={lst:kode-tugas-model-random-forest-1}]{resource/code/tugas-model-random-forest_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pelatihan Random Forest Regression Tugas}, label={lst:out-tugas-model-random-forest-1}]{resource/output/tugas-model-random-forest_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks Kode \ref{lst:kode-tugas-model-random-forest-1} dan hasil pada Output \ref{lst:out-tugas-model-random-forest-1}, model ansambel \textit{Random Forest} meraih skor determinasi data latih sebesar $0{,}9850$ dan skor data uji melonjak sangat tinggi mencapai $0{,}9439$ (94,39\%). Model ini berhasil menggabungkan fleksibilitas partisi pohon non-linier dengan peredaman variansi yang kuat melalui agregasi 100 pohon keputusan acak.
+\par Inspeksi terhadap sepuluh sampel pertama menunjukkan perbaikan akurasi yang luar biasa: sampel ke-5 bernilai riil \$28.248,00 diestimasi sangat presisi pada \$27.528,83, sementara sampel ke-3 bernilai riil \$9.549,00 diestimasi pada \$9.203,95.
+
+\lstinputlisting[language=Python, caption={Evaluasi Metrik RMSE dan R2 Random Forest Regression Tugas}, label={lst:kode-tugas-evaluasi-random-forest-1}]{resource/code/tugas-evaluasi-random-forest_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Evaluasi Random Forest Regression Tugas}, label={lst:out-tugas-evaluasi-random-forest-1}]{resource/output/tugas-evaluasi-random-forest_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan hasil komputasi pada Kode \ref{lst:kode-tugas-evaluasi-random-forest-1} dan Output \ref{lst:out-tugas-evaluasi-random-forest-1}, \textit{Random Forest} mencatatkan performa terbaik dengan nilai galat RMSE terendah sebesar $1.972{,}29$ dan koefisien determinasi $R^2$ tertinggi sebesar $0{,}9439$. Galat RMSE berhasil dipangkas lebih dari \$729 dibanding model linier dan lebih dari \$937 dibanding pohon keputusan tunggal.
+
+\lstinputlisting[language=Python, caption={Visualisasi Prediksi vs Nilai Sebenarnya Random Forest Regression Tugas}, label={lst:kode-tugas-visualisasi-random-forest-1}]{resource/code/tugas-visualisasi-random-forest_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-4-bar-random-forest.png}
+  \caption{Grafik Batang Perbandingan Nilai Prediksi dan Nilai Sebenarnya Model Random Forest Regression pada Dataset Tugas}
+  \label{fig:tugas-bar-random-forest}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan eksekusi Kode \ref{lst:kode-tugas-visualisasi-random-forest-1} dan visualisasi pada Gambar \ref{fig:tugas-bar-random-forest}, pasangan batang estimasi model \textit{Random Forest} (oranye) dan nilai aktual (biru) memperlihatkan tingkat keselarasan yang sangat rapat dan presisi di seluruh sampel pengujian. Model ini mampu mengestimasi mobil kelas ekonomis maupun mobil mewah berharga tinggi secara konsisten tanpa lonjakan galat lokal.
+
+
+\subsubsection{Tugas 4: Tabel Performa Model Machine Learning}
+\textbf{Soal:} Buatlah tabel yang menjelaskan performa dari model machine learning untuk kasus dataset diatas! Kolom pertama "model", kolom selanjutnya "RMSE, R2, R".
+
+\par Berdasarkan hasil eksperimen dan pengujian ketiga model regresi pada dataset \textit{Car Price Prediction}, rangkuman metrik evaluasi kuantitatif disajikan secara terstruktur pada Tabel \ref{tab:performa-model-tugas}. Nilai koefisien korelasi $R$ diperoleh dari akar kuadrat koefisien determinasi ($R = \sqrt{R^2}$) yang merefleksikan kekuatan korelasi linier antara nilai aktual dan nilai estimasi model \cite{chicco2021coefficient}.
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+    \textbf{Model}           & \textbf{RMSE}      & \textbf{R2 ($R^2$)}       & \textbf{R ($R$)}          \\ \hline
+    Linear Regression        & 2701.3792          & 0.8947 (89.47\%)          & 0.9459 (94.59\%)          \\ \hline
+    Decision Tree Regression & 2909.6849          & 0.8778 (87.78\%)          & 0.9369 (93.69\%)          \\ \hline
+    Random Forest Regression & \textbf{1972.2879} & \textbf{0.9439 (94.39\%)} & \textbf{0.9715 (97.15\%)} \\ \hline
+  \end{tabular}
+  \caption{Tabel Komparasi Performa Model \textit{Machine Learning} pada Kasus Prediksi Harga Mobil}
+  \label{tab:performa-model-tugas}
+\end{table}
+
+\par \textbf{Analisis:} Berdasarkan data kuantitatif pada Tabel \ref{tab:performa-model-tugas}, perbandingan performa antar model dapat dianalisis secara terperinci sebagai berikut:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Galat Kuadrat Rata-Rata (RMSE):} Model \textit{Random Forest Regression} mencatatkan nilai RMSE paling rendah secara signifikan yaitu $1.972{,}29$. Hal ini menandakan bahwa rata-rata deviasi estimasi harga mobil oleh \textit{Random Forest} hanya sekitar \$1.972,29, jauh lebih kecil dibandingkan simpangan galat \textit{Linear Regression} (\$2.701,38) maupun \textit{Decision Tree Regression} (\$2.909,68).
+  \item \textbf{Koefisien Determinasi ($R^2$):} \textit{Random Forest} membukukan skor $R^2$ tertinggi yaitu $0{,}9439$, yang berarti 94,39\% dari total variabilitas harga mobil di pasar berhasil diterangkan secara akurat oleh model ansambel ini. Sebaliknya, \textit{Linear Regression} menjelaskan 89,47\% variasi data, sedangkan \textit{Decision Tree} hanya mampu menerangkan 87,78\% variasi data pada subset pengujian.
+  \item \textbf{Koefisien Korelasi ($R$):} Nilai korelasi linier tertinggi diraih oleh \textit{Random Forest} ($R = 0{,}9715$), yang mengindikasikan tingkat keselarasan yang luar biasa kuat mendekati nilai ideal 1 antara harga riil transaksi dan nilai proyeksi model.
+\end{enumerate}
+
+
+\subsubsection{Tugas 5: Analisis Pemilihan Model Terbaik}
+\textbf{Soal:} Jelaskan dari hasil eksperimen di atas, model mana yang paling baik? Jelaskan alasan anda!
+
+\par \textbf{Analisis:} Berdasarkan analisis komprehensif terhadap seluruh metrik evaluasi kuantitatif, karakteristik arsitektur algoritma, serta stabilitas generalisasi pada data uji, model \textbf{paling baik} untuk kasus dataset \textit{Car Price Prediction} adalah \textbf{Random Forest Regression}.
+\par Landasan ilmiah dan argumen empiris yang mendasari pemilihan \textit{Random Forest Regression} sebagai model terbaik dijabarkan sebagai berikut:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Keunggulan Mutlak pada Seluruh Parameter Evaluasi:}
+        Sebagaimana disajikan pada Tabel \ref{tab:performa-model-tugas}, \textit{Random Forest Regression} mengungguli kedua model lainnya secara mutlak:
+        \begin{itemize}
+          \item Menghasilkan \textbf{RMSE terendah} sebesar $1.972{,}29$, yang memangkas kesalahan estimasi harga mobil hingga 27,0\% dibandingkan \textit{Linear Regression} dan 32,2\% dibandingkan \textit{Decision Tree}.
+          \item Meraih \textbf{koefisien determinasi ($R^2$) tertinggi} sebesar $0{,}9439$ (94,39\%), membuktikan kapasitas penjelas variansi yang mendekati sempurna.
+          \item Mencapai \textbf{koefisien korelasi ($R$) tertinggi} sebesar $0{,}9715$, merefleksikan keandalan proyeksi harga yang paling selaras terhadap data riil.
+        \end{itemize}
+
+  \item \textbf{Peredaman Variansi Ekstrem dan Pencegahan \textit{Overfitting}:}
+        Model \textit{Decision Tree} tunggal terbukti mengalami kelemahan klasik berupa variansi ekstrem: skor pada data latih bernilai hampir sempurna ($0{,}9986$), namun langsung merosot ke $0{,}8778$ pada data uji, menghasilkan galat RMSE terbesar (\$2.909,68). Sebaliknya, \textit{Random Forest} mengatasi kelemahan ini melalui prinsip \textit{bagging} (\textit{bootstrap aggregating}) dan seleksi subruang fitur acak (\textit{random feature subspace}) \cite{breiman2001random, han2022data}. Dengan melatih ratusan pohon dari sampel acak yang berbeda dan merata-ratakan keluarannya, fluktuasi galat individual pohon berhasil dinetralisir, menghasilkan estimasi yang sangat stabil dan \textit{robust}.
+
+  \item \textbf{Kemampuan Memetakan Hubungan Non-Linier dan Interaksi Fitur Kompleks:}
+        Harga kendaraan tidak hanya terbentuk dari hubungan aditif linier sederhana, melainkan dipengaruhi oleh interaksi non-linier antar spesifikasi mekanis. Sebagai contoh, pengaruh peningkatan kapasitas mesin (\path{enginesize}) terhadap harga berbeda secara nyata ketika dipadukan dengan sistem induksi turbo (\path{aspiration=turbo}) dibandingkan mesin standar. Model \textit{Linear Regression} terikat asumsi linieritas yang kaku sehingga tidak mampu menangkap dinamika interaksi non-linier tersebut. Sebaliknya, \textit{Random Forest} mampu memetakan interaksi multi-fitur secara hierarkis tanpa menuntut rekayasa fitur manual yang rumit.
+
+  \item \textbf{Aproksimasi Prediksi yang Halus (\textit{Smoothing}):}
+        Berbeda dengan \textit{Decision Tree} tunggal yang menghasilkan fungsi estimasi berbentuk konstanta bertingkat (\textit{stepwise constant}) yang kaku, agregasi rata-rata dari ratusan pohon pada \textit{Random Forest} menghasilkan aproksimasi fungsi estimasi yang kontinu dan teratur (\textit{smooth approximation}). Karakteristik ini membuat proyeksi valuasi harga mobil menjadi sangat wajar, realistis, dan dapat diandalkan secara praktis.
+\end{enumerate}
+\par Dengan demikian, \textit{Random Forest Regression} merupakan pilihan arsitektur model yang paling unggul, handal, dan direkomendasikan secara operasional untuk diterapkan dalam sistem analitik prediksi harga kendaraan.
+
 
 \section{Kesimpulan}
+
+\par Berdasarkan seluruh rangkaian kegiatan praktikum penambangan data yang telah dilaksanakan mengenai materi pemodelan regresi kontinu (\textit{Regression}), baik pada studi kasus valuasi properti King County (\texttt{kc\_house\_data.csv}) maupun penugasan estimasi harga kendaraan (\texttt{CarPrice\_Assignment.csv}), dapat ditarik beberapa kesimpulan pokok sebagai berikut:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Esensi Alur Kerja Analisis Regresi}: Rangkaian alur kerja analisis regresi yang sistematis—meliputi \textit{Exploratory Data Analysis} (EDA), penanganan nilai hilang (\textit{mean imputation}), eliminasi fitur non-prediktif, transformasi kategorial biner melalui \textit{one-hot encoding} dengan parameter \texttt{drop\_first=True} guna mencegah jebakan multikolinearitas sempurna (\textit{dummy variable trap}), pemisahan partisi data uji-latih (\textit{train-test split} 70:30), hingga pemodelan dan evaluasi metrik galat—merupakan fondasi mutlak dalam membangun representasi matematis yang objektif dan bebas dari kebocoran data (\textit{data leakage}).
+  \item \textbf{Identifikasi Faktor Penentu Nilai Ekonomi}: Melalui analisis korelasi linier Pearson, terbukti bahwa karakteristik dimensi fisik, kapasitas mekanis, dan mutu struktural merupakan faktor penentu paling dominan dalam membentuk nilai valuasi pasar. Pada dataset properti hunian, luas ruang hidup (\texttt{sqft\_living}, $r = 0{,}7020$) dan mutu desain konstruksi (\texttt{grade}, $r = 0{,}6674$) memegang pengaruh korelasi positif tertinggi terhadap harga jual rumah. Sementara pada dataset otomotif, kapasitas volume silinder mesin (\texttt{enginesize}, $r = 0{,}8741$), bobot kosong kendaraan (\texttt{curbweight}, $r = 0{,}8353$), serta daya luaran mesin (\texttt{horsepower}, $r = 0{,}8081$) berkorelasi positif paling kuat terhadap harga mobil, sedangkan tingkat konsumsi bahan bakar (\texttt{highwaympg}, $r = -0{,}6976$) menunjukkan korelasi terbalik.
+  \item \textbf{Dinamika Variansi-Bias dan \textit{Overfitting} pada Model Regresi}: Eksperimen komparatif membuktikan adanya pertukaran bias-variansi (\textit{bias-variance trade-off}) yang nyata antar arsitektur model. Model parametrik \textit{Linear Regression} memiliki bias yang relatif lebih tinggi akibat asumsi bidang hiperlinier yang kaku dalam menangkap lonjakan kurva non-linier pada observasi bernilai ekstrem, namun memiliki variansi yang sangat stabil ($R^2_{train} \approx R^2_{test}$). Sebaliknya, model non-parametrik \textit{Decision Tree Regression} tunggal tanpa pembatasan kedalaman mengalami gejala \textit{overfitting} parah pada kedua dataset ($R^2_{train} \approx 0{,}999$ vs $R^2_{test} \approx 0{,}73$--$0{,}87$) karena partisi hierarkisnya menghafal derau (\textit{noise}) data latih.
+  \item \textbf{Peran Evaluasi Metrik Kuantitatif Multidimensi}: Penilaian performa model regresi menuntut penggunaan metrik evaluasi yang komprehensif. Metrik RMSE mengukur besaran rata-rata deviasi estimasi dalam satuan nominal mata uang riil, koefisien determinasi ($R^2$) mengukur proporsi variabilitas data yang berhasil diterangkan oleh model, dan koefisien korelasi ($R$) merefleksikan kekuatan korelasi linier antara nilai aktual dan prediksi. Evaluasi multidimensi ini memberikan gambaran yang adil mengenai akurasi, daya jelas, dan stabilitas model.
+  \item \textbf{Superioritas Pendekatan Ansambel \textit{Random Forest}}: Model ansambel \textit{Random Forest Regression} secara konsisten mencatatkan performa terbaik dan paling unggul pada kedua studi kasus. Pada dataset properti, \textit{Random Forest} meraih skor $R^2 = 0{,}8562$ dan mereduksi RMSE menjadi \$144.083,19. Pada dataset otomotif, \textit{Random Forest} meraih performa puncak dengan RMSE terendah ($1.972{,}29$), koefisien determinasi tertinggi ($R^2 = 0{,}9439$ atau 94,39\%), serta koefisien korelasi tertinggi ($R = 0{,}9715$). Keunggulan ini dicapai melalui mekanisme \textit{bagging} dan pemilihan fitur acak (\textit{random feature subspace}) yang terbukti ampuh meredam variansi tinggi pohon tunggal sekaligus menghasilkan aproksimasi prediksi yang teratur (\textit{smooth}) dan tegar (\textit{robust}) terhadap data baru.
+\end{enumerate}
 
 \par Link Google Colab: {\small\url{https://colab.research.google.com/drive/1a4gtsnmevA-IqXi23KiXWm0rPDrUNOBg?usp=sharing}}
 
