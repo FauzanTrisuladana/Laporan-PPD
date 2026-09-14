@@ -4,6 +4,10 @@
 \usepackage[utf8]{inputenc}     % untuk karakter UTF-8
 \usepackage[T1]{fontenc}        % encoding font
 \usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{array}
 \usepackage{titling}
 \usepackage{titlesec}
 \usepackage[backend=biber,style=ieee]{biblatex}
@@ -89,8 +93,8 @@
 }
 
 % Info dokumen
-\newcommand{\Pertemuan}{11}
-\newcommand{\Materi}{Ci/Cd Pipeline Lokal dengan Gitea Action}
+\newcommand{\Pertemuan}{5}
+\newcommand{\Materi}{Forecasting}
 \title{Laporan Praktikum \\ Praktikum Penambangan Data\\
 Pertemuan \Pertemuan\\
 \Materi}
@@ -208,15 +212,74 @@ Pertemuan \Pertemuan\\
 \end{center}
 
 \section{Tujuan Praktikum}
-\begin{enumerate}
-  \item Something
+\begin{enumerate}[label=\Alph*.]
+  \item Mahasiswa mampu menerapkan metode \textit{forecasting} berbasis \textit{machine learning}, meliputi \textit{Neural Network}, \textit{K-Nearest Neighbors} (KNN), \textit{Decision Tree}, \textit{Support Vector Regression} (SVR), dan \textit{Random Forest}, guna memprediksi nilai periode mendatang berdasarkan data historis.
+  \item Mahasiswa mampu menganalisis serta membandingkan performa setiap model \textit{forecasting} dengan menggunakan metrik evaluasi \textit{Root Mean Squared Error} (RMSE) dan \textit{Pearson Correlation Coefficient}.
+  \item Mahasiswa mampu menentukan model \textit{forecasting} dengan tingkat akurasi paling optimal berdasarkan hasil evaluasi performa menggunakan metrik RMSE dan \textit{Pearson Correlation Coefficient}.
 \end{enumerate}
 
 \section{Dasar Teori}
 
-\subsection{Something}
-\par Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. \cite{}
+\subsection{Python}
+\par Python adalah bahasa pemrograman tingkat tinggi yang bersifat \textit{open-source} dan serbaguna (\textit{general-purpose}) yang diciptakan oleh Guido van Rossum \cite{telkom_python}. Bahasa ini dirancang dengan filosofi yang mengutamakan keterbacaan kode (\textit{code readability}), sehingga sintaksnya sederhana dan mudah dipahami baik oleh pemula maupun profesional \cite{dicoding_python}. Berkat komunitas pendukung yang besar serta ketersediaan ekosistem pustaka (\textit{library}) yang sangat lengkap, Python kini menjadi bahasa standar industri untuk berbagai keperluan komputasi modern, mulai dari pengembangan web, otomatisasi, analisis data, hingga pengembangan kecerdasan buatan (\textit{Artificial Intelligence}) \cite{telkom_python}.
 
+\subsection{Google Colab}
+\par Google Colab (Colaboratory) adalah layanan komputasi awan (\textit{cloud computing}) berbasis Jupyter Notebook yang disediakan secara gratis oleh Google \cite{glints_colab}. Platform ini memungkinkan penggunanya untuk menulis dan mengeksekusi kode bahasa Python secara langsung melalui peramban (\textit{browser}) tanpa perlu melakukan instalasi atau konfigurasi perangkat lunak di komputer lokal \cite{binus_colab}. Salah satu keunggulan utama dari Google Colab adalah tersedianya akses komputasi performa tinggi, seperti pengolah grafis (GPU) dan \textit{Tensor Processing Unit} (TPU) secara cuma-cuma, yang sangat esensial untuk mempercepat proses komputasi data dan pelatihan model \textit{machine learning} yang kompleks \cite{binus_colab}. Selain itu, layaknya Google Docs, Colab mendukung kolaborasi tim secara \textit{real-time} dan terintegrasi langsung dengan media penyimpanan Google Drive \cite{glints_colab}.
+
+\subsection{Numpy}
+\par NumPy (Numerical Python) adalah pustaka (*library*) bersifat \textit{open-source} dalam ekosistem Python yang dirancang khusus untuk komputasi numerik dan saintifik \cite{dqlab_numpy}. NumPy menyediakan struktur data utama berupa objek array n-dimensi yang sangat efisien yang disebut \texttt{ndarray}. Dibandingkan dengan struktur \textit{list} bawaan pada Python, NumPy menggunakan manajemen memori yang jauh lebih efisien serta memungkinkan penerapan operasi matematis secara vektorisasi yang mempercepat waktu eksekusi tanpa memerlukan iterasi (\textit{looping}) secara manual \cite{ruangguru_numpy}. Oleh karena itu, pustaka ini sering kali menjadi tulang punggung bagi berbagai *library* analisis data dan \textit{machine learning}.
+
+\subsection{Pandas}
+\par Pandas adalah pustaka perangkat lunak \textit{open-source} pada bahasa pemrograman Python yang berfokus pada tahapan manipulasi dan analisis data terstruktur \cite{datacamp_pandas}. Pustaka ini dibangun di atas fondasi NumPy dan menawarkan struktur data yang kuat seperti \texttt{Series} (array berlabel satu dimensi) dan \texttt{DataFrame} (struktur data tabular dua dimensi layaknya tabel SQL atau lembar kerja Excel) \cite{dqlab_pandas}. Keunggulan utama Pandas terletak pada fleksibilitasnya dalam membaca berbagai format data, fitur-fitur pembersihan data (\textit{data cleaning}), serta kemampuan komprehensif untuk pengolahan data agregat, filter, dan penggabungan dataset \cite{datacamp_pandas}.
+
+\subsection{Artificial Intelligence}
+\par Artificial Intelligence (AI) atau kecerdasan buatan adalah bidang di dalam ilmu komputer yang dikhususkan untuk memecahkan masalah kognitif yang umumnya terkait dengan kecerdasan manusia, seperti pembelajaran, pemecahan masalah, dan pengenalan pola \cite{ibm_ai}. AI bertujuan untuk menciptakan sistem yang mampu berpikir dan bertindak layaknya manusia dalam menangani berbagai situasi komputasi \cite{dicoding_ai}. Secara umum, AI mencakup berbagai sub-bidang, mulai dari robotika, pemrosesan bahasa alami (NLP), hingga \textit{machine learning}, yang seluruhnya berupaya untuk meniru kemampuan adaptasi dan penalaran kognitif manusia.
+
+\subsection{Machine Learning}
+\par Machine Learning (ML) adalah salah satu cabang utama dari kecerdasan buatan (AI) yang berfokus pada pengembangan algoritma dan model statistik yang memungkinkan komputer untuk belajar dari data \cite{aws_ml}. Alih-alih diprogram secara eksplisit untuk menyelesaikan suatu tugas, sistem \textit{machine learning} menggunakan pola dan inferensi yang diekstrak dari sekumpulan data historis untuk membuat prediksi atau keputusan \cite{dqlab_ml}. Model yang dibangun akan secara otomatis meningkatkan kinerjanya seiring dengan bertambahnya jumlah data dan pengalaman yang diberikan, sehingga sangat relevan untuk diaplikasikan dalam sistem rekomendasi, deteksi penipuan, hingga pengenalan gambar.
+
+\subsection{EDA (Exploratory Data Analysis)}
+\par Exploratory Data Analysis (EDA) adalah suatu pendekatan dalam analisis data yang bertujuan untuk merangkum dan memvisualisasikan karakteristik utama dari sebuah dataset, sering kali menggunakan metode grafis atau statistika deskriptif \cite{ibm_eda}. Tahapan ini sangat krusial dalam alur kerja ilmu data karena membantu praktisi untuk mendeteksi anomali, menemukan pola tersembunyi, menguji hipotesis, dan memverifikasi asumsi dasar sebelum beranjak pada pemodelan algoritma \cite{dqlab_eda}. Melalui EDA, seorang analis dapat memahami struktur dan kualitas data dengan lebih baik, sehingga dapat menentukan strategi yang tepat untuk pemrosesan data selanjutnya.
+
+\subsection{Data Preprocessing}
+\par Data Preprocessing atau pra-pemrosesan data adalah tahapan persiapan awal dalam proses penambangan data (\textit{data mining}) yang bertujuan untuk mengubah data mentah menjadi format yang bersih, terstruktur, dan siap digunakan untuk pelatihan model \textit{machine learning} \cite{techtarget_preprocessing}. Data yang dikumpulkan dari dunia nyata umumnya bersifat tidak lengkap (\textit{missing values}), mengandung kebingaran (\textit{noisy}), atau memiliki format yang tidak konsisten \cite{trivusi_preprocessing}. Oleh karena itu, tahapan pra-pemrosesan ini mencakup berbagai teknik fundamental seperti pembersihan data (\textit{data cleaning}), transformasi data (\textit{data transformation}), hingga reduksi dimensi (\textit{dimensionality reduction}) guna memastikan kualitas dan keandalan data.
+
+\subsection{Supervised Learning}
+\par \textit{Supervised learning} merupakan salah satu paradigma utama dalam \textit{machine learning} di mana model dilatih menggunakan sekumpulan data berlabel (\textit{labeled dataset}) yang terdiri atas pasangan variabel masukan (\textit{features}) dan luaran target yang diharapkan (\textit{ground truth}) \cite{retnoningsih2020mengenal}. Selama proses pelatihan (\textit{training phase}), algoritma berupaya mengekstraksi dan mempelajari fungsi pemetaan matematis yang menghubungkan karakteristik fitur masukan dengan nilai target yang sesuai. Dengan demikian, model memiliki kapabilitas untuk melakukan generalisasi pola data yang telah dipelajari guna memprediksi label atau nilai kontinu dari data baru yang belum pernah dilihat sebelumnya (\textit{unseen data}) \cite{abijono2021algoritma}.
+\par Secara umum, permasalahan dalam \textit{supervised learning} terbagi ke dalam dua domain utama, yaitu klasifikasi (\textit{classification}) untuk target berupa kategori diskrit dan regresi (\textit{regression}) untuk target berskala numerik kontinu. Berbagai algoritma populer yang beroperasi di bawah payung \textit{supervised learning} antara lain \textit{Decision Tree}, \textit{K-Nearest Neighbors} (KNN), \textit{Support Vector Machine} (SVM), \textit{Random Forest}, hingga \textit{Neural Network} \cite{retnoningsih2020mengenal}. Pada konteks peramalan data deret waktu (\textit{time series forecasting}), pendekatan \textit{supervised learning} diterapkan dengan memanfaatkan nilai-nilai observasi pada periode sebelumnya (\textit{lagged features}) sebagai fitur masukan untuk mengestimasi nilai observasi pada periode waktu mendatang \cite{abijono2021algoritma}.
+
+\subsection{Forecasting}
+\par \textit{Forecasting} adalah proses memproyeksikan atau mengestimasi kondisi dan kejadian di masa depan berdasarkan analisis terstruktur terhadap pola serta tren data historis yang telah diobservasi di masa lampau \cite{vimala2022forecasting}. Dalam ekosistem penambangan data dan kecerdasan buatan, metode peramalan memainkan peran krusial dalam mendukung pengambilan keputusan strategis dan mitigasi risiko manajerial di berbagai sektor, seperti proyeksi penjualan, perencanaan pasokan persediaan, hingga analisis tren pasar modal \cite{maysofa2023implementasi}.
+\par Secara metodologis, peramalan dapat diklasifikasikan menjadi dua pendekatan utama, yaitu peramalan kualitatif yang didasarkan pada intuisi subjektif atau opini pakar tanpa menggunakan kalkulasi matematis terstruktur, serta peramalan kuantitatif yang mengandalkan analisis matematis terhadap data numerik runtun waktu (\textit{time series}) \cite{vimala2022forecasting}. Dalam konteks analitika data modern, peramalan kuantitatif berevolusi dari metode statistik klasik (seperti \textit{Exponential Smoothing} dan ARIMA) menuju pendekatan berbasis algoritma \textit{machine learning} (seperti \textit{Neural Network}, SVR, dan \textit{Random Forest}) \cite{maysofa2023implementasi}. Pendekatan \textit{machine learning} ini terbukti unggul karena mampu menangkap pola hubungan non-linier, interaksi fitur yang rumit, serta variasi musiman (\textit{seasonality}) pada data historis secara adaptif tanpa membutuhkan asumsi statistik yang kaku.
+
+\subsection{Root Mean Squared Error (RMSE)}
+\par \textit{Root Mean Squared Error} (RMSE) merupakan salah satu metrik evaluasi standar yang digunakan untuk mengukur besarnya deviasi atau tingkat kesalahan antara nilai aktual sebenarnya (\textit{ground truth}) dengan nilai hasil estimasi prediksi model \cite{chai2014root}. RMSE dihitung dengan mencari akar kuadrat dari rata-rata selisih kuadrat antara nilai aktual dan nilai prediksi. Formulasi matematis dari RMSE dinyatakan dalam Persamaan \eqref{eq:rmse}:
+\begin{equation}
+  \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
+  \label{eq:rmse}
+\end{equation}
+di mana:
+\begin{itemize}[label=--]
+  \item $n$ merepresentasikan jumlah sampel atau titik observasi data.
+  \item $y_i$ adalah nilai target aktual pada pengamatan ke-$i$.
+  \item $\hat{y}_i$ menyatakan nilai hasil prediksi yang dihasilkan oleh model pada pengamatan ke-$i$.
+\end{itemize}
+\par Nilai RMSE yang semakin mendekati nol mengindikasikan bahwa performa model semakin baik dan akurat karena selisih kesalahan prediksi yang dihasilkan semakin kecil. Karena perhitungannya melibatkan proses pengkuadratan nilai residu sebelum diakarkan, RMSE memberikan bobot penalti yang secara proporsional jauh lebih berat pada kesalahan prediksi berskala besar. Karakteristik sensitif terhadap galat ekstrem ini menjadikan RMSE sebagai metrik yang sangat representatif dan diandalkan dalam evaluasi model \textit{forecasting} deret waktu, di mana kesalahan prediksi bernilai besar dapat berakibat fatal terhadap reliabilitas pengambilan keputusan \cite{chai2014root}.
+
+\subsection{Pearson Correlation Coefficient}
+\par \textit{Pearson Correlation Coefficient} merupakan metrik statistik parametrik yang digunakan untuk mengukur derajat keeratan dan arah hubungan linier antara dua variabel kontinu \cite{benesty2009pearson}. Dalam evaluasi pemodelan \textit{forecasting}, koefisien korelasi dihitung antara pasangan nilai observasi aktual ($y$) dengan nilai hasil estimasi model ($\hat{y}$) untuk mengevaluasi sejauh mana tren pola prediksi bergerak selaras dengan fluktuasi data aktual. Formulasi matematis koefisien korelasi Pearson ($r$) didefinisikan pada Persamaan \eqref{eq:pearson-r}:
+\begin{equation}
+  r = \frac{\sum_{i=1}^{n} (y_i - \bar{y})(\hat{y}_i - \bar{\hat{y}})}{\sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2 \sum_{i=1}^{n} (\hat{y}_i - \bar{\hat{y}})^2}}
+  \label{eq:pearson-r}
+\end{equation}
+di mana:
+\begin{itemize}[label=--]
+  \item $n$ adalah jumlah total sampel data pengamatan.
+  \item $y_i$ dan $\hat{y}_i$ masing-masing menyatakan nilai aktual dan nilai prediksi pada observasi ke-$i$.
+  \item $\bar{y}$ merupakan nilai rata-rata dari target aktual, yaitu $\bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i$.
+  \item $\bar{\hat{y}}$ adalah nilai rata-rata dari seluruh luaran prediksi, yaitu $\bar{\hat{y}} = \frac{1}{n} \sum_{i=1}^{n} \hat{y}_i$.
+\end{itemize}
+\par Nilai koefisien korelasi Pearson berada pada rentang $-1 \le r \le 1$. Nilai $r$ yang mendekati $+1$ mencerminkan korelasi linier positif yang sangat kuat, menandakan bahwa arah pergerakan atau tren nilai prediksi sangat presisi mengikuti dinamika data aktual \cite{benesty2009pearson}. Sebaliknya, nilai $r$ yang mendekati 0 mengindikasikan ketiadaan korelasi linier di antara keduanya, sedangkan nilai yang mendekati $-1$ menunjukkan hubungan korelasi berlawanan arah. Dalam konteks \textit{forecasting}, nilai korelasi yang tinggi menegaskan keandalan model dalam mereplikasi karakteristik naik-turun data historis dari waktu ke waktu secara konsisten.
 
 %contoh gambar dan kode
 % \begin{figure}[H]
