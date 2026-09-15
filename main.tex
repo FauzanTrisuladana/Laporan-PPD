@@ -111,18 +111,18 @@ Pertemuan \Pertemuan\\
 % tambahkan entri BibTeX ke file ref.bib terlebih dulu.
 
 % Title Page
-\begin{titlingpage} 
+\begin{titlingpage}
   \begin{center}
 
     \vspace{4cm}
-    \begin{Large} 
+    \begin{Large}
       \textbf{\thetitle} \\
     \end{Large}
     \vspace{2cm}
-    
-    \includegraphics[height=8cm]{resource/lambang ugm.png}\\ 
+
+    \includegraphics[height=8cm]{resource/lambang ugm.png}\\
     \vspace{2cm}
-    
+
     \textbf{Disusun oleh:}\\[0.8em]
     \begin{minipage}{0.8\textwidth}
       \raggedright
@@ -135,7 +135,7 @@ Pertemuan \Pertemuan\\
         \end{tabular}
       \end{large}
     \end{minipage}
-    
+
     \vspace{2cm}
     \begin{Large}
       \textbf{Program Studi D-IV Teknologi Rekayasa Perangkat Lunak} \\
@@ -145,7 +145,7 @@ Pertemuan \Pertemuan\\
       \textbf{Yogyakarta}\\
       \textbf{2026}\\
     \end{Large}
-    
+
   \end{center}
 \end{titlingpage}
 
@@ -470,12 +470,12 @@ di mana:
   \label{tab:evaluasi-model-modul-1}
   \begin{tabular}{|l|c|c|}
     \hline
-    \textbf{Model Forecasting} & \textbf{RMSE} $\downarrow$ & \textbf{Pearson Correlation} ($r$) $\uparrow$ \\
+    \textbf{Model Forecasting}  & \textbf{RMSE} $\downarrow$ & \textbf{Pearson Correlation} ($r$) $\uparrow$ \\
     \hline
-    Multilayer Perceptron (MLP) & $\mathbf{1.243{,}150}$ & $\mathbf{0{,}751}$ \\
-    Random Forest (RF)          & $1.324{,}452$          & $0{,}716$ \\
-    K-Nearest Neighbors (KNN)   & $1.357{,}710$          & $0{,}696$ \\
-    Decision Tree (DT)          & $1.854{,}465$          & $0{,}484$ \\
+    Multilayer Perceptron (MLP) & $\mathbf{1.243{,}150}$     & $\mathbf{0{,}751}$                            \\
+    Random Forest (RF)          & $1.324{,}452$              & $0{,}716$                                     \\
+    K-Nearest Neighbors (KNN)   & $1.357{,}710$              & $0{,}696$                                     \\
+    Decision Tree (DT)          & $1.854{,}465$              & $0{,}484$                                     \\
     \hline
   \end{tabular}
 \end{table}
@@ -659,12 +659,12 @@ di mana:
   \label{tab:tugas-2-evaluasi-model-1}
   \begin{tabular}{|l|c|c|}
     \hline
-    \textbf{Model Forecasting} & \textbf{RMSE} $\downarrow$ & \textbf{Pearson Correlation} ($r$) $\uparrow$ \\
+    \textbf{Model Forecasting}  & \textbf{RMSE} $\downarrow$ & \textbf{Pearson Correlation} ($r$) $\uparrow$ \\
     \hline
-    Multilayer Perceptron (MLP) & $\mathbf{18{,}985}$ & $\mathbf{0{,}968}$ \\
-    Random Forest (RF)          & $44{,}963$          & $0{,}805$ \\
-    K-Nearest Neighbors (KNN)   & $45{,}187$          & $0{,}800$ \\
-    Decision Tree (DT)          & $47{,}492$          & $0{,}772$ \\
+    Multilayer Perceptron (MLP) & $\mathbf{18{,}985}$        & $\mathbf{0{,}968}$                            \\
+    Random Forest (RF)          & $44{,}963$                 & $0{,}805$                                     \\
+    K-Nearest Neighbors (KNN)   & $45{,}187$                 & $0{,}800$                                     \\
+    Decision Tree (DT)          & $47{,}492$                 & $0{,}772$                                     \\
     \hline
   \end{tabular}
 \end{table}
@@ -796,18 +796,18 @@ di mana:
   \caption{Perbandingan Kinerja Model Forecasting Antara Tugas 2 dan Tugas 3 pada Dataset Saham Tesla}
   \label{tab:komparasi-tugas-2-3-1}
   \resizebox{\textwidth}{!}{%
-  \begin{tabular}{|l|c|c|c|c|}
-    \hline
-    \multirow{2}{*}{\textbf{Model Forecasting}} & \multicolumn{2}{c|}{\textbf{Tugas 2 (Hanya Fitur Close)}} & \multicolumn{2}{c|}{\textbf{Tugas 3 (Fitur Close \& Open)}} \\
-    \cline{2-5}
-     & \textbf{RMSE} $\downarrow$ & \textbf{Pearson ($r$)} $\uparrow$ & \textbf{RMSE} $\downarrow$ & \textbf{Pearson ($r$)} $\uparrow$ \\
-    \hline
-    Multilayer Perceptron (MLP) & $18{,}985$ & $0{,}968$ & $\mathbf{17{,}767}$ & $\mathbf{0{,}970}$ \\
-    Random Forest (RF)          & $44{,}963$ & $0{,}805$ & $44{,}691$          & $0{,}808$ \\
-    K-Nearest Neighbors (KNN)   & $45{,}187$ & $0{,}800$ & $44{,}660$          & $0{,}806$ \\
-    Decision Tree (DT)          & $47{,}492$ & $0{,}772$ & $45{,}408$          & $0{,}796$ \\
-    \hline
-  \end{tabular}%
+    \begin{tabular}{|l|c|c|c|c|}
+      \hline
+      \multirow{2}{*}{\textbf{Model Forecasting}} & \multicolumn{2}{c|}{\textbf{Tugas 2 (Hanya Fitur Close)}} & \multicolumn{2}{c|}{\textbf{Tugas 3 (Fitur Close \& Open)}}                                                                  \\
+      \cline{2-5}
+                                                  & \textbf{RMSE} $\downarrow$                                & \textbf{Pearson ($r$)} $\uparrow$                           & \textbf{RMSE} $\downarrow$ & \textbf{Pearson ($r$)} $\uparrow$ \\
+      \hline
+      Multilayer Perceptron (MLP)                 & $18{,}985$                                                & $0{,}968$                                                   & $\mathbf{17{,}767}$        & $\mathbf{0{,}970}$                \\
+      Random Forest (RF)                          & $44{,}963$                                                & $0{,}805$                                                   & $44{,}691$                 & $0{,}808$                         \\
+      K-Nearest Neighbors (KNN)                   & $45{,}187$                                                & $0{,}800$                                                   & $44{,}660$                 & $0{,}806$                         \\
+      Decision Tree (DT)                          & $47{,}492$                                                & $0{,}772$                                                   & $45{,}408$                 & $0{,}796$                         \\
+      \hline
+    \end{tabular}%
   }
 \end{table}
 
@@ -828,6 +828,7 @@ di mana:
   \item Berdasarkan hasil evaluasi kuantitatif pada seluruh skenario pengujian, model \textit{Multilayer Perceptron} (MLP) terbukti secara konsisten menjadi model \textit{forecasting} yang paling akurat dan unggul. Model MLP mencatatkan nilai RMSE terendah dan korelasi Pearson tertinggi pada dataset \textit{Bike Sharing} ($\text{RMSE} = 1.243{,}150$; $r = 0{,}751$), Tugas 2 ($\text{RMSE} = 18{,}985$; $r = 0{,}968$), serta Tugas 3 ($\text{RMSE} = 17{,}767$; $r = 0{,}970$). Keunggulan substansial ini menegaskan bahwa arsitektur \textit{neural network} memiliki kapasitas aproksimasi fungsi non-linier yang paling andal dalam menangkap tren kompleks dan volatilitas \textit{time series}.
 \end{enumerate}
 
+\par Link Google Colab: {\small\url{https://colab.research.google.com/drive/1if_tBHDruCsDZkrQHHxF0Ws6-S4YiRHS?usp=sharing}}
 
 \section{Daftar Pustaka}
 \printbibliography[heading=none]
