@@ -1,0 +1,1 @@
+# Luaran berupa grafik visualisasi titik siku (plot_knee)

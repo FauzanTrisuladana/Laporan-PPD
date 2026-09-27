@@ -1,0 +1,41 @@
+Activity Period Activity Period Start Date  \
+0           199907                 1999/07/01   
+1           199907                 1999/07/01   
+2           199907                 1999/07/01   
+3           199907                 1999/07/01   
+4           199907                 1999/07/01   
+
+                         Operating Airline Operating Airline IATA Code  \
+0                             ATA Airlines                          TZ   
+1                             ATA Airlines                          TZ   
+2                             ATA Airlines                          TZ   
+3  Aeroflot Russian International Airlines                         NaN   
+4  Aeroflot Russian International Airlines                         NaN   
+
+                         Published Airline Published Airline IATA Code  \
+0                             ATA Airlines                          TZ   
+1                             ATA Airlines                          TZ   
+2                             ATA Airlines                          TZ   
+3  Aeroflot Russian International Airlines                         NaN   
+4  Aeroflot Russian International Airlines                         NaN   
+
+     GEO Summary GEO Region Activity Type Code Price Category Code  \
+0       Domestic         US           Deplaned            Low Fare   
+1       Domestic         US           Enplaned            Low Fare   
+2       Domestic         US     Thru / Transit            Low Fare   
+3  International     Europe           Deplaned               Other   
+4  International     Europe           Enplaned               Other   
+
+     Terminal Boarding Area Passenger Count              data_as_of  \
+0  Terminal 1             B          31,432  2026/08/20 01:00:20 PM   
+1  Terminal 1             B          31,353  2026/08/20 01:00:20 PM   
+2  Terminal 1             B           2,518  2026/08/20 01:00:20 PM   
+3  Terminal 2             D           1,324  2026/08/20 01:00:20 PM   
+4  Terminal 2             D           1,198  2026/08/20 01:00:20 PM   
+
+           data_loaded_at  
+0  2026/09/20 03:14:35 PM  
+1  2026/09/20 03:14:35 PM  
+2  2026/09/20 03:14:35 PM  
+3  2026/09/20 03:14:35 PM  
+4  2026/09/20 03:14:35 PM

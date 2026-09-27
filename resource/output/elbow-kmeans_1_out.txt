@@ -1,0 +1,10 @@
+For n_clusters = 1, inertia value is 152150.0000000004
+For n_clusters = 2, inertia value is 128953.36240712069
+For n_clusters = 3, inertia value is 112651.5730532012
+For n_clusters = 4, inertia value is 105337.38541525482
+For n_clusters = 5, inertia value is 91795.80717173181
+For n_clusters = 6, inertia value is 85766.75234752959
+For n_clusters = 7, inertia value is 79746.50848529927
+For n_clusters = 8, inertia value is 76067.83954193824
+For n_clusters = 9, inertia value is 71608.91329756187
+For n_clusters = 10, inertia value is 68218.96387891234

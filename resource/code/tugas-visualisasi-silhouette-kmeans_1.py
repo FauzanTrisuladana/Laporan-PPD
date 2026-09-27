@@ -1,0 +1,5 @@
+plt.plot(range(2, 6), sh_kmeans_task, marker='o', linewidth=2, markersize=8)
+plt.xlabel("Number of Clusters")
+plt.ylabel("Silhouette Score")
+plt.title("K-Means Silhouette Score")
+plt.show()

@@ -1,0 +1,4 @@
+K-Means n_clusters = 2, silhouette score = 0.22124789125768346
+K-Means n_clusters = 3, silhouette score = 0.2072165538026131
+K-Means n_clusters = 4, silhouette score = 0.2290983790439252
+K-Means n_clusters = 5, silhouette score = 0.24161915823158397

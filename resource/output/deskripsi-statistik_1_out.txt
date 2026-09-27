@@ -1,0 +1,56 @@
+count         mean          std        min  \
+BALANCE                           8950.0  1564.474828  2081.531879   0.000000   
+BALANCE_FREQUENCY                 8950.0     0.877271     0.236904   0.000000   
+PURCHASES                         8950.0  1003.204834  2136.634782   0.000000   
+ONEOFF_PURCHASES                  8950.0   592.437371  1659.887917   0.000000   
+INSTALLMENTS_PURCHASES            8950.0   411.067645   904.338115   0.000000   
+CASH_ADVANCE                      8950.0   978.871112  2097.163877   0.000000   
+PURCHASES_FREQUENCY               8950.0     0.490351     0.401371   0.000000   
+ONEOFF_PURCHASES_FREQUENCY        8950.0     0.202458     0.298336   0.000000   
+PURCHASES_INSTALLMENTS_FREQUENCY  8950.0     0.364437     0.397448   0.000000   
+CASH_ADVANCE_FREQUENCY            8950.0     0.135144     0.200121   0.000000   
+CASH_ADVANCE_TRX                  8950.0     3.248827     6.824647   0.000000   
+PURCHASES_TRX                     8950.0    14.709832    24.857649   0.000000   
+CREDIT_LIMIT                      8949.0  4494.449450  3638.815725  50.000000   
+PAYMENTS                          8950.0  1733.143852  2895.063757   0.000000   
+MINIMUM_PAYMENTS                  8637.0   864.206542  2372.446607   0.019163   
+PRC_FULL_PAYMENT                  8950.0     0.153715     0.292499   0.000000   
+TENURE                            8950.0    11.517318     1.338331   6.000000   
+
+                                          25%          50%          75%  \
+BALANCE                            128.281915   873.385231  2054.140036   
+BALANCE_FREQUENCY                    0.888889     1.000000     1.000000   
+PURCHASES                           39.635000   361.280000  1110.130000   
+ONEOFF_PURCHASES                     0.000000    38.000000   577.405000   
+INSTALLMENTS_PURCHASES               0.000000    89.000000   468.637500   
+CASH_ADVANCE                         0.000000     0.000000  1113.821139   
+PURCHASES_FREQUENCY                  0.083333     0.500000     0.916667   
+ONEOFF_PURCHASES_FREQUENCY           0.000000     0.083333     0.300000   
+PURCHASES_INSTALLMENTS_FREQUENCY     0.000000     0.166667     0.750000   
+CASH_ADVANCE_FREQUENCY               0.000000     0.000000     0.222222   
+CASH_ADVANCE_TRX                     0.000000     0.000000     4.000000   
+PURCHASES_TRX                        1.000000     7.000000    17.000000   
+CREDIT_LIMIT                      1600.000000  3000.000000  6500.000000   
+PAYMENTS                           383.276166   856.901546  1901.134317   
+MINIMUM_PAYMENTS                   169.123707   312.343947   825.485459   
+PRC_FULL_PAYMENT                     0.000000     0.000000     0.142857   
+TENURE                              12.000000    12.000000    12.000000   
+
+                                          max  
+BALANCE                           19043.13856  
+BALANCE_FREQUENCY                     1.00000  
+PURCHASES                         49039.57000  
+ONEOFF_PURCHASES                  40761.25000  
+INSTALLMENTS_PURCHASES            22500.00000  
+CASH_ADVANCE                      47137.21176  
+PURCHASES_FREQUENCY                   1.00000  
+ONEOFF_PURCHASES_FREQUENCY            1.00000  
+PURCHASES_INSTALLMENTS_FREQUENCY      1.00000  
+CASH_ADVANCE_FREQUENCY                1.50000  
+CASH_ADVANCE_TRX                    123.00000  
+PURCHASES_TRX                       358.00000  
+CREDIT_LIMIT                      30000.00000  
+PAYMENTS                          50721.48336  
+MINIMUM_PAYMENTS                  76406.20752  
+PRC_FULL_PAYMENT                      1.00000  
+TENURE                               12.00000

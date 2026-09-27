@@ -1,0 +1,32 @@
+Activity Period                  0
+Activity Period Start Date       0
+Operating Airline                0
+Operating Airline IATA Code    316
+Published Airline                0
+Published Airline IATA Code    316
+GEO Summary                      0
+GEO Region                       0
+Activity Type Code               0
+Price Category Code              0
+Terminal                         0
+Boarding Area                    0
+Passenger Count                  0
+data_as_of                       0
+data_loaded_at                   0
+dtype: int64
+Activity Period                 int64
+Activity Period Start Date     object
+Operating Airline              object
+Operating Airline IATA Code    object
+Published Airline              object
+Published Airline IATA Code    object
+GEO Summary                    object
+GEO Region                     object
+Activity Type Code             object
+Price Category Code            object
+Terminal                       object
+Boarding Area                  object
+Passenger Count                object
+data_as_of                     object
+data_loaded_at                 object
+dtype: object

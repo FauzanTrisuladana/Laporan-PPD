@@ -1,0 +1,10 @@
+The inertia of 1 clusters : 32074.48996380632
+The inertia of 2 clusters : 28502.252083851865
+The inertia of 3 clusters : 26690.45199631644
+The inertia of 4 clusters : 25312.680447618714
+The inertia of 5 clusters : 24410.14906458207
+The inertia of 6 clusters : 25045.959805744402
+The inertia of 7 clusters : 23865.264137617396
+The inertia of 8 clusters : 23728.760889007306
+The inertia of 9 clusters : 21901.105869527415
+The inertia of 10 clusters : 23064.59573815541

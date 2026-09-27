@@ -1,0 +1,5 @@
+count           mean         std       min       25%  \
+Activity Period  40626.0  201349.446611  795.810775  199907.0  200702.0   
+
+                      50%       75%       max  
+Activity Period  201406.0  202010.0  202607.0

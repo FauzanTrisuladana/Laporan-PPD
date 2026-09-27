@@ -111,18 +111,18 @@ Pertemuan \Pertemuan\\
 % tambahkan entri BibTeX ke file ref.bib terlebih dulu.
 
 % Title Page
-\begin{titlingpage} 
+\begin{titlingpage}
   \begin{center}
 
     \vspace{4cm}
-    \begin{Large} 
+    \begin{Large}
       \textbf{\thetitle} \\
     \end{Large}
     \vspace{2cm}
-    
-    \includegraphics[height=8cm]{resource/lambang ugm.png}\\ 
+
+    \includegraphics[height=8cm]{resource/lambang ugm.png}\\
     \vspace{2cm}
-    
+
     \textbf{Disusun oleh:}\\[0.8em]
     \begin{minipage}{0.8\textwidth}
       \raggedright
@@ -135,7 +135,7 @@ Pertemuan \Pertemuan\\
         \end{tabular}
       \end{large}
     \end{minipage}
-    
+
     \vspace{2cm}
     \begin{Large}
       \textbf{Program Studi D-IV Teknologi Rekayasa Perangkat Lunak} \\
@@ -145,7 +145,7 @@ Pertemuan \Pertemuan\\
       \textbf{Yogyakarta}\\
       \textbf{2026}\\
     \end{Large}
-    
+
   \end{center}
 \end{titlingpage}
 
@@ -245,15 +245,15 @@ Pertemuan \Pertemuan\\
 \par \textit{Data preprocessing} adalah tahapan persiapan awal dalam proses \textit{data mining} yang bertujuan untuk mentransformasikan data mentah menjadi format yang bersih, terstruktur, dan siap digunakan untuk pelatihan model \textit{machine learning} \cite{techtarget_preprocessing}. Data yang dikumpulkan dari dunia nyata umumnya bersifat mengandung \textit{missing values}, mengandung \textit{noise}, atau memiliki format yang inkonsisten \cite{trivusi_preprocessing}. Oleh karena itu, tahapan \textit{data preprocessing} ini mencakup berbagai teknik fundamental seperti \textit{data cleaning}, \textit{data transformation}, hingga \textit{dimensionality reduction} guna memastikan integritas dan keandalan data.
 
 \subsection{Unsupervised Learning}
-\par \textit{Unsupervised learning} merupakan salah satu paradigma utama dalam \textit{machine learning} di mana algoritma bertugas untuk menemukan pola, struktur inheren, dan relasi tersembunyi dari sekumpulan data tanpa adanya bantuan label target eksternal maupun bimbingan eksplisit (\textit{ground truth}) \cite{nurhalizah2024analisis}. Berbeda dengan \textit{supervised learning} yang berfokus pada pemetaan fungsi masukan terhadap keluaran berlabel, \textit{unsupervised learning} mengeksplorasi data secara otonom untuk merekonstruksi representasi data yang bermakna tanpa intervensi manusia \cite{wijoyo2024pembelajaran}.
-\par Fokus utama dari paradigma ini terletak pada tahapan eksplorasi data, pengelompokan (\textit{clustering}), reduksi dimensionalitas, serta penemuan aturan asosiasi (\textit{association rules}). Model yang beroperasi di bawah payung \textit{unsupervised learning}---seperti K-Means, \textit{Artificial Neural Network} (ANN) tipe \textit{Self-Organizing Maps}, dan \textit{Gaussian Mixture Model} (GMM)---menawarkan fleksibilitas analitis yang tinggi dalam mendeteksi pola laten yang sebelumnya tidak diketahui oleh praktisi data, meskipun evaluasi kinerjanya memiliki tantangan tersendiri karena ketiadaan label referensi objektif \cite{nurhalizah2024analisis, wijoyo2024pembelajaran}.
+\par \textit{Unsupervised learning} merupakan salah satu paradigma utama dalam \textit{machine learning} di mana algoritma bertugas untuk menemukan pola, struktur inheren, dan relasi tersembunyi dari sekumpulan data tanpa adanya bantuan label target eksternal maupun \textit{ground truth} \cite{nurhalizah2024analisis}. Berbeda dengan \textit{supervised learning} yang berfokus pada pemetaan fungsi masukan terhadap keluaran berlabel, \textit{unsupervised learning} mengeksplorasi data secara otonom untuk merekonstruksi representasi data yang bermakna tanpa intervensi manusia \cite{wijoyo2024pembelajaran}.
+\par Fokus utama dari paradigma ini terletak pada tahapan eksplorasi data, \textit{clustering}, reduksi dimensionalitas, serta penemuan \textit{association rules}. Model yang beroperasi di bawah payung \textit{unsupervised learning}---seperti K-Means, \textit{Artificial Neural Network} (ANN) tipe \textit{Self-Organizing Maps}, dan \textit{Gaussian Mixture Model} (GMM)---menawarkan fleksibilitas analitis yang tinggi dalam mendeteksi pola laten yang sebelumnya tidak diketahui oleh praktisi data, meskipun evaluasi kinerjanya memiliki tantangan tersendiri karena ketiadaan label referensi objektif \cite{nurhalizah2024analisis, wijoyo2024pembelajaran}.
 
 \subsection{Clustering}
-\par \textit{Clustering} atau analisis klaster merupakan suatu metode fundamental dalam \textit{data mining} dan analisis statistik multivariat yang bertujuan untuk mempartisi sekumpulan objek atau observasi data ke dalam beberapa kelompok (\textit{clusters}) \cite{afidaha2023penerapan}. Prinsip fundamental dari teknik ini didasarkan pada maksimasi homogenitas internal dan maksimasi heterogenitas eksternal; artinya, objek yang berada di dalam klaster yang sama memiliki tingkat kemiripan karakteristik yang setinggi mungkin (\textit{high intra-cluster similarity}), sedangkan objek yang berada pada klaster yang berbeda memiliki perbedaan sifat yang sejauh mungkin (\textit{high inter-cluster dissimilarity}).
-\par Dalam praktiknya, perhitungan tingkat kemiripan atau ketidaksamaan antar-objek ditentukan berdasarkan fungsi metrik jarak, seperti jarak Euclidean (\textit{Euclidean distance}), Manhattan, maupun korelasi statistik lainnya. Saat ini, analisis \textit{cluster} telah banyak digunakan di berbagai bidang ilmu pengetahuan dan industri strategis, seperti segmentasi profil pelanggan (\textit{customer segmentation}), klasifikasi data migrasi dan demografi penduduk, psikologi, kesehatan, hingga deteksi anomali pada sistem informasi \cite{afidaha2023penerapan}.
+\par \textit{Clustering} atau analisis klaster merupakan suatu metode fundamental dalam \textit{data mining} dan analisis statistik multivariat yang bertujuan untuk mempartisi sekumpulan objek atau observasi data ke dalam beberapa klaster \cite{afidaha2023penerapan}. Prinsip fundamental dari teknik ini didasarkan pada maksimasi homogenitas internal dan maksimasi heterogenitas eksternal; artinya, objek yang berada di dalam klaster yang sama memiliki tingkat kemiripan karakteristik yang setinggi mungkin (\textit{high intra-cluster similarity}), sedangkan objek yang berada pada klaster yang berbeda memiliki perbedaan sifat yang sejauh mungkin (\textit{high inter-cluster dissimilarity}).
+\par Dalam praktiknya, perhitungan tingkat kemiripan atau ketidaksamaan antar-objek ditentukan berdasarkan fungsi metrik jarak, seperti jarak Euclidean, Manhattan, maupun korelasi statistik lainnya. Saat ini, analisis klaster telah banyak digunakan di berbagai bidang ilmu pengetahuan dan industri strategis, seperti \textit{customer segmentation}, klasifikasi data migrasi dan demografi penduduk, psikologi, kesehatan, hingga deteksi anomali pada sistem informasi \cite{afidaha2023penerapan}.
 
 \subsection{K-Means}
-\par K-Means merupakan algoritma pemartisian non-hirarkis (\textit{non-hierarchical clustering}) yang berasal dari metode \textit{data clustering} dan paling luas diaplikasikan karena efisiensi komputasinya yang tinggi pada dataset berskala besar \cite{sulistiyawati2021implementasi}. Algoritma ini mempartisi $n$ titik observasi data ke dalam $k$ buah klaster yang telah ditentukan sebelumnya. Prinsip utama dari teknik ini adalah menyusun $k$ buah partisi dengan menentukan titik representatif dari setiap kelompok yang disebut sebagai \textit{centroid} atau pusat massa klaster, yang dihitung sebagai nilai rata-rata (\textit{mean}) dari seluruh titik data anggota klaster tersebut \cite{afidaha2023penerapan}.
+\par K-Means merupakan algoritma pemartisian non-hirarkis (\textit{non-hierarchical clustering}) yang berasal dari metode \textit{data clustering} dan paling luas diaplikasikan karena efisiensi komputasinya yang tinggi pada dataset berskala besar \cite{sulistiyawati2021implementasi}. Algoritma ini mempartisi $n$ titik observasi data ke dalam $k$ buah klaster yang telah ditentukan sebelumnya. Prinsip utama dari teknik ini adalah menyusun $k$ buah partisi dengan menentukan titik representatif dari setiap kelompok yang disebut sebagai \textit{centroid} atau pusat massa klaster, yang dihitung sebagai nilai rata-rata dari seluruh titik data anggota klaster tersebut \cite{afidaha2023penerapan}.
 \par Prosedur kerja K-Means berlangsung secara iteratif melalui beberapa tahapan sistematis:
 \begin{enumerate}[label=\arabic*.]
   \item Menginisialisasi $k$ buah titik \textit{centroid} awal, baik secara acak maupun menggunakan teknik heuristik seperti K-Means++.
@@ -269,12 +269,12 @@ Pertemuan \Pertemuan\\
 di mana $k$ menyatakan jumlah klaster, $n_j$ adalah jumlah titik data pada klaster ke-$j$, $x_i^{(j)}$ adalah observasi data ke-$i$ dalam klaster ke-$j$, dan $c_j$ merupakan posisi vektor \textit{centroid} dari klaster ke-$j$ \cite{sulistiyawati2021implementasi}.
 
 \subsection{K-Medoids}
-\par K-Medoids merupakan algoritma pemartisian yang berperan untuk menemukan \textit{medoids} dalam suatu klaster yang menjadi titik pusat representatif klaster tersebut \cite{herviany2021perbandingan}. K-Medoids dirancang lebih kuat (\textit{robust}) daripada K-Means dalam menangani data yang mengandung derau (\textit{noise}) dan pencilan (\textit{outliers}). Pada K-Medoids, dipilih $k$ buah objek representatif aktual dari dalam dataset untuk meminimalkan hasil ketidaksamaan (\textit{dissimilarity}) objek data, berbeda dengan K-Means yang menggunakan hasil kuadrat jarak Euclidean rata-rata yang sering kali menghasilkan titik pusat artifisial \cite{herviany2021perbandingan}.
-\par Dalam metode ini, objek sebenarnya dipilih untuk merepresentasikan klaster daripada mengambil nilai rata-rata objek dalam klaster sebagai titik referensi. Secara komputasi, algoritma K-Medoids lebih intensif daripada K-Means karena harus menghitung dan mengevaluasi konfigurasi \textit{medoid} menggunakan frekuensi kejadian serta matriks jarak berulang, seperti pada algoritma PAM (\textit{Partitioning Around Medoids}) yang menguji berbagai variasi pemilihan awal \textit{medoid} \cite{herviany2021perbandingan}.
+\par K-Medoids merupakan algoritma pemartisian yang berperan untuk menemukan \textit{medoids} dalam suatu klaster yang menjadi titik pusat representatif klaster tersebut \cite{herviany2021perbandingan}. K-Medoids dirancang lebih \textit{robust} daripada K-Means dalam menangani data yang mengandung \textit{noise} dan \textit{outliers}. Pada K-Medoids, dipilih $k$ buah objek representatif aktual dari dalam dataset untuk meminimalkan \textit{dissimilarity} objek data, berbeda dengan K-Means yang menggunakan hasil kuadrat jarak Euclidean rata-rata yang sering kali menghasilkan titik pusat artifisial \cite{herviany2021perbandingan}.
+\par Pada metode ini, titik data aktual dipilih langsung untuk merepresentasikan klaster alih-alih menggunakan nilai rata-rata sebagai titik acuan. Secara komputasi, K-Medoids memerlukan beban pemrosesan yang lebih tinggi dibandingkan K-Means karena harus mengevaluasi konfigurasi \textit{medoid} serta matriks jarak berulang, misalnya melalui algoritma PAM (\textit{Partitioning Around Medoids}) yang menguji variasi kandidat \textit{medoid} awal \cite{herviany2021perbandingan}.
 
 \subsection{DBSCAN}
-\par \textit{Density-Based Spatial Clustering of Applications with Noise} (DBSCAN) adalah algoritma \textit{clustering} berbasis kepadatan (\textit{density-based}) yang mengelompokkan titik-titik data berdasarkan seberapa padat area di sekitarnya \cite{ester1996density}. Algoritma ini menggunakan dua parameter konfigurasi utama, yaitu \textit{epsilon} ($\epsilon$) sebagai radius pencarian lingkungan spasial dan \textit{minPts} sebagai jumlah minimum titik data agar sebuah titik dapat dianggap sebagai titik inti (\textit{core point}) \cite{han2011data}.
-\par Berdasarkan nilai $\epsilon$ dan \textit{minPts}, titik data dikategorikan menjadi \textit{core point}, \textit{border point}, dan \textit{noise point}. DBSCAN memiliki keunggulan utama dalam mendeteksi klaster dengan bentuk yang arbitrer atau tidak beraturan, serta mampu mengidentifikasi dan mengisolasi titik pencilan (\textit{noise/outlier}) tanpa memerlukan penentuan jumlah klaster $k$ di awal eksperimen \cite{ester1996density, han2011data}.
+\par \textit{Density-Based Spatial Clustering of Applications with Noise} (DBSCAN) adalah algoritma \textit{clustering} berbasis kepadatan yang mengelompokkan titik-titik data berdasarkan seberapa padat area di sekitarnya \cite{ester1996density}. Algoritma ini menggunakan dua parameter konfigurasi utama, yaitu \textit{epsilon} ($\epsilon$) sebagai radius pencarian lingkungan spasial dan \textit{minPts} sebagai jumlah minimum titik data agar sebuah titik dapat dianggap sebagai titik inti (\textit{core point}) \cite{han2011data}.
+\par Berdasarkan nilai $\epsilon$ dan \textit{minPts}, titik data dikategorikan menjadi \textit{core point}, \textit{border point}, dan \textit{noise point}. DBSCAN memiliki keunggulan utama dalam mendeteksi klaster dengan bentuk yang arbitrer atau tidak beraturan, serta mampu mengidentifikasi dan mengisolasi titik \textit{outliers} tanpa memerlukan penentuan jumlah klaster $k$ di awal eksperimen \cite{ester1996density, han2011data}.
 
 \subsection{Association Rule}
 \par \textit{Association Rule Mining} merupakan teknik fundamental dalam \textit{data mining} untuk menemukan pola, keteraturan, atau hubungan keterkaitan antar-item di dalam dataset transaksi berskala besar \cite{agrawal1993mining}. Aturan asosiasi biasanya direpresentasikan dalam bentuk implikasi logis $A \Rightarrow B$, yang berarti bahwa kemunculan itemset $A$ cenderung diikuti oleh kemunculan itemset $B$ secara bersamaan dalam suatu transaksi. Metode ini umum digunakan dalam \textit{market basket analysis} untuk mengungkap pola perilaku konsumen dan strategi penempatan produk \cite{han2011data}.
@@ -299,11 +299,11 @@ di mana $k$ menyatakan jumlah klaster, $n_j$ adalah jumlah titik data pada klast
 \end{enumerate}
 
 \subsection{Evaluation Metrics}
-\par Pengukuran kinerja model pada pembelajaran tanpa supervisi (\textit{unsupervised learning}) memerlukan pendekatan evaluasi khusus karena tidak adanya label target pembanding (\textit{ground truth}) \cite{tan2019introduction}. Oleh karena itu, pengujian hasil klasterisasi utamanya mengandalkan metrik evaluasi internal (\textit{internal evaluation metrics}) yang mengukur kualitas struktur kelompok berdasarkan kedekatan dan keterpisahan geometris titik data murni \cite{scikit_learn_clustering}.
-\par Dua aspek utama yang dievaluasi dalam metrik internal adalah kekompakan (\textit{compactness}) atau kohesi internal klaster, serta pemisahan (\textit{separation}) antar-klaster yang berbeda \cite{tan2019introduction}. Instrumen evaluasi standar yang umum digunakan untuk mengukur kedua dimensi tersebut secara komparatif adalah \textit{Inertia} dan \textit{Silhouette Score}.
+\par Evaluasi kinerja model \textit{unsupervised learning} memerlukan pendekatan khusus karena ketiadaan \textit{ground truth} sebagai pembanding \cite{tan2019introduction}. Oleh sebab itu, pengujian hasil \textit{clustering} utamanya bertumpu pada metrik internal yang mengukur kualitas struktur kelompok berdasarkan kohesi dan separasi spasial titik data \cite{scikit_learn_clustering}.
+\par Dua aspek utama yang dievaluasi dalam metrik internal adalah kekompakan atau kohesi internal klaster, serta pemisahan antar-klaster yang berbeda \cite{tan2019introduction}. Instrumen evaluasi standar yang umum digunakan untuk mengukur kedua dimensi tersebut secara komparatif adalah \textit{Inertia} dan \textit{Silhouette Score}.
 
 \subsection{Inertia}
-\par \textit{Inertia} adalah metrik evaluasi pada algoritma K-Means yang mengukur tingkat kekompakan (\textit{compactness}) dari sebuah klaster yang terbentuk \cite{bishop2006pattern}. Nilai \textit{inertia} dihitung sebagai jumlah kuadrat jarak seluruh titik data terhadap \textit{centroid} dari klasternya masing-masing (\textit{Within-Cluster Sum of Squares}). Formulasi matematis dari \textit{inertia} didefinisikan pada Persamaan \eqref{eq:inertia}:
+\par \textit{Inertia} adalah metrik evaluasi pada algoritma K-Means yang mengukur tingkat kekompakan dari sebuah klaster yang terbentuk \cite{bishop2006pattern}. Nilai \textit{inertia} dihitung sebagai jumlah kuadrat jarak seluruh titik data terhadap \textit{centroid} dari klasternya masing-masing (\textit{Within-Cluster Sum of Squares}). Formulasi matematis dari \textit{inertia} didefinisikan pada Persamaan \eqref{eq:inertia}:
 \begin{equation}
   \text{Inertia} = \sum_{j=1}^{k} \sum_{x \in C_j} \|x - c_j\|^2
   \label{eq:inertia}
@@ -323,7 +323,7 @@ Formulasi matematis nilai siluet untuk setiap titik $i$ dinyatakan pada Persamaa
   s(i) = \frac{b(i) - a(i)}{\max(a(i), b(i))}
   \label{eq:silhouette-point}
 \end{equation}
-\par Rata-rata dari nilai $s(i)$ untuk seluruh data menghasilkan nilai keseluruhan \textit{Silhouette Score} yang berada pada rentang $-1$ hingga $1$. Nilai yang mendekati $1$ menunjukkan pemisahan klaster yang sangat baik, nilai $0$ menandakan adanya tumpang tindih (\textit{overlap}) antar-klaster, dan nilai negatif mengindikasikan kemungkinan pengelompokan yang salah karena titik data lebih dekat ke klaster lain daripada ke klasternya sendiri \cite{rousseeuw1987silhouettes, tan2019introduction}. Metrik ini sangat sering digunakan untuk membandingkan performa beberapa algoritma \textit{clustering} yang berbeda dalam sebuah eksperimen penambangan data.
+\par Rata-rata dari nilai $s(i)$ untuk seluruh data menghasilkan nilai keseluruhan \textit{Silhouette Score} yang berada pada rentang $-1$ hingga $1$. Nilai yang mendekati $1$ menunjukkan pemisahan klaster yang sangat baik, nilai $0$ menandakan adanya \textit{overlap} antar-klaster, dan nilai negatif mengindikasikan kemungkinan pengelompokan yang salah karena titik data lebih dekat ke klaster lain daripada ke klasternya sendiri \cite{rousseeuw1987silhouettes, tan2019introduction}. Metrik ini sangat sering digunakan untuk membandingkan performa beberapa algoritma \textit{clustering} yang berbeda dalam sebuah eksperimen penambangan data.
 
 %contoh gambar dan kode
 % \begin{figure}[H]
@@ -340,9 +340,496 @@ Formulasi matematis nilai siluet untuk setiap titik $i$ dinyatakan pada Persamaa
 
 \section{Hasil dan Pembahasan}
 
-\par Sesuai dengan tujuan praktikum, berikut adalah hasil yang diperoleh dan pembahasan terkait materi yang telah dipelajari.
+\par Pada bab ini disajikan hasil pelaksanaan praktikum penambangan data modul keenam mengenai algoritma \textit{clustering} berbasis \textit{unsupervised learning}. Eksperimen diuraikan secara sistematis dan mendalam, diawali dengan persiapan lingkungan komputasi dan eksplorasi dataset nasabah kartu kredit (\texttt{CC GENERAL.csv}), \textit{data cleaning} meliputi eliminasi atribut pengenal dan imputasi \textit{missing values} berbasis median, standarisasi fitur menggunakan \textit{Z-score}, penentuan jumlah klaster optimal melalui metode \textit{Elbow} dan \textit{Silhouette Score}, pelatihan serta visualisasi model K-Means dan K-Medoids dalam ruang dua dimensi dan tiga dimensi, interpretasi profil segmen nasabah, serta penyelesaian komprehensif seluruh butir penugasan praktikum yang mencakup deskripsi atribut dataset kartu kredit (Tugas 1) dan penerapan \textit{clustering} pada dataset statistik pergerakan penumpang maskapai penerbangan (\path{Air_Traffic_Passenger_Statistics.csv}) (Tugas 2).
+
+\subsection{Persiapan Lingkungan dan Eksplorasi Data}
+
+\subsubsection{Impor Pustaka dan Instalasi Dependensi}
+\lstinputlisting[language=Python, caption={Instalasi Dependensi Tambahan dan Impor Pustaka Clustering}, label={lst:kode-impor-pustaka-1}]{resource/code/impor-pustaka_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Instalasi Dependensi dan Impor Pustaka}, label={lst:out-impor-pustaka-1}]{resource/output/impor-pustaka_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-impor-pustaka-1}, sesi komputasi diawali dengan menginstal dua paket eksternal, yaitu \texttt{scikit-learn-extra} yang menyediakan implementasi algoritma K-Medoids (\textit{Partitioning Around Medoids}) serta pustaka \texttt{kneed} untuk mendeteksi titik \textit{elbow} kurva secara otomatis. Selanjutnya, seluruh modul esensial diimpor ke dalam memori lingkungan eksekusi: \texttt{numpy} dan \texttt{pandas} untuk manipulasi larik numerik dan tabel data, \texttt{matplotlib.pyplot} dan \texttt{seaborn} untuk visualisasi grafik statis, \texttt{plotly.express} untuk rendering visual interaktif 3D, serta kelas \texttt{StandardScaler}, \texttt{KMeans}, \texttt{KMedoids}, dan fungsi evaluasi \path{silhouette_score} dari Scikit-Learn. Konfirmasi keberhasilan proses instalasi pustaka ditampilkan pada Output \ref{lst:out-impor-pustaka-1}.
+
+\subsubsection{Pemuatan Dataset Kartu Kredit (CC GENERAL.csv)}
+\lstinputlisting[language=Python, caption={Pemuatan Dataset Kartu Kredit CC GENERAL.csv}, label={lst:kode-load-dataset-1}]{resource/code/load-dataset_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Pemuatan Dataset Kartu Kredit}, label={lst:out-load-dataset-1}]{resource/output/load-dataset_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-load-dataset-1}, berkas data \texttt{CC GENERAL.csv} dimuat ke dalam \textit{DataFrame} Pandas bernama \texttt{df} secara daring langsung dari repositori GitHub. Dataset ini merupakan kumpulan data riil transaksi pemegang kartu kredit aktif selama enam bulan terakhir yang dipublikasikan pada repositori Kaggle. Pemanggilan fungsi \texttt{df.head()} pada Output \ref{lst:out-load-dataset-1} menyajikan lima baris observasi awal yang mencakup rincian saldo nasabah (\path{BALANCE}), frekuensi pembaruan saldo (\path{BALANCE_FREQUENCY}), total pembelian (\path{PURCHASES}), pembayaran tunai di muka (\path{CASH_ADVANCE}), hingga batas kredit (\path{CREDIT_LIMIT}).
+
+\subsubsection{Pemeriksaan Dimensi Dataset}
+\lstinputlisting[language=Python, caption={Pemeriksaan Dimensi Baris dan Kolom Dataset}, label={lst:kode-dimensi-dataset-1}]{resource/code/dimensi-dataset_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Dimensi Dataset Kartu Kredit}, label={lst:out-dimensi-dataset-1}]{resource/output/dimensi-dataset_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-dimensi-dataset-1}, atribut \texttt{df.shape} dipanggil untuk memverifikasi kapasitas volume data yang akan diolah. Sebagaimana tertera pada Output \ref{lst:out-dimensi-dataset-1}, dataset memuat sebanyak $8.950$ baris entitas nasabah dan $18$ kolom atribut. Dimensi data yang cukup besar ini menuntut efisiensi komputasi algoritma klasterisasi dan ketelitian dalam tahapan penanganan data kotor atau nilai kosong.
+
+\subsubsection{Ringkasan Statistik Deskriptif}
+\lstinputlisting[language=Python, caption={Pemeriksaan Statistik Deskriptif Fitur Numerik}, label={lst:kode-deskripsi-statistik-1}]{resource/code/deskripsi-statistik_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\tiny\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Statistik Deskriptif Dataset Kartu Kredit}, label={lst:out-deskripsi-statistik-1}]{resource/output/deskripsi-statistik_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-deskripsi-statistik-1}, fungsi \texttt{df.describe().T} dieksekusi guna menyajikan ringkasan statistik komprehensif dari setiap variabel numerik. Melalui representasi Output \ref{lst:out-deskripsi-statistik-1}, terlihat disparitas skala yang sangat masif antar-variabel; sebagai contoh, atribut saldo nasabah (\path{BALANCE}) memiliki nilai rata-rata sebesar $\$1.564{,}47$ dengan simpangan baku $\$2.081{,}53$ dan nilai maksimum mencapai $\$19.043{,}14$. Di sisi lain, variabel rasio pembayaran penuh (\path{PRC_FULL_PAYMENT}) berada pada rentang sempit antara $0$ hingga $1$ dengan nilai rata-rata $0{,}1537$. Disparitas rentang skala ribuan kali lipat ini membuktikan urgensi dilakukannya normalisasi atau standarisasi fitur agar atribut dengan rentang numerik besar tidak mendominasi fungsi jarak dalam proses \textit{clustering}.
+
+  \subsubsection{Analisis Matriks Korelasi Antar-Fitur}
+  \lstinputlisting[language=Python, caption={Perhitungan Matriks Korelasi Antar-Fitur Numerik}, label={lst:kode-korelasi-fitur-1}]{resource/code/korelasi-fitur_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[basicstyle=\ttfamily\tiny\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Matriks Korelasi Linier Antar-Fitur}, label={lst:out-korelasi-fitur-1}]{resource/output/korelasi-fitur_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-korelasi-fitur-1}, matriks korelasi Pearson dihitung antar-seluruh variabel numerik menggunakan fungsi \path{df.corr(numeric_only=True)}. Sebagaimana tertera pada Output \ref{lst:out-korelasi-fitur-1}, teridentifikasi korelasi linier positif yang sangat kuat antara atribut total pembelian (\path{PURCHASES}) dan pembelian sekali bayar (\path{ONEOFF_PURCHASES}) dengan nilai koefisien $r = 0{,}9168$, serta antara \path{PURCHASES} dan pembelian cicilan (\path{INSTALLMENTS_PURCHASES}) sebesar $r = 0{,}6799$. Selain itu, penarikan uang tunai (\path{CASH_ADVANCE}) berkorelasi positif dengan frekuensi penarikan tunai (\path{CASH_ADVANCE_FREQUENCY}, $r = 0{,}4492$) dan batas kredit (\path{CREDIT_LIMIT}, $r = 0{,}5313$). Pola multikolinearitas ini mengonfirmasi adanya keterikatan perilaku belanja nasabah yang dapat dimanfaatkan algoritma \textit{clustering} untuk membedakan nasabah konsumtif dari nasabah peminjam dana tunai.
+
+  \subsection{Pembersihan dan Prapemrosesan Data}
+
+  \subsubsection{Eliminasi Kolom Identitas (CUST\_ID)}
+  \lstinputlisting[language=Python, caption={Penghapusan Kolom Identitas Pelanggan CUST\_ID}, label={lst:kode-drop-kolom-1}]{resource/code/drop-kolom_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output DataFrame Setelah Eliminasi CUST\_ID}, label={lst:out-drop-kolom-1}]{resource/output/drop-kolom_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-drop-kolom-1}, kolom \path{CUST_ID} dieliminasi dari \textit{DataFrame} menggunakan fungsi \path{df.drop('CUST_ID', axis=1)} dan disimpan ke dalam variabel baru \path{df_new}. Kolom \path{CUST_ID} hanya berfungsi sebagai penanda unik identitas nasabah (misalnya \texttt{C10001}) yang bersifat acak dan diskret, sehingga tidak membawa nilai informasi statistik yang bermakna bagi pembentukan kelompok. Jika dibiarkan, fitur pengenal tersebut hanya akan menjadi \textit{noise} yang mengacaukan pemetaan geometri jarak. Output \ref{lst:out-drop-kolom-1} memvalidasi bahwa struktur data kini murni tersusun atas 17 atribut perilaku finansial.
+
+  \subsubsection{Deteksi Nilai Hilang (Missing Values)}
+  \lstinputlisting[language=Python, caption={Pemeriksaan Jumlah Nilai Hilang pada Seluruh Kolom}, label={lst:kode-cek-missing-values-1}]{resource/code/cek-missing-values_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Deteksi Nilai Hilang pada Fitur Data}, label={lst:out-cek-missing-values-1}]{resource/output/cek-missing-values_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-missing-values-1}, keberadaan data kosong diperiksa menggunakan fungsi \path{df_new.isnull().sum()}. Melalui laporan pada Output \ref{lst:out-cek-missing-values-1}, terdeteksi dua variabel yang mengandung \textit{missing values}, yakni \path{CREDIT_LIMIT} sebanyak 1 nilai kosong dan \path{MINIMUM_PAYMENTS} sebanyak 313 nilai kosong. Algoritma pembelajaran mesin seperti K-Means dan K-Medoids berbasis pustaka Scikit-Learn tidak dapat memproses nilai \texttt{NaN} (\textit{Not a Number}) secara langsung, sehingga tahapan imputasi mutlak diperlukan sebelum proses komputasi jarak dilakukan.
+
+  \subsubsection{Imputasi Nilai Hilang Berbasis Nilai Median}
+  \lstinputlisting[language=Python, caption={Imputasi Nilai Hilang Menggunakan Nilai Median}, label={lst:kode-imputasi-missing-values-1}]{resource/code/imputasi-missing-values_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Imputasi Nilai Hilang Berbasis Median}, label={lst:out-imputasi-missing-values-1}]{resource/output/imputasi-missing-values_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-imputasi-missing-values-1}, nilai kosong pada kolom \path{MINIMUM_PAYMENTS} dan \path{CREDIT_LIMIT} diisi dengan nilai median masing-masing kolom menggunakan fungsi \path{fillna()}. Pemilihan nilai median didasarkan pada karakteristik distribusi data keuangan yang cenderung menceng ke kanan (\textit{right-skewed}) dan mengandung banyak nilai ekstrem atau \textit{outliers}. Dalam kondisi distribusi yang tidak simetris, nilai median jauh lebih \textit{robust} terhadap distorsi pencilan dibandingkan nilai rata-rata. Konfirmasi eksekusi imputasi tercatat pada Output \ref{lst:out-imputasi-missing-values-1} (Tidak ada output).
+
+  \subsubsection{Verifikasi Pasca-Imputasi}
+  \lstinputlisting[language=Python, caption={Verifikasi Ulang Nilai Hilang Pasca-Imputasi}, label={lst:kode-cek-missing-values-pascaimputasi-1}]{resource/code/cek-missing-values-pascaimputasi_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Pemeriksaan Ulang Nilai Hilang}, label={lst:out-cek-missing-values-pascaimputasi-1}]{resource/output/cek-missing-values-pascaimputasi_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-missing-values-pascaimputasi-1}, fungsi \path{df_new.isnull().sum()} dipanggil kembali untuk memverifikasi integritas data setelah imputasi dieksekusi. Sebagaimana diperlihatkan pada Output \ref{lst:out-cek-missing-values-pascaimputasi-1}, seluruh 17 kolom kini bernilai 0, yang mengindikasikan bahwa seluruh baris data pada dataset telah lengkap dan bersih tanpa adanya entri kosong yang tersisa.
+
+  \subsubsection{Standarisasi Fitur Menggunakan StandardScaler}
+  \lstinputlisting[language=Python, caption={Standarisasi Fitur Menggunakan StandardScaler}, label={lst:kode-standarisasi-fitur-1}]{resource/code/standarisasi-fitur_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Dimensi Matriks Setelah Standarisasi Fitur}, label={lst:out-standarisasi-fitur-1}]{resource/output/standarisasi-fitur_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-standarisasi-fitur-1}, seluruh nilai numerik diubah menjadi matriks larik bertipe \texttt{float} bernama $X$, kemudian ditransformasikan menggunakan kelas \texttt{StandardScaler} menjadi larik baru \path{X_new}. Standarisasi ini menerapkan \textit{Z-score normalization} sesuai Persamaan \eqref{eq:zscore}:
+  \begin{equation}
+    z = \frac{x - \mu}{\sigma}
+    \label{eq:zscore}
+  \end{equation}
+  di mana $\mu$ melambangkan nilai rata-rata sampel dan $\sigma$ menyatakan simpangan baku dari setiap fitur. Transformasi ini mentransformasikan seluruh variabel ke dalam distribusi standar dengan rata-rata 0 dan variansi 1. Langkah ini sangat fundamental bagi algoritma K-Means dan K-Medoids karena keduanya mengandalkan perhitungan jarak geometris Euclidean dalam ruang multidimensi; tanpa standarisasi, variabel bertaraf ribuan (seperti \path{BALANCE} atau \path{PAYMENTS}) akan mendominasi dan mengabaikan variabel berbobot persentase skala kecil. Output \ref{lst:out-standarisasi-fitur-1} memastikan matriks \path{X_new} berukuran utuh $(8.950, 17)$ dan siap dimasukkan ke dalam algoritma \textit{clustering}.
+
+  \subsection{Penentuan Jumlah Klaster Optimal}
+
+  \subsubsection{Evaluasi Metode Elbow pada K-Means}
+  \lstinputlisting[language=Python, caption={Perhitungan Nilai Inertia pada K-Means (k=1 hingga 10)}, label={lst:kode-elbow-kmeans-1}]{resource/code/elbow-kmeans_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Nilai Inertia K-Means Berdasarkan Jumlah Klaster}, label={lst:out-elbow-kmeans-1}]{resource/output/elbow-kmeans_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-elbow-kmeans-1}, model K-Means diinisialisasi secara berulang untuk jumlah klaster $k \in [1, 10]$ guna mencatat nilai \textit{inertia} atau \textit{Within-Cluster Sum of Squares} (WCSS). Nilai \textit{inertia} merepresentasikan jumlah total kuadrat jarak Euclidean antara setiap titik observasi dengan \textit{centroid} klaster tempat titik tersebut dialokasikan. Sebagaimana tertera pada Output \ref{lst:out-elbow-kmeans-1}, nilai \textit{inertia} mengalami penurunan monotonik yang sangat signifikan seiring bertambahnya jumlah klaster: bernilai $152.150{,}00$ saat $k=1$, turun tajam menjadi $128.953{,}36$ pada $k=2$, $112.651{,}57$ pada $k=3$, $105.337{,}39$ pada $k=4$, hingga mencapai $68.218{,}96$ pada $k=10$. Penurunan yang melambat secara gradual setelah $k=4$ mengindikasikan keberadaan titik \textit{elbow} di sekitar wilayah tersebut.
+
+  \subsubsection{Visualisasi Kurva Elbow K-Means}
+  \lstinputlisting[language=Python, caption={Visualisasi Kurva Metode Elbow pada K-Means}, label={lst:kode-visualisasi-elbow-kmeans-1}]{resource/code/visualisasi-elbow-kmeans_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/1-visualisasi-elbow-kmeans.png}
+    \caption{Kurva Penurunan Nilai Inertia Metode Elbow pada Algoritma K-Means}
+    \label{fig:visualisasi-elbow-kmeans-1}
+  \end{figure}
+
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-elbow-kmeans-1}, kurva hubungan antara jumlah klaster ($k$) dan nilai \textit{inertia} diplotkan menggunakan \texttt{matplotlib.pyplot} sebagaimana disajikan pada Gambar \ref{fig:visualisasi-elbow-kmeans-1}. Secara grafis, kurva memperlihatkan penurunan lereng yang curam pada segmen $k=1$ menuju $k=3$, kemudian mulai melandai secara bertahap pada rentang $k=4$ ke atas. Fenomena kelandaian ini menggambarkan prinsip \textit{diminishing returns}, di mana penambahan klaster setelah titik siku tidak lagi memberikan reduksi varians intra-klaster yang substansial.
+
+  \subsubsection{Deteksi Titik Siku K-Means dengan KneeLocator}
+  \lstinputlisting[language=Python, caption={Deteksi Otomatis Titik Siku K-Means Menggunakan KneeLocator}, label={lst:kode-kneelocator-kmeans-1}]{resource/code/kneelocator-kmeans_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Deteksi Titik Siku Optimal K-Means}, label={lst:out-kneelocator-kmeans-1}]{resource/output/kneelocator-kmeans_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-kneelocator-kmeans-1}, kelas \texttt{KneeLocator} dari pustaka \texttt{kneed} dipanggil untuk menentukan titik siku optimal secara objektif dan matematis. Algoritma ini mengimplementasikan metode deteksi \textit{maximum curvature} yang diperkenalkan oleh Satopaa dkk. \cite{satopaa2011finding}, dengan parameter konfigurasi kurva cembung (\path{curve='convex'}) dan arah penurunan (\path{direction='decreasing'}). Berdasarkan Output \ref{lst:out-kneelocator-kmeans-1}, algoritma menetapkan nilai titik siku optimal K-Means berada tepat pada $k = 4$, yang membuktikan secara empiris bahwa pemisahan dataset nasabah menjadi empat klaster memberikan keseimbangan paling optimal antara kompleksitas model dan kekompakan klaster.
+
+  \subsubsection{Visualisasi Titik Siku KneeLocator K-Means}
+  \lstinputlisting[language=Python, caption={Visualisasi Titik Siku Optimal K-Means dari KneeLocator}, label={lst:kode-visualisasi-kneelocator-kmeans-1}]{resource/code/visualisasi-kneelocator-kmeans_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/2-visualisasi-kneelocator-kmeans.png}
+    \caption{Visualisasi Titik Siku Optimal ($k=4$) pada K-Means oleh Algoritma KneeLocator}
+    \label{fig:visualisasi-kneelocator-kmeans-1}
+  \end{figure}
+
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-kneelocator-kmeans-1}, fungsi \path{kneedle.plot_knee()} dipanggil untuk memvisualisasikan posisi matematis titik siku sebagaimana tertera pada Gambar \ref{fig:visualisasi-kneelocator-kmeans-1}. Garis vertikal putus-putus berwarna merah secara presisi memotong kurva pada absis $k = 4$, yang mempertegas bahwa titik tersebut merupakan ambang batas optimal di mana laju perubahan penurunan \textit{inertia} mengalami perlambatan paling tajam.
+
+  \subsubsection{Evaluasi Metode Elbow pada K-Medoids}
+  \lstinputlisting[language=Python, caption={Perhitungan Nilai Inertia pada K-Medoids (k=1 hingga 10)}, label={lst:kode-elbow-kmedoids-1}]{resource/code/elbow-kmedoids_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Nilai Inertia K-Medoids Berdasarkan Jumlah Klaster}, label={lst:out-elbow-kmedoids-1}]{resource/output/elbow-kmedoids_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-elbow-kmedoids-1}, evaluasi metode \textit{Elbow} turut diuji pada algoritma K-Medoids (\textit{Partitioning Around Medoids}) untuk rentang $k \in [1, 10]$. Berbeda dengan K-Means yang menempatkan titik pusat pada \textit{centroid}, K-Medoids mewajibkan titik pusat klaster berupa salah satu titik observasi nyata (\textit{medoid}) \cite{kaufman1990finding, herviany2021perbandingan}. Nilai \textit{inertia} yang dicatat pada Output \ref{lst:out-elbow-kmedoids-1} menunjukkan penurunan dari $32.074{,}49$ pada $k=1$, turun menjadi $28.502{,}25$ pada $k=2$, $26.690{,}45$ pada $k=3$, $25.312{,}68$ pada $k=4$, hingga menyentuh $23.064{,}60$ pada $k=10$.
+
+  \subsubsection{Visualisasi Kurva Elbow K-Medoids}
+  \lstinputlisting[language=Python, caption={Visualisasi Kurva Metode Elbow pada K-Medoids}, label={lst:kode-visualisasi-elbow-kmedoids-1}]{resource/code/visualisasi-elbow-kmedoids_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/3-visualisasi-elbow-kmedoids.png}
+    \caption{Kurva Penurunan Nilai Inertia Metode Elbow pada Algoritma K-Medoids}
+    \label{fig:visualisasi-elbow-kmedoids-1}
+  \end{figure}
+
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-elbow-kmedoids-1}, visualisasi kurva \textit{Elbow} K-Medoids disajikan pada Gambar \ref{fig:visualisasi-elbow-kmedoids-1}. Grafik memperlihatkan karakteristik pelandaian yang serupa dengan K-Means, di mana penurunan tajam terjadi hingga titik $k=4$, yang kemudian bergerak mendatar secara bertahap untuk nilai $k$ yang lebih besar.
+
+  \subsubsection{Visualisasi Titik Siku KneeLocator K-Medoids}
+  \lstinputlisting[language=Python, caption={Deteksi Titik Siku K-Medoids Menggunakan KneeLocator}, label={lst:kode-kneelocator-kmedoids-1}]{resource/code/kneelocator-kmedoids_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/4-visualisasi-kneelocator-kmedoids.png}
+    \caption{Visualisasi Titik Siku Optimal ($k=4$) pada K-Medoids oleh Algoritma KneeLocator}
+    \label{fig:visualisasi-kneelocator-kmedoids-1}
+  \end{figure}
+
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-kneelocator-kmedoids-1}, visualisasi deteksi titik optimal kurva K-Medoids dihasilkan melalui \path{kneedle.plot_knee()} sebagaimana ditunjukkan pada Gambar \ref{fig:visualisasi-kneelocator-kmedoids-1}. Garis putus-putus merah kembali mengonfirmasi bahwa nilai $k = 4$ adalah titik \textit{elbow} matematis terbaik untuk \textit{clustering} K-Medoids pada dataset kartu kredit, konsisten dengan hasil yang diperoleh pada model K-Means.
+
+  \subsubsection{Evaluasi Silhouette Score pada K-Means}
+  \lstinputlisting[language=Python, caption={Perhitungan Nilai Silhouette Score pada K-Means (k=2 hingga 10)}, label={lst:kode-silhouette-kmeans-1}]{resource/code/silhouette-kmeans_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Nilai Silhouette Score K-Means}, label={lst:out-silhouette-kmeans-1}]{resource/output/silhouette-kmeans_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-silhouette-kmeans-1}, evaluasi pemisahan klaster dihitung menggunakan metrik \textit{Silhouette Score} dari Scikit-Learn untuk $k \in [2, 10]$. Metrik ini mengukur keseimbangan antara kohesi internal klaster $a(i)$ dan separasi terhadap klaster tetangga terdekat $b(i)$ pada rentang skala $[-1, 1]$ \cite{rousseeuw1987silhouettes}. Sebagaimana tersaji pada Output \ref{lst:out-silhouette-kmeans-1}, skor siluet mencatatkan nilai $0{,}2095$ pada $k = 2$ dan $0{,}2506$ pada $k = 3$, kemudian terus merosot pada $k=4$ ($0{,}1975$), $k=5$ ($0{,}1926$), hingga $k=10$ ($0{,}1910$). Secara formal menurut metrik siluet global, $k=2$ dan $k=3$ menghasilkan struktur partisi yang paling terisolasi secara geometris.
+
+  \subsubsection{Visualisasi Kurva Silhouette Score K-Means}
+  \lstinputlisting[language=Python, caption={Visualisasi Profil Silhouette Score pada K-Means}, label={lst:kode-visualisasi-silhouette-kmeans-1}]{resource/code/visualisasi-silhouette-kmeans_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/5-visualisasi-silhouette-kmeans.png}
+    \caption{Grafik Profil Nilai Silhouette Score pada K-Means Berdasarkan Jumlah Klaster}
+    \label{fig:visualisasi-silhouette-kmeans-1}
+  \end{figure}
+
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-silhouette-kmeans-1}, grafik fluktuasi nilai koefisien siluet divisualisasikan pada Gambar \ref{fig:visualisasi-silhouette-kmeans-1}. Puncak grafik terlihat jelas pada $k=2$ dan $k=3$, diikuti oleh tren penurunan bertahap seiring pembagian data menjadi klaster-klaster yang lebih padat dan berdekatan di ruang fitur multidimensi.
+
+  \subsubsection{Evaluasi Silhouette Score pada K-Medoids}
+  \lstinputlisting[language=Python, caption={Perhitungan Nilai Silhouette Score pada K-Medoids (k=2 hingga 10)}, label={lst:kode-silhouette-kmedoids-1}]{resource/code/silhouette-kmedoids_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Nilai Silhouette Score K-Medoids}, label={lst:out-silhouette-kmedoids-1}]{resource/output/silhouette-kmedoids_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-silhouette-kmedoids-1}, perhitungan \textit{Silhouette Score} dieksekusi pada algoritma K-Medoids. Sebagaimana tertera pada Output \ref{lst:out-silhouette-kmedoids-1}, nilai skor siluet K-Medoids mencatat skor maksimum pada $k = 2$ dengan nilai $0{,}1945$, kemudian bernilai $0{,}1602$ pada $k=3$, $0{,}1374$ pada $k=4$, dan berfluktuasi rendah hingga $0{,}0347$ pada $k=10$. Pola penurunan ini sejalan dengan karakteristik K-Medoids yang memilih titik pusat riil; penambahan jumlah klaster cenderung mempersempit margin jarak pemisah antar-medoid.
+
+  \subsubsection{Visualisasi Kurva Silhouette Score K-Medoids}
+  \lstinputlisting[language=Python, caption={Visualisasi Profil Silhouette Score pada K-Medoids}, label={lst:kode-visualisasi-silhouette-kmedoids-1}]{resource/code/visualisasi-silhouette-kmedoids_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/6-visualisasi-silhouette-kmedoids.png}
+    \caption{Grafik Profil Nilai Silhouette Score pada K-Medoids Berdasarkan Jumlah Klaster}
+    \label{fig:visualisasi-silhouette-kmedoids-1}
+  \end{figure}
+
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-silhouette-kmedoids-1}, kurva skor siluet K-Medoids digambarkan pada Gambar \ref{fig:visualisasi-silhouette-kmedoids-1}. Grafik ini membuktikan bahwa pengelompokan biner ($k=2$) memberikan koefisien pemisahan tertinggi, sementara pengelompokan $k=4$ (yang didukung oleh metode \textit{Elbow}) menawarkan segmentasi profil yang lebih mendalam untuk analisis kebutuhan bisnis.
+
+  \subsubsection{Perbandingan Evaluasi Metrik K-Means dan K-Medoids}
+  \par Berdasarkan seluruh tahapan pengujian menggunakan metode \textit{Elbow} dan koefisien \textit{Silhouette Score}, ringkasan perbandingan nilai evaluasi metrik untuk algoritma K-Means dan K-Medoids pada dataset kartu kredit dirangkum pada Tabel \ref{tab:evaluasi-metrik-cc}.
+
+  \begin{table}[H]
+    \centering
+    \caption{Perbandingan Metrik Evaluasi K-Means dan K-Medoids pada Dataset Kartu Kredit}
+    \label{tab:evaluasi-metrik-cc}
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \textbf{Jumlah Klaster ($k$)} & \multicolumn{2}{c|}{\textbf{K-Means}} & \multicolumn{2}{c|}{\textbf{K-Medoids}}                                                \\ \cline{2-5}
+                                    & \textit{Inertia} (WCSS)               & \textit{Silhouette Score}               & \textit{Inertia} & \textit{Silhouette Score} \\ \hline
+      1                             & $152.150{,}00$                        & ---                                     & $32.074{,}49$    & ---                       \\ \hline
+      2                             & $128.953{,}36$                        & $0{,}2095$                              & $28.502{,}25$    & $0{,}1945$                \\ \hline
+      3                             & $112.651{,}57$                        & $0{,}2506$                              & $26.690{,}45$    & $0{,}1602$                \\ \hline
+      4                             & $105.337{,}39$                        & $0{,}1975$                              & $25.312{,}68$    & $0{,}1374$                \\ \hline
+      5                             & $91.795{,}81$                         & $0{,}1926$                              & $24.410{,}15$    & $0{,}1486$                \\ \hline
+      6                             & $85.766{,}75$                         & $0{,}2035$                              & $25.045{,}96$    & $0{,}0750$                \\ \hline
+      7                             & $79.746{,}51$                         & $0{,}1950$                              & $23.865{,}26$    & $0{,}0512$                \\ \hline
+      8                             & $76.067{,}84$                         & $0{,}2085$                              & $23.728{,}76$    & $0{,}0391$                \\ \hline
+      9                             & $71.608{,}91$                         & $0{,}2059$                              & $21.901{,}11$    & $0{,}0849$                \\ \hline
+      10                            & $68.218{,}96$                         & $0{,}1910$                              & $23.064{,}60$    & $0{,}0347$                \\ \hline
+    \end{tabular}
+  \end{table}
+
+  \par \textbf{Analisis Komparatif Pemilihan Model:} Mengacu pada data perbandingan pada Tabel \ref{tab:evaluasi-metrik-cc}, evaluasi objektif menunjukkan bahwa algoritma \texttt{KneeLocator} menetapkan titik \textit{elbow} optimal berada pada $k = 4$ untuk kedua model, di mana laju penurunan kuadrat galat intra-klaster mulai melandai secara gradual. Di sisi lain, metrik \textit{Silhouette Score} mencatatkan nilai tertinggi pada partisi makro $k = 2$ ($0{,}2095$ pada K-Means dan $0{,}1945$ pada K-Medoids) serta $k = 3$ ($0{,}2506$ pada K-Means). Berdasarkan pertimbangan trade-off antara keterpisahan geometris dan kebutuhan analisis segmentasi perbankan, model K-Means dilatih pada konfigurasi $k = 2$ sesuai anjuran \textit{Silhouette Score} global, sedangkan model K-Medoids dilatih pada konfigurasi $k = 4$ sesuai anjuran metode \textit{Elbow} guna menghasilkan pengelompokan segmen nasabah yang lebih granular dan aplikatif.
+
+  \subsection{Pemodelan dan Visualisasi Klaster}
+
+  \subsubsection{Pelatihan Model K-Means (k=2) dan Penetapan Klaster}
+  \lstinputlisting[language=Python, caption={Pelatihan Model K-Means Berdasarkan Rekomendasi Silhouette Score}, label={lst:kode-model-kmeans-1}]{resource/code/model-kmeans_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output DataFrame dengan Label Klaster K-Means}, label={lst:out-model-kmeans-1}]{resource/output/model-kmeans_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-model-kmeans-1}, model K-Means dilatih menggunakan parameter optimal $k = 2$ dengan generator acak terstandarisasi (\path{random_state=42}). Setelah proses konvergensi iteratif tercapai, label klaster dari atribut \path{labels_} disematkan ke dalam kolom baru bernama \path{cluster_labels} pada \textit{DataFrame} \path{df_new}. Sebagaimana ditunjukkan pada Output \ref{lst:out-model-kmeans-1}, setiap baris nasabah kini telah memiliki identitas kelompok spesifik (klaster 0 atau klaster 1).
+
+  \subsubsection{Inspeksi Titik Pusat Klaster K-Means (Centroids)}
+  \lstinputlisting[language=Python, caption={Inspeksi Titik Pusat Centroid Model K-Means}, label={lst:kode-cek-centroids-kmeans-1}]{resource/code/cek-centroids-kmeans_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Koordinat Centroid K-Means dalam Ruang Standar}, label={lst:out-cek-centroids-kmeans-1}]{resource/output/cek-centroids-kmeans_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-centroids-kmeans-1}, atribut \path{cluster_centers_} dipanggil guna memeriksa koordinat spasial \textit{centroid} pada ruang fitur 17 dimensi yang terstandarisasi. Sebagaimana tertera pada Output \ref{lst:out-cek-centroids-kmeans-1}, klaster pertama (baris indeks 0) memiliki koordinat bernilai negatif pada sebagian besar variabel transaksi (seperti \path{PURCHASES}, \path{PAYMENTS}, dan \path{CREDIT_LIMIT}), yang mengindikasikan kelompok nasabah berkarakteristik pengeluaran rendah. Sebaliknya, klaster kedua (baris indeks 1) didominasi oleh nilai koordinat positif tinggi, yang merepresentasikan nasabah kelas atas dengan intensitas transaksi dan pembayaran yang aktif.
+
+  \subsubsection{Visualisasi 2D Klaster K-Means Menggunakan Matplotlib}
+  \lstinputlisting[language=Python, caption={Visualisasi Scatter Plot 2D Klaster K-Means dengan Matplotlib}, label={lst:kode-visualisasi-2d-matplotlib-kmeans-1}]{resource/code/visualisasi-2d-matplotlib-kmeans_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/7-visualisasi-2d-matplotlib-kmeans.png}
+    \caption{Visualisasi Sebaran 2D Klaster K-Means pada Atribut PURCHASES vs PAYMENTS (Matplotlib)}
+    \label{fig:visualisasi-2d-matplotlib-kmeans-1}
+  \end{figure}
+
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-2d-matplotlib-kmeans-1}, sebaran partisi data dipetakan pada bidang dua dimensi menggunakan pustaka \texttt{matplotlib.pyplot} dengan sumbu horizontal \path{PURCHASES} dan sumbu vertikal \path{PAYMENTS} sebagaimana ditampilkan pada Gambar \ref{fig:visualisasi-2d-matplotlib-kmeans-1}. Klaster 0 (warna ungu) terkonsentrasi sangat padat di dekat titik asal $(0, 0)$, mencirikan nasabah yang jarang bertransaksi. Sementara itu, klaster 1 (warna kuning) menyebar melebar ke arah kanan atas hingga nilai transaksi melampaui $\$40.000$, menggambarkan sekelompok kecil nasabah premium dengan volume belanja dan penyelesaian tagihan yang sangat besar.
+
+  \subsubsection{Visualisasi 2D Klaster K-Means Menggunakan Seaborn}
+  \lstinputlisting[language=Python, caption={Visualisasi Scatter Plot 2D Klaster K-Means dengan Seaborn}, label={lst:kode-visualisasi-2d-seaborn-kmeans-1}]{resource/code/visualisasi-2d-seaborn-kmeans_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/8-visualisasi-2d-seaborn-kmeans.png}
+    \caption{Visualisasi Sebaran 2D Klaster K-Means Menggunakan Seaborn Palette Set1}
+    \label{fig:visualisasi-2d-seaborn-kmeans-1}
+  \end{figure}
+
+  \par Mengacu pada sintaks Kode \ref{lst:kode-visualisasi-2d-seaborn-kmeans-1}, fungsi \path{sns.scatterplot()} diterapkan bersama konfigurasi palet \path{Set1} sebagaimana disajikan pada Gambar \ref{fig:visualisasi-2d-seaborn-kmeans-1}. Hasil visualisasi mempertegas batas segregasi geometris antara kelompok transaksi pasif (merah) dan kelompok pembelanja aktif (biru).
+
+  \subsubsection{Visualisasi 3D Klaster K-Means Menggunakan Plotly}
+  \lstinputlisting[language=Python, caption={Visualisasi Scatter Plot 3D Interaktif Klaster K-Means dengan Plotly}, label={lst:kode-visualisasi-3d-plotly-kmeans-1}]{resource/code/visualisasi-3d-plotly-kmeans_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/9-visualisasi-3d-plotly-kmeans.png}
+    \caption[Visualisasi Sebaran 3D Klaster K-Means]{Visualisasi Sebaran 3D Klaster K-Means pada Sumbu PURCHASES, PAYMENTS, dan BALANCE}
+    \label{fig:visualisasi-3d-plotly-kmeans-1}
+  \end{figure}
+
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-3d-plotly-kmeans-1}, visualisasi interaktif tiga dimensi dibangun menggunakan fungsi \path{px.scatter_3d()} dari pustaka Plotly dengan menyertakan tiga sumbu finansial kunci: \path{PURCHASES} pada sumbu-$x$, \path{PAYMENTS} pada sumbu-$y$, dan \path{BALANCE} pada sumbu-$z$. Tangkapan layar visualisasi 3D disajikan pada Gambar \ref{fig:visualisasi-3d-plotly-kmeans-1}. Dimensi ketiga (\path{BALANCE}) memberikan wawasan tambahan yang sangat krusial, di mana nasabah dengan volume pembelian rendah ternyata dapat dipisahkan lebih lanjut menjadi nasabah dengan saldo simpanan minimal versus nasabah dengan saldo piutang tertahan tinggi.
+
+  \subsubsection{Pelatihan Model K-Medoids (k=4) dan Penetapan Klaster}
+  \lstinputlisting[language=Python, caption={Pelatihan Model K-Medoids Berdasarkan Rekomendasi Titik Siku Elbow}, label={lst:kode-model-kmedoids-1}]{resource/code/model-kmedoids_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output DataFrame dengan Label Klaster K-Medoids}, label={lst:out-model-kmedoids-1}]{resource/output/model-kmedoids_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-model-kmedoids-1}, algoritma K-Medoids dilatih menggunakan konfigurasi $k = 4$ sesuai hasil deteksi titik \textit{elbow} kurva (\textit{KneeLocator}). Label klaster kemudian disimpan kembali ke dalam kolom \path{cluster_labels}. Sebagaimana tersaji pada Output \ref{lst:out-model-kmedoids-1}, partisi menjadi empat klaster memungkinkan segmentasi yang jauh lebih granular dibandingkan pengelompokan biner sederhana.
+
+  \subsubsection{Inspeksi Titik Pusat Klaster K-Medoids (Medoids)}
+  \lstinputlisting[language=Python, caption={Inspeksi Titik Pusat Medoid Model K-Medoids}, label={lst:kode-cek-centroids-kmedoids-1}]{resource/code/cek-centroids-kmedoids_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[basicstyle=\ttfamily\tiny\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Koordinat Medoids dalam Ruang Standar}, label={lst:out-cek-centroids-kmedoids-1}]{resource/output/cek-centroids-kmedoids_1_out.txt}
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-centroids-kmedoids-1}, variabel \path{cluster_centers_} pada K-Medoids diperiksa untuk meninjau karakteristik keempat titik medoid. Sebagaimana tertera pada Output \ref{lst:out-cek-centroids-kmedoids-1}, keempat titik pusat ini merupakan sampel observasi aktual dari dataset yang bertindak sebagai \textit{exemplar} dari masing-masing segmen nasabah, sehingga interpretasinya tidak terdistorsi oleh nilai ekstrem.
+
+  \subsubsection{Visualisasi 2D Klaster K-Medoids Menggunakan Matplotlib}
+  \lstinputlisting[language=Python, caption={Visualisasi Scatter Plot 2D Klaster K-Medoids dengan Matplotlib}, label={lst:kode-visualisasi-2d-matplotlib-kmedoids-1}]{resource/code/visualisasi-2d-matplotlib-kmedoids_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/10-visualisasi-2d-matplotlib-kmedoids.png}
+    \caption{Visualisasi Sebaran 2D Empat Klaster K-Medoids pada Bidang PURCHASES vs PAYMENTS}
+    \label{fig:visualisasi-2d-matplotlib-kmedoids-1}
+  \end{figure}
+
+  \par Mengacu pada Kode \ref{lst:kode-visualisasi-2d-matplotlib-kmedoids-1}, sebaran keempat klaster K-Medoids diproyeksikan dengan Matplotlib pada Gambar \ref{fig:visualisasi-2d-matplotlib-kmedoids-1}. Partisi data menunjukkan segregasi bertingkat yang runtut, mencakup segmen belanja rendah (ungu), belanja sedang (hijau), serta kelompok belanja bernominal tinggi (kuning).
+
+  \subsubsection{Visualisasi 2D Klaster K-Medoids Menggunakan Seaborn}
+  \lstinputlisting[language=Python, caption={Visualisasi Scatter Plot 2D Klaster K-Medoids dengan Seaborn}, label={lst:kode-visualisasi-2d-seaborn-kmedoids-1}]{resource/code/visualisasi-2d-seaborn-kmedoids_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/11-visualisasi-2d-seaborn-kmedoids.png}
+    \caption{Visualisasi Sebaran 2D Klaster K-Medoids Menggunakan Seaborn Palette Set1}
+    \label{fig:visualisasi-2d-seaborn-kmedoids-1}
+  \end{figure}
+
+  \par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-2d-seaborn-kmedoids-1}, visualisasi Seaborn dengan palet warna \path{Set1} ditampilkan pada Gambar \ref{fig:visualisasi-2d-seaborn-kmedoids-1}. Keempat klaster terdistribusi secara konsisten dengan batas-batas partisi yang jelas pada bidang dua dimensi \path{PURCHASES} dan \path{PAYMENTS}.
+
+  \subsubsection{Interpretasi Karakteristik dan Profiling Segmen Nasabah}
+  \par Sesuai dengan materi modul praktikum, interpretasi klaster dilakukan untuk menerjemahkan hasil matematis algoritma ke dalam profil karakteristik nasabah yang aplikatif bagi strategi perbankan. Berdasarkan analisis agregasi nilai rata-rata pada fitur utama (\path{PURCHASES}, \path{PAYMENTS}, dan \path{BALANCE}), keempat klaster K-Medoids dapat dikarakterisasikan sebagai berikut:
+  \begin{enumerate}
+    \item \textbf{Klaster 0 (\textit{Low Spenders / Passive Users}):} Kelompok nasabah dengan nilai terendah pada seluruh variabel transaksi belanja (\path{PURCHASES}), pembayaran (\path{PAYMENTS}), dan saldo (\path{BALANCE}). Kelompok ini merupakan nasabah inaktif atau pengguna kartu kredit darurat.
+    \item \textbf{Klaster 1 (\textit{Moderate Spenders}):} Kelompok nasabah dengan tingkat belanja dan pembayaran pada level sedang, serta mempertahankan saldo harian pada batas aman. Kelompok ini adalah pengguna reguler yang mengelola keuangan secara disiplin.
+    \item \textbf{Klaster 2 (\textit{High Spenders \& High Payers}):} Kelompok nasabah dengan jumlah transaksi belanja tertinggi dan pembayaran tagihan tertinggi, namun mempertahankan tingkat saldo pada taraf sedang. Nasabah pada klaster ini merupakan target ideal untuk program \textit{loyalty reward} dan peningkatan batas limit kredit.
+    \item \textbf{Klaster 3 (\textit{Revolving Credit Borrowers}):} Kelompok nasabah dengan tingkat saldo (\path{BALANCE}) paling tinggi di antara seluruh kelompok, namun volume pembelian belanja berada pada tingkat moderat serta didominasi oleh penarikan uang tunai (\path{CASH_ADVANCE}). Kelompok ini rentan terhadap risiko gagal bayar, sehingga institusi keuangan disarankan mengenakan pengawasan suku bunga dan penawaran program restrukturisasi cicilan.
+  \end{enumerate}
+
+  \subsection{Tugas \& Analisis}
+
+  \subsubsection{Tugas 1: Karakteristik dan Persiapan Dataset Kartu Kredit}
+  \textbf{Soal:} \textit{Dataset Preparation}:
+  \begin{enumerate}[label=\arabic*.]
+    \item \textit{Download dataset}: \url{https://www.kaggle.com/datasets/arjunbhasin2013/ccdata}
+    \item \textit{Upload} di Google Drive atau GitHub masing-masing.
+    \item Jelaskan tujuan penggunaan dataset ini.
+    \item Jelaskan fitur (\textit{features}) dataset ini.
+  \end{enumerate}
+
+  \par \textbf{Analisis Tujuan Penggunaan Dataset:} Sesuai dengan instruksi tugas, dataset transaksi kartu kredit (\path{CC GENERAL.csv}) diunduh langsung dari repositori Kaggle melalui tautan publik \url{https://www.kaggle.com/datasets/arjunbhasin2013/ccdata} dan diunggah ke repositori GitHub masing-masing mahasiswa guna menjamin aksesibilitas komputasi di lingkungan Google Colab. Tujuan utama pemanfaatan dataset ini adalah untuk melakukan \textit{customer segmentation} berbasis riwayat transaksi finansial pemegang kartu kredit aktif selama enam bulan terakhir. Melalui pendekatan \textit{clustering}, institusi perbankan dapat mengelompokkan nasabah ke dalam profil homogen tanpa memerlukan \textit{ground truth}, sehingga strategi \textit{targeted marketing campaigns}, manajemen risiko kredit, evaluasi batas pagu kredit, dan promosi produk perbankan dapat dirancang secara presisi.
+
+  \par \textbf{Analisis Fitur Dataset:} Dataset ini mencakup $18$ atribut yang merangkum berbagai dimensi perilaku pemegang kartu kredit sebagaimana dirinci secara lengkap pada Tabel \ref{tab:deskripsi-fitur-cc}.
+
+  \begin{table}[H]
+    \centering
+    \caption{Deskripsi Rinci Atribut Dataset Kartu Kredit (CC GENERAL.csv)}
+    \label{tab:deskripsi-fitur-cc}
+    \resizebox{\textwidth}{!}{%
+      \begin{tabular}{|c|l|c|p{8.5cm}|}
+        \hline
+        \textbf{No} & \textbf{Nama Atribut}                   & \textbf{Tipe Data} & \textbf{Deskripsi dan Makna Perilaku Finansial}                                 \\
+        \hline
+        1           & \path{CUST_ID}                          & Object (String)    & Nomor identitas unik pemegang kartu kredit.                                     \\
+        2           & \path{BALANCE}                          & Float              & Jumlah sisa saldo hutang yang tersisa di rekening nasabah.                      \\
+        3           & \path{BALANCE_FREQUENCY}                & Float              & Seberapa sering saldo diperbarui, bernilai antara 0 (jarang) hingga 1 (selalu). \\
+        4           & \path{PURCHASES}                        & Float              & Total nilai nominal transaksi pembelian yang dilakukan nasabah.                 \\
+        5           & \path{ONEOFF_PURCHASES}                 & Float              & Nilai maksimal pembelian yang dilakukan secara sekaligus (sekali bayar).        \\
+        6           & \path{INSTALLMENTS_PURCHASES}           & Float              & Nilai transaksi pembelian yang dicicil secara berkala.                          \\
+        7           & \path{CASH_ADVANCE}                     & Float              & Total nilai penarikan uang tunai di muka melalui mesin ATM/kartu kredit.        \\
+        8           & \path{PURCHASES_FREQUENCY}              & Float              & Seberapa sering transaksi pembelian dilakukan (antara 0 hingga 1).              \\
+        9           & \path{ONEOFF_PURCHASES_FREQUENCY}       & Float              & Frekuensi transaksi pembelian sekali bayar (antara 0 hingga 1).                 \\
+        10          & \path{PURCHASES_INSTALLMENTS_FREQUENCY} & Float              & Frekuensi transaksi pembelian dengan skema angsuran (antara 0 hingga 1).        \\
+        11          & \path{CASH_ADVANCE_FREQUENCY}           & Float              & Seberapa sering penarikan uang tunai di muka dilakukan (antara 0 hingga 1).     \\
+        12          & \path{CASH_ADVANCE_TRX}                 & Integer            & Jumlah total frekuensi transaksi penarikan uang tunai di muka.                  \\
+        13          & \path{PURCHASES_TRX}                    & Integer            & Jumlah total frekuensi transaksi pembelian yang dilakukan nasabah.              \\
+        14          & \path{CREDIT_LIMIT}                     & Float              & Batas pagu kredit maksimal yang diberikan oleh bank kepada nasabah.             \\
+        15          & \path{PAYMENTS}                         & Float              & Jumlah total pembayaran tagihan yang telah diselesaikan oleh nasabah.           \\
+        16          & \path{MINIMUM_PAYMENTS}                 & Float              & Jumlah total pembayaran minimum yang dibayarkan nasabah.                        \\
+        17          & \path{PRC_FULL_PAYMENT}                 & Float              & Persentase pelunasan tagihan penuh yang diselesaikan nasabah (0 sampai 1).      \\
+        18          & \path{TENURE}                           & Integer            & Masa kepemilikan layanan kartu kredit oleh nasabah (dalam hitungan bulan).      \\
+        \hline
+      \end{tabular}%
+    }
+  \end{table}
+
+  \subsubsection{Tugas 2: Pemuatan dan Eksplorasi Dataset Air Traffic}
+  \textbf{Soal:} Menggunakan dataset lain, silahkan mengerjakan \textit{clustering} menggunakan K-Means dan K-Medoids. Dataset \textit{Air Traffic Passengers Statistics}: \url{https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/about_data}.
+
+  \par Pada penugasan kedua ini, eksperimen \textit{clustering} diterapkan terhadap dataset baru, yaitu \textit{Air Traffic Passenger Statistics} (\path{Air_Traffic_Passenger_Statistics.csv}) yang memuat statistik operasional penerbangan pada San Francisco International Airport (SFO).
+
+  \lstinputlisting[language=Python, caption={Impor Pustaka Tambahan untuk Dataset Air Traffic}, label={lst:kode-tugas-impor-pustaka-1}]{resource/code/tugas-impor-pustaka_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Impor Pustaka Tugas Air Traffic}, label={lst:out-tugas-impor-pustaka-1}]{resource/output/tugas-impor-pustaka_1_out.txt}
+  \par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-impor-pustaka-1} dan Output \ref{lst:out-tugas-impor-pustaka-1}, kelas \path{LabelEncoder} dari Scikit-Learn disiapkan bersama modul komputasi untuk mentransformasikan variabel bertipe kategorial ke format numerik (Tidak ada output).
+
+  \par Pemuatan dataset penerbangan dilakukan pada Kode \ref{lst:kode-tugas-load-dataset-1}.
+  \lstinputlisting[language=Python, caption={Pemuatan Dataset Air Traffic Passenger Statistics}, label={lst:kode-tugas-load-dataset-1}]{resource/code/tugas-load-dataset_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Lima Baris Teratas Dataset Air Traffic}, label={lst:out-tugas-load-dataset-1}]{resource/output/tugas-load-dataset_1_out.txt}
+  \par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-load-dataset-1} dan Output \ref{lst:out-tugas-load-dataset-1}, dataset memuat rekaman historis aktivitas penerbangan bandara, meliputi periode aktivitas (\path{Activity Period}), maskapai operasi (\path{Operating Airline}), kode IATA, wilayah geografis (\path{GEO Region}), tipe terminal, hingga jumlah penumpang (\path{Passenger Count}).
+
+  \par Dimensi matriks dataset penerbangan diinspeksi pada Kode \ref{lst:kode-tugas-dimensi-dataset-1}.
+  \lstinputlisting[language=Python, caption={Inspeksi Dimensi Dataset Air Traffic}, label={lst:kode-tugas-dimensi-dataset-1}]{resource/code/tugas-dimensi-dataset_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Dimensi Dataset Air Traffic}, label={lst:out-tugas-dimensi-dataset-1}]{resource/output/tugas-dimensi-dataset_1_out.txt}
+  \par \textbf{Analisis:} Melalui pemanggilan atribut pada Kode \ref{lst:kode-tugas-dimensi-dataset-1}, Output \ref{lst:out-tugas-dimensi-dataset-1} membuktikan populasi data yang sangat masif, yaitu tersusun atas $40.626$ baris rekaman transaksi penerbangan dan $15$ kolom atribut.
+
+  \par Ringkasan statistik deskriptif numerik dataset penerbangan diperiksa pada Kode \ref{lst:kode-tugas-deskripsi-statistik-1}.
+  \lstinputlisting[language=Python, caption={Inspeksi Statistik Deskriptif Dataset Air Traffic}, label={lst:kode-tugas-deskripsi-statistik-1}]{resource/code/tugas-deskripsi-statistik_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Statistik Deskriptif Dataset Air Traffic}, label={lst:out-tugas-deskripsi-statistik-1}]{resource/output/tugas-deskripsi-statistik_1_out.txt}
+  \par \textbf{Analisis:} Sebagaimana tersaji pada Output \ref{lst:out-tugas-deskripsi-statistik-1}, variabel periode aktivitas mencakup rentang waktu pengamatan yang sangat panjang, yakni dari bulan Juli 1999 (\path{min = 199907}) hingga pencatatan tahun 2026.
+
+  \subsubsection{Tugas 2: Prapemrosesan dan Encoding Kategorial Data Air Traffic}
+
+  \par Pemeriksaan tipe data dan keberadaan nilai hilang pada dataset penerbangan dijalankan pada Kode \ref{lst:kode-tugas-cek-tipe-missing-values-1}.
+  \lstinputlisting[language=Python, caption={Pemeriksaan Nilai Hilang dan Tipe Data Dataset Air Traffic}, label={lst:kode-tugas-cek-tipe-missing-values-1}]{resource/code/tugas-cek-tipe-missing-values_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Pemeriksaan Nilai Hilang dan Tipe Data}, label={lst:out-tugas-cek-tipe-missing-values-1}]{resource/output/tugas-cek-tipe-missing-values_1_out.txt}
+  \par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-cek-tipe-missing-values-1} dan Output \ref{lst:out-tugas-cek-tipe-missing-values-1}, terdeteksi sebanyak 316 nilai hilang pada kolom \path{Operating Airline IATA Code} dan \path{Published Airline IATA Code}. Selain itu, sebagian besar kolom (seperti nama maskapai, wilayah regional, terminal, dan tipe boarding) berformat objek kategorial (\textit{string}).
+
+  \par Tahapan penanganan nilai hilang, perbaikan format angka, dan \textit{categorical encoding} dieksekusi pada Kode \ref{lst:kode-tugas-preprocessing-encoding-1}.
+  \lstinputlisting[language=Python, caption={Pembersihan Missing Values dan Label Encoding pada Air Traffic}, label={lst:kode-tugas-preprocessing-encoding-1}]{resource/code/tugas-preprocessing-encoding_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output DataFrame Air Traffic Setelah Label Encoding}, label={lst:out-tugas-preprocessing-encoding-1}]{resource/output/tugas-preprocessing-encoding_1_out.txt}
+  \par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-preprocessing-encoding-1}, nilai kosong pada kolom kode IATA diimputasi dengan label teks \texttt{'Unknown'}. Tanda pemisah koma pada atribut \path{Passenger Count} dibersihkan lalu dikonversi menjadi tipe numerik presisi \texttt{float}. Selanjutnya, seluruh variabel bertipe \texttt{object} ditransformasikan menjadi representasi bilangan bulat terurut menggunakan kelas \texttt{LabelEncoder}. Output \ref{lst:out-tugas-preprocessing-encoding-1} memvalidasi bahwa seluruh entri dalam tabel \path{df_task} telah terkonversi sempurna menjadi matriks numerik utuh.
+
+  \par Standarisasi skala fitur dataset penerbangan diimplementasikan pada Kode \ref{lst:kode-tugas-standarisasi-fitur-1}.
+  \lstinputlisting[language=Python, caption={Standarisasi Fitur StandardScaler pada Dataset Air Traffic}, label={lst:kode-tugas-standarisasi-fitur-1}]{resource/code/tugas-standarisasi-fitur_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Dimensi Fitur Air Traffic Terstandarisasi}, label={lst:out-tugas-standarisasi-fitur-1}]{resource/output/tugas-standarisasi-fitur_1_out.txt}
+  \par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-standarisasi-fitur-1}, seluruh fitur numerik diskalakan melalui modul \path{StandardScaler}. Transformasi ini menghasilkan matriks fitur baru \path{X_task_scaled} berdimensi $(40.626, 15)$ sebagaimana divalidasi pada Output \ref{lst:out-tugas-standarisasi-fitur-1}.
+
+  \subsubsection{Tugas 2: Penentuan Klaster Optimal pada Dataset Air Traffic}
+
+  \par Perhitungan nilai \textit{inertia} metode \textit{Elbow} untuk klaster $k \in [1, 10]$ pada dataset penerbangan dijalankan pada Kode \ref{lst:kode-tugas-elbow-kmeans-1}.
+  \lstinputlisting[language=Python, caption={Iterasi Perhitungan Inertia K-Means pada Dataset Air Traffic}, label={lst:kode-tugas-elbow-kmeans-1}]{resource/code/tugas-elbow-kmeans_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Nilai Inertia K-Means Dataset Air Traffic}, label={lst:out-tugas-elbow-kmeans-1}]{resource/output/tugas-elbow-kmeans_1_out.txt}
+  \par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-elbow-kmeans-1} dan Output \ref{lst:out-tugas-elbow-kmeans-1}, nilai \textit{inertia} turun drastis dari $568.764{,}00$ pada $k=1$, menjadi $441.829{,}20$ pada $k=2$, $388.934{,}58$ pada $k=3$, $340.917{,}70$ pada $k=4$, $302.261{,}90$ pada $k=5$, dan terus melandai hingga $194.270{,}89$ pada $k=10$.
+
+  \par Visualisasi kurva \textit{Elbow} K-Means dataset penerbangan diplotkan pada Kode \ref{lst:kode-tugas-visualisasi-elbow-kmeans-1}.
+  \lstinputlisting[language=Python, caption={Visualisasi Kurva Elbow K-Means Dataset Air Traffic}, label={lst:kode-tugas-visualisasi-elbow-kmeans-1}]{resource/code/tugas-visualisasi-elbow-kmeans_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-1-visualisasi-elbow-kmeans.png}
+    \caption{Kurva Penurunan Nilai Inertia K-Means pada Dataset Air Traffic Passengers Statistics}
+    \label{fig:tugas-visualisasi-elbow-kmeans-1}
+  \end{figure}
+
+  \par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-visualisasi-elbow-kmeans-1} dan Gambar \ref{fig:tugas-visualisasi-elbow-kmeans-1}, kurva memperlihatkan patahan siku yang mulai melandai secara bertahap pada rentang nilai $k = 3$ hingga $k = 5$.
+
+  \par Penentuan titik siku optimal secara otomatis menggunakan pustaka \texttt{KneeLocator} dieksekusi pada Kode \ref{lst:kode-tugas-kneelocator-kmeans-1}.
+  \lstinputlisting[language=Python, caption={Deteksi Titik Siku Optimal Air Traffic Menggunakan KneeLocator}, label={lst:kode-tugas-kneelocator-kmeans-1}]{resource/code/tugas-kneelocator-kmeans_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Deteksi Titik Siku Optimal Dataset Air Traffic}, label={lst:out-tugas-kneelocator-kmeans-1}]{resource/output/tugas-kneelocator-kmeans_1_out.txt}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-2-visualisasi-kneelocator-kmeans.png}
+    \caption{Visualisasi Titik Siku Optimal ($k=5$) oleh KneeLocator pada Dataset Air Traffic}
+    \label{fig:tugas-visualisasi-kneelocator-kmeans-1}
+  \end{figure}
+
+  \par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-kneelocator-kmeans-1}, algoritma \texttt{KneeLocator} secara empiris menetapkan titik siku kurva cembung berada pada $k = 5$ sebagaimana dibuktikan pada Output \ref{lst:out-tugas-kneelocator-kmeans-1} dan ditandai oleh garis vertikal merah pada Gambar \ref{fig:tugas-visualisasi-kneelocator-kmeans-1}.
+
+  \par Evaluasi \textit{Silhouette Score} untuk klaster $k \in [2, 5]$ pada dataset penerbangan dihitung pada Kode \ref{lst:kode-tugas-silhouette-kmeans-1}.
+  \lstinputlisting[language=Python, caption={Perhitungan Silhouette Score K-Means pada Dataset Air Traffic}, label={lst:kode-tugas-silhouette-kmeans-1}]{resource/code/tugas-silhouette-kmeans_1.py}
+  \par \textbf{Output:}
+  \lstinputlisting[caption={Output Silhouette Score K-Means Dataset Air Traffic}, label={lst:out-tugas-silhouette-kmeans-1}]{resource/output/tugas-silhouette-kmeans_1_out.txt}
+  \par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-silhouette-kmeans-1} dan laporan pada Output \ref{lst:out-tugas-silhouette-kmeans-1}, skor siluet mencatatkan nilai $0{,}2212$ pada $k=2$, $0{,}2072$ pada $k=3$, mencapai puncak lokal tertinggi pada $k=4$ dengan skor $0{,}2291$, dan sebesar $0{,}2416$ pada $k=5$.
+
+  \par Visualisasi profil \textit{Silhouette Score} diplotkan pada Kode \ref{lst:kode-tugas-visualisasi-silhouette-kmeans-1}.
+  \lstinputlisting[language=Python, caption={Visualisasi Grafik Silhouette Score Dataset Air Traffic}, label={lst:kode-tugas-visualisasi-silhouette-kmeans-1}]{resource/code/tugas-visualisasi-silhouette-kmeans_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-3-visualisasi-silhouette-kmeans.png}
+    \caption{Grafik Profil Nilai Silhouette Score K-Means pada Dataset Air Traffic}
+    \label{fig:tugas-visualisasi-silhouette-kmeans-1}
+  \end{figure}
+
+  \par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-visualisasi-silhouette-kmeans-1} dan Gambar \ref{fig:tugas-visualisasi-silhouette-kmeans-1}, grafik memperlihatkan bahwa rentang $k \in [2, 4]$ menyajikan konfigurasi pemisahan klaster yang stabil di atas ambang $0{,}20$.
+
+  \par Ringkasan perbandingan nilai \textit{inertia} dan koefisien \textit{Silhouette Score} untuk pemilihan jumlah klaster pada dataset penerbangan dirangkum pada Tabel \ref{tab:evaluasi-metrik-airtraffic}.
+
+  \begin{table}[H]
+    \centering
+    \caption{Ringkasan Evaluasi Metrik Klasterisasi K-Means pada Dataset Air Traffic}
+    \label{tab:evaluasi-metrik-airtraffic}
+    \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{Jumlah Klaster ($k$)} & \textbf{\textit{Inertia} (WCSS)} & \textbf{\textit{Silhouette Score}} \\ \hline
+      1                             & $568.764{,}00$                   & ---                                \\ \hline
+      2                             & $441.829{,}20$                   & $0{,}2212$                         \\ \hline
+      3                             & $388.934{,}58$                   & $0{,}2072$                         \\ \hline
+      4                             & $340.917{,}70$                   & $0{,}2291$                         \\ \hline
+      5                             & $297.728{,}42$                   & $0{,}2416$                         \\ \hline
+    \end{tabular}
+  \end{table}
+
+  \par \textbf{Analisis Komparatif Pemilihan Model:} Mengacu pada Tabel \ref{tab:evaluasi-metrik-airtraffic}, nilai \textit{inertia} mengalami penurunan bertahap dengan patahan kurva yang melandai pada rentang $k=3$ hingga titik deteksi siku optimal \texttt{KneeLocator} pada $k=5$. Ditinjau dari koefisien \textit{Silhouette Score}, konfigurasi $k=3$ ($0{,}2072$) dan $k=4$ ($0{,}2291$) menyajikan pemisahan batas klaster yang stabil dan berbobot seimbang. Pemilihan model K-Means dengan parameter $k=3$ untuk visualisasi klaster operasional memberikan interpretasi bisnis yang paling jelas dalam membedakan rute penerbangan jarak dekat, penerbangan internasional jarak jauh, dan maskapai penghubung utama berpenumpang masif.
+
+  \subsubsection{Tugas 2: Pemodelan Optimal K-Means dan Visualisasi Klaster Air Traffic}
+
+  \par Pelatihan model optimal K-Means dengan parameter $k = 3$ serta visualisasi sebaran klaster pada sumbu wilayah regional versus jumlah penumpang dijalankan pada Kode \ref{lst:kode-tugas-model-visualisasi-kmeans-1}.
+  \lstinputlisting[language=Python, caption={Pelatihan Model K-Means (k=3) dan Visualisasi Klaster Air Traffic}, label={lst:kode-tugas-model-visualisasi-kmeans-1}]{resource/code/tugas-model-visualisasi-kmeans_1.py}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-4-visualisasi-klaster-kmeans.png}
+    \caption{Visualisasi Sebaran Klaster K-Means pada Atribut GEO Region vs Passenger Count (Air Traffic)}
+    \label{fig:tugas-visualisasi-klaster-kmeans-1}
+  \end{figure}
+
+  \par \textbf{Analisis:} Berdasarkan eksekusi sintaks pada Kode \ref{lst:kode-tugas-model-visualisasi-kmeans-1}, model K-Means ($k=3$) berhasil mempartisi seluruh $40.626$ data penerbangan ke dalam tiga kelompok operasional yang bermakna sebagaimana disajikan pada Gambar \ref{fig:tugas-visualisasi-klaster-kmeans-1}:
+\begin{enumerate}
+  \item \textbf{Klaster 0 (Warna Merah):} Mencakup mayoritas rute penerbangan domestik dan regional dengan volume penumpang per periode penerbangan berada pada taraf rendah hingga menengah (di bawah $100.000$ penumpang).
+  \item \textbf{Klaster 1 (Warna Biru):} Mencirikan rute penerbangan jarak jauh (\textit{long-haul international flights}) dengan sebaran wilayah regional antar-benua yang luas serta volume penumpang moderat.
+  \item \textbf{Klaster 2 (Warna Hijau):} Merepresentasikan segmen rute \textit{high-density trunk routes} atau maskapai penghubung utama (\textit{hub carriers}) dengan volume lonjakan penumpang yang masif, mencapai angka ekstrem hingga di atas $400.000$ hingga $650.000$ penumpang per periode pelaporan.
+\end{enumerate}
 
 \section{Kesimpulan}
+
+\par Berdasarkan hasil eksperimen dan pembahasan mengenai penerapan algoritma \textit{clustering} berbasis \textit{unsupervised learning} pada dataset riil transaksi nasabah kartu kredit (\texttt{CC GENERAL.csv}) dan dataset lalu lintas penerbangan bandara (\path{Air_Traffic_Passenger_Statistics.csv}), dapat ditarik beberapa kesimpulan utama yang selaras dengan seluruh butir tujuan praktikum:
+\begin{enumerate}[label=\Alph*.]
+  \item Mahasiswa telah memahami prinsip \textit{unsupervised learning} sebagai paradigma yang mengekstraksi relasi laten data tanpa bantuan \textit{ground truth}. Algoritma secara mandiri memetakan topologi kepadatan serta kedekatan spasial dari ruang fitur masukan guna membentuk kelompok observasi yang homogen.
+  \item Mahasiswa telah berhasil menerapkan algoritma K-Means berbasis \textit{centroid} dan K-Medoids (\textit{Partitioning Around Medoids}) berbasis titik data riil (\textit{medoid}). Pemodelan ditopang oleh tahapan prapemrosesan komprehensif yang mencakup pembersihan kolom \path{CUST_ID}, imputasi median terhadap \textit{outliers}, transformasi \path{LabelEncoder}, dan penskalaan \path{StandardScaler} agar perhitungan jarak geometris tetap seimbang.
+  \item Mahasiswa mampu membandingkan kualitas hasil klasterisasi secara objektif dan matematis menggunakan metrik evaluasi \textit{Inertia} (\textit{Within-Cluster Sum of Squares}) melalui metode kurva \textit{Elbow} yang dideteksi otomatis oleh algoritma \texttt{KneeLocator}, serta metrik \textit{Silhouette Score}. Pada dataset kartu kredit, metode \textit{Elbow} secara presisi menetapkan $k=4$ sebagai titik kelengkungan \textit{elbow} optimal baik pada K-Means maupun K-Medoids, sedangkan koefisien siluet merekomendasikan partisi makro terisolasi pada $k=2$ ($s \approx 0{,}2095$). Pada dataset penerbangan, metode siku mendeteksi $k=5$ dan siluet menunjukkan kestabilan pemisahan tinggi pada $k \in [2, 4]$.
+  \item Mahasiswa memahami relevansi keterpaduan antara \textit{clustering} dan pola asosiasi (\textit{Association Rule Mining}). Segmentasi nasabah yang terbagi menjadi kelompok belanja tinggi, pengguna \textit{revolving credit}, serta pengguna pasif menyediakan basis data granular yang sangat berharga bagi institusi bisnis untuk menambang aturan asosiasi antar-layanan perbankan secara terarah.
+\end{enumerate}
 
 \par Link Google Colab: {\small\url{https://colab.research.google.com/drive/1AesviEZoogaervxL0fJalxFQvSUsWPUJ?usp=sharing}}
 

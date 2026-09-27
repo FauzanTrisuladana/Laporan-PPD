@@ -1,0 +1,5 @@
+plt.plot(range(1, 11), inertia_kmeans_task, marker='o', linewidth=2, markersize=8)
+plt.xlabel("Number of Clusters")
+plt.ylabel("Inertia Value")
+plt.title("K-Means Elbow Method for Air Traffic")
+plt.show()

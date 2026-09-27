@@ -1,0 +1,1 @@
+Optimal K (Elbow): 5
