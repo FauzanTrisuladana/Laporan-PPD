@@ -4,6 +4,10 @@
 \usepackage[utf8]{inputenc}     % untuk karakter UTF-8
 \usepackage[T1]{fontenc}        % encoding font
 \usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{array}
 \usepackage{titling}
 \usepackage{titlesec}
 \usepackage[backend=biber,style=ieee]{biblatex}
@@ -209,7 +213,10 @@ Pertemuan \Pertemuan\\
 
 \section{Tujuan Praktikum}
 \begin{enumerate}
-  \item Something
+  \item Mahasiswa memahami konsep dasar \textit{unsupervised learning} dan perannya dalam \textit{machine learning}.
+  \item Mahasiswa mampu menerapkan berbagai teknik \textit{clustering} seperti K-Means, K-Medoids, dan DBSCAN untuk mengelompokkan data berdasarkan karakteristik tertentu.
+  \item Mahasiswa mampu membandingkan kualitas hasil \textit{clustering} menggunakan metrik evaluasi seperti \textit{Inertia} dan \textit{Silhouette Score}.
+  \item Mahasiswa memahami konsep \textit{Association Rule} dan mampu menerapkannya untuk menemukan pola hubungan antar-item dalam dataset.
 \end{enumerate}
 
 \section{Dasar Teori}
@@ -238,22 +245,85 @@ Pertemuan \Pertemuan\\
 \par \textit{Data preprocessing} adalah tahapan persiapan awal dalam proses \textit{data mining} yang bertujuan untuk mentransformasikan data mentah menjadi format yang bersih, terstruktur, dan siap digunakan untuk pelatihan model \textit{machine learning} \cite{techtarget_preprocessing}. Data yang dikumpulkan dari dunia nyata umumnya bersifat mengandung \textit{missing values}, mengandung \textit{noise}, atau memiliki format yang inkonsisten \cite{trivusi_preprocessing}. Oleh karena itu, tahapan \textit{data preprocessing} ini mencakup berbagai teknik fundamental seperti \textit{data cleaning}, \textit{data transformation}, hingga \textit{dimensionality reduction} guna memastikan integritas dan keandalan data.
 
 \subsection{Unsupervised Learning}
+\par \textit{Unsupervised learning} merupakan salah satu paradigma utama dalam \textit{machine learning} di mana algoritma bertugas untuk menemukan pola, struktur inheren, dan relasi tersembunyi dari sekumpulan data tanpa adanya bantuan label target eksternal maupun bimbingan eksplisit (\textit{ground truth}) \cite{nurhalizah2024analisis}. Berbeda dengan \textit{supervised learning} yang berfokus pada pemetaan fungsi masukan terhadap keluaran berlabel, \textit{unsupervised learning} mengeksplorasi data secara otonom untuk merekonstruksi representasi data yang bermakna tanpa intervensi manusia \cite{wijoyo2024pembelajaran}.
+\par Fokus utama dari paradigma ini terletak pada tahapan eksplorasi data, pengelompokan (\textit{clustering}), reduksi dimensionalitas, serta penemuan aturan asosiasi (\textit{association rules}). Model yang beroperasi di bawah payung \textit{unsupervised learning}---seperti K-Means, \textit{Artificial Neural Network} (ANN) tipe \textit{Self-Organizing Maps}, dan \textit{Gaussian Mixture Model} (GMM)---menawarkan fleksibilitas analitis yang tinggi dalam mendeteksi pola laten yang sebelumnya tidak diketahui oleh praktisi data, meskipun evaluasi kinerjanya memiliki tantangan tersendiri karena ketiadaan label referensi objektif \cite{nurhalizah2024analisis, wijoyo2024pembelajaran}.
 
 \subsection{Clustering}
+\par \textit{Clustering} atau analisis klaster merupakan suatu metode fundamental dalam \textit{data mining} dan analisis statistik multivariat yang bertujuan untuk mempartisi sekumpulan objek atau observasi data ke dalam beberapa kelompok (\textit{clusters}) \cite{afidaha2023penerapan}. Prinsip fundamental dari teknik ini didasarkan pada maksimasi homogenitas internal dan maksimasi heterogenitas eksternal; artinya, objek yang berada di dalam klaster yang sama memiliki tingkat kemiripan karakteristik yang setinggi mungkin (\textit{high intra-cluster similarity}), sedangkan objek yang berada pada klaster yang berbeda memiliki perbedaan sifat yang sejauh mungkin (\textit{high inter-cluster dissimilarity}).
+\par Dalam praktiknya, perhitungan tingkat kemiripan atau ketidaksamaan antar-objek ditentukan berdasarkan fungsi metrik jarak, seperti jarak Euclidean (\textit{Euclidean distance}), Manhattan, maupun korelasi statistik lainnya. Saat ini, analisis \textit{cluster} telah banyak digunakan di berbagai bidang ilmu pengetahuan dan industri strategis, seperti segmentasi profil pelanggan (\textit{customer segmentation}), klasifikasi data migrasi dan demografi penduduk, psikologi, kesehatan, hingga deteksi anomali pada sistem informasi \cite{afidaha2023penerapan}.
 
 \subsection{K-Means}
+\par K-Means merupakan algoritma pemartisian non-hirarkis (\textit{non-hierarchical clustering}) yang berasal dari metode \textit{data clustering} dan paling luas diaplikasikan karena efisiensi komputasinya yang tinggi pada dataset berskala besar \cite{sulistiyawati2021implementasi}. Algoritma ini mempartisi $n$ titik observasi data ke dalam $k$ buah klaster yang telah ditentukan sebelumnya. Prinsip utama dari teknik ini adalah menyusun $k$ buah partisi dengan menentukan titik representatif dari setiap kelompok yang disebut sebagai \textit{centroid} atau pusat massa klaster, yang dihitung sebagai nilai rata-rata (\textit{mean}) dari seluruh titik data anggota klaster tersebut \cite{afidaha2023penerapan}.
+\par Prosedur kerja K-Means berlangsung secara iteratif melalui beberapa tahapan sistematis:
+\begin{enumerate}[label=\arabic*.]
+  \item Menginisialisasi $k$ buah titik \textit{centroid} awal, baik secara acak maupun menggunakan teknik heuristik seperti K-Means++.
+  \item Mengalokasikan setiap titik data ke \textit{centroid} terdekat berdasarkan kalkulasi metrik jarak kuadrat Euclidean terkecil.
+  \item Memperbarui posisi \textit{centroid} dengan menghitung kembali nilai rata-rata posisi seluruh titik data yang tergabung dalam masing-masing klaster.
+  \item Mengulangi langkah alokasi dan pembaruan posisi \textit{centroid} hingga tidak terjadi perubahan signifikan pada partisi klaster atau kriteria konvergensi tercapai.
+\end{enumerate}
+\par Adapun tujuan dari pengelompokan data ini adalah untuk meminimalkan fungsi objektif yang diset dalam proses pengelompokan, yang umumnya berusaha meminimalkan variasi di dalam suatu kelompok dan memaksimalkan variasi antar-kelompok \cite{sulistiyawati2021implementasi}. Formulasi fungsi objektif \textit{Within-Cluster Sum of Squares} (WCSS) dinyatakan pada Persamaan \eqref{eq:kmeans-wcss}:
+\begin{equation}
+  J = \sum_{j=1}^{k} \sum_{i=1}^{n_j} \|x_i^{(j)} - c_j\|^2
+  \label{eq:kmeans-wcss}
+\end{equation}
+di mana $k$ menyatakan jumlah klaster, $n_j$ adalah jumlah titik data pada klaster ke-$j$, $x_i^{(j)}$ adalah observasi data ke-$i$ dalam klaster ke-$j$, dan $c_j$ merupakan posisi vektor \textit{centroid} dari klaster ke-$j$ \cite{sulistiyawati2021implementasi}.
 
 \subsection{K-Medoids}
+\par K-Medoids merupakan algoritma pemartisian yang berperan untuk menemukan \textit{medoids} dalam suatu klaster yang menjadi titik pusat representatif klaster tersebut \cite{herviany2021perbandingan}. K-Medoids dirancang lebih kuat (\textit{robust}) daripada K-Means dalam menangani data yang mengandung derau (\textit{noise}) dan pencilan (\textit{outliers}). Pada K-Medoids, dipilih $k$ buah objek representatif aktual dari dalam dataset untuk meminimalkan hasil ketidaksamaan (\textit{dissimilarity}) objek data, berbeda dengan K-Means yang menggunakan hasil kuadrat jarak Euclidean rata-rata yang sering kali menghasilkan titik pusat artifisial \cite{herviany2021perbandingan}.
+\par Dalam metode ini, objek sebenarnya dipilih untuk merepresentasikan klaster daripada mengambil nilai rata-rata objek dalam klaster sebagai titik referensi. Secara komputasi, algoritma K-Medoids lebih intensif daripada K-Means karena harus menghitung dan mengevaluasi konfigurasi \textit{medoid} menggunakan frekuensi kejadian serta matriks jarak berulang, seperti pada algoritma PAM (\textit{Partitioning Around Medoids}) yang menguji berbagai variasi pemilihan awal \textit{medoid} \cite{herviany2021perbandingan}.
 
 \subsection{DBSCAN}
+\par \textit{Density-Based Spatial Clustering of Applications with Noise} (DBSCAN) adalah algoritma \textit{clustering} berbasis kepadatan (\textit{density-based}) yang mengelompokkan titik-titik data berdasarkan seberapa padat area di sekitarnya \cite{ester1996density}. Algoritma ini menggunakan dua parameter konfigurasi utama, yaitu \textit{epsilon} ($\epsilon$) sebagai radius pencarian lingkungan spasial dan \textit{minPts} sebagai jumlah minimum titik data agar sebuah titik dapat dianggap sebagai titik inti (\textit{core point}) \cite{han2011data}.
+\par Berdasarkan nilai $\epsilon$ dan \textit{minPts}, titik data dikategorikan menjadi \textit{core point}, \textit{border point}, dan \textit{noise point}. DBSCAN memiliki keunggulan utama dalam mendeteksi klaster dengan bentuk yang arbitrer atau tidak beraturan, serta mampu mengidentifikasi dan mengisolasi titik pencilan (\textit{noise/outlier}) tanpa memerlukan penentuan jumlah klaster $k$ di awal eksperimen \cite{ester1996density, han2011data}.
 
 \subsection{Association Rule}
+\par \textit{Association Rule Mining} merupakan teknik fundamental dalam \textit{data mining} untuk menemukan pola, keteraturan, atau hubungan keterkaitan antar-item di dalam dataset transaksi berskala besar \cite{agrawal1993mining}. Aturan asosiasi biasanya direpresentasikan dalam bentuk implikasi logis $A \Rightarrow B$, yang berarti bahwa kemunculan itemset $A$ cenderung diikuti oleh kemunculan itemset $B$ secara bersamaan dalam suatu transaksi. Metode ini umum digunakan dalam \textit{market basket analysis} untuk mengungkap pola perilaku konsumen dan strategi penempatan produk \cite{han2011data}.
+\par Penilaian kualitas dan signifikansi aturan asosiasi dilakukan menggunakan tiga metrik evaluasi utama:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{\textit{Support}:} Mengukur proporsi atau frekuensi kemunculan gabungan itemset $A$ dan $B$ terhadap keseluruhan total transaksi dalam dataset $D$, sebagaimana dinyatakan pada Persamaan \eqref{eq:support}:
+        \begin{equation}
+          \text{Support}(A \Rightarrow B) = P(A \cup B) = \frac{\text{frekuensi}(A \cup B)}{|D|}
+          \label{eq:support}
+        \end{equation}
+  \item \textbf{\textit{Confidence}:} Mengukur probabilitas bersyarat atau derajat kepastian seberapa sering itemset $B$ muncul dalam transaksi yang juga memuat itemset $A$, yang dirumuskan pada Persamaan \eqref{eq:confidence}:
+        \begin{equation}
+          \text{Confidence}(A \Rightarrow B) = P(B|A) = \frac{\text{Support}(A \cup B)}{\text{Support}(A)}
+          \label{eq:confidence}
+        \end{equation}
+  \item \textbf{\textit{Lift}:} Mengukur kekuatan hubungan asosiasi antar-item dengan membandingkan probabilitas kemunculan bersama terhadap probabilitas independen masing-masing item, sebagaimana dirumuskan pada Persamaan \eqref{eq:lift}:
+        \begin{equation}
+          \text{Lift}(A \Rightarrow B) = \frac{\text{Confidence}(A \Rightarrow B)}{\text{Support}(B)} = \frac{P(A \cup B)}{P(A) \cdot P(B)}
+          \label{eq:lift}
+        \end{equation}
+        Nilai $\text{Lift} > 1$ mengindikasikan adanya korelasi positif yang nyata antar-item dalam dataset transaksi \cite{agrawal1993mining, han2011data}.
+\end{enumerate}
 
 \subsection{Evaluation Metrics}
+\par Pengukuran kinerja model pada pembelajaran tanpa supervisi (\textit{unsupervised learning}) memerlukan pendekatan evaluasi khusus karena tidak adanya label target pembanding (\textit{ground truth}) \cite{tan2019introduction}. Oleh karena itu, pengujian hasil klasterisasi utamanya mengandalkan metrik evaluasi internal (\textit{internal evaluation metrics}) yang mengukur kualitas struktur kelompok berdasarkan kedekatan dan keterpisahan geometris titik data murni \cite{scikit_learn_clustering}.
+\par Dua aspek utama yang dievaluasi dalam metrik internal adalah kekompakan (\textit{compactness}) atau kohesi internal klaster, serta pemisahan (\textit{separation}) antar-klaster yang berbeda \cite{tan2019introduction}. Instrumen evaluasi standar yang umum digunakan untuk mengukur kedua dimensi tersebut secara komparatif adalah \textit{Inertia} dan \textit{Silhouette Score}.
 
 \subsection{Inertia}
+\par \textit{Inertia} adalah metrik evaluasi pada algoritma K-Means yang mengukur tingkat kekompakan (\textit{compactness}) dari sebuah klaster yang terbentuk \cite{bishop2006pattern}. Nilai \textit{inertia} dihitung sebagai jumlah kuadrat jarak seluruh titik data terhadap \textit{centroid} dari klasternya masing-masing (\textit{Within-Cluster Sum of Squares}). Formulasi matematis dari \textit{inertia} didefinisikan pada Persamaan \eqref{eq:inertia}:
+\begin{equation}
+  \text{Inertia} = \sum_{j=1}^{k} \sum_{x \in C_j} \|x - c_j\|^2
+  \label{eq:inertia}
+\end{equation}
+di mana $k$ menyatakan jumlah klaster, $C_j$ adalah himpunan titik data anggota klaster ke-$j$, $x$ adalah vektor data observasi, dan $c_j$ merupakan posisi \textit{centroid} klaster ke-$j$ \cite{bishop2006pattern, scikit_learn_clustering}.
+\par Nilai \textit{inertia} yang lebih rendah menunjukkan bahwa titik data mengelompok secara rapat di sekitar \textit{centroid}-nya, sehingga klaster yang terbentuk menjadi lebih kompak dan representatif. Metrik ini sangat sering digunakan dalam \textit{Elbow Method} untuk menentukan jumlah klaster $k$ yang optimal, meskipun metrik ini hanya relevan diaplikasikan untuk metode \textit{clustering} berbasis \textit{centroid} seperti K-Means \cite{scikit_learn_clustering}.
 
 \subsection{Silhouette Score}
+\par \textit{Silhouette Score} merupakan metode evaluasi yang mengukur seberapa baik suatu objek data ditempatkan pada klaster tertentu dengan mempertimbangkan kedekatan data tersebut terhadap anggota klasternya sendiri dibandingkan dengan jaraknya terhadap klaster terdekat lainnya \cite{rousseeuw1987silhouettes}. Metrik ini menggabungkan penilaian kohesi intra-klaster dan pemisahan inter-klaster ke dalam satu ukuran komparatif \cite{tan2019introduction}.
+\par Untuk setiap sampel observasi $i$, koefisien siluet $s(i)$ dihitung berdasarkan dua parameter jarak:
+\begin{enumerate}[label=\arabic*.]
+  \item $a(i)$, yaitu rata-rata jarak antara titik $i$ dengan seluruh titik lain dalam klaster yang sama (\textit{mean intra-cluster distance}).
+  \item $b(i)$, yaitu rata-rata jarak antara titik $i$ dengan seluruh titik pada klaster tetangga terdekat yang bukan merupakan klaster dari titik $i$ (\textit{mean nearest-cluster distance}).
+\end{enumerate}
+Formulasi matematis nilai siluet untuk setiap titik $i$ dinyatakan pada Persamaan \eqref{eq:silhouette-point}:
+\begin{equation}
+  s(i) = \frac{b(i) - a(i)}{\max(a(i), b(i))}
+  \label{eq:silhouette-point}
+\end{equation}
+\par Rata-rata dari nilai $s(i)$ untuk seluruh data menghasilkan nilai keseluruhan \textit{Silhouette Score} yang berada pada rentang $-1$ hingga $1$. Nilai yang mendekati $1$ menunjukkan pemisahan klaster yang sangat baik, nilai $0$ menandakan adanya tumpang tindih (\textit{overlap}) antar-klaster, dan nilai negatif mengindikasikan kemungkinan pengelompokan yang salah karena titik data lebih dekat ke klaster lain daripada ke klasternya sendiri \cite{rousseeuw1987silhouettes, tan2019introduction}. Metrik ini sangat sering digunakan untuk membandingkan performa beberapa algoritma \textit{clustering} yang berbeda dalam sebuah eksperimen penambangan data.
 
 %contoh gambar dan kode
 % \begin{figure}[H]
@@ -274,7 +344,7 @@ Pertemuan \Pertemuan\\
 
 \section{Kesimpulan}
 
-\par Link Google Colab: {\small\url{link-colab}}
+\par Link Google Colab: {\small\url{https://colab.research.google.com/drive/1AesviEZoogaervxL0fJalxFQvSUsWPUJ?usp=sharing}}
 
 \section{Daftar Pustaka}
 \printbibliography[heading=none]
