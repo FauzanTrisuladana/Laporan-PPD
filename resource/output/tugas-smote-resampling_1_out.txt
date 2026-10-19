@@ -1,0 +1,10 @@
+Sebelum SMOTE
+Occupancy
+0    11070
+1     3322
+Name: count, dtype: int64
+Setelah SMOTE
+Occupancy
+0    11070
+1    11070
+Name: count, dtype: int64

@@ -262,7 +262,7 @@ Pertemuan \Pertemuan\\
 di mana $z = \mathbf{w}^T \mathbf{x} + b$ merepresentasikan kombinasi linear antara vektor \textit{feature weights} ($\mathbf{w}$), vektor atribut ($\mathbf{x}$), dan \textit{intercept} atau \textit{bias} ($b$). Luaran probabilitas ini dikonversikan menjadi label kelas biner melalui penetapan nilai \textit{threshold}, umumnya bernilai 0,5 \cite{ibm_logistic_regression}. Meskipun memiliki formulasi matematis yang sederhana, Logistic Regression sangat efisien secara komputasi dan bekerja optimal pada dataset yang memiliki sebaran data bersifat \textit{linearly separable}.
 
 \subsubsection{K-Nearest Neighbors (KNN)}
-\par K-Nearest Neighbors (KNN) adalah algoritma \textit{classification} berbasis \textit{instance-based learning} yang bersifat non-parametrik dan tergolong sebagai \textit{lazy learner}, di mana model tidak membentuk fungsi pemisah eksplisit selama fase pelatihan melainkan menyimpan seluruh sampel data \cite{ibm_knn}. Ketika menerima data uji baru, KNN memprediksi kelas berdasarkan mekanisme \textit{majority voting} dari $k$ tetangga terdekat dalam \textit{feature space} \cite{scikit_classification}. Derajat kedekatan antar-titik data dihitung menggunakan metrik \textit{Euclidean distance} sebagaimana dirumuskan pada Persamaan \eqref{eq:euclidean}:
+\par K-Nearest Neighbors (KNN) adalah algoritma \textit{classification} berbasis \textit{instance-based learning} yang bersifat non-parametrik dan tergolong sebagai \textit{lazy learner}, di mana model tidak membentuk fungsi pemisah eksplisit selama fase pelatihan melainkan menyimpan seluruh sampel data \cite{ibm_knn}. Ketika menerima \textit{testing data} baru, KNN memprediksi kelas berdasarkan mekanisme \textit{majority voting} dari $k$ \textit{nearest neighbors} dalam \textit{feature space} \cite{scikit_classification}. Derajat kedekatan antar-titik data dihitung menggunakan metrik \textit{Euclidean distance} sebagaimana dirumuskan pada Persamaan \eqref{eq:euclidean}:
 \begin{equation}
   d(\mathbf{p}, \mathbf{q}) = \sqrt{\sum_{i=1}^{n} (p_i - q_i)^2}
   \label{eq:euclidean}
@@ -275,16 +275,16 @@ di mana $\mathbf{p}$ dan $\mathbf{q}$ merepresentasikan dua vektor data berdimen
   \text{Gini}(D) = 1 - \sum_{i=1}^{C} p_i^2
   \label{eq:gini}
 \end{equation}
-di mana $p_i$ menyatakan proporsi kelas $i$ pada himpunan sampel simpul $D$ dengan total $C$ kelas. Keunggulan utama Decision Tree terletak pada tingkat \textit{interpretability} yang tinggi karena alur inferensi dapat divisualisasikan secara intuitif \cite{dicoding_classification}. Kendati demikian, satu model Decision Tree rentan mengalami \textit{overfitting} terhadap variansi data latih jika tidak diterapkan teknik \textit{pruning} atau pembatasan parameter \textit{max depth}.
+di mana $p_i$ menyatakan proporsi kelas $i$ pada himpunan sampel simpul $D$ dengan total $C$ kelas. Keunggulan utama Decision Tree terletak pada tingkat \textit{interpretability} yang tinggi karena alur inferensi dapat divisualisasikan secara intuitif \cite{dicoding_classification}. Kendati demikian, satu model Decision Tree rentan mengalami \textit{overfitting} terhadap variansi \textit{training data} jika tidak diterapkan teknik \textit{pruning} atau pembatasan parameter \textit{max depth}.
 
 \subsubsection{Random Forest}
-\par Random Forest adalah algoritma \textit{ensemble learning} yang mengombinasikan prediksi dari sekumpulan Decision Tree independen guna meningkatkan stabilitas dan akurasi model \cite{ibm_random_forest}. Algoritma ini menerapkan teknik \textit{bagging} (\textit{Bootstrap Aggregating}), di mana setiap pohon dibangun menggunakan \textit{bootstrap sample} yang ditarik secara acak dari dataset pelatihan \cite{scikit_classification}. Selain itu, Random Forest melakukan seleksi acak pada subset atribut di setiap pemisahan simpul untuk menghasilkan kumpulan pohon yang tidak saling berkorelasi (\textit{decorrelated trees}) \cite{ibm_random_forest}. Keputusan prediksi akhir ditentukan melalui mekanisme \textit{majority voting} dari seluruh pohon anggota ansambel. Strategi ini secara efektif menekan varians, meminimalkan risiko \textit{overfitting}, serta memiliki ketahanan yang baik terhadap keberadaan \textit{outliers}.
+\par Random Forest adalah algoritma \textit{ensemble learning} yang mengombinasikan prediksi dari sekumpulan Decision Tree independen guna meningkatkan stabilitas dan \textit{accuracy} model \cite{ibm_random_forest}. Algoritma ini menerapkan teknik \textit{bagging} (\textit{Bootstrap Aggregating}), di mana setiap pohon dibangun menggunakan \textit{bootstrap sample} yang ditarik secara acak dari dataset pelatihan \cite{scikit_classification}. Selain itu, Random Forest melakukan seleksi acak pada subset atribut di setiap pemisahan simpul untuk menghasilkan kumpulan \textit{decorrelated trees} \cite{ibm_random_forest}. Keputusan prediksi akhir ditentukan melalui mekanisme \textit{majority voting} dari seluruh pohon anggota ansambel. Strategi ini secara efektif menekan varians, meminimalkan risiko \textit{overfitting}, serta memiliki ketahanan yang baik terhadap keberadaan \textit{outliers}.
 
 \subsubsection{AdaBoost (Adaptive Boosting)}
-\par Adaptive Boosting (AdaBoost) adalah algoritma \textit{ensemble learning} berbasis paradigma \textit{boosting} yang bekerja secara \textit{sequential} untuk mengonversikan sekumpulan \textit{weak learners} menjadi satu model prediksi yang tangguh (\textit{strong learner}) \cite{scikit_adaboost}. Model \textit{weak learner} yang paling umum digunakan pada AdaBoost adalah Decision Tree dengan satu tingkat pemisahan simpul yang dikenal sebagai \textit{decision stump} \cite{scikit_adaboost}. Karakteristik fundamental AdaBoost terletak pada mekanisme \textit{adaptive instance re-weighting}, di mana sampel data yang salah diklasifikasikan pada suatu iterasi akan diberikan bobot yang lebih besar pada iterasi berikutnya \cite{ibm_classification}. Hal ini mendorong model pada iterasi berikutnya untuk lebih memprioritaskan sampel yang sulit dipelajari. Pada tahap akhir, prediksi dari seluruh \textit{weak learners} digabungkan melalui metode \textit{weighted voting} berdasarkan tingkat akurasi masing-masing pembelajar.
+\par Adaptive Boosting (AdaBoost) adalah algoritma \textit{ensemble learning} berbasis paradigma \textit{boosting} yang bekerja secara \textit{sequential} untuk mengonversikan sekumpulan \textit{weak learners} menjadi satu model \textit{strong learner} \cite{scikit_adaboost}. Model \textit{weak learner} yang paling umum digunakan pada AdaBoost adalah Decision Tree dengan satu tingkat pemisahan simpul yang dikenal sebagai \textit{decision stump} \cite{scikit_adaboost}. Karakteristik fundamental AdaBoost terletak pada mekanisme \textit{adaptive instance re-weighting}, di mana sampel data yang salah diklasifikasikan pada suatu iterasi akan diberikan bobot yang lebih besar pada iterasi berikutnya \cite{ibm_classification}. Hal ini mendorong model pada iterasi berikutnya untuk lebih memprioritaskan sampel yang sulit dipelajari. Pada tahap akhir, prediksi dari seluruh \textit{weak learners} digabungkan melalui metode \textit{weighted voting} berdasarkan tingkat \textit{accuracy} masing-masing pembelajar.
 
 \subsection{Metrik Evaluasi Classification}
-\par Evaluasi performa model \textit{classification} merupakan langkah fundamental untuk mengukur tingkat keberhasilan dan keandalan sistem dalam mengenali pola data secara objektif \cite{scikit_metrics}. Evaluasi dilakukan secara kuantitatif dengan membandingkan label hasil prediksi model terhadap label nilai aktual yang sebenarnya (\textit{ground truth}) pada data uji \cite{dqlab_classification_metrics}. Informasi komparasi antara nilai prediksi dan nilai aktual tersebut disusun secara terstruktur ke dalam suatu matriks kontingensi yang disebut \textit{confusion matrix} \cite{trivusi_confusion_matrix, normawati2021implementasi}.
+\par Evaluasi performa model \textit{classification} merupakan langkah fundamental untuk mengukur tingkat keberhasilan dan keandalan sistem dalam mengenali pola data secara objektif \cite{scikit_metrics}. Evaluasi dilakukan secara kuantitatif dengan membandingkan label hasil prediksi model terhadap nilai \textit{ground truth} pada \textit{testing data} \cite{dqlab_classification_metrics}. Informasi komparasi antara nilai prediksi dan nilai aktual tersebut disusun secara terstruktur ke dalam suatu matriks kontingensi yang disebut \textit{confusion matrix} \cite{trivusi_confusion_matrix, normawati2021implementasi}.
 
 \subsubsection{Confusion Matrix}
 \par \textit{Confusion matrix} adalah tabel representasi visual dua dimensi yang memerinci kinerja model \textit{classification} dengan memetakan jumlah prediksi yang benar dan yang keliru ke dalam kategori kelas aktual versus kelas prediksi \cite{trivusi_confusion_matrix, fawcett2006introduction}. Pada skenario \textit{binary classification}, \textit{confusion matrix} membagi hasil prediksi ke dalam empat kuadran fundamental \cite{scikit_metrics}:
@@ -316,7 +316,7 @@ di mana $p_i$ menyatakan proporsi kelas $i$ pada himpunan sampel simpul $D$ deng
   \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
   \label{eq:accuracy}
 \end{equation}
-\par Meskipun \textit{accuracy} memberikan gambaran umum secara cepat, metrik ini memiliki keterbatasan serius saat diterapkan pada dataset yang tidak seimbang (\textit{imbalanced dataset}) \cite{dqlab_classification_metrics}. Pada kondisi ketidakseimbangan kelas yang ekstrem, model dapat menghasilkan nilai \textit{accuracy} yang sangat tinggi hanya dengan selalu memprediksi \textit{majority class}, suatu fenomena yang dikenal luas sebagai \textit{accuracy paradox} \cite{fawcett2006introduction, septiana2021analisis}.
+\par Meskipun \textit{accuracy} memberikan gambaran umum secara cepat, metrik ini memiliki keterbatasan serius saat diterapkan pada \textit{imbalanced dataset} \cite{dqlab_classification_metrics}. Pada kondisi \textit{class imbalance} yang ekstrem, model dapat menghasilkan nilai \textit{accuracy} yang sangat tinggi hanya dengan selalu memprediksi \textit{majority class}, suatu fenomena yang dikenal luas sebagai \textit{accuracy paradox} \cite{fawcett2006introduction, septiana2021analisis}.
 
 \subsubsection{Precision}
 \par \textit{Precision} mengukur rasio ketepatan model dalam menghasilkan prediksi positif, yaitu proporsi kasus yang benar-benar positif dibandingkan dengan seluruh sampel yang diprediksi sebagai kelas positif oleh model \cite{scikit_metrics}. Rumus matematis \textit{precision} didefinisikan pada Persamaan \eqref{eq:precision}:
@@ -324,7 +324,7 @@ di mana $p_i$ menyatakan proporsi kelas $i$ pada himpunan sampel simpul $D$ deng
   \text{Precision} = \frac{TP}{TP + FP}
   \label{eq:precision}
 \end{equation}
-\par Metrik \textit{precision} menjadi fokus evaluasi utama pada skenario di mana biaya atau akibat dari terjadinya \textit{False Positive} sangat tinggi \cite{dqlab_classification_metrics}. Sebagai contoh konkret, pada sistem deteksi surel spam, model dituntut memiliki tingkat presisi tinggi guna memastikan surel penting yang sah tidak keliru diklasifikasikan ke dalam folder spam.
+\par Metrik \textit{precision} menjadi fokus evaluasi utama pada skenario di mana biaya atau dampak dari terjadinya \textit{False Positive} sangat tinggi \cite{dqlab_classification_metrics}. Sebagai contoh konkret, pada sistem deteksi surel spam, model dituntut memiliki tingkat \textit{precision} tinggi guna memastikan surel penting yang sah tidak keliru diklasifikasikan ke dalam folder spam.
 
 \subsubsection{Recall}
 \par \textit{Recall} (atau dikenal pula sebagai \textit{Sensitivity} maupun \textit{True Positive Rate}) mengukur kemampuan model dalam menjaring dan menemukan seluruh sampel yang sesungguhnya bernilai positif dari data aktual \cite{scikit_metrics}. Perhitungan \textit{recall} dirumuskan pada Persamaan \eqref{eq:recall}:
@@ -335,12 +335,12 @@ di mana $p_i$ menyatakan proporsi kelas $i$ pada himpunan sampel simpul $D$ deng
 \par Metrik \textit{recall} sangat diutamakan dalam domain klasifikasi yang memiliki toleransi rendah terhadap timbulnya \textit{False Negative} \cite{dqlab_classification_metrics}. Sebagai contoh, pada diagnosis klinis penyakit kritis seperti kanker, sistem klasifikasi dituntut memiliki nilai \textit{recall} yang setinggi mungkin agar tidak ada pasien terinfeksi yang luput dari penanganan medis akibat salah terprediksi sebagai pasien sehat.
 
 \subsubsection{F1-Score}
-\par Dalam penerapannya, sering kali timbul kondisi saling mengorbankan (\textit{trade-off}) antara nilai \textit{precision} dan \textit{recall}, di mana peningkatan salah satu metrik cenderung menurunkan nilai metrik lainnya \cite{scikit_metrics}. Untuk mengatasi hal tersebut, \textit{F1-score} diperkenalkan sebagai rata-rata harmonik (\textit{harmonic mean}) antara \textit{precision} dan \textit{recall}, sehingga menyajikan penilaian performa komprehensif yang seimbang \cite{dqlab_classification_metrics, normawati2021implementasi}. Formulasi matematis \textit{F1-score} dirumuskan pada Persamaan \eqref{eq:f1score}:
+\par Dalam penerapannya, sering kali timbul kondisi \textit{trade-off} antara nilai \textit{precision} dan \textit{recall}, di mana peningkatan salah satu metrik cenderung menurunkan nilai metrik lainnya \cite{scikit_metrics}. Untuk mengatasi hal tersebut, \textit{F1-score} diperkenalkan sebagai \textit{harmonic mean} antara \textit{precision} dan \textit{recall}, sehingga menyajikan penilaian performa komprehensif yang seimbang \cite{dqlab_classification_metrics, normawati2021implementasi}. Formulasi matematis \textit{F1-score} dirumuskan pada Persamaan \eqref{eq:f1score}:
 \begin{equation}
   \text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}
   \label{eq:f1score}
 \end{equation}
-\par Metrik \textit{F1-score} sangat krusial ketika mengevaluasi performa algoritma pada \textit{imbalanced dataset}, karena model dituntut untuk mempertahankan presisi yang andal sekaligus meminimalkan kejadian positif yang terlewatkan secara simultan tanpa terdistorsi oleh dominasi \textit{majority class} \cite{scikit_metrics, fawcett2006introduction}.
+\par Metrik \textit{F1-score} sangat krusial ketika mengevaluasi performa algoritma pada \textit{imbalanced dataset}, karena model dituntut untuk mempertahankan \textit{precision} yang andal sekaligus meminimalkan kejadian \textit{false negative} secara simultan tanpa terdistorsi oleh dominasi \textit{majority class} \cite{scikit_metrics, fawcett2006introduction}.
 
 \subsection{Imbalanced Dataset}
 \par \textit{Imbalanced dataset} merupakan kondisi ketika distribusi frekuensi sampel antar-kelas target pada suatu dataset berada dalam proporsi yang tidak seimbang secara signifikan \cite{he2009learning}. Dalam skenario \textit{binary classification}, kelas dengan jumlah sampel yang mendominasi disebut sebagai \textit{majority class}, sedangkan kelas dengan jumlah observasi yang sangat sedikit disebut sebagai \textit{minority class} \cite{istiana2023perbandingan}. Rasio ketimpangan distribusi data dinyatakan melalui \textit{Imbalance Ratio} ($IR$) sebagaimana dirumuskan pada Persamaan \eqref{eq:imbalance-ratio}:
@@ -356,11 +356,11 @@ di mana $N_{\text{majority}}$ menyatakan kuantitas sampel pada \textit{majority 
 \par Seiring dengan meningkatnya jumlah atribut atau variabel masukan, dimensi ruang data membengkak secara eksponensial yang memicu timbulnya permasalahan \textit{curse of dimensionality} \cite{septiana2021analisis}. Atribut yang redundan, berkorelasi tinggi, atau mengandung \textit{noise} cenderung menurunkan performa generalisasi model, memperpanjang durasi komputasi pelatihan, serta meningkatkan risiko terjadinya \textit{overfitting} \cite{pratama2023komparasi, guyon2003introduction}. Melalui reduksi ke subset yang lebih kompak, model tidak hanya mencapai efisiensi komputasi yang lebih optimal, namun juga menghasilkan \textit{model interpretability} yang jauh lebih transparan \cite{septiana2021analisis}. Secara umum, metodologi \textit{feature selection} terbagi ke dalam tiga taksonomi utama: \textit{filter method}, \textit{wrapper method}, dan \textit{embedded method} \cite{saeys2007review}.
 
 \subsection{Filter Method}
-\par \textit{Filter method} merupakan pendekatan \textit{feature selection} yang mengevaluasi tingkat relevansi setiap atribut masukan secara independen berdasarkan karakteristik intrinsik statistik data terhadap variabel target, tanpa melibatkan algoritma pemodelan prediktif apa pun dalam proses seleksinya \cite{guyon2003introduction, saeys2007review}. Pada metode ini, setiap atribut diberikan peringkat (\textit{feature ranking}) menggunakan pengujian statistik, kemudian atribut dengan nilai pengujian di atas ambang batas \textit{threshold} tertentu atau sejumlah $k$ \textit{features} teratas akan dipertahankan untuk pemodelan berikutnya \cite{saeys2007review}.
+\par \textit{Filter method} merupakan pendekatan \textit{feature selection} yang mengevaluasi tingkat relevansi setiap atribut masukan secara independen berdasarkan karakteristik intrinsik statistik data terhadap variabel target, tanpa melibatkan algoritma pemodelan prediktif apa pun dalam proses seleksinya \cite{guyon2003introduction, saeys2007review}. Pada metode ini, setiap atribut diberikan \textit{feature ranking} menggunakan pengujian statistik, kemudian atribut dengan nilai pengujian di atas ambang batas \textit{threshold} tertentu atau sejumlah $k$ \textit{features} teratas akan dipertahankan untuk pemodelan berikutnya \cite{saeys2007review}.
 \par Pemilihan metrik pengujian statistik pada \textit{filter method} disesuaikan dengan tipe data atribut dan target yang dianalisis:
 \begin{enumerate}[label=\arabic*.]
   \item \textbf{Pearson Correlation:} Digunakan untuk mengukur derajat korelasi linear antara atribut numerik kontinu dengan variabel target numerik atau kontinu biner.
-  \item \textbf{ANOVA (Analysis of Variance) F-test:} Digunakan pada atribut numerik kontinu berlabel target kategorikal untuk menguji signifikansi perbedaan nilai rata-rata (\textit{mean}) antar-kelompok kelas berdasarkan statistik rasio varians, sebagaimana dirumuskan pada Persamaan \eqref{eq:anova-f}:
+  \item \textbf{ANOVA (Analysis of Variance) F-test:} Digunakan pada atribut numerik kontinu berlabel target kategorikal untuk menguji signifikansi perbedaan nilai \textit{mean} antar-kelompok kelas berdasarkan statistik rasio varians, sebagaimana dirumuskan pada Persamaan \eqref{eq:anova-f}:
         \begin{equation}
           F = \frac{\text{MS}_{\text{between}}}{\text{MS}_{\text{within}}}
           \label{eq:anova-f}
@@ -372,14 +372,14 @@ di mana $N_{\text{majority}}$ menyatakan kuantitas sampel pada \textit{majority 
 \par Keunggulan fundamental dari \textit{filter method} terletak pada efisiensi komputasinya yang sangat tinggi serta bersifat \textit{computationally scalable} dan agnostik terhadap algoritma pembelajaran, sehingga sangat ideal dijadikan tahap \textit{pre-filtering} pada dataset berskala masif \cite{saeys2007review}. Kendati demikian, kelemahan utama metode ini adalah pengabaian \textit{feature dependencies}, sehingga atribut yang berpotensi redundan satu sama lain tetap dapat terpilih secara bersamaan \cite{guyon2003introduction, saeys2007review}.
 
 \subsection{Wrapper Method}
-\par \textit{Wrapper method} merupakan pendekatan \textit{feature selection} yang memanfaatkan algoritma \textit{machine learning} prediktif secara langsung sebagai evaluator eksternal (\textit{black-box wrapper}) untuk mengukur efektivitas dan kegunaan dari setiap kandidat subset \textit{features} yang diuji \cite{kohavi1997wrappers}. Berbeda dengan \textit{filter method} yang beroperasi murni pada analisis statistik, \textit{wrapper method} memperlakukan proses pemilihan subset atribut sebagai permasalahan \textit{state space search} yang memandu model menuju subset yang menghasilkan metrik performa (seperti \textit{accuracy} atau \textit{F1-score}) tertinggi \cite{kohavi1997wrappers, pratama2023komparasi}.
+\par \textit{Wrapper method} merupakan pendekatan \textit{feature selection} yang memanfaatkan algoritma \textit{machine learning} prediktif secara langsung sebagai \textit{black-box wrapper} untuk mengukur efektivitas dan kegunaan dari setiap kandidat subset \textit{features} yang diuji \cite{kohavi1997wrappers}. Berbeda dengan \textit{filter method} yang beroperasi murni pada analisis statistik, \textit{wrapper method} memperlakukan proses pemilihan subset atribut sebagai permasalahan \textit{state space search} yang memandu model menuju subset yang menghasilkan metrik performa (seperti \textit{accuracy} atau \textit{F1-score}) tertinggi \cite{kohavi1997wrappers, pratama2023komparasi}.
 \par Terdapat tiga strategi pencarian heuristik yang paling luas digunakan dalam \textit{wrapper method}:
 \begin{enumerate}[label=\arabic*.]
   \item \textbf{\textit{Forward Selection}:} Dimulai dari himpunan fitur kosong, kemudian pada setiap iterasi ditambahkan satu atribut baru yang memberikan peningkatan performa terbesar bagi model, hingga penambahan atribut selanjutnya tidak lagi meningkatkan performa secara signifikan \cite{pratama2023komparasi}.
   \item \textbf{\textit{Backward Elimination}:} Dimulai dari himpunan yang memuat seluruh atribut secara lengkap, kemudian satu per satu atribut yang memberikan kontribusi performa paling rendah dieleminasi secara iteratif hingga performa optimal tercapai.
   \item \textbf{\textit{Recursive Feature Elimination} (RFE):} Algoritma pembelajaran dilatih secara berulang pada seluruh atribut yang tersisa, kemudian atribut dengan nilai bobot atau \textit{coefficients} terendah dipangkas secara rekursif hingga tercapai jumlah subset atribut target yang ditentukan sebelumnya \cite{guyon2003introduction}.
 \end{enumerate}
-\par Keunggulan utama \textit{wrapper method} terletak pada kemampuannya mengevaluasi interaksi non-linear antar-atribut secara simultan melalui model pembelajaran langsung, sehingga menghasilkan performa prediksi yang lebih optimal dibandingkan \textit{filter method} \cite{kohavi1997wrappers, pratama2023komparasi}. Kendati demikian, kelemahan pendekatan ini adalah tingginya beban komputasi dan waktu eksekusi (\textit{computationally expensive}) akibat pelatihan serta pengujian validasi model secara berulang pada setiap kombinasi subset atribut \cite{kohavi1997wrappers}.
+\par Keunggulan utama \textit{wrapper method} terletak pada kemampuannya mengevaluasi interaksi non-linear antar-atribut secara simultan melalui model pembelajaran langsung, sehingga menghasilkan performa prediksi yang lebih optimal dibandingkan \textit{filter method} \cite{kohavi1997wrappers, pratama2023komparasi}. Kendati demikian, kelemahan pendekatan ini adalah sifatnya yang \textit{computationally expensive} akibat pelatihan serta pengujian validasi model secara berulang pada setiap kombinasi subset atribut \cite{kohavi1997wrappers}.
 
 \subsection{Embedded Method}
 \par \textit{Embedded method} merupakan pendekatan \textit{feature selection} yang terintegrasi secara \textit{built-in} di dalam proses pelatihan dan optimasi parameter internal dari algoritma pembelajaran itu sendiri \cite{guyon2003introduction, saeys2007review}. Pendekatan ini menggabungkan dua keunggulan utama dari paradigma sebelumnya, yaitu efisiensi komputasi yang tinggi layaknya \textit{filter method} serta kemampuan mempertimbangkan interaksi \textit{features} secara adaptif layaknya \textit{wrapper method} \cite{saeys2007review}.
@@ -391,9 +391,9 @@ di mana $N_{\text{majority}}$ menyatakan kuantitas sampel pada \textit{majority 
           \label{eq:lasso-regularization}
         \end{equation}
         di mana parameter hiper regularisasi $\lambda \ge 0$ mengontrol besaran penalti \cite{tibshirani1996regression}. Karakteristik geometris dari penalti $L_1$ memiliki sifat unik yang mampu melakukan \textit{shrinkage} pada \textit{coefficients} dari atribut yang tidak informatif menjadi tepat bernilai nol ($\beta_j = 0$), sehingga proses estimasi parameter sekaligus menghasilkan \textit{feature selection} secara otomatis \cite{tibshirani1996regression}.
-  \item \textbf{\textit{Tree-Based Feature Importance}:} Model \textit{ensemble} berbasis pohon keputusan seperti Random Forest dan Gradient Boosting mengevaluasi \textit{feature importance} secara langsung selama proses konstruksi pemisahan cabang pohon keputusan \cite{guyon2003introduction}. Nilai kepentingan setiap atribut dihitung berdasarkan akumulasi reduksi ketidakmurnian node (\textit{Mean Decrease in Impurity} / MDI) menggunakan metrik \textit{Gini Impurity} atau entropi pada seluruh pohon dalam ansambel \cite{guyon2003introduction}.
+  \item \textbf{\textit{Tree-Based Feature Importance}:} Model \textit{ensemble} berbasis \textit{decision tree} seperti Random Forest dan Gradient Boosting mengevaluasi \textit{feature importance} secara langsung selama proses konstruksi pemisahan cabang \textit{decision tree} \cite{guyon2003introduction}. Nilai kepentingan setiap atribut dihitung berdasarkan akumulasi reduksi \textit{Mean Decrease in Impurity} (MDI) menggunakan metrik \textit{Gini Impurity} atau entropi pada seluruh pohon dalam ansambel \cite{guyon2003introduction}.
 \end{enumerate}
-\par Dengan meniadakan kebutuhan pelatihan model berulang kali secara terpisah dari proses \textit{feature selection}, \textit{embedded method} menawarkan kompromi terbaik antara ketelitian akurasi seleksi dan efisiensi waktu komputasi \cite{tibshirani1996regression, saeys2007review}.
+\par Dengan meniadakan kebutuhan pelatihan model berulang kali secara terpisah dari proses \textit{feature selection}, \textit{embedded method} menawarkan kompromi terbaik antara ketelitian \textit{accuracy} seleksi dan efisiensi waktu komputasi \cite{tibshirani1996regression, saeys2007review}.
 
 \subsection{SMOTE (Synthetic Minority Over-sampling Technique)}
 \par SMOTE (\textit{Synthetic Minority Over-sampling Technique}) adalah salah satu algoritma \textit{data-level oversampling} yang paling populer dalam penanganan \textit{class imbalance} pada pemodelan \textit{machine learning} \cite{chawla2002smote, wijayanti2021smote}. Algoritma konvensional \textit{random oversampling} menyelesaikan ketimpangan dengan cara menduplikasi sampel \textit{minority class} secara eksak, yang sering kali menyebabkan model mengalami \textit{overfitting} karena \textit{decision boundary} menjadi terlalu sempit dan kaku di sekitar titik data replikasi \cite{chawla2002smote, istiana2023perbandingan}. Untuk mengatasi keterbatasan tersebut, SMOTE membangkitkan \textit{synthetic samples} baru yang realistis di dalam \textit{feature space} melalui interpolasi antar-sampel \textit{minority class} yang berdekatan \cite{chawla2002smote, wijayanti2021smote}.
@@ -408,7 +408,7 @@ di mana $N_{\text{majority}}$ menyatakan kuantitas sampel pada \textit{majority 
         \end{equation}
         di mana $\lambda \sim U(0, 1)$ merupakan bilangan acak yang dibangkitkan dari distribusi seragam pada rentang interval $[0, 1]$ \cite{chawla2002smote, wijayanti2021smote}.
 \end{enumerate}
-\par Melalui interpolasi garis linier tersebut, SMOTE berhasil memperluas \textit{decision region} dari \textit{minority class} secara kontinu ke arah kelompok data minoritas lainnya tanpa menghasilkan duplikasi identik \cite{chawla2002smote, istiana2023perbandingan}. Namun, kelemahan SMOTE muncul apabila titik sampel yang terpilih merupakan \textit{noise} atau berada terlalu dekat dengan perbatasan \textit{majority class}, karena interpolasi linier dapat membangkitkan \textit{synthetic samples} yang tumpang tindih (\textit{class overlap}) dengan sebaran \textit{majority class} \cite{wijayanti2021smote}.
+\par Melalui interpolasi garis linier tersebut, SMOTE berhasil memperluas \textit{decision region} dari \textit{minority class} secara kontinu ke arah kelompok data minoritas lainnya tanpa menghasilkan duplikasi identik \cite{chawla2002smote, istiana2023perbandingan}. Namun, kelemahan SMOTE muncul apabila titik sampel yang terpilih merupakan \textit{noise} atau berada terlalu dekat dengan perbatasan \textit{majority class}, karena interpolasi linier dapat membangkitkan \textit{synthetic samples} yang berada pada area \textit{class overlap} dengan sebaran \textit{majority class} \cite{wijayanti2021smote}.
 
 \subsection{ADASYN (Adaptive Synthetic)}
 \par ADASYN (\textit{Adaptive Synthetic Sampling Approach}) merupakan algoritma \textit{oversampling} adaptif yang dikembangkan oleh He et al. sebagai evolusi lanjutan dari SMOTE untuk mengatasi permasalahan persebaran data yang tidak homogen pada \textit{minority class} \cite{he2008adasyn, ramadhanti2022perbandingan}. Pada algoritma SMOTE standar, seluruh sampel \textit{minority class} diberikan prioritas yang sama untuk disintesiskan data baru tanpa mempertimbangkan struktur spasial di sekeliling titik tersebut \cite{he2008adasyn}. Sebaliknya, ADASYN menggunakan pendekatan berbasis bobot distribusi adaptif yang memprioritaskan pembangkitan \textit{synthetic data} lebih banyak pada sampel \textit{minority class} yang memiliki tingkat \textit{learning difficulty} lebih tinggi \cite{he2008adasyn, ramadhanti2022perbandingan}.
@@ -437,7 +437,7 @@ di mana $N_{\text{majority}}$ menyatakan kuantitas sampel pada \textit{majority 
           g_i = \hat{r}_i \times G
           \label{eq:adasyn-gi}
         \end{equation}
-        Untuk setiap sampel $x_i$, sebanyak $g_i$ data sintetis baru dibangkitkan menggunakan proses interpolasi linear sebagaimana yang diterapkan pada metode SMOTE \cite{he2008adasyn, ramadhanti2022perbandingan}.
+        Untuk setiap sampel $x_i$, sebanyak $g_i$ \textit{synthetic samples} baru dibangkitkan menggunakan proses interpolasi linear sebagaimana yang diterapkan pada metode SMOTE \cite{he2008adasyn, ramadhanti2022perbandingan}.
 \end{enumerate}
 \par Melalui mekanisme adaptif tersebut, sampel \textit{minority class} yang berada di \textit{decision boundary} dan terancam terdominasi oleh \textit{majority class} akan mendapatkan alokasi \textit{synthetic samples} yang lebih besar, sedangkan sampel \textit{minority class} yang berada di wilayah yang sudah padat dan mudah dipelajari mendapatkan alokasi yang lebih sedikit \cite{ramadhanti2022perbandingan}. Dengan demikian, ADASYN secara proaktif memaksa algoritma pembelajaran untuk lebih fokus mengenali pola pada ruang data yang paling rentan terhadap kesalahan klasifikasi \cite{he2008adasyn, ramadhanti2022perbandingan}.
 
@@ -458,11 +458,359 @@ di mana $N_{\text{majority}}$ menyatakan kuantitas sampel pada \textit{majority 
 
 \section{Hasil dan Pembahasan}
 
-\par Sesuai dengan tujuan praktikum, berikut adalah hasil yang diperoleh dan pembahasan terkait materi yang telah dipelajari.
+\par Pada bab ini disajikan hasil pelaksanaan praktikum penambangan data modul ketujuh mengenai penanganan \textit{imbalanced dataset} menggunakan berbagai teknik \textit{resampling}. Eksperimen diuraikan secara komprehensif, diawali dengan persiapan lingkungan komputasi dan analisis awal dataset klinis risiko stroke (\path{healthcare-dataset-stroke-data.csv}), deteksi dan imputasi \textit{missing values} berbasis \textit{mean}, transformasi variabel kategorikal dengan \textit{LabelEncoder}, pembagian \textit{training data} dan \textit{testing data}, penerapan metode \textit{Random Under-sampling}, teknik \textit{Random Over-sampling}, serta metode pembangkitan \textit{synthetic samples} meliputi SMOTE dan ADASYN. Selain itu, bab ini menyajikan penyelesaian tugas praktikum yang mencakup deskripsi komprehensif seluruh fitur pada dataset stroke (Tugas 1) serta implementasi perbandingan performa algoritma klasifikasi \textit{Random Forest} sebelum dan sesudah penerapan SMOTE pada dataset deteksi okupansi ruangan (\path{ocupancy_dataset.csv}) (Tugas 2).
+
+\subsection{Persiapan Lingkungan dan Eksplorasi Data Stroke}
+
+\subsubsection{Impor Pustaka dan Dependensi Resampling}
+\lstinputlisting[language=Python, caption={Impor Pustaka Sains Data, Visualisasi, dan Imbalanced-Learn}, label={lst:kode-impor-pustaka-1}]{resource/code/impor-pustaka_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Impor Pustaka dan Dependensi Resampling}, label={lst:out-impor-pustaka-1}]{resource/output/impor-pustaka_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-impor-pustaka-1}, sesi praktikum diawali dengan memuat pustaka analisis data numerik dan visualisasi, yaitu \texttt{pandas}, \texttt{numpy}, \texttt{matplotlib}, serta \texttt{seaborn}. Selain itu, diimpor modul \textit{resampling} dari pustaka \texttt{imblearn} seperti \texttt{RandomUnderSampler}, \texttt{RandomOverSampler}, \texttt{SMOTE}, dan \texttt{ADASYN}. Untuk mendukung pembagian dataset dan \textit{feature engineering}, dipersiapkan pula fungsi \texttt{train\_test\_split} serta kelas \texttt{LabelEncoder}. Seluruh proses pemuatan pustaka berhasil dieksekusi tanpa galat sebagaimana dikonfirmasi pada Output \ref{lst:out-impor-pustaka-1}.
+
+\subsubsection{Pemuatan Dataset Stroke Prediction}
+\lstinputlisting[language=Python, caption={Pemuatan Dataset Healthcare Stroke Data}, label={lst:kode-load-dataset-1}]{resource/code/load-dataset_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Pemuatan Dataset Healthcare Stroke Data}, label={lst:out-load-dataset-1}]{resource/output/load-dataset_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-load-dataset-1}, berkas \path{healthcare-dataset-stroke-data.csv} dimuat ke dalam memori lingkungan menggunakan fungsi \texttt{pd.read\_csv} langsung dari repositori daring. Eksekusi fungsi \texttt{df.head()} pada Output \ref{lst:out-load-dataset-1} menyajikan lima baris observasi awal yang merepresentasikan beragam indikator kesehatan pasien, seperti usia (\path{age}), hipertensi (\path{hypertension}), riwayat penyakit jantung (\path{heart_disease}), kadar glukosa rata-rata (\path{avg_glucose_level}), serta indeks massa tubuh (\path{bmi}) terhadap variabel keluaran klinis (\path{stroke}).
+
+\subsubsection{Deteksi Missing Values}
+\lstinputlisting[language=Python, caption={Pemeriksaan Missing Values pada Setiap Atribut}, label={lst:kode-cek-missing-values-1}]{resource/code/cek-missing-values_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemeriksaan Missing Values pada Setiap Atribut}, label={lst:out-cek-missing-values-1}]{resource/output/cek-missing-values_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-missing-values-1}, fungsi \texttt{df.isnull().sum()} dipanggil untuk mendeteksi keberadaan nilai kosong pada dataset. Sebagaimana tertera pada Output \ref{lst:out-cek-missing-values-1}, atribut \path{bmi} teridentifikasi memiliki sebanyak 201 \textit{missing values}, sedangkan seluruh atribut klinis dan demografis lainnya terisi lengkap tanpa kekosongan data.
+
+\subsubsection{Visualisasi Pie Chart Distribusi Target Stroke}
+\lstinputlisting[language=Python, caption={Perhitungan dan Visualisasi Proporsi Distribusi Kelas Target}, label={lst:kode-distribusi-target-1}]{resource/code/distribusi-target_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Perhitungan dan Visualisasi Proporsi Distribusi Kelas Target}, label={lst:out-distribusi-target-1}]{resource/output/distribusi-target_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-distribusi-target-1}, distribusi frekuensi kelas pada kolom \path{stroke} dihitung dan divisualisasikan dalam bentuk \textit{pie chart}. Hasil komputasi kode dialihkan langsung ke peraga kanvas grafik sebagaimana dikonfirmasi pada Output \ref{lst:out-distribusi-target-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/1-pie-chart-distribusi-stroke.png}
+  \caption{Visualisasi Pie Chart Distribusi Kelas Target Stroke}
+  \label{fig:pie-distribusi-stroke-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:pie-distribusi-stroke-1}, terlihat disparitas proporsi kelas yang sangat ekstrim di mana \textit{majority class} (pasien tidak mengalami stroke atau nilai 0) mendominasi sebesar $95{,}13\%$, sedangkan \textit{minority class} (pasien positif terkena stroke atau nilai 1) hanya mencakup $4{,}87\%$ dari keseluruhan populasi dataset. Kondisi \textit{class imbalance} yang sangat curam ini mempertegas urgensi penerapan teknik \textit{resampling} agar algoritma klasifikasi tidak bias memprediksi seluruh sampel ke \textit{majority class}.
+
+\subsubsection{Imputasi Missing Values Berbasis Mean}
+\lstinputlisting[language=Python, caption={Imputasi Missing Values Atribut BMI Berbasis Mean}, label={lst:kode-imputasi-missing-values-1}]{resource/code/imputasi-missing-values_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Imputasi Missing Values Atribut BMI}, label={lst:out-imputasi-missing-values-1}]{resource/output/imputasi-missing-values_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-imputasi-missing-values-1}, penanganan terhadap 201 \textit{missing values} pada kolom \path{bmi} dilakukan menggunakan metode \textit{mean imputation} melalui fungsi \texttt{fillna()} berbasis nilai \textit{mean} atribut. Operasi penanganan ini memodifikasi data secara langsung di tempat sehingga konsistensi komputasi numerik terjaga tanpa memicu galat pada Output \ref{lst:out-imputasi-missing-values-1}.
+
+\subsubsection{Verifikasi Integritas Data Pasca-Imputasi}
+\lstinputlisting[language=Python, caption={Verifikasi Ulang Kondisi Missing Values Pasca Imputasi}, label={lst:kode-verifikasi-missing-values-1}]{resource/code/verifikasi-missing-values_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Verifikasi Ulang Kondisi Missing Values Pasca Imputasi}, label={lst:out-verifikasi-missing-values-1}]{resource/output/verifikasi-missing-values_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-verifikasi-missing-values-1}, pengecekan kedua dijalankan guna memastikan bahwa seluruh elemen baris telah terisi data secara valid. Sebagaimana diperlihatkan pada Output \ref{lst:out-verifikasi-missing-values-1}, jumlah \textit{missing values} untuk atribut \path{bmi} telah berhasil ditekan menjadi 0, menandakan bahwa dataset kini berada dalam status bersih dan siap untuk diproses pada tahapan pemodelan.
+
+\subsection{Eksperimen Resampling pada Imbalanced Dataset}
+
+\subsubsection{Random Under-sampling}
+\lstinputlisting[language=Python, caption={Penerapan Teknik Random Under-sampling pada Training Data}, label={lst:kode-random-undersampling-1}]{resource/code/random-undersampling_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Penerapan Teknik Random Under-sampling}, label={lst:out-random-undersampling-1}]{resource/output/random-undersampling_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-random-undersampling-1}, fitur prediktor diekstraksi ke dalam variabel \texttt{df\_X} dengan mengecualikan kolom pengenal (\path{id}) dan label target (\path{stroke}). Atribut kategorikal dikonversi ke representasi numerik menggunakan \texttt{LabelEncoder}. Data selanjutnya dipartisi dengan proporsi $75\%$ \textit{training data} dan $25\%$ \textit{testing data}. Metode \texttt{RandomUnderSampler} diaplikasikan khusus pada \textit{training data} guna mencegah \textit{data leakage}. Berdasarkan Output \ref{lst:out-random-undersampling-1}, jumlah observasi \textit{majority class} yang semula berjumlah $3.663$ sampel dipangkas secara acak hingga setara dengan jumlah \textit{minority class}, yaitu sebanyak 169 sampel, menghasilkan sebaran data yang seimbang $1:1$.
+
+\subsubsection{Visualisasi Distribusi Fitur BMI Pasca Random Under-sampling}
+\lstinputlisting[language=Python, caption={Histogram Komparasi Fitur BMI Pasca Random Under-sampling}, label={lst:kode-visualisasi-histogram-undersampling-1}]{resource/code/visualisasi-histogram-undersampling_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Visualisasi Histogram Fitur BMI Pasca Random Under-sampling}, label={lst:out-visualisasi-histogram-undersampling-1}]{resource/output/visualisasi-histogram-undersampling_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-histogram-undersampling-1}, sebaran fitur \path{bmi} dikonstruksi secara berdampingan sebelum dan sesudah \textit{under-sampling} menggunakan pustaka Seaborn. Luaran eksekusi dialihkan ke peraga grafik sesuai konfirmasi pada Output \ref{lst:out-visualisasi-histogram-undersampling-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/2-histogram-bmi-undersampling.png}
+  \caption{Histogram Komparasi Distribusi Fitur BMI Sebelum dan Sesudah Random Under-sampling}
+  \label{fig:hist-bmi-undersampling-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:hist-bmi-undersampling-1}, grafik di sisi kiri memperlihatkan dominasi total kurva frekuensi kelas 0 atas kelas 1. Setelah penerapan \textit{Random Under-sampling} pada panel kanan, tinggi batang histogram kedua kelas menjadi berimbang. Kendati demikian, terlihat penurunan drastis pada total volume data yang mengakibatkan hilangnya variasi informasi penting pada rentang nilai tengah \path{bmi}.
+
+\subsubsection{Visualisasi Sebaran Fitur Glukosa dan BMI Pasca Random Under-sampling}
+\lstinputlisting[language=Python, caption={Visualisasi Scatter Plot Hubungan Glukosa dan BMI Pasca Random Under-sampling}, label={lst:kode-visualisasi-scatter-undersampling-1}]{resource/code/visualisasi-scatter-undersampling_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Visualisasi Scatter Plot Hubungan Glukosa dan BMI Pasca Random Under-sampling}, label={lst:out-visualisasi-scatter-undersampling-1}]{resource/output/visualisasi-scatter-undersampling_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-scatter-undersampling-1}, \textit{scatter plot} dibuat untuk menelaah pola spasial antara kadar glukosa darah (\path{avg_glucose_level}) dan \path{bmi}. Sebagaimana diindikasikan pada Output \ref{lst:out-visualisasi-scatter-undersampling-1}, hasil visualisasi ditampilkan pada kanvas grafik.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/3-scatter-glucose-bmi-undersampling.png}
+  \caption{Scatter Plot Komparasi Glukosa dan BMI Sebelum dan Sesudah Random Under-sampling}
+  \label{fig:scatter-glucose-bmi-undersampling-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:scatter-glucose-bmi-undersampling-1}, titik-titik biru (kelas 0) yang semula sangat padat menyelimuti seluruh \textit{feature space} menjadi sangat jarang setelah proses pemangkasan sampel. Kerapatan titik \textit{majority class} yang berkurang drastis menunjukkan risiko kehilangan informasi representatif dari sub-populasi normal.
+
+\subsubsection{Random Over-sampling}
+\lstinputlisting[language=Python, caption={Penerapan Teknik Random Over-sampling pada Training Data}, label={lst:kode-random-oversampling-1}]{resource/code/random-oversampling_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Penerapan Teknik Random Over-sampling}, label={lst:out-random-oversampling-1}]{resource/output/random-oversampling_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-random-oversampling-1}, teknik \textit{Random Over-sampling} diterapkan menggunakan instansiasi kelas \texttt{RandomOverSampler}. Berbeda dengan pendekatan sebelumnya, metode ini mempertahankan seluruh sampel \textit{majority class} dan menduplikasi sampel \textit{minority class} secara acak. Sebagaimana tertera pada Output \ref{lst:out-random-oversampling-1}, jumlah sampel \textit{minority class} berhasil ditingkatkan dari 169 menjadi $3.663$ sampel, sehingga jumlah total sampel kedua kelas kini seimbang di angka $3.663$.
+
+\subsubsection{Visualisasi Distribusi Fitur BMI Pasca Random Over-sampling}
+\lstinputlisting[language=Python, caption={Visualisasi Histogram Komparasi Fitur BMI Sebelum dan Sesudah Random Over-sampling}, label={lst:kode-visualisasi-histogram-oversampling-1}]{resource/code/visualisasi-histogram-oversampling_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Visualisasi Histogram Fitur BMI Pasca Random Over-sampling}, label={lst:out-visualisasi-histogram-oversampling-1}]{resource/output/visualisasi-histogram-oversampling_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-histogram-oversampling-1}, perbandingan distribusi nilai \path{bmi} divisualisasikan dalam bentuk histogram pasca \textit{over-sampling}. Luaran grafik dikonfirmasi berjalan baik sebagaimana ditunjukkan pada Output \ref{lst:out-visualisasi-histogram-oversampling-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/4-histogram-bmi-oversampling.png}
+  \caption{Histogram Komparasi Distribusi Fitur BMI Sebelum dan Sesudah Random Over-sampling}
+  \label{fig:hist-bmi-oversampling-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:hist-bmi-oversampling-1}, grafik setelah \textit{over-sampling} menunjukkan bahwa frekuensi kumulatif kelas 1 meningkat signifikan menyamai tinggi kelas 0. Meskipun volume data terjaga, replikasi sampel identik secara persis berpotensi mempersempit \textit{decision boundary} dan meningkatkan risiko \textit{overfitting} pada data baru.
+
+\subsubsection{Synthetic Minority Over-sampling Technique (SMOTE)}
+\lstinputlisting[language=Python, caption={Penerapan Teknik SMOTE untuk Sintesis Minority Class}, label={lst:kode-smote-resampling-1}]{resource/code/smote-resampling_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Penerapan Teknik SMOTE}, label={lst:out-smote-resampling-1}]{resource/output/smote-resampling_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-smote-resampling-1}, metode SMOTE diaplikasikan menggunakan kelas \texttt{SMOTE} berkonfigurasi \path{random_state=0}. Algoritma ini bekerja dengan mencari $k$ \textit{nearest neighbors} dari setiap sampel \textit{minority class}, lalu membangkitkan \textit{synthetic samples} baru di sepanjang garis interpolasi fitur. Sebagaimana dibuktikan pada Output \ref{lst:out-smote-resampling-1}, \textit{minority class} berhasil diseimbangkan menjadi $3.663$ sampel tanpa menduplikasi data secara identik.
+
+\subsubsection{Visualisasi Distribusi Fitur BMI Pasca SMOTE}
+\lstinputlisting[language=Python, caption={Visualisasi Histogram Komparasi Fitur BMI Pasca SMOTE}, label={lst:kode-visualisasi-histogram-smote-1}]{resource/code/visualisasi-histogram-smote_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Visualisasi Histogram Fitur BMI Pasca SMOTE}, label={lst:out-visualisasi-histogram-smote-1}]{resource/output/visualisasi-histogram-smote_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-histogram-smote-1}, sebaran histogram fitur \path{bmi} dikonstruksi guna mengevaluasi persebaran \textit{synthetic samples} hasil interpolasi SMOTE. Eksekusi fungsi grafis divalidasi pada Output \ref{lst:out-visualisasi-histogram-smote-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/5-histogram-bmi-smote.png}
+  \caption{Histogram Komparasi Distribusi Fitur BMI Sebelum dan Sesudah SMOTE}
+  \label{fig:hist-bmi-smote-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:hist-bmi-smote-1}, distribusi kelas 1 yang baru terbentuk mengikuti kurva kontinyu yang halus menyerupai sebaran \textit{majority class}. Hal ini menandakan bahwa \textit{synthetic samples} yang digenerasi oleh SMOTE mampu mengisi ruang kosong data secara representatif tanpa memunculkan anomali \textit{outliers} buatan yang ekstrem.
+
+\subsubsection{Visualisasi Sebaran Fitur Glukosa dan BMI Pasca SMOTE}
+\lstinputlisting[language=Python, caption={Visualisasi Scatter Plot Hubungan Glukosa dan BMI Pasca SMOTE}, label={lst:kode-visualisasi-scatter-smote-1}]{resource/code/visualisasi-scatter-smote_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Visualisasi Scatter Plot Hubungan Glukosa dan BMI Pasca SMOTE}, label={lst:out-visualisasi-scatter-smote-1}]{resource/output/visualisasi-scatter-smote_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-scatter-smote-1}, sebaran spasial titik \textit{synthetic samples} SMOTE diproyeksikan pada bidang dua dimensi \path{avg_glucose_level} dan \path{bmi}. Keberhasilan render grafik ditunjukkan pada Output \ref{lst:out-visualisasi-scatter-smote-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/6-scatter-glucose-bmi-smote.png}
+  \caption{Scatter Plot Komparasi Glukosa dan BMI Sebelum dan Sesudah SMOTE}
+  \label{fig:scatter-glucose-bmi-smote-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:scatter-glucose-bmi-smote-1}, terlihat penyebaran titik-titik oranye (kelas 1) yang merata mengisi segmen garis antar-titik tetangga dalam \textit{feature space}. Pola persebaran ini memperluas \textit{decision boundary} bagi model pembelajaran mesin tanpa terjebak pada duplikasi titik diskrit.
+
+\subsubsection{Adaptive Synthetic Sampling (ADASYN)}
+\lstinputlisting[language=Python, caption={Penerapan Teknik ADASYN Berbasis Tingkat Kesulitan Klasifikasi}, label={lst:kode-adasyn-resampling-1}]{resource/code/adasyn-resampling_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Penerapan Teknik ADASYN}, label={lst:out-adasyn-resampling-1}]{resource/output/adasyn-resampling_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-adasyn-resampling-1}, algoritma ADASYN diaplikasikan menggunakan kelas \texttt{ADASYN} dengan parameter acak \path{random_state=0}. Pendekatan ini mengadaptasi bobot distribusi di mana sampel \textit{minority class} pada area \textit{decision boundary} yang sulit diklasifikasikan akan memperoleh prioritas pembangkitan \textit{synthetic samples} lebih banyak. Sebagaimana tertera pada Output \ref{lst:out-adasyn-resampling-1}, algoritma menghasilkan $3.676$ \textit{synthetic samples} untuk kelas 1 karena penyesuaian bobot densitas spasial lokal.
+
+\subsubsection{Visualisasi Distribusi Fitur BMI Pasca ADASYN}
+\lstinputlisting[language=Python, caption={Visualisasi Histogram Komparasi Fitur BMI Pasca ADASYN}, label={lst:kode-visualisasi-histogram-adasyn-1}]{resource/code/visualisasi-histogram-adasyn_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Visualisasi Histogram Fitur BMI Pasca ADASYN}, label={lst:out-visualisasi-histogram-adasyn-1}]{resource/output/visualisasi-histogram-adasyn_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-histogram-adasyn-1}, distribusi frekuensi nilai \path{bmi} dievaluasi pasca penerapan ADASYN. Hasil visualisasi grafik dikonfirmasi pada Output \ref{lst:out-visualisasi-histogram-adasyn-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/7-histogram-bmi-adasyn.png}
+  \caption{Histogram Komparasi Distribusi Fitur BMI Sebelum dan Sesudah ADASYN}
+  \label{fig:hist-bmi-adasyn-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:hist-bmi-adasyn-1}, distribusi \textit{minority class} pasca ADASYN memperlihatkan densitas yang sangat adaptif. Tinggi batang histogram kelas 1 pada area nilai \path{bmi} berkisar antara 25 hingga 35 tampak lebih padat dibandingkan histogram SMOTE standar, merefleksikan fokus penambahan \textit{synthetic samples} pada wilayah dengan derajat ketidakpastian tinggi.
+
+\subsubsection{Visualisasi Sebaran Fitur Glukosa dan BMI Pasca ADASYN}
+\lstinputlisting[language=Python, caption={Visualisasi Scatter Plot Hubungan Glukosa dan BMI Pasca ADASYN}, label={lst:kode-visualisasi-scatter-adasyn-1}]{resource/code/visualisasi-scatter-adasyn_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Visualisasi Scatter Plot Hubungan Glukosa dan BMI Pasca ADASYN}, label={lst:out-visualisasi-scatter-adasyn-1}]{resource/output/visualisasi-scatter-adasyn_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-scatter-adasyn-1}, proyeksi \textit{scatter plot} glukosa dan \path{bmi} dikonstruksi untuk mengamati klasterisasi titik \textit{synthetic samples} ADASYN. Kelancaran eksekusi tervalidasi pada Output \ref{lst:out-visualisasi-scatter-adasyn-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/8-scatter-glucose-bmi-adasyn.png}
+  \caption{Scatter Plot Komparasi Glukosa dan BMI Sebelum dan Sesudah ADASYN}
+  \label{fig:scatter-glucose-bmi-adasyn-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:scatter-glucose-bmi-adasyn-1}, konsentrasi titik-titik oranye \textit{synthetic samples} terlihat lebih rapat pada perbatasan zona \textit{overlap} antara kelas 0 dan kelas 1. Kemampuan adaptif ini memaksa model pembelajaran untuk memfokuskan proses pemisahan pada sampel-sampel yang paling rentan mengalami salah klasifikasi.
+
+\subsection{Tugas \& Analisis}
+
+\subsubsection{Tugas 1: Eksplorasi dan Deskripsi Fitur Dataset Stroke}
+\textbf{Soal:} Jelaskan tujuan penggunaan dataset stroke prediction serta uraikan secara komprehensif seluruh atribut fitur yang terkandung di dalam dataset tersebut beserta tipe datanya!
+
+\lstinputlisting[language=Python, caption={Inspeksi Struktur dan Dimensi Fitur Dataset Stroke Prediction}, label={lst:kode-tugas-load-dataset-stroke-1}]{resource/code/tugas-load-dataset-stroke_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Inspeksi Struktur dan Dimensi Fitur Dataset Stroke Prediction}, label={lst:out-tugas-load-dataset-stroke-1}]{resource/output/tugas-load-dataset-stroke_1_out.txt}
+
+\par \textbf{Analisis:} Berdasarkan eksekusi program pada Kode \ref{lst:kode-tugas-load-dataset-stroke-1} dan luaran Output \ref{lst:out-tugas-load-dataset-stroke-1}, dataset \path{healthcare-dataset-stroke-data.csv} memiliki dimensi sebanyak $5.110$ baris data dan 12 kolom atribut. Dataset ini dirancang untuk memprediksi probabilitas seseorang menderita stroke berdasarkan parameter klinis, faktor demografis, dan riwayat gaya hidup. Tujuan utama pemanfaatan dataset ini dalam bidang kesehatan adalah membangun sistem \textit{early detection} medis guna memitigasi risiko disabilitas permanen atau kematian akibat stroke secara preventif. Rincian deskripsi, tipe data, serta peran dari ke-12 fitur disajikan pada Tabel \ref{tab:deskripsi-fitur-stroke}.
+
+\begin{table}[H]
+  \centering
+  \caption{Deskripsi Komprehensif Fitur Dataset Stroke Prediction}
+  \label{tab:deskripsi-fitur-stroke}
+  \renewcommand{\arraystretch}{1.2}
+  \small
+  \begin{tabular}{|c|l|c|p{7.5cm}|}
+    \hline
+    \textbf{No} & \textbf{Nama Fitur} & \textbf{Tipe Data} & \textbf{Deskripsi dan Makna Klinis} \\
+    \hline
+    1 & \texttt{id} & Integer & Nomor identifikasi unik untuk setiap individu pasien. \\
+    2 & \texttt{gender} & Kategori & Jenis kelamin pasien (\textit{Male}, \textit{Female}, \textit{Other}). \\
+    3 & \texttt{age} & Numerik & Usia pasien yang dinyatakan dalam satuan tahun. \\
+    4 & \texttt{hypertension} & Biner & Indikator diagnosis hipertensi ($0 = \text{tidak}$, $1 = \text{hipertensi}$). \\
+    5 & \texttt{heart\_disease} & Biner & Indikator riwayat penyakit jantung ($0 = \text{tidak}$, $1 = \text{ada}$). \\
+    6 & \texttt{ever\_married} & Kategori & Riwayat status pernikahan pasien (\textit{No}, \textit{Yes}). \\
+    7 & \texttt{work\_type} & Kategori & Jenis pekerjaan pasien (\textit{Private}, \textit{Self-employed}, \textit{Govt\_job}, dll). \\
+    8 & \texttt{Residence\_type} & Kategori & Tipe wilayah tempat tinggal pasien (\textit{Urban}, \textit{Rural}). \\
+    9 & \texttt{avg\_glucose\_level} & Numerik & Rata-rata kadar glukosa dalam darah pasien (satuan mg/dL). \\
+    10 & \texttt{bmi} & Numerik & Indikator \textit{Body Mass Index} (BMI) pasien dalam $\text{kg/m}^2$. \\
+    11 & \texttt{smoking\_status} & Kategori & Status merokok pasien (\textit{formerly smoked}, \textit{never smoked}, \textit{smokes}). \\
+    12 & \texttt{stroke} & Biner & Variabel target klinis ($1 = \text{pernah stroke}$, $0 = \text{tidak pernah}$). \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\subsubsection{Tugas 2: Klasifikasi Occupancy Detection dengan Random Forest Sebelum dan Setelah SMOTE}
+\textbf{Soal:} Lakukan pemodelan klasifikasi menggunakan algoritma \textit{Random Forest} pada dataset \path{ocupancy_dataset.csv} sebelum dan sesudah penyeimbangan data menggunakan metode SMOTE, serta lakukan analisis perbandingan performa metrik evaluasinya!
+
+\lstinputlisting[language=Python, caption={Pemuatan Dataset Occupancy Detection}, label={lst:kode-tugas-load-dataset-occupancy-1}]{resource/code/tugas-load-dataset-occupancy_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Pemuatan Dataset Occupancy Detection}, label={lst:out-tugas-load-dataset-occupancy-1}]{resource/output/tugas-load-dataset-occupancy_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-load-dataset-occupancy-1}, berkas \path{ocupancy_dataset.csv} dimuat ke dalam memori. Sebagaimana tertera pada Output \ref{lst:out-tugas-load-dataset-occupancy-1}, dataset memuat rekaman multi-sensor ruangan meliputi suhu ruangan (\path{Temperature}), kelembapan udara (\path{Humidity}), intensitas cahaya (\path{Light}), tingkat konsentrasi karbon dioksida (\path{CO2}), rasio kelembapan (\path{HumidityRatio}), serta label keterisian ruangan (\path{Occupancy}).
+
+\lstinputlisting[language=Python, caption={Eksplorasi Statistik Deskriptif dan Matriks Korelasi Fitur Sensor}, label={lst:kode-tugas-eda-deskripsi-1}]{resource/code/tugas-eda-deskripsi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\tiny\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Eksplorasi Statistik Deskriptif dan Korelasi Sensor}, label={lst:out-tugas-eda-deskripsi-1}]{resource/output/tugas-eda-deskripsi_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-eda-deskripsi-1}, fungsi \texttt{describe()} dan matriks korelasi dipanggil untuk memahami interaksi antar-variabel sensor. Sebagaimana tampak pada Output \ref{lst:out-tugas-eda-deskripsi-1}, total observasi mencapai $20.560$ baris data tanpa ada \textit{missing values}. Variabel \path{Light} menunjukkan koefisien korelasi linier Pearson tertinggi terhadap status okupansi ruangan yaitu sebesar $0{,}9148$, disusul oleh \path{Temperature} ($0{,}5556$) dan \path{CO2} ($0{,}5016$).
+
+\lstinputlisting[language=Python, caption={Visualisasi Pie Chart Distribusi Kelas Target Occupancy}, label={lst:kode-tugas-distribusi-occupancy-1}]{resource/code/tugas-distribusi-occupancy_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Visualisasi Pie Chart Distribusi Target Occupancy}, label={lst:out-tugas-distribusi-occupancy-1}]{resource/output/tugas-distribusi-occupancy_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-distribusi-occupancy-1}, sebaran proporsi kelas label dihitung menggunakan \texttt{value\_counts()} dan divisualisasikan dalam bentuk \textit{pie chart}. Luaran eksekusi dialihkan ke kanvas gambar sesuai verifikasi Output \ref{lst:out-tugas-distribusi-occupancy-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-1-pie-distribusi-occupancy.png}
+  \caption{Visualisasi Pie Chart Distribusi Kelas Target Occupancy}
+  \label{fig:tugas-pie-occupancy-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:tugas-pie-occupancy-1}, kondisi \textit{class imbalance} terkonfirmasi dengan nyata, di mana ruangan berstatus kosong (kelas 0) berjumlah $76{,}90\%$ dari total data, sedangkan kondisi ruangan terisi manusia (kelas 1) hanya mencakup $23{,}10\%$. Disparitas perbandingan rasio $3{,}3:1$ ini menjadikan dataset tergolong \textit{moderately imbalanced}.
+
+\lstinputlisting[language=Python, caption={Pemisahan Training-Testing Data dan Standarisasi Fitur Menggunakan StandardScaler}, label={lst:kode-tugas-preprocessing-split-1}]{resource/code/tugas-preprocessing-split_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemisahan Training-Testing Data dan Standarisasi Fitur}, label={lst:out-tugas-preprocessing-split-1}]{resource/output/tugas-preprocessing-split_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-preprocessing-split-1}, kolom tanggal dan label target dieksklusikan dari matriks prediktor. Data kemudian dibagi menjadi \textit{training data} ($70\%$) dan \textit{testing data} ($30\%$). \textit{Feature scaling} dilakukan menggunakan \texttt{StandardScaler} yang di-\textit{fit} secara eksklusif pada \textit{training data}. Sebagaimana tertera pada Output \ref{lst:out-tugas-preprocessing-split-1}, \textit{training data} terdiri dari $14.392$ baris ($11.070$ sampel kelas 0 dan $3.322$ sampel kelas 1), sedangkan \textit{testing data} memiliki volume sebesar $6.168$ sampel observasi.
+
+\lstinputlisting[language=Python, caption={Pelatihan Model Random Forest Sebelum Penerapan SMOTE}, label={lst:kode-tugas-model-sebelum-smote-1}]{resource/code/tugas-model-sebelum-smote_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Evaluasi Model Random Forest Sebelum SMOTE}, label={lst:out-tugas-model-sebelum-smote-1}]{resource/output/tugas-model-sebelum-smote_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-model-sebelum-smote-1}, model Random Forest dilatih pada \textit{training data} yang masih mengalami \textit{class imbalance}. Model kemudian diuji kinerjanya pada \textit{testing data} menggunakan metrik \textit{accuracy}, \textit{macro precision}, \textit{macro recall}, serta \textit{confusion matrix}. Berdasarkan Output \ref{lst:out-tugas-model-sebelum-smote-1}, model menghasilkan \textit{accuracy} sebesar $99{,}08\%$, \textit{macro precision} $98{,}55\%$, \textit{macro recall} $98{,}86\%$, dengan \textit{confusion matrix} yang memuat 22 kasus \textit{false negative}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-2-cm-sebelum-smote.png}
+  \caption{Visualisasi Confusion Matrix Model Random Forest Sebelum SMOTE}
+  \label{fig:tugas-cm-sebelum-smote-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:tugas-cm-sebelum-smote-1}, model mampu memprediksi $4.705$ sampel kelas 0 sebagai \textit{true negative} dan $1.406$ sampel kelas 1 sebagai \textit{true positive}. Namun, terdapat kesalahan prediksi berupa 22 kasus \textit{false negative} serta 35 kasus \textit{false positive}.
+
+\lstinputlisting[language=Python, caption={Penyeimbangan Training Data Menggunakan Teknik SMOTE}, label={lst:kode-tugas-smote-resampling-1}]{resource/code/tugas-smote-resampling_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Penyeimbangan Training Data Menggunakan SMOTE}, label={lst:out-tugas-smote-resampling-1}]{resource/output/tugas-smote-resampling_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-smote-resampling-1}, algoritma SMOTE diterapkan secara eksklusif pada himpunan \textit{training data} (\texttt{X\_train}, \texttt{y\_train}). Sebagaimana ditunjukkan pada Output \ref{lst:out-tugas-smote-resampling-1}, jumlah sampel \textit{minority class} berhasil digenerasi bertambah dari $3.322$ menjadi $11.070$ \textit{synthetic samples}, sehingga mencapai rasio seimbang sempurna $1:1$ terhadap \textit{majority class}.
+
+\lstinputlisting[language=Python, caption={Visualisasi Histogram Fitur Temperatur Sebelum dan Sesudah SMOTE}, label={lst:kode-tugas-visualisasi-histogram-smote-1}]{resource/code/tugas-visualisasi-histogram-smote_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Visualisasi Histogram Fitur Temperatur Pasca SMOTE}, label={lst:out-tugas-visualisasi-histogram-smote-1}]{resource/output/tugas-visualisasi-histogram-smote_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-visualisasi-histogram-smote-1}, histogram komparasi fitur suhu ruangan (\path{Temperature}) dikonstruksi untuk menelaah sebaran sebelum dan setelah interpolasi SMOTE. Eksekusi fungsi plot tervalidasi pada Output \ref{lst:out-tugas-visualisasi-histogram-smote-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-3-histogram-temp-smote.png}
+  \caption{Histogram Komparasi Fitur Temperatur Sebelum dan Sesudah SMOTE}
+  \label{fig:tugas-hist-temp-smote-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:tugas-hist-temp-smote-1}, panel kanan memperlihatkan bahwa volume distribusi temperatur untuk kelas okupansi 1 meningkat signifikan mengikuti tren kurva aslinya. Pembentukan \textit{synthetic samples} baru tidak merusak pola bimodal suhu ruangan, melainkan memperkaya variasi kerapatan data \textit{minority class}.
+
+\lstinputlisting[language=Python, caption={Visualisasi Scatter Plot Hubungan Cahaya dan Karbon Dioksida Pasca SMOTE}, label={lst:kode-tugas-visualisasi-scatter-smote-1}]{resource/code/tugas-visualisasi-scatter-smote_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Visualisasi Scatter Plot Fitur Cahaya dan CO2 Pasca SMOTE}, label={lst:out-tugas-visualisasi-scatter-smote-1}]{resource/output/tugas-visualisasi-scatter-smote_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-visualisasi-scatter-smote-1}, \textit{scatter plot} interaksi sensor \path{Light} dan \path{CO2} diproyeksikan pada bidang dua dimensi. Eksekusi visualisasi divalidasi pada Output \ref{lst:out-tugas-visualisasi-scatter-smote-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-4-scatter-light-co2-smote.png}
+  \caption{Scatter Plot Hubungan Intensitas Cahaya dan CO2 Sebelum dan Sesudah SMOTE}
+  \label{fig:tugas-scatter-light-co2-smote-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:tugas-scatter-light-co2-smote-1}, persebaran titik-titik oranye \textit{minority class} pasca SMOTE tampak memenuhi area klaster dengan \textit{decision boundary} yang lebih tegas dan padat, terutama pada rentang nilai intensitas cahaya tinggi dan kadar karbon dioksida di atas ambang normal.
+
+\lstinputlisting[language=Python, caption={Pelatihan Model Random Forest Setelah Penerapan SMOTE}, label={lst:kode-tugas-model-setelah-smote-1}]{resource/code/tugas-model-setelah-smote_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Evaluasi Model Random Forest Setelah SMOTE}, label={lst:out-tugas-model-setelah-smote-1}]{resource/output/tugas-model-setelah-smote_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-model-setelah-smote-1}, model Random Forest dilatih ulang menggunakan \textit{training data} yang telah diseimbangkan dengan SMOTE (\texttt{X\_resampled}, \texttt{y\_resampled}). Model selanjutnya diuji menggunakan \textit{testing data} asli yang sama (\texttt{X\_test}, \texttt{y\_test}). Sebagaimana dilaporkan pada Output \ref{lst:out-tugas-model-setelah-smote-1}, model menghasilkan \textit{accuracy} sebesar $99{,}06\%$, \textit{macro precision} $98{,}41\%$, \textit{macro recall} $98{,}97\%$, serta \textit{confusion matrix} dengan jumlah \textit{false negative} yang berhasil ditekan dari 22 menjadi 17 kasus.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-5-cm-setelah-smote.png}
+  \caption{Visualisasi Confusion Matrix Model Random Forest Setelah SMOTE}
+  \label{fig:tugas-cm-setelah-smote-1}
+\end{figure}
+
+\par Berdasarkan Gambar \ref{fig:tugas-cm-setelah-smote-1}, kuantitas prediksi benar \textit{true positive} meningkat dari $1.406$ menjadi $1.411$ sampel. Peningkatan ini membuktikan bahwa \textit{decision boundary} pada Random Forest kini lebih peka dan akurat dalam mendeteksi keberadaan manusia di dalam ruangan.
+
+\par \textbf{Analisis Komparatif Performa Model:} Untuk memperoleh telaah komparatif yang objektif, perbandingan metrik kinerja kuantitatif model Random Forest sebelum dan setelah penanganan SMOTE dirangkum pada Tabel \ref{tab:perbandingan-kinerja-random-forest}.
+
+\begin{table}[H]
+  \centering
+  \caption{Perbandingan Kinerja Evaluasi Model Random Forest Sebelum dan Setelah SMOTE}
+  \label{tab:perbandingan-kinerja-random-forest}
+  \renewcommand{\arraystretch}{1.2}
+  \small
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+    \textbf{Metrik Evaluasi} & \textbf{Sebelum SMOTE} & \textbf{Setelah SMOTE} & \textbf{Selisih Dinamis} \\
+    \hline
+    \textit{Accuracy} & $0{,}990759$ ($99{,}08\%$) & $0{,}990597$ ($99{,}06\%$) & $-0{,}02\%$ \\
+    \textit{Macro Precision} & $0{,}985529$ ($98{,}55\%$) & $0{,}984079$ ($98{,}41\%$) & $-0{,}14\%$ \\
+    \textit{Macro Recall} & $0{,}988605$ ($98{,}86\%$) & $0{,}989723$ ($98{,}97\%$) & $\mathbf{+0{,}11\%}$ \\
+    \textit{True Positive} (TP, Occupancy=1) & $1.406$ & $1.411$ & $\mathbf{+5\text{ sampel}}$ \\
+    \textit{False Negative} (FN) & 22 & 17 & $\mathbf{-5\text{ sampel}}$ \\
+    \textit{True Negative} (TN, Occupancy=0) & $4.705$ & $4.699$ & $-6\text{ sampel}$ \\
+    \textit{False Positive} (FP) & 35 & 41 & $+6\text{ sampel}$ \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\par Berdasarkan analisis komparatif pada Tabel \ref{tab:perbandingan-kinerja-random-forest}, terlihat jelas implikasi fundamental penerapan SMOTE pada alur kerja klasifikasi \textit{machine learning}:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Peningkatan Sensitivitas Deteksi \textit{Minority Class} (\textit{Recall}):} Poin terpenting dalam eksperimen ini adalah penurunan drastis pada jumlah kasus \textit{false negative} (kondisi ruangan sesungguhnya terisi namun terprediksi kosong oleh sistem), yaitu turun dari 22 menjadi 17 kasus. Penurunan galat sebesar $22{,}7\%$ ini mendorong kenaikan metrik \textit{macro recall} dari $98{,}86\%$ menjadi $98{,}97\%$. Dalam domain aplikasi riil \textit{smart building automation}, kegagalan prediksi \textit{false negative} dapat berakibat fatal, seperti pemadaman sistem ventilasi, pendingin udara, atau pencahayaan saat ruangan masih aktif digunakan.
+  \item \textbf{\textit{Trade-off Precision} yang Sangat Minimal:} Peningkatan daya tangkap model terhadap \textit{minority class} diiringi kenaikan tipis pada \textit{false positive} (dari 35 menjadi 41 kasus), yang menyebabkan \textit{macro precision} turun sedikit dari $98{,}55\%$ ke $98{,}41\%$ dan \textit{accuracy} turun hanya $0{,}02\%$. Penurunan margin sekecil $0{,}14\%$ ini merupakan konsekuensi wajar dari pergeseran \textit{decision boundary} yang lebih inklusif terhadap \textit{minority class}, dan merupakan \textit{trade-off} yang sangat menguntungkan secara operasional.
+  \item \textbf{Mitigasi Bias Tanpa Kehilangan Data:} Tidak seperti \textit{Random Under-sampling} yang membuang data \textit{majority class}, SMOTE mempertahankan seluruh $11.070$ \textit{training data} \textit{majority class} sekaligus menyintesis data \textit{minority class} secara interpolatif. Hal ini menjaga stabilitas varians model \textit{ensemble} Random Forest sekaligus melenyapkan kecondongan model terhadap \textit{majority class}.
+\end{enumerate}
 
 \section{Kesimpulan}
 
-\par Link Google Colab: {\small\url{link-colab}}
+\par Berdasarkan serangkaian eksperimen praktikum penambangan data modul ketujuh mengenai penanganan \textit{imbalanced dataset}, dapat ditarik beberapa kesimpulan penting sebagai berikut:
+\begin{enumerate}[label=\arabic*.]
+  \item Kondisi \textit{imbalanced dataset} menjadi tantangan kritis dalam pemodelan klasifikasi karena algoritma standar cenderung membiaskan prediksi ke arah \textit{majority class} serta mengabaikan \textit{minority class}, sehingga evaluasi \textit{accuracy} global menjadi bias (\textit{accuracy paradox}).
+  \item Metode \textit{Random Under-sampling} berhasil menyamakan proporsi kelas dengan memangkas sampel \textit{majority class} secara acak, namun memiliki kelemahan signifikan berupa potensi hilangnya pola dan informasi esensial dari data \textit{majority class}.
+  \item Teknik \textit{Random Over-sampling} menjaga seluruh observasi \textit{majority class} dengan mereplikasi sampel \textit{minority class} secara eksak, namun rentan memicu \textit{overfitting} akibat penyempitan \textit{decision boundary} di sekitar titik data replikasi.
+  \item Pendekatan pembangkitan data sintetis canggih seperti SMOTE dan ADASYN terbukti lebih unggul karena mampu menciptakan \textit{synthetic samples} baru di sepanjang garis interpolasi antar-vektor fitur terdekat ($k$ \textit{nearest neighbors}). ADASYN memberikan adaptabilitas ekstra dengan memprioritaskan pembangkitan data pada zona \textit{decision boundary} yang sulit dipisahkan.
+  \item Penerapan SMOTE pada model klasifikasi Random Forest untuk dataset deteksi okupansi ruangan (\path{ocupancy_dataset.csv}) berhasil meningkatkan sensitivitas deteksi \textit{minority class} secara nyata, yang dibuktikan dengan kenaikan \textit{macro recall} menjadi $98{,}97\%$ dan penurunan kasus \textit{false negative} sebesar $22{,}7\%$ (dari 22 menjadi 17 sampel), dengan kompensasi penurunan \textit{precision} yang sangat marginal ($0{,}14\%$). Hal ini menegaskan efektivitas SMOTE dalam membangun model prediktif yang andal dan aman untuk diimplementasikan pada skenario dunia nyata.
+\end{enumerate}
+
+\par Tautan repositori dan implementasi eksperimen pada Google Colab dapat diakses melalui: {\small\url{https://colab.research.google.com/drive/1DBcM3KLq1r83YO2oR3TuPhvTSUbMvkSk?usp=sharing}}
+
 
 \section{Daftar Pustaka}
 \printbibliography[heading=none]

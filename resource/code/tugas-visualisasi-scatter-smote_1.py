@@ -1,0 +1,5 @@
+f, axes = plt.subplots(1, 2, figsize=(12, 6))
+sns.scatterplot(x='Light', y='CO2', data=df_sebelum, hue='Occupancy', ax=axes[0]).set(title='Sebelum')
+sns.scatterplot(x='Light', y='CO2', data=df_sesudah, hue='Occupancy', ax=axes[1]).set(title='Sesudah')
+plt.xticks()
+plt.show()

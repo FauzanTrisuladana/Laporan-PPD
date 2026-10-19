@@ -1,0 +1,10 @@
+Sebelum ADASYN
+0  
+0.0    3663
+1.0     169
+Name: count, dtype: int64
+Setelah ADASYN
+0  
+1.0    3676
+0.0    3663
+Name: count, dtype: int64

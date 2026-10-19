@@ -1,0 +1,10 @@
+sebelum undersampling
+0
+0    3663
+1     169
+Name: count, dtype: int64
+setelah undersampling
+0
+0    169
+1    169
+Name: count, dtype: int64

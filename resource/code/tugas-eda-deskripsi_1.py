@@ -1,0 +1,6 @@
+print("Statistik Deskriptif:")
+print(df.describe())
+print("\nKorelasi Fitur:")
+print(df.corr(numeric_only=True))
+print("\nMissing Values:")
+print(df.isnull().sum())

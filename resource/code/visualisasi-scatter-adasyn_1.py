@@ -1,0 +1,5 @@
+f, axes = plt.subplots(1,2, figsize=(10, 6))
+sns.scatterplot(x='avg_glucose_level', y='bmi', data=df_sebelum, hue='stroke', ax=axes[0]).set(title='Sebelum')
+sns.scatterplot(x='avg_glucose_level', y='bmi', data=df_sesudah, hue='stroke', ax=axes[1]).set(title='Sesudah')
+plt.xticks()
+plt.show()

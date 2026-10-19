@@ -1,0 +1,6 @@
+Dimensi X_train: (14392, 5), X_test: (6168, 5)
+Distribusi y_train:
+Occupancy
+0    11070
+1     3322
+Name: count, dtype: int64

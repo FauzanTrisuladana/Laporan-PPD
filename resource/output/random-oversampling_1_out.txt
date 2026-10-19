@@ -1,0 +1,10 @@
+sebelum random oversampling
+0  
+0.0    3663
+1.0     169
+Name: count, dtype: int64
+setelah random oversampling
+0  
+0.0    3663
+1.0    3663
+Name: count, dtype: int64
