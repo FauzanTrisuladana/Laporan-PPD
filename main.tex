@@ -17,15 +17,16 @@
 \usepackage{geometry}           % untuk margin
 \usepackage{setspace}           % untuk spasi baris
 \usepackage{fancyhdr}           % untuk header/footer
+\usepackage{float}              % untuk posisi gambar
+\usepackage{xcolor}             % untuk warna
+\usepackage{listings}           % untuk code Python
 \usepackage{hyperref}           % untuk link dan bookmark
 \usepackage{xurl}               % agar URL panjang bisa wrap/pindah baris dengan rapi
-\usepackage{listings}           % untuk code Python
-\usepackage{xcolor}             % untuk warna
-\usepackage{float}              % untuk posisi gambar
 \usepackage{tocloft}            % Untuk membuat daftar isi menampilkan "Bab 1. Pendahuluan" instead of "1. Pendahuluan",
 \usepackage{lipsum}             % untuk lorem ipsum
 \usepackage{indentfirst}        % untuk indent paragraf pertama
 \usepackage{enumitem}           % untuk kustomisasi penomoran list (A., B., dst)
+\usepackage{multirow}           % untuk sel tabel multi-baris
 
 % Pengaturan layout
 \geometry{left=3cm, right=2cm, top=2cm, bottom=2cm}
@@ -36,10 +37,14 @@
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 
-% Penomoran figure mengikuti section (misal, Gambar A.1, A.2, ...)
+% Penomoran figure dan table mengikuti section (misal, Gambar A.1, Tabel A.1, ...)
 \renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\renewcommand{\theHfigure}{\theHsection.\arabic{figure}}
+\renewcommand{\theHtable}{\theHsection.\arabic{table}}
 \makeatletter
 \@addtoreset{figure}{section}
+\@addtoreset{table}{section}
 \makeatother
 
 % Format chapter
@@ -211,7 +216,9 @@ Pertemuan \Pertemuan\\
 
 \section{Tujuan Praktikum}
 \begin{enumerate}  
-  \item Something
+  \item Mahasiswa memahami konsep \textit{imbalanced dataset} serta permasalahan yang muncul akibat \textit{class imbalance} dalam model \textit{machine learning}.
+  \item Mahasiswa mampu menerapkan teknik \textit{data balancing} seperti SMOTE dan ADASYN untuk menyeimbangkan distribusi kelas pada dataset.
+  \item Mahasiswa memahami konsep dan metode \textit{feature selection} (\textit{filter}, \textit{wrapper}, dan \textit{embedded}) untuk memilih \textit{features} yang paling relevan.
 \end{enumerate}
 
 \section{Dasar Teori}
@@ -240,86 +247,199 @@ Pertemuan \Pertemuan\\
 \subsection{Data Preprocessing}
 \par \textit{Data preprocessing} adalah tahapan persiapan awal dalam proses \textit{data mining} yang bertujuan untuk mentransformasikan data mentah menjadi format yang bersih, terstruktur, dan siap digunakan untuk pelatihan model \textit{machine learning} \cite{techtarget_preprocessing}. Data yang dikumpulkan dari dunia nyata umumnya bersifat mengandung \textit{missing values}, mengandung \textit{noise}, atau memiliki format yang inkonsisten \cite{trivusi_preprocessing}. Oleh karena itu, tahapan \textit{data preprocessing} ini mencakup berbagai teknik fundamental seperti \textit{data cleaning}, \textit{data transformation}, hingga \textit{dimensionality reduction} guna memastikan integritas dan keandalan data.
 
-\subsection{Unsupervised Learning}
-\par \textit{Unsupervised learning} merupakan salah satu paradigma utama dalam \textit{machine learning} di mana algoritma bertugas untuk menemukan pola, struktur inheren, dan relasi tersembunyi dari sekumpulan data tanpa adanya bantuan label target eksternal maupun \textit{ground truth} \cite{nurhalizah2024analisis}. Berbeda dengan \textit{supervised learning} yang berfokus pada pemetaan fungsi masukan terhadap keluaran berlabel, \textit{unsupervised learning} mengeksplorasi data secara otonom untuk merekonstruksi representasi data yang bermakna tanpa intervensi manusia \cite{wijoyo2024pembelajaran}.
-\par Fokus utama dari paradigma ini terletak pada tahapan eksplorasi data, \textit{clustering}, reduksi dimensionalitas, serta penemuan \textit{association rules}. Model yang beroperasi di bawah payung \textit{unsupervised learning}---seperti K-Means, \textit{Artificial Neural Network} (ANN) tipe \textit{Self-Organizing Maps}, dan \textit{Gaussian Mixture Model} (GMM)---menawarkan fleksibilitas analitis yang tinggi dalam mendeteksi pola laten yang sebelumnya tidak diketahui oleh praktisi data, meskipun evaluasi kinerjanya memiliki tantangan tersendiri karena ketiadaan label referensi objektif \cite{nurhalizah2024analisis, wijoyo2024pembelajaran}.
+\subsection{Classification}
+\par \textit{Classification} merupakan salah satu teknik fundamental dalam paradigma \textit{supervised learning} yang bertujuan untuk memprediksi label atau kategori diskret dari suatu sampel data berdasarkan atribut yang dimilikinya \cite{ibm_classification}. Dalam pendekatan ini, model dilatih menggunakan \textit{labeled training data}, di mana algoritma memetakan relasi matematis antara \textit{input features} dengan variabel target \cite{dicoding_classification}. Setelah fase pelatihan selesai, fungsi hipotesis yang terbentuk digunakan untuk melakukan inferensi dan mengestimasi kelas yang tepat pada \textit{unseen data} \cite{scikit_classification}. Di industri modern, \textit{classification} memiliki peranan penting pada berbagai domain komputasi, seperti penyaringan spam, diagnosis penyakit klinis, deteksi anomali pada \textit{fraud detection}, hingga sistem pemeringkatan rekomendasi konten \cite{ibm_classification}.
 
-\subsection{Clustering}
-\par \textit{Clustering} atau analisis klaster merupakan suatu metode fundamental dalam \textit{data mining} dan analisis statistik multivariat yang bertujuan untuk mempartisi sekumpulan objek atau observasi data ke dalam beberapa klaster \cite{afidaha2023penerapan}. Prinsip fundamental dari teknik ini didasarkan pada maksimasi homogenitas internal dan maksimasi heterogenitas eksternal; artinya, objek yang berada di dalam klaster yang sama memiliki tingkat kemiripan karakteristik yang setinggi mungkin (\textit{high intra-cluster similarity}), sedangkan objek yang berada pada klaster yang berbeda memiliki perbedaan sifat yang sejauh mungkin (\textit{high inter-cluster dissimilarity}).
-\par Dalam praktiknya, perhitungan tingkat kemiripan atau ketidaksamaan antar-objek ditentukan berdasarkan fungsi metrik jarak, seperti jarak Euclidean, Manhattan, maupun korelasi statistik lainnya. Saat ini, analisis klaster telah banyak digunakan di berbagai bidang ilmu pengetahuan dan industri strategis, seperti \textit{customer segmentation}, klasifikasi data migrasi dan demografi penduduk, psikologi, kesehatan, hingga deteksi anomali pada sistem informasi \cite{afidaha2023penerapan}.
+\subsection{Algoritma Classification}
+\par Dalam ranah penambangan data dan \textit{machine learning}, terdapat beragam pendekatan algoritma yang dapat diimplementasikan untuk menyelesaikan permasalahan \textit{classification}. Pemilihan algoritma yang tepat umumnya bergantung pada karakteristik distribusi data, ukuran dataset, linearitas relasi antar-variabel, serta tingkat \textit{interpretability} model yang diinginkan \cite{scikit_classification}. Berbagai pustaka komputasi populer seperti Scikit-Learn menyediakan implementasi algoritma yang efisien dan andal untuk analisis data berskala luas \cite{scikit_classification}.
 
-\subsection{K-Means}
-\par K-Means merupakan algoritma pemartisian non-hirarkis (\textit{non-hierarchical clustering}) yang berasal dari metode \textit{data clustering} dan paling luas diaplikasikan karena efisiensi komputasinya yang tinggi pada dataset berskala besar \cite{sulistiyawati2021implementasi}. Algoritma ini mempartisi $n$ titik observasi data ke dalam $k$ buah klaster yang telah ditentukan sebelumnya. Prinsip utama dari teknik ini adalah menyusun $k$ buah partisi dengan menentukan titik representatif dari setiap kelompok yang disebut sebagai \textit{centroid} atau pusat massa klaster, yang dihitung sebagai nilai rata-rata dari seluruh titik data anggota klaster tersebut \cite{afidaha2023penerapan}.
-\par Prosedur kerja K-Means berlangsung secara iteratif melalui beberapa tahapan sistematis:
-\begin{enumerate}[label=\arabic*.]
-  \item Menginisialisasi $k$ buah titik \textit{centroid} awal, baik secara acak maupun menggunakan teknik heuristik seperti K-Means++.
-  \item Mengalokasikan setiap titik data ke \textit{centroid} terdekat berdasarkan kalkulasi metrik jarak kuadrat Euclidean terkecil.
-  \item Memperbarui posisi \textit{centroid} dengan menghitung kembali nilai rata-rata posisi seluruh titik data yang tergabung dalam masing-masing klaster.
-  \item Mengulangi langkah alokasi dan pembaruan posisi \textit{centroid} hingga tidak terjadi perubahan signifikan pada partisi klaster atau kriteria konvergensi tercapai.
-\end{enumerate}
-\par Adapun tujuan dari pengelompokan data ini adalah untuk meminimalkan fungsi objektif yang diset dalam proses pengelompokan, yang umumnya berusaha meminimalkan variasi di dalam suatu kelompok dan memaksimalkan variasi antar-kelompok \cite{sulistiyawati2021implementasi}. Formulasi fungsi objektif \textit{Within-Cluster Sum of Squares} (WCSS) dinyatakan pada Persamaan \eqref{eq:kmeans-wcss}:
-\begin{equation}  
-  J = \sum_{j=1}^{k} \sum_{i=1}^{n_j} \|x_i^{(j)} - c_j\|^2
-  \label{eq:kmeans-wcss}
+\subsubsection{Logistic Regression}
+\par Logistic Regression adalah algoritma \textit{classification} probabilistik yang dikembangkan dari konsep regresi linear untuk memodelkan variabel target kategorikal, khususnya kasus biner \cite{ibm_logistic_regression}. Alih-alih memprediksi nilai kontinu secara langsung, algoritma ini menghitung kombinasi linear dari atribut masukan lalu memetakannya ke dalam rentang probabilitas antara 0 hingga 1 menggunakan fungsi \textit{sigmoid} \cite{dicoding_classification}. Formulasi fungsi \textit{sigmoid} dinyatakan pada Persamaan \eqref{eq:sigmoid}:
+\begin{equation}
+  \sigma(z) = \frac{1}{1 + e^{-z}}
+  \label{eq:sigmoid}
 \end{equation}
-di mana $k$ menyatakan jumlah klaster, $n_j$ adalah jumlah titik data pada klaster ke-$j$, $x_i^{(j)}$ adalah observasi data ke-$i$ dalam klaster ke-$j$, dan $c_j$ merupakan posisi vektor \textit{centroid} dari klaster ke-$j$ \cite{sulistiyawati2021implementasi}.
+di mana $z = \mathbf{w}^T \mathbf{x} + b$ merepresentasikan kombinasi linear antara vektor \textit{feature weights} ($\mathbf{w}$), vektor atribut ($\mathbf{x}$), dan \textit{intercept} atau \textit{bias} ($b$). Luaran probabilitas ini dikonversikan menjadi label kelas biner melalui penetapan nilai \textit{threshold}, umumnya bernilai 0,5 \cite{ibm_logistic_regression}. Meskipun memiliki formulasi matematis yang sederhana, Logistic Regression sangat efisien secara komputasi dan bekerja optimal pada dataset yang memiliki sebaran data bersifat \textit{linearly separable}.
 
-\subsection{K-Medoids}
-\par K-Medoids merupakan algoritma pemartisian yang berperan untuk menemukan \textit{medoids} dalam suatu klaster yang menjadi titik pusat representatif klaster tersebut \cite{herviany2021perbandingan}. K-Medoids dirancang lebih \textit{robust} daripada K-Means dalam menangani data yang mengandung \textit{noise} dan \textit{outliers}. Pada K-Medoids, dipilih $k$ buah objek representatif aktual dari dalam dataset untuk meminimalkan \textit{dissimilarity} objek data, berbeda dengan K-Means yang menggunakan hasil kuadrat jarak Euclidean rata-rata yang sering kali menghasilkan titik pusat artifisial \cite{herviany2021perbandingan}.
-\par Pada metode ini, titik data aktual dipilih langsung untuk merepresentasikan klaster alih-alih menggunakan nilai rata-rata sebagai titik acuan. Secara komputasi, K-Medoids memerlukan beban pemrosesan yang lebih tinggi dibandingkan K-Means karena harus mengevaluasi konfigurasi \textit{medoid} serta matriks jarak berulang, misalnya melalui algoritma PAM (\textit{Partitioning Around Medoids}) yang menguji variasi kandidat \textit{medoid} awal \cite{herviany2021perbandingan}.
-
-\subsection{DBSCAN}
-\par \textit{Density-Based Spatial Clustering of Applications with Noise} (DBSCAN) adalah algoritma \textit{clustering} berbasis kepadatan yang mengelompokkan titik-titik data berdasarkan seberapa padat area di sekitarnya \cite{ester1996density}. Algoritma ini menggunakan dua parameter konfigurasi utama, yaitu \textit{epsilon} ($\epsilon$) sebagai radius pencarian lingkungan spasial dan \textit{minPts} sebagai jumlah minimum titik data agar sebuah titik dapat dianggap sebagai titik inti (\textit{core point}) \cite{han2011data}.
-\par Berdasarkan nilai $\epsilon$ dan \textit{minPts}, titik data dikategorikan menjadi \textit{core point}, \textit{border point}, dan \textit{noise point}. DBSCAN memiliki keunggulan utama dalam mendeteksi klaster dengan bentuk yang arbitrer atau tidak beraturan, serta mampu mengidentifikasi dan mengisolasi titik \textit{outliers} tanpa memerlukan penentuan jumlah klaster $k$ di awal eksperimen \cite{ester1996density, han2011data}.
-
-\subsection{Association Rule}
-\par \textit{Association Rule Mining} merupakan teknik fundamental dalam \textit{data mining} untuk menemukan pola, keteraturan, atau hubungan keterkaitan antar-item di dalam dataset transaksi berskala besar \cite{agrawal1993mining}. Aturan asosiasi biasanya direpresentasikan dalam bentuk implikasi logis $A \Rightarrow B$, yang berarti bahwa kemunculan itemset $A$ cenderung diikuti oleh kemunculan itemset $B$ secara bersamaan dalam suatu transaksi. Metode ini umum digunakan dalam \textit{market basket analysis} untuk mengungkap pola perilaku konsumen dan strategi penempatan produk \cite{han2011data}.
-\par Penilaian kualitas dan signifikansi aturan asosiasi dilakukan menggunakan tiga metrik evaluasi utama:
-\begin{enumerate}[label=\arabic*.]
-  \item \textbf{\textit{Support}:} Mengukur proporsi atau frekuensi kemunculan gabungan itemset $A$ dan $B$ terhadap keseluruhan total transaksi dalam dataset $D$, sebagaimana dinyatakan pada Persamaan \eqref{eq:support}:
-        \begin{equation}  
-          \text{Support}(A \Rightarrow B) = P(A \cup B) = \frac{\text{frekuensi}(A \cup B)}{|D|}
-          \label{eq:support}
-        \end{equation}
-  \item \textbf{\textit{Confidence}:} Mengukur probabilitas bersyarat atau derajat kepastian seberapa sering itemset $B$ muncul dalam transaksi yang juga memuat itemset $A$, yang dirumuskan pada Persamaan \eqref{eq:confidence}:
-        \begin{equation}  
-          \text{Confidence}(A \Rightarrow B) = P(B|A) = \frac{\text{Support}(A \cup B)}{\text{Support}(A)}
-          \label{eq:confidence}
-        \end{equation}
-  \item \textbf{\textit{Lift}:} Mengukur kekuatan hubungan asosiasi antar-item dengan membandingkan probabilitas kemunculan bersama terhadap probabilitas independen masing-masing item, sebagaimana dirumuskan pada Persamaan \eqref{eq:lift}:
-        \begin{equation}  
-          \text{Lift}(A \Rightarrow B) = \frac{\text{Confidence}(A \Rightarrow B)}{\text{Support}(B)} = \frac{P(A \cup B)}{P(A) \cdot P(B)}
-          \label{eq:lift}
-        \end{equation}
-        Nilai $\text{Lift} > 1$ mengindikasikan adanya korelasi positif yang nyata antar-item dalam dataset transaksi \cite{agrawal1993mining, han2011data}.
-\end{enumerate}
-
-\subsection{Evaluation Metrics}
-\par Evaluasi kinerja model \textit{unsupervised learning} memerlukan pendekatan khusus karena ketiadaan \textit{ground truth} sebagai pembanding \cite{tan2019introduction}. Oleh sebab itu, pengujian hasil \textit{clustering} utamanya bertumpu pada metrik internal yang mengukur kualitas struktur kelompok berdasarkan kohesi dan separasi spasial titik data \cite{scikit_learn_clustering}.
-\par Dua aspek utama yang dievaluasi dalam metrik internal adalah kekompakan atau kohesi internal klaster, serta pemisahan antar-klaster yang berbeda \cite{tan2019introduction}. Instrumen evaluasi standar yang umum digunakan untuk mengukur kedua dimensi tersebut secara komparatif adalah \textit{Inertia} dan \textit{Silhouette Score}.
-
-\subsection{Inertia}
-\par \textit{Inertia} adalah metrik evaluasi pada algoritma K-Means yang mengukur tingkat kekompakan dari sebuah klaster yang terbentuk \cite{bishop2006pattern}. Nilai \textit{inertia} dihitung sebagai jumlah kuadrat jarak seluruh titik data terhadap \textit{centroid} dari klasternya masing-masing (\textit{Within-Cluster Sum of Squares}). Formulasi matematis dari \textit{inertia} didefinisikan pada Persamaan \eqref{eq:inertia}:
-\begin{equation}  
-  \text{Inertia} = \sum_{j=1}^{k} \sum_{x \in C_j} \|x - c_j\|^2
-  \label{eq:inertia}
+\subsubsection{K-Nearest Neighbors (KNN)}
+\par K-Nearest Neighbors (KNN) adalah algoritma \textit{classification} berbasis \textit{instance-based learning} yang bersifat non-parametrik dan tergolong sebagai \textit{lazy learner}, di mana model tidak membentuk fungsi pemisah eksplisit selama fase pelatihan melainkan menyimpan seluruh sampel data \cite{ibm_knn}. Ketika menerima data uji baru, KNN memprediksi kelas berdasarkan mekanisme \textit{majority voting} dari $k$ tetangga terdekat dalam \textit{feature space} \cite{scikit_classification}. Derajat kedekatan antar-titik data dihitung menggunakan metrik \textit{Euclidean distance} sebagaimana dirumuskan pada Persamaan \eqref{eq:euclidean}:
+\begin{equation}
+  d(\mathbf{p}, \mathbf{q}) = \sqrt{\sum_{i=1}^{n} (p_i - q_i)^2}
+  \label{eq:euclidean}
 \end{equation}
-di mana $k$ menyatakan jumlah klaster, $C_j$ adalah himpunan titik data anggota klaster ke-$j$, $x$ adalah vektor data observasi, dan $c_j$ merupakan posisi \textit{centroid} klaster ke-$j$ \cite{bishop2006pattern, scikit_learn_clustering}.
-\par Nilai \textit{inertia} yang lebih rendah menunjukkan bahwa titik data mengelompok secara rapat di sekitar \textit{centroid}-nya, sehingga klaster yang terbentuk menjadi lebih kompak dan representatif. Metrik ini sangat sering digunakan dalam \textit{Elbow Method} untuk menentukan jumlah klaster $k$ yang optimal, meskipun metrik ini hanya relevan diaplikasikan untuk metode \textit{clustering} berbasis \textit{centroid} seperti K-Means \cite{scikit_learn_clustering}.
+di mana $\mathbf{p}$ dan $\mathbf{q}$ merepresentasikan dua vektor data berdimensi $n$. Kinerja KNN sangat dipengaruhi oleh pemilihan nilai hiperparameter $k$ dan topologi distribusi data \cite{ibm_knn}. Nilai $k$ yang terlalu kecil membuat model rentan terhadap pengaruh \textit{noise}, sedangkan nilai $k$ yang terlalu besar dapat mengaburkan \textit{decision boundary} antar-kelas. Selain itu, penerapan \textit{feature scaling} menjadi tahapan \textit{data preprocessing} yang esensial agar atribut bernilai besar tidak mendistorsi kalkulasi jarak.
 
-\subsection{Silhouette Score}
-\par \textit{Silhouette Score} merupakan metode evaluasi yang mengukur seberapa baik suatu objek data ditempatkan pada klaster tertentu dengan mempertimbangkan kedekatan data tersebut terhadap anggota klasternya sendiri dibandingkan dengan jaraknya terhadap klaster terdekat lainnya \cite{rousseeuw1987silhouettes}. Metrik ini menggabungkan penilaian kohesi intra-klaster dan pemisahan inter-klaster ke dalam satu ukuran komparatif \cite{tan2019introduction}.
-\par Untuk setiap sampel observasi $i$, koefisien siluet $s(i)$ dihitung berdasarkan dua parameter jarak:
-\begin{enumerate}[label=\arabic*.]
-  \item $a(i)$, yaitu rata-rata jarak antara titik $i$ dengan seluruh titik lain dalam klaster yang sama (\textit{mean intra-cluster distance}).
-  \item $b(i)$, yaitu rata-rata jarak antara titik $i$ dengan seluruh titik pada klaster tetangga terdekat yang bukan merupakan klaster dari titik $i$ (\textit{mean nearest-cluster distance}).
-\end{enumerate}
-Formulasi matematis nilai siluet untuk setiap titik $i$ dinyatakan pada Persamaan \eqref{eq:silhouette-point}:
-\begin{equation}  
-  s(i) = \frac{b(i) - a(i)}{\max(a(i), b(i))}
-  \label{eq:silhouette-point}
+\subsubsection{Decision Tree}
+\par Decision Tree adalah algoritma \textit{classification} hierarkis yang memetakan aturan keputusan dalam bentuk struktur pohon, yang terdiri atas \textit{root node}, \textit{internal decision node}, \textit{branch}, dan \textit{leaf node} yang merepresentasikan label kelas akhir \cite{ibm_decision_tree}. Algoritma ini mempartisi \textit{feature space} secara rekursif berdasarkan atribut yang menghasilkan pemisahan paling informatif pada setiap simpul \cite{scikit_classification}. Metrik evaluasi pemisahan simpul umumnya menggunakan \textit{Gini impurity} maupun \textit{entropy} \cite{ibm_decision_tree}. Formulasi matematis \textit{Gini impurity} dinyatakan pada Persamaan \eqref{eq:gini}:
+\begin{equation}
+  \text{Gini}(D) = 1 - \sum_{i=1}^{C} p_i^2
+  \label{eq:gini}
 \end{equation}
-\par Rata-rata dari nilai $s(i)$ untuk seluruh data menghasilkan nilai keseluruhan \textit{Silhouette Score} yang berada pada rentang $-1$ hingga $1$. Nilai yang mendekati $1$ menunjukkan pemisahan klaster yang sangat baik, nilai $0$ menandakan adanya \textit{overlap} antar-klaster, dan nilai negatif mengindikasikan kemungkinan pengelompokan yang salah karena titik data lebih dekat ke klaster lain daripada ke klasternya sendiri \cite{rousseeuw1987silhouettes, tan2019introduction}. Metrik ini sangat sering digunakan untuk membandingkan performa beberapa algoritma \textit{clustering} yang berbeda dalam sebuah eksperimen penambangan data.
+di mana $p_i$ menyatakan proporsi kelas $i$ pada himpunan sampel simpul $D$ dengan total $C$ kelas. Keunggulan utama Decision Tree terletak pada tingkat \textit{interpretability} yang tinggi karena alur inferensi dapat divisualisasikan secara intuitif \cite{dicoding_classification}. Kendati demikian, satu model Decision Tree rentan mengalami \textit{overfitting} terhadap variansi data latih jika tidak diterapkan teknik \textit{pruning} atau pembatasan parameter \textit{max depth}.
+
+\subsubsection{Random Forest}
+\par Random Forest adalah algoritma \textit{ensemble learning} yang mengombinasikan prediksi dari sekumpulan Decision Tree independen guna meningkatkan stabilitas dan akurasi model \cite{ibm_random_forest}. Algoritma ini menerapkan teknik \textit{bagging} (\textit{Bootstrap Aggregating}), di mana setiap pohon dibangun menggunakan \textit{bootstrap sample} yang ditarik secara acak dari dataset pelatihan \cite{scikit_classification}. Selain itu, Random Forest melakukan seleksi acak pada subset atribut di setiap pemisahan simpul untuk menghasilkan kumpulan pohon yang tidak saling berkorelasi (\textit{decorrelated trees}) \cite{ibm_random_forest}. Keputusan prediksi akhir ditentukan melalui mekanisme \textit{majority voting} dari seluruh pohon anggota ansambel. Strategi ini secara efektif menekan varians, meminimalkan risiko \textit{overfitting}, serta memiliki ketahanan yang baik terhadap keberadaan \textit{outliers}.
+
+\subsubsection{AdaBoost (Adaptive Boosting)}
+\par Adaptive Boosting (AdaBoost) adalah algoritma \textit{ensemble learning} berbasis paradigma \textit{boosting} yang bekerja secara \textit{sequential} untuk mengonversikan sekumpulan \textit{weak learners} menjadi satu model prediksi yang tangguh (\textit{strong learner}) \cite{scikit_adaboost}. Model \textit{weak learner} yang paling umum digunakan pada AdaBoost adalah Decision Tree dengan satu tingkat pemisahan simpul yang dikenal sebagai \textit{decision stump} \cite{scikit_adaboost}. Karakteristik fundamental AdaBoost terletak pada mekanisme \textit{adaptive instance re-weighting}, di mana sampel data yang salah diklasifikasikan pada suatu iterasi akan diberikan bobot yang lebih besar pada iterasi berikutnya \cite{ibm_classification}. Hal ini mendorong model pada iterasi berikutnya untuk lebih memprioritaskan sampel yang sulit dipelajari. Pada tahap akhir, prediksi dari seluruh \textit{weak learners} digabungkan melalui metode \textit{weighted voting} berdasarkan tingkat akurasi masing-masing pembelajar.
+
+\subsection{Metrik Evaluasi Classification}
+\par Evaluasi performa model \textit{classification} merupakan langkah fundamental untuk mengukur tingkat keberhasilan dan keandalan sistem dalam mengenali pola data secara objektif \cite{scikit_metrics}. Evaluasi dilakukan secara kuantitatif dengan membandingkan label hasil prediksi model terhadap label nilai aktual yang sebenarnya (\textit{ground truth}) pada data uji \cite{dqlab_classification_metrics}. Informasi komparasi antara nilai prediksi dan nilai aktual tersebut disusun secara terstruktur ke dalam suatu matriks kontingensi yang disebut \textit{confusion matrix} \cite{trivusi_confusion_matrix, normawati2021implementasi}.
+
+\subsubsection{Confusion Matrix}
+\par \textit{Confusion matrix} adalah tabel representasi visual dua dimensi yang memerinci kinerja model \textit{classification} dengan memetakan jumlah prediksi yang benar dan yang keliru ke dalam kategori kelas aktual versus kelas prediksi \cite{trivusi_confusion_matrix, fawcett2006introduction}. Pada skenario \textit{binary classification}, \textit{confusion matrix} membagi hasil prediksi ke dalam empat kuadran fundamental \cite{scikit_metrics}:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{\textit{True Positive} ($TP$):} Jumlah observasi \textit{positive class} aktual yang diprediksi secara benar sebagai \textit{positive class}.
+  \item \textbf{\textit{True Negative} ($TN$):} Jumlah observasi \textit{negative class} aktual yang diprediksi secara benar sebagai \textit{negative class}.
+  \item \textbf{\textit{False Positive} ($FP$):} Jumlah observasi \textit{negative class} aktual yang salah diklasifikasikan sebagai \textit{positive class} (\textit{Type I Error}).
+  \item \textbf{\textit{False Negative} ($FN$):} Jumlah observasi \textit{positive class} aktual yang salah diklasifikasikan sebagai \textit{negative class} (\textit{Type II Error}).
+\end{enumerate}
+\par Pemetaan keempat komponen tersebut diilustrasikan pada Tabel \ref{tab:confusion-matrix}. Nilai-nilai $TP$, $TN$, $FP$, dan $FN$ ini menjadi landasan dasar dalam kalkulasi berbagai metrik performa lanjutan \cite{trivusi_confusion_matrix}.
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \multirow{2}{*}{\textbf{Kelas Aktual}} & \multicolumn{2}{c|}{\textbf{Prediksi Model}} \\ \cline{2-3}
+                                           & \textbf{Positive Class} & \textbf{Negative Class} \\ \hline
+    \textbf{Positive Class}                & True Positive ($TP$)    & False Negative ($FN$)   \\ \hline
+    \textbf{Negative Class}                & False Positive ($FP$)   & True Negative ($TN$)    \\ \hline
+  \end{tabular}
+  \caption{Struktur Komponen \textit{Confusion Matrix} pada \textit{Binary Classification}}
+  \label{tab:confusion-matrix}
+\end{table}
+
+\subsubsection{Accuracy}
+\par \textit{Accuracy} merupakan metrik evaluasi yang menunjukkan proporsi total prediksi yang benar terhadap keseluruhan jumlah observasi data yang diuji \cite{scikit_metrics}. Formulasi matematis \textit{accuracy} dinyatakan pada Persamaan \eqref{eq:accuracy}:
+\begin{equation}
+  \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+  \label{eq:accuracy}
+\end{equation}
+\par Meskipun \textit{accuracy} memberikan gambaran umum secara cepat, metrik ini memiliki keterbatasan serius saat diterapkan pada dataset yang tidak seimbang (\textit{imbalanced dataset}) \cite{dqlab_classification_metrics}. Pada kondisi ketidakseimbangan kelas yang ekstrem, model dapat menghasilkan nilai \textit{accuracy} yang sangat tinggi hanya dengan selalu memprediksi \textit{majority class}, suatu fenomena yang dikenal luas sebagai \textit{accuracy paradox} \cite{fawcett2006introduction, septiana2021analisis}.
+
+\subsubsection{Precision}
+\par \textit{Precision} mengukur rasio ketepatan model dalam menghasilkan prediksi positif, yaitu proporsi kasus yang benar-benar positif dibandingkan dengan seluruh sampel yang diprediksi sebagai kelas positif oleh model \cite{scikit_metrics}. Rumus matematis \textit{precision} didefinisikan pada Persamaan \eqref{eq:precision}:
+\begin{equation}
+  \text{Precision} = \frac{TP}{TP + FP}
+  \label{eq:precision}
+\end{equation}
+\par Metrik \textit{precision} menjadi fokus evaluasi utama pada skenario di mana biaya atau akibat dari terjadinya \textit{False Positive} sangat tinggi \cite{dqlab_classification_metrics}. Sebagai contoh konkret, pada sistem deteksi surel spam, model dituntut memiliki tingkat presisi tinggi guna memastikan surel penting yang sah tidak keliru diklasifikasikan ke dalam folder spam.
+
+\subsubsection{Recall}
+\par \textit{Recall} (atau dikenal pula sebagai \textit{Sensitivity} maupun \textit{True Positive Rate}) mengukur kemampuan model dalam menjaring dan menemukan seluruh sampel yang sesungguhnya bernilai positif dari data aktual \cite{scikit_metrics}. Perhitungan \textit{recall} dirumuskan pada Persamaan \eqref{eq:recall}:
+\begin{equation}
+  \text{Recall} = \frac{TP}{TP + FN}
+  \label{eq:recall}
+\end{equation}
+\par Metrik \textit{recall} sangat diutamakan dalam domain klasifikasi yang memiliki toleransi rendah terhadap timbulnya \textit{False Negative} \cite{dqlab_classification_metrics}. Sebagai contoh, pada diagnosis klinis penyakit kritis seperti kanker, sistem klasifikasi dituntut memiliki nilai \textit{recall} yang setinggi mungkin agar tidak ada pasien terinfeksi yang luput dari penanganan medis akibat salah terprediksi sebagai pasien sehat.
+
+\subsubsection{F1-Score}
+\par Dalam penerapannya, sering kali timbul kondisi saling mengorbankan (\textit{trade-off}) antara nilai \textit{precision} dan \textit{recall}, di mana peningkatan salah satu metrik cenderung menurunkan nilai metrik lainnya \cite{scikit_metrics}. Untuk mengatasi hal tersebut, \textit{F1-score} diperkenalkan sebagai rata-rata harmonik (\textit{harmonic mean}) antara \textit{precision} dan \textit{recall}, sehingga menyajikan penilaian performa komprehensif yang seimbang \cite{dqlab_classification_metrics, normawati2021implementasi}. Formulasi matematis \textit{F1-score} dirumuskan pada Persamaan \eqref{eq:f1score}:
+\begin{equation}
+  \text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}
+  \label{eq:f1score}
+\end{equation}
+\par Metrik \textit{F1-score} sangat krusial ketika mengevaluasi performa algoritma pada \textit{imbalanced dataset}, karena model dituntut untuk mempertahankan presisi yang andal sekaligus meminimalkan kejadian positif yang terlewatkan secara simultan tanpa terdistorsi oleh dominasi \textit{majority class} \cite{scikit_metrics, fawcett2006introduction}.
+
+\subsection{Imbalanced Dataset}
+\par \textit{Imbalanced dataset} merupakan kondisi ketika distribusi frekuensi sampel antar-kelas target pada suatu dataset berada dalam proporsi yang tidak seimbang secara signifikan \cite{he2009learning}. Dalam skenario \textit{binary classification}, kelas dengan jumlah sampel yang mendominasi disebut sebagai \textit{majority class}, sedangkan kelas dengan jumlah observasi yang sangat sedikit disebut sebagai \textit{minority class} \cite{istiana2023perbandingan}. Rasio ketimpangan distribusi data dinyatakan melalui \textit{Imbalance Ratio} ($IR$) sebagaimana dirumuskan pada Persamaan \eqref{eq:imbalance-ratio}:
+\begin{equation}
+  IR = \frac{N_{\text{majority}}}{N_{\text{minority}}}
+  \label{eq:imbalance-ratio}
+\end{equation}
+di mana $N_{\text{majority}}$ menyatakan kuantitas sampel pada \textit{majority class} dan $N_{\text{minority}}$ adalah kuantitas sampel pada \textit{minority class} \cite{he2009learning}.
+\par Kondisi \textit{class imbalance} menimbulkan tantangan fundamental dalam pemodelan \textit{machine learning}. Sebagian besar algoritma dirancang dengan asumsi distribusi kelas yang seimbang serta bertujuan meminimalkan \textit{overall error rate} \cite{he2009learning}. Akibatnya, model cenderung membiaskan prediksi ke arah \textit{majority class} dan gagal mengenali pola pada \textit{minority class}, sehingga menghasilkan nilai \textit{recall} yang sangat rendah pada \textit{minority class} \cite{istiana2023perbandingan}. Permasalahan ini kerap diperparah oleh adanya \textit{missing values} maupun \textit{noise} yang memperburuk performa pemodelan \cite{istiana2023perbandingan}. Strategi penanganan \textit{imbalanced dataset} dapat diterapkan melalui pendekatan \textit{data-level resampling}, \textit{algorithm-level cost-sensitive learning}, maupun kombinasi hibrida keduanya \cite{he2009learning, istiana2023perbandingan}.
+
+\subsection{Feature Selection}
+\par \textit{Feature selection} merupakan suatu proses sistematis dalam \textit{data preprocessing} dan pemodelan prediktif untuk mengidentifikasi dan memilih subset \textit{features} yang paling relevan dan informatif dari sekumpulan atribut awal pada dataset \cite{pratama2023komparasi, guyon2003introduction}. Dalam notasi matematis, \textit{feature selection} bertujuan untuk memetakan \textit{feature space} berdimensi tinggi $\mathbb{R}^D$ ke subset \textit{feature space} $\mathbb{R}^d$ di mana $d \ll D$, tanpa mengorbankan kapasitas diskriminatif model pembelajaran \cite{guyon2003introduction}.
+\par Seiring dengan meningkatnya jumlah atribut atau variabel masukan, dimensi ruang data membengkak secara eksponensial yang memicu timbulnya permasalahan \textit{curse of dimensionality} \cite{septiana2021analisis}. Atribut yang redundan, berkorelasi tinggi, atau mengandung \textit{noise} cenderung menurunkan performa generalisasi model, memperpanjang durasi komputasi pelatihan, serta meningkatkan risiko terjadinya \textit{overfitting} \cite{pratama2023komparasi, guyon2003introduction}. Melalui reduksi ke subset yang lebih kompak, model tidak hanya mencapai efisiensi komputasi yang lebih optimal, namun juga menghasilkan \textit{model interpretability} yang jauh lebih transparan \cite{septiana2021analisis}. Secara umum, metodologi \textit{feature selection} terbagi ke dalam tiga taksonomi utama: \textit{filter method}, \textit{wrapper method}, dan \textit{embedded method} \cite{saeys2007review}.
+
+\subsection{Filter Method}
+\par \textit{Filter method} merupakan pendekatan \textit{feature selection} yang mengevaluasi tingkat relevansi setiap atribut masukan secara independen berdasarkan karakteristik intrinsik statistik data terhadap variabel target, tanpa melibatkan algoritma pemodelan prediktif apa pun dalam proses seleksinya \cite{guyon2003introduction, saeys2007review}. Pada metode ini, setiap atribut diberikan peringkat (\textit{feature ranking}) menggunakan pengujian statistik, kemudian atribut dengan nilai pengujian di atas ambang batas \textit{threshold} tertentu atau sejumlah $k$ \textit{features} teratas akan dipertahankan untuk pemodelan berikutnya \cite{saeys2007review}.
+\par Pemilihan metrik pengujian statistik pada \textit{filter method} disesuaikan dengan tipe data atribut dan target yang dianalisis:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Pearson Correlation:} Digunakan untuk mengukur derajat korelasi linear antara atribut numerik kontinu dengan variabel target numerik atau kontinu biner.
+  \item \textbf{ANOVA (Analysis of Variance) F-test:} Digunakan pada atribut numerik kontinu berlabel target kategorikal untuk menguji signifikansi perbedaan nilai rata-rata (\textit{mean}) antar-kelompok kelas berdasarkan statistik rasio varians, sebagaimana dirumuskan pada Persamaan \eqref{eq:anova-f}:
+        \begin{equation}
+          F = \frac{\text{MS}_{\text{between}}}{\text{MS}_{\text{within}}}
+          \label{eq:anova-f}
+        \end{equation}
+        di mana nilai F-test yang lebih tinggi menunjukkan bahwa atribut tersebut memiliki daya pisah antar-kelas yang semakin signifikan \cite{guyon2003introduction}.
+  \item \textbf{Chi-Squared ($\chi^2$) Statistic:} Digunakan untuk mengevaluasi derajat independensi antara atribut bertipe kategorikal dengan variabel target diskret \cite{septiana2021analisis}.
+  \item \textbf{Mutual Information:} Mengukur ketergantungan statistik non-linear antara variabel masukan dan target berdasarkan teori entropi informasi \cite{guyon2003introduction}.
+\end{enumerate}
+\par Keunggulan fundamental dari \textit{filter method} terletak pada efisiensi komputasinya yang sangat tinggi serta bersifat \textit{computationally scalable} dan agnostik terhadap algoritma pembelajaran, sehingga sangat ideal dijadikan tahap \textit{pre-filtering} pada dataset berskala masif \cite{saeys2007review}. Kendati demikian, kelemahan utama metode ini adalah pengabaian \textit{feature dependencies}, sehingga atribut yang berpotensi redundan satu sama lain tetap dapat terpilih secara bersamaan \cite{guyon2003introduction, saeys2007review}.
+
+\subsection{Wrapper Method}
+\par \textit{Wrapper method} merupakan pendekatan \textit{feature selection} yang memanfaatkan algoritma \textit{machine learning} prediktif secara langsung sebagai evaluator eksternal (\textit{black-box wrapper}) untuk mengukur efektivitas dan kegunaan dari setiap kandidat subset \textit{features} yang diuji \cite{kohavi1997wrappers}. Berbeda dengan \textit{filter method} yang beroperasi murni pada analisis statistik, \textit{wrapper method} memperlakukan proses pemilihan subset atribut sebagai permasalahan \textit{state space search} yang memandu model menuju subset yang menghasilkan metrik performa (seperti \textit{accuracy} atau \textit{F1-score}) tertinggi \cite{kohavi1997wrappers, pratama2023komparasi}.
+\par Terdapat tiga strategi pencarian heuristik yang paling luas digunakan dalam \textit{wrapper method}:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{\textit{Forward Selection}:} Dimulai dari himpunan fitur kosong, kemudian pada setiap iterasi ditambahkan satu atribut baru yang memberikan peningkatan performa terbesar bagi model, hingga penambahan atribut selanjutnya tidak lagi meningkatkan performa secara signifikan \cite{pratama2023komparasi}.
+  \item \textbf{\textit{Backward Elimination}:} Dimulai dari himpunan yang memuat seluruh atribut secara lengkap, kemudian satu per satu atribut yang memberikan kontribusi performa paling rendah dieleminasi secara iteratif hingga performa optimal tercapai.
+  \item \textbf{\textit{Recursive Feature Elimination} (RFE):} Algoritma pembelajaran dilatih secara berulang pada seluruh atribut yang tersisa, kemudian atribut dengan nilai bobot atau \textit{coefficients} terendah dipangkas secara rekursif hingga tercapai jumlah subset atribut target yang ditentukan sebelumnya \cite{guyon2003introduction}.
+\end{enumerate}
+\par Keunggulan utama \textit{wrapper method} terletak pada kemampuannya mengevaluasi interaksi non-linear antar-atribut secara simultan melalui model pembelajaran langsung, sehingga menghasilkan performa prediksi yang lebih optimal dibandingkan \textit{filter method} \cite{kohavi1997wrappers, pratama2023komparasi}. Kendati demikian, kelemahan pendekatan ini adalah tingginya beban komputasi dan waktu eksekusi (\textit{computationally expensive}) akibat pelatihan serta pengujian validasi model secara berulang pada setiap kombinasi subset atribut \cite{kohavi1997wrappers}.
+
+\subsection{Embedded Method}
+\par \textit{Embedded method} merupakan pendekatan \textit{feature selection} yang terintegrasi secara \textit{built-in} di dalam proses pelatihan dan optimasi parameter internal dari algoritma pembelajaran itu sendiri \cite{guyon2003introduction, saeys2007review}. Pendekatan ini menggabungkan dua keunggulan utama dari paradigma sebelumnya, yaitu efisiensi komputasi yang tinggi layaknya \textit{filter method} serta kemampuan mempertimbangkan interaksi \textit{features} secara adaptif layaknya \textit{wrapper method} \cite{saeys2007review}.
+\par Secara praktis, penerapan \textit{embedded method} bertumpu pada dua mekanisme utama:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{LASSO (\textit{L1 Regularization}):} Metode \textit{Least Absolute Shrinkage and Selection Operator} (LASSO) menambahkan penalti norma $L_1$ pada fungsi obyektif pemodelan regresi linier atau logistik \cite{tibshirani1996regression}. Formulasi fungsi optimasi LASSO dinyatakan pada Persamaan \eqref{eq:lasso-regularization}:
+        \begin{equation}
+          \min_{\beta} \left\{ \frac{1}{2n} \sum_{i=1}^{n} \left( y_i - \sum_{j=1}^{p} x_{ij} \beta_j \right)^2 + \lambda \sum_{j=1}^{p} |\beta_j| \right\}
+          \label{eq:lasso-regularization}
+        \end{equation}
+        di mana parameter hiper regularisasi $\lambda \ge 0$ mengontrol besaran penalti \cite{tibshirani1996regression}. Karakteristik geometris dari penalti $L_1$ memiliki sifat unik yang mampu melakukan \textit{shrinkage} pada \textit{coefficients} dari atribut yang tidak informatif menjadi tepat bernilai nol ($\beta_j = 0$), sehingga proses estimasi parameter sekaligus menghasilkan \textit{feature selection} secara otomatis \cite{tibshirani1996regression}.
+  \item \textbf{\textit{Tree-Based Feature Importance}:} Model \textit{ensemble} berbasis pohon keputusan seperti Random Forest dan Gradient Boosting mengevaluasi \textit{feature importance} secara langsung selama proses konstruksi pemisahan cabang pohon keputusan \cite{guyon2003introduction}. Nilai kepentingan setiap atribut dihitung berdasarkan akumulasi reduksi ketidakmurnian node (\textit{Mean Decrease in Impurity} / MDI) menggunakan metrik \textit{Gini Impurity} atau entropi pada seluruh pohon dalam ansambel \cite{guyon2003introduction}.
+\end{enumerate}
+\par Dengan meniadakan kebutuhan pelatihan model berulang kali secara terpisah dari proses \textit{feature selection}, \textit{embedded method} menawarkan kompromi terbaik antara ketelitian akurasi seleksi dan efisiensi waktu komputasi \cite{tibshirani1996regression, saeys2007review}.
+
+\subsection{SMOTE (Synthetic Minority Over-sampling Technique)}
+\par SMOTE (\textit{Synthetic Minority Over-sampling Technique}) adalah salah satu algoritma \textit{data-level oversampling} yang paling populer dalam penanganan \textit{class imbalance} pada pemodelan \textit{machine learning} \cite{chawla2002smote, wijayanti2021smote}. Algoritma konvensional \textit{random oversampling} menyelesaikan ketimpangan dengan cara menduplikasi sampel \textit{minority class} secara eksak, yang sering kali menyebabkan model mengalami \textit{overfitting} karena \textit{decision boundary} menjadi terlalu sempit dan kaku di sekitar titik data replikasi \cite{chawla2002smote, istiana2023perbandingan}. Untuk mengatasi keterbatasan tersebut, SMOTE membangkitkan \textit{synthetic samples} baru yang realistis di dalam \textit{feature space} melalui interpolasi antar-sampel \textit{minority class} yang berdekatan \cite{chawla2002smote, wijayanti2021smote}.
+\par Prosedur operasional algoritma SMOTE berlangsung melalui tahapan sistematis berikut:
+\begin{enumerate}[label=\arabic*.]
+  \item Untuk setiap sampel observasi $x_i$ yang tergolong dalam himpunan \textit{minority class} $S_{\text{min}}$, algoritma menghitung jarak Euclidean terhadap seluruh sampel \textit{minority class} lainnya guna mengidentifikasi $K$ \textit{nearest neighbors} ($\mathcal{N}_K(x_i)$) dalam \textit{feature space} $\mathbb{R}^p$ \cite{chawla2002smote}.
+  \item Memilih satu sampel $x_{zi} \in \mathcal{N}_K(x_i)$ secara acak dari himpunan $K$ \textit{nearest neighbors} tersebut.
+  \item Membangkitkan \textit{synthetic sample} baru $x_{\text{new}}$ pada segmen garis linier yang menghubungkan titik $x_i$ dan $x_{zi}$ berdasarkan formulasi Persamaan \eqref{eq:smote-formula}:
+        \begin{equation}
+          x_{\text{new}} = x_i + \lambda \cdot (x_{zi} - x_i)
+          \label{eq:smote-formula}
+        \end{equation}
+        di mana $\lambda \sim U(0, 1)$ merupakan bilangan acak yang dibangkitkan dari distribusi seragam pada rentang interval $[0, 1]$ \cite{chawla2002smote, wijayanti2021smote}.
+\end{enumerate}
+\par Melalui interpolasi garis linier tersebut, SMOTE berhasil memperluas \textit{decision region} dari \textit{minority class} secara kontinu ke arah kelompok data minoritas lainnya tanpa menghasilkan duplikasi identik \cite{chawla2002smote, istiana2023perbandingan}. Namun, kelemahan SMOTE muncul apabila titik sampel yang terpilih merupakan \textit{noise} atau berada terlalu dekat dengan perbatasan \textit{majority class}, karena interpolasi linier dapat membangkitkan \textit{synthetic samples} yang tumpang tindih (\textit{class overlap}) dengan sebaran \textit{majority class} \cite{wijayanti2021smote}.
+
+\subsection{ADASYN (Adaptive Synthetic)}
+\par ADASYN (\textit{Adaptive Synthetic Sampling Approach}) merupakan algoritma \textit{oversampling} adaptif yang dikembangkan oleh He et al. sebagai evolusi lanjutan dari SMOTE untuk mengatasi permasalahan persebaran data yang tidak homogen pada \textit{minority class} \cite{he2008adasyn, ramadhanti2022perbandingan}. Pada algoritma SMOTE standar, seluruh sampel \textit{minority class} diberikan prioritas yang sama untuk disintesiskan data baru tanpa mempertimbangkan struktur spasial di sekeliling titik tersebut \cite{he2008adasyn}. Sebaliknya, ADASYN menggunakan pendekatan berbasis bobot distribusi adaptif yang memprioritaskan pembangkitan \textit{synthetic data} lebih banyak pada sampel \textit{minority class} yang memiliki tingkat \textit{learning difficulty} lebih tinggi \cite{he2008adasyn, ramadhanti2022perbandingan}.
+\par Nilai \textit{learning difficulty} suatu sampel \textit{minority class} diukur berdasarkan proporsi sampel \textit{majority class} yang mengelilingi titik tersebut di antara $K$ \textit{nearest neighbors}-nya \cite{he2008adasyn}. Prosedur matematis ADASYN dirumuskan melalui empat langkah kalkulasi:
+\begin{enumerate}[label=\arabic*.]
+  \item Menentukan total \textit{synthetic samples} yang perlu dibangkitkan untuk keseluruhan \textit{minority class}:
+        \begin{equation}
+          G = (m_l - m_s) \times \beta
+          \label{eq:adasyn-g}
+        \end{equation}
+        di mana $m_l$ menyatakan kuantitas sampel \textit{majority class}, $m_s$ adalah kuantitas sampel \textit{minority class}, dan $\beta \in [0, 1]$ merupakan rasio keseimbangan yang diinginkan ($\beta = 1$ untuk kondisi seimbang sempurna) \cite{he2008adasyn}.
+  \item Untuk setiap sampel \textit{minority class} $x_i \in S_{\text{min}}$, hitung rasio kesulitan lokal $r_i$:
+        \begin{equation}
+          r_i = \frac{\Delta_i}{K}, \quad i = 1, \dots, m_s
+          \label{eq:adasyn-ri}
+        \end{equation}
+        di mana $\Delta_i$ adalah jumlah sampel yang berasal dari \textit{majority class} di antara $K$ \textit{nearest neighbors} dari $x_i$ berdasarkan kalkulasi metrik jarak Euclidean, sehingga $r_i \in [0, 1]$ \cite{he2008adasyn, ramadhanti2022perbandingan}.
+  \item Melakukan normalisasi terhadap nilai rasio $r_i$ sehingga membentuk distribusi probabilitas $\hat{r}_i$:
+        \begin{equation}
+          \hat{r}_i = \frac{r_i}{\sum_{j=1}^{m_s} r_j}
+          \label{eq:adasyn-rhat}
+        \end{equation}
+        di mana $\sum_{i=1}^{m_s} \hat{r}_i = 1$ \cite{he2008adasyn}.
+  \item Menghitung jumlah \textit{synthetic samples} spesifik $g_i$ yang harus digenerasikan untuk masing-masing sampel $x_i$:
+        \begin{equation}
+          g_i = \hat{r}_i \times G
+          \label{eq:adasyn-gi}
+        \end{equation}
+        Untuk setiap sampel $x_i$, sebanyak $g_i$ data sintetis baru dibangkitkan menggunakan proses interpolasi linear sebagaimana yang diterapkan pada metode SMOTE \cite{he2008adasyn, ramadhanti2022perbandingan}.
+\end{enumerate}
+\par Melalui mekanisme adaptif tersebut, sampel \textit{minority class} yang berada di \textit{decision boundary} dan terancam terdominasi oleh \textit{majority class} akan mendapatkan alokasi \textit{synthetic samples} yang lebih besar, sedangkan sampel \textit{minority class} yang berada di wilayah yang sudah padat dan mudah dipelajari mendapatkan alokasi yang lebih sedikit \cite{ramadhanti2022perbandingan}. Dengan demikian, ADASYN secara proaktif memaksa algoritma pembelajaran untuk lebih fokus mengenali pola pada ruang data yang paling rentan terhadap kesalahan klasifikasi \cite{he2008adasyn, ramadhanti2022perbandingan}.
 
 
 
