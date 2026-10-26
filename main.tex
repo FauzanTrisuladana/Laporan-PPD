@@ -3,6 +3,8 @@
 % Package dasar
 \usepackage[utf8]{inputenc}     % untuk karakter UTF-8
 \usepackage[T1]{fontenc}        % encoding font
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{titling}
 \usepackage{titlesec}
@@ -24,6 +26,7 @@
 \usepackage{lipsum}             % untuk lorem ipsum
 \usepackage{indentfirst}        % untuk indent paragraf pertama
 \usepackage{enumitem}           % untuk kustomisasi penomoran list (A., B., dst)
+\usepackage{multirow}           % untuk sel tabel multi-baris
 
 % Pengaturan layout
 \geometry{left=3cm, right=2cm, top=2cm, bottom=2cm}
@@ -34,10 +37,14 @@
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 
-% Penomoran figure mengikuti section (misal, Gambar A.1, A.2, ...)
+% Penomoran figure dan table mengikuti section (misal, Gambar A.1, Tabel A.1, ...)
 \renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\renewcommand{\theHfigure}{\theHsection.\arabic{figure}}
+\renewcommand{\theHtable}{\theHsection.\arabic{table}}
 \makeatletter
 \@addtoreset{figure}{section}
+\@addtoreset{table}{section}
 \makeatother
 
 % Format chapter
@@ -89,8 +96,8 @@
 }
 
 % Info dokumen
-\newcommand{\Pertemuan}{11}
-\newcommand{\Materi}{Ci/Cd Pipeline Lokal dengan Gitea Action}
+\newcommand{\Pertemuan}{8}
+\newcommand{\Materi}{Neural Network}
 \title{Laporan Praktikum \\ Praktikum Penambangan Data\\
 Pertemuan \Pertemuan\\
 \Materi}
@@ -209,13 +216,193 @@ Pertemuan \Pertemuan\\
 
 \section{Tujuan Praktikum}
 \begin{enumerate}
-  \item Something
+  \item Mahasiswa memahami konsep Multilayer Perceptron (MLP) dan mampu menerapkannya pada teknik \textit{classification} dan \textit{regression}.
+  \item Mahasiswa mampu menganalisis hasil \textit{classification} menggunakan MLP dengan memanfaatkan metrik evaluasi dan pengujian model.
+  \item Mahasiswa mampu menganalisis hasil \textit{regression} menggunakan MLP dengan membandingkan hasil prediksi dengan data asli.
 \end{enumerate}
 
 \section{Dasar Teori}
 
-\subsection{Something}
-\par Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. \cite{}
+\subsection{Python}
+\par Python adalah bahasa pemrograman tingkat tinggi yang bersifat \textit{open-source} dan bertipe \textit{general-purpose} yang diciptakan oleh Guido van Rossum \cite{telkom_python}. Bahasa ini dirancang dengan filosofi yang mengutamakan \textit{code readability}, sehingga sintaksnya sederhana dan mudah dipahami baik oleh pemula maupun profesional \cite{dicoding_python}. Berkat komunitas pendukung yang besar serta ketersediaan ekosistem \textit{library} yang sangat lengkap, Python kini menjadi bahasa standar industri untuk berbagai keperluan komputasi modern, mulai dari pengembangan web, otomatisasi, analisis data, hingga pengembangan \textit{Artificial Intelligence} (AI) \cite{telkom_python}.
+
+\subsection{Google Colab}
+\par Google Colab (Colaboratory) adalah layanan \textit{cloud computing} berbasis Jupyter Notebook yang disediakan secara gratis oleh Google \cite{glints_colab}. Platform ini memungkinkan penggunanya untuk menulis dan mengeksekusi kode bahasa Python secara langsung melalui \textit{browser} tanpa perlu melakukan instalasi atau konfigurasi perangkat lunak di komputer lokal \cite{binus_colab}. Salah satu keunggulan utama dari Google Colab adalah tersedianya akses komputasi performa tinggi, seperti pengolah grafis (GPU) dan \textit{Tensor Processing Unit} (TPU) secara cuma-cuma, yang sangat esensial untuk mempercepat proses komputasi data dan pelatihan model \textit{machine learning} yang kompleks \cite{binus_colab}. Selain itu, layaknya Google Docs, Colab mendukung kolaborasi tim secara \textit{real-time} dan terintegrasi langsung dengan media penyimpanan Google Drive \cite{glints_colab}.
+
+\subsection{Numpy}
+\par NumPy (Numerical Python) adalah \textit{library} bersifat \textit{open-source} dalam ekosistem Python yang dirancang khusus untuk komputasi numerik dan saintifik \cite{dqlab_numpy}. NumPy menyediakan struktur data utama berupa objek array n-dimensi yang sangat efisien yang disebut \texttt{ndarray}. Dibandingkan dengan struktur \textit{list} bawaan pada Python, NumPy menggunakan manajemen memori yang jauh lebih efisien serta memungkinkan penerapan operasi matematis secara vektorisasi yang mempercepat waktu eksekusi tanpa memerlukan \textit{looping} secara manual \cite{ruangguru_numpy}. Oleh karena itu, pustaka ini sering kali menjadi tulang punggung bagi berbagai \textit{library} analisis data dan \textit{machine learning}.
+
+\subsection{Pandas}
+\par Pandas adalah pustaka perangkat lunak \textit{open-source} pada bahasa pemrograman Python yang berfokus pada tahapan manipulasi dan analisis data terstruktur \cite{datacamp_pandas}. Pustaka ini dibangun di atas fondasi NumPy dan menawarkan struktur data yang kuat seperti \texttt{Series} (array berlabel satu dimensi) dan \texttt{DataFrame} (struktur data tabular dua dimensi layaknya tabel SQL atau lembar kerja Excel) \cite{dqlab_pandas}. Keunggulan utama Pandas terletak pada fleksibilitasnya dalam membaca berbagai format data, fitur-fitur \textit{data cleaning}, serta kemampuan komprehensif untuk pengolahan data agregat, filter, dan penggabungan dataset \cite{datacamp_pandas}.
+
+\subsection{Artificial Intelligence}
+\par \textit{Artificial Intelligence} (AI) adalah bidang dalam ilmu komputer yang dikhususkan untuk memecahkan masalah kognitif yang umumnya diasosiasikan dengan kecerdasan manusia, seperti penalaran, pemecahan masalah, dan pengenalan pola \cite{ibm_ai}. AI bertujuan untuk menciptakan sistem komputasi yang mampu berpikir dan bertindak secara rasional dalam menangani berbagai skenario komputasi kompleks \cite{dicoding_ai}. Secara umum, AI mencakup berbagai sub-bidang, mulai dari robotika, \textit{Natural Language Processing} (NLP), hingga \textit{machine learning}, yang seluruhnya berupaya untuk mengemulasikan kemampuan adaptasi dan penalaran logis manusia.
+
+\subsection{Machine Learning}
+\par \textit{Machine Learning} (ML) adalah cabang utama dari \textit{Artificial Intelligence} (AI) yang berfokus pada pengembangan algoritma dan model statistik yang memungkinkan komputer untuk belajar secara induktif langsung dari data \cite{aws_ml}. Alih-alih diprogram secara eksplisit untuk menyelesaikan suatu tugas, sistem \textit{machine learning} menggunakan pola dan inferensi yang diekstrak dari sekumpulan data historis untuk membuat prediksi atau keputusan \cite{dqlab_ml}. Model yang dibangun akan secara otomatis meningkatkan kinerjanya seiring dengan bertambahnya jumlah data dan pengalaman yang diberikan, sehingga sangat relevan untuk diaplikasikan dalam sistem rekomendasi, deteksi penipuan, hingga pengenalan gambar.
+
+\subsection{EDA (Exploratory Data Analysis)}
+\par Exploratory Data Analysis (EDA) adalah suatu pendekatan dalam analisis data yang bertujuan untuk merangkum dan memvisualisasikan karakteristik utama dari sebuah dataset, sering kali menggunakan metode grafis atau statistika deskriptif \cite{ibm_eda}. Tahapan ini sangat krusial dalam alur kerja ilmu data karena membantu praktisi untuk mendeteksi anomali, menemukan pola laten, menguji hipotesis, dan memverifikasi asumsi dasar sebelum beranjak pada pemodelan algoritma \cite{dqlab_eda}. Melalui EDA, seorang analis dapat memahami struktur dan kualitas data dengan lebih baik, sehingga dapat menentukan strategi yang tepat untuk pemrosesan data selanjutnya.
+
+\subsection{Data Preprocessing}
+\par \textit{Data preprocessing} adalah tahapan persiapan awal dalam proses \textit{data mining} yang bertujuan untuk mentransformasikan data mentah menjadi format yang bersih, terstruktur, dan siap digunakan untuk pelatihan model \textit{machine learning} \cite{techtarget_preprocessing}. Data yang dikumpulkan dari dunia nyata umumnya mengandung \textit{missing values}, mengandung \textit{noise}, atau memiliki format yang inkonsisten \cite{trivusi_preprocessing}. Oleh karena itu, tahapan \textit{data preprocessing} ini mencakup berbagai teknik fundamental seperti \textit{data cleaning}, \textit{categorical encoding}, \textit{imputation}, hingga \textit{feature scaling} guna memastikan integritas dan stabilitas konvergensi model.
+
+\subsection{Supervised Learning}
+\par \textit{Supervised learning} merupakan salah satu paradigma utama dalam \textit{machine learning} di mana model dilatih menggunakan \textit{labeled dataset} yang terdiri atas pasangan \textit{input features} dan target \textit{ground truth} \cite{retnoningsih2020mengenal}. Selama proses \textit{training}, algoritma berupaya mengekstraksi dan mempelajari fungsi pemetaan matematis yang menghubungkan karakteristik atribut masukan dengan nilai target yang sesuai. Dengan demikian, model memiliki kapabilitas untuk melakukan generalisasi pola data yang telah dipelajari guna memprediksi label atau nilai kontinu dari \textit{unseen data} \cite{abijono2021algoritma}. Secara umum, permasalahan dalam \textit{supervised learning} terbagi ke dalam dua domain utama, yaitu \textit{classification} untuk target berupa kategori diskret dan \textit{regression} untuk target berskala numerik kontinu \cite{retnoningsih2020mengenal}.
+
+\subsection{Neural Network}
+\par \textit{Neural Network} atau \textit{Artificial Neural Network} (ANN) merupakan paradigma pemodelan komputasi dalam \textit{artificial intelligence} dan \textit{machine learning} yang terinspirasi dari cara kerja jaringan saraf biologis otak manusia dalam memproses informasi \cite{hukubun2022neural, ibm_neural_network}. Arsitektur dasar \textit{neural network} tersusun atas sekumpulan unit pemrosesan dasar yang saling terhubung yang disebut \textit{artificial neuron} atau \textit{node}, yang diorganisasikan ke dalam struktur berlapis mulai dari \textit{input layer}, satu atau lebih \textit{hidden layer}, hingga \textit{output layer} \cite{haykin2009neural, ibm_neural_network}. Melalui interkoneksi antar-lapisan tersebut, \textit{neural network} mampu memodelkan fungsi pemetaan non-linear yang sangat kompleks guna mengklasifikasikan data ke dalam kelompok tertentu maupun memprediksi nilai kontinu di masa depan \cite{hukubun2022neural, bishop2006pattern}.
+\par Secara matematis, setiap \textit{neuron} pada suatu lapisan menerima sinyal masukan $x_1, x_2, \dots, x_n$ yang masing-masing dikalikan dengan \textit{weights} $w_1, w_2, \dots, w_n$ untuk merepresentasikan kekuatan koneksi sinaptik antar-unit \cite{haykin2009neural}. Seluruh hasil perkalian tersebut kemudian dijumlahkan bersama sebuah parameter \textit{bias} ($b$) untuk membentuk kombinasi linear atau \textit{net input} ($z$), sebelum akhirnya ditransformasikan oleh sebuah \textit{activation function} ($\varphi$) guna menghasilkan luaran aktivasi ($a$) sebagaimana dirumuskan pada Persamaan \eqref{eq:neuron-net}:
+\begin{equation}
+  z = \sum_{i=1}^{n} w_i x_i + b = \mathbf{w}^T \mathbf{x} + b, \quad a = \varphi(z)
+  \label{eq:neuron-net}
+\end{equation}
+Seiring dengan bertambahnya volume data dan penerapan arsitektur \textit{deep learning}, model \textit{neural network} mampu mengadaptasikan konfigurasi \textit{weights} secara dinamis sehingga sanggup menangani arus informasi berdimensi tinggi dengan tingkat \textit{accuracy} yang unggul \cite{hukubun2022neural, lecun2015deep}.
+
+\subsection{Multilayer Perceptron (MLP)}
+\par Multilayer Perceptron (MLP) merupakan salah satu arsitektur \textit{feedforward neural network} paling fundamental dalam kajian \textit{deep learning} yang banyak diaplikasikan untuk menyelesaikan permasalahan \textit{classification} maupun \textit{regression} \cite{pardede2022kajian, scikit_mlp}. Berbeda dengan model Perceptron tunggal yang hanya mampu memisahkan data yang bersifat \textit{linearly separable}, MLP memiliki satu atau lebih \textit{hidden layers} yang terletak di antara \textit{input layer} dan \textit{output layer}, di mana setiap \textit{node} pada suatu lapisan bersifat \textit{fully connected} dengan seluruh \textit{node} pada lapisan berikutnya tanpa membentuk siklus umpan balik \cite{haykin2009neural, goodfellow2016deep}.
+\par Apabila sebuah MLP memiliki $L$ lapisan dengan matriks \textit{weights} $\mathbf{W}^{(l)}$ dan vektor \textit{bias} $\mathbf{b}^{(l)}$ pada lapisan ke-$l$, maka proses \textit{forward propagation} dari vektor masukan $\mathbf{a}^{(0)} = \mathbf{x}$ menuju lapisan-lapisan berikutnya dinyatakan secara rekursif pada Persamaan \eqref{eq:mlp-forward}:
+\begin{equation}
+  \mathbf{a}^{(l)} = \varphi^{(l)}\left(\mathbf{W}^{(l)} \mathbf{a}^{(l-1)} + \mathbf{b}^{(l)}\right), \quad l = 1, 2, \dots, L
+  \label{eq:mlp-forward}
+\end{equation}
+Berdasarkan \textit{Universal Approximation Theorem}, keberadaan \textit{hidden layer} dengan \textit{activation function} non-linear memungkinkan MLP untuk mengaproksimasi sebarang fungsi kontinu dengan tingkat ketelitian tertentu \cite{goodfellow2016deep, haykin2009neural}. Dibandingkan dengan algoritma konvensional, MLP memiliki sejumlah keunggulan signifikan, antara lain kemampuan mengadaptasikan struktur parameternya secara langsung terhadap pola distribusi data, keandalan yang lebih tinggi terhadap gangguan \textit{noise}, serta kapabilitas dalam mengestimasi \textit{posterior probability} yang menjadi landasan aturan \textit{classification} dan analisis statistika \cite{pardede2022kajian}. Dalam pustaka Scikit-Learn, arsitektur ini diimplementasikan melalui kelas \texttt{MLPClassifier} untuk tugas \textit{classification} dan \texttt{MLPRegressor} untuk tugas \textit{regression} \cite{scikit_mlp}.
+
+\subsection{Backpropagation Learning}
+\par \textit{Backpropagation} adalah algoritma pembelajaran pada \textit{supervised learning} yang digunakan untuk mengoptimalkan parameter \textit{weights} dan \textit{bias} pada setiap \textit{neuron} di dalam \textit{neural network} \cite{rumelhart1986learning, goodfellow2016deep}. Prinsip kerja utama dari \textit{backpropagation} adalah menghitung nilai \textit{error} antara luaran prediksi jaringan ($\hat{y}$) dan nilai target aktual ($y$) menggunakan suatu \textit{loss function} $\mathcal{L}(\hat{y}, y)$---seperti \textit{Cross-Entropy Loss} pada \textit{classification} atau \textit{Mean Squared Error} pada \textit{regression}---kemudian merambatkan \textit{error} tersebut secara \textit{backward} dari \textit{output layer} menuju \textit{input layer} guna memperbarui \textit{weights} jaringan secara bertahap \cite{goodfellow2016deep, pardede2022kajian}.
+\par Secara matematis, algoritma \textit{backpropagation} memanfaatkan \textit{chain rule} dalam kalkulus diferensial untuk menghitung gradien parsial dari \textit{loss function} $\mathcal{L}$ terhadap setiap bobot $w_{ij}^{(l)}$ yang menghubungkan \textit{neuron} ke-$i$ pada lapisan $(l-1)$ ke \textit{neuron} ke-$j$ pada lapisan $l$ \cite{haykin2009neural, rumelhart1986learning}. Perhitungan \textit{local gradient} ($\delta_j^{(l)}$) dan turunan parsial \textit{weights} dirumuskan pada Persamaan \eqref{eq:backprop-chain}:
+\begin{equation}
+  \frac{\partial \mathcal{L}}{\partial w_{ij}^{(l)}} = \frac{\partial \mathcal{L}}{\partial z_j^{(l)}} \cdot \frac{\partial z_j^{(l)}}{\partial w_{ij}^{(l)}} = \delta_j^{(l)} a_i^{(l-1)}
+  \label{eq:backprop-chain}
+\end{equation}
+Setelah gradien pada seluruh lapisan diperoleh, nilai \textit{weights} diperbarui menggunakan algoritma \textit{optimizer} berbasis gradien seperti \textit{Stochastic Gradient Descent} (SGD) atau Adam dengan parameter \textit{learning rate} $\eta > 0$ sesuai Persamaan \eqref{eq:weight-update}:
+\begin{equation}
+  w_{ij}^{(l)} \leftarrow w_{ij}^{(l)} - \eta \frac{\partial \mathcal{L}}{\partial w_{ij}^{(l)}}
+  \label{eq:weight-update}
+\end{equation}
+Melalui siklus iterasi \textit{forward pass} dan \textit{backward pass} yang berulang pada setiap \textit{epoch}, \textit{neural network} dapat belajar dari kesalahan prediksinya dan meminimalkan nilai \textit{loss} hingga mencapai konvergensi yang optimal baik pada pemodelan \textit{classification} maupun \textit{regression} \cite{haykin2009neural, lecun2015deep}.
+
+\subsection{Activation Function}
+\par \textit{Activation function} merupakan komponen matematis krusial di dalam \textit{neural network} yang bertugas menentukan tingkat aktivasi atau luaran dari sebuah \textit{neuron} berdasarkan akumulasi \textit{net input} yang diterimanya \cite{goodfellow2016deep, nielsen2015neural}. Peran paling fundamental dari \textit{activation function} adalah menyuntikkan sifat non-linearitas ke dalam pemetaan \textit{neural network} \cite{goodfellow2016deep}. Tanpa kehadiran \textit{activation function} non-linear, tumpukan \textit{hidden layers} sedalam apa pun hanya akan mereduksi menjadi komposisi transformasi matriks linear biasa yang setara dengan model linear satu lapis, sehingga jaringan gagal mempelajari pola relasi non-linear yang kompleks pada data \cite{haykin2009neural, nwankpa2018activation}. Beberapa jenis \textit{activation function} populer yang umum diimplementasikan pada arsitektur MLP meliputi Sigmoid, Tanh, ReLU, dan Softmax \cite{nielsen2015neural}.
+
+\subsubsection{Sigmoid (Logistic)}
+\par Fungsi aktivasi Sigmoid (atau dikenal sebagai fungsi \textit{logistic} pada Scikit-Learn) memetakan nilai masukan bilangan riil dari rentang $(-\infty, +\infty)$ ke dalam rentang interval terbatas $(0, 1)$ dengan kurva berbentuk huruf S \cite{nielsen2015neural, nwankpa2018activation}. Formulasi matematis fungsi Sigmoid dinyatakan pada Persamaan \eqref{eq:act-sigmoid}:
+\begin{equation}
+  \sigma(z) = \frac{1}{1 + e^{-z}}
+  \label{eq:act-sigmoid}
+\end{equation}
+Karena keluarannya berada di antara 0 dan 1, fungsi Sigmoid sangat ideal digunakan pada \textit{output layer} untuk permasalahan \textit{binary classification} sebagai estimator probabilitas kelas, meskipun pada \textit{hidden layer} yang sangat dalam fungsi ini rentan mengalami fenomena \textit{vanishing gradient} \cite{goodfellow2016deep, nwankpa2018activation}.
+
+\subsubsection{Hyperbolic Tangent (Tanh)}
+\par Fungsi aktivasi \textit{Hyperbolic Tangent} (Tanh) memiliki bentuk kurva sigmoidal yang serupa dengan Sigmoid, tetapi memetakan nilai masukan ke dalam rentang interval simetris $(-1, 1)$ sebagaimana dirumuskan pada Persamaan \eqref{eq:act-tanh}:
+\begin{equation}
+  \tanh(z) = \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}
+  \label{eq:act-tanh}
+\end{equation}
+Keunggulan utama Tanh dibandingkan Sigmoid adalah sifat keluarannya yang \textit{zero-centered}, sehingga proses pembaruan gradien selama tahapan \textit{backpropagation} menjadi lebih seimbang dan konvergensi pelatihan berlangsung lebih cepat \cite{haykin2009neural, nwankpa2018activation}.
+
+\subsubsection{Rectified Linear Unit (ReLU)}
+\par \textit{Rectified Linear Unit} (ReLU) merupakan \textit{activation function} standar yang paling luas digunakan pada \textit{hidden layer} arsitektur \textit{neural network} modern \cite{goodfellow2016deep, lecun2015deep}. Fungsi ini bekerja dengan menerapkan \textit{threshold} pada nilai nol, di mana nilai masukan negatif diubah menjadi nol sedangkan nilai positif diteruskan secara linear sesuai Persamaan \eqref{eq:act-relu}:
+\begin{equation}
+  \text{ReLU}(z) = \max(0, z) = \begin{cases} z, & \text{jika } z > 0 \\ 0, & \text{jika } z \le 0 \end{cases}
+  \label{eq:act-relu}
+\end{equation}
+Operasi komputasi ReLU sangat ringan karena tidak melibatkan perhitungan fungsi eksponensial, serta efektif mengatasi masalah \textit{vanishing gradient} pada domain nilai positif \cite{goodfellow2016deep, nwankpa2018activation}.
+
+\subsubsection{Softmax}
+\par Fungsi aktivasi Softmax merupakan generalisasi dari fungsi Sigmoid untuk skenario \textit{multiclass classification} yang ditempatkan pada \textit{output layer} \cite{goodfellow2016deep, nielsen2015neural}. Fungsi ini mentransformasikan vektor \textit{logits} $\mathbf{z} = (z_1, z_2, \dots, z_K)$ dari $K$ buah unit keluaran menjadi distribusi probabilitas ternormalisasi yang berjumlah tepat satu ($\sum_{i=1}^{K} \text{Softmax}(z_i) = 1$), sebagaimana dirumuskan pada Persamaan \eqref{eq:act-softmax}:
+\begin{equation}
+  \text{Softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}, \quad \text{untuk } i = 1, 2, \dots, K
+  \label{eq:act-softmax}
+\end{equation}
+
+\subsection{Classification}
+\par \textit{Classification} merupakan salah satu teknik fundamental dalam paradigma \textit{supervised learning} yang bertujuan untuk mengelompokkan dan memprediksi label atau kategori diskret dari suatu sampel data baru berdasarkan atribut yang dimilikinya \cite{roihan2020pemanfaatan, ibm_classification}. Dalam proses \textit{classification}, model dilatih menggunakan \textit{labeled dataset} untuk mengenali pola relasi matematis antara \textit{input features} dan kelas target yang telah ditentukan sebelumnya \cite{roihan2020pemanfaatan, dicoding_classification}. Setelah fase pelatihan selesai, model digunakan untuk melakukan inferensi guna menentukan kelas dari \textit{unseen data} \cite{scikit_classification}.
+\par Berbagai algoritma yang umum diimplementasikan dalam penyelesaian masalah \textit{classification} meliputi Support Vector Machines (SVM), Naive Bayes Classifier (NBC), K-Nearest Neighbors (KNN), Gradient Boosted Trees (GBT), Random Forest, hingga Artificial Neural Networks (ANN) seperti Multilayer Perceptron \cite{roihan2020pemanfaatan, scikit_classification}. Kemampuan algoritma-algoritma ini dalam memetakan \textit{decision boundary} berdasarkan kombinasi atribut memungkinkan aplikasi yang sangat luas di berbagai bidang strategis, mulai dari diagnosis klinis penyakit, prediksi \textit{customer churn} perbankan, analisis citra, hingga sistem rekomendasi cerdas \cite{roihan2020pemanfaatan, ibm_classification}.
+
+\subsection{Metrik Evaluasi Classification}
+\par Evaluasi performa model \textit{classification} merupakan langkah esensial untuk mengukur tingkat keberhasilan dan keandalan model (seperti \texttt{MLPClassifier}) dalam mengenali pola kelas data secara objektif \cite{scikit_metrics}. Pengujian dilakukan dengan membandingkan label hasil prediksi model terhadap label \textit{ground truth} pada \textit{testing set}, yang kemudian dirangkum ke dalam suatu matriks kontingensi yang disebut \textit{confusion matrix} \cite{trivusi_confusion_matrix, normawati2021implementasi}.
+
+\subsubsection{Confusion Matrix}
+\par \textit{Confusion matrix} adalah tabel representasi dua dimensi yang memerinci kinerja model \textit{classification} dengan memetakan jumlah prediksi yang benar dan yang keliru ke dalam kategori kelas aktual versus kelas prediksi \cite{trivusi_confusion_matrix, fawcett2006introduction}. Pada skenario \textit{binary classification}, \textit{confusion matrix} membagi hasil pengujian ke dalam empat komponen utama \cite{scikit_metrics}:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{\textit{True Positive} ($TP$):} Jumlah observasi \textit{positive class} aktual yang diprediksi secara benar sebagai \textit{positive class}.
+  \item \textbf{\textit{True Negative} ($TN$):} Jumlah observasi \textit{negative class} aktual yang diprediksi secara benar sebagai \textit{negative class}.
+  \item \textbf{\textit{False Positive} ($FP$):} Jumlah observasi \textit{negative class} aktual yang salah diklasifikasikan sebagai \textit{positive class} (\textit{Type I Error}).
+  \item \textbf{\textit{False Negative} ($FN$):} Jumlah observasi \textit{positive class} aktual yang salah diklasifikasikan sebagai \textit{negative class} (\textit{Type II Error}).
+\end{enumerate}
+\par Pemetaan keempat kuadran tersebut diilustrasikan pada Tabel \ref{tab:confusion-matrix}. Nilai $TP$, $TN$, $FP$, dan $FN$ ini menjadi dasar perhitungan metrik evaluasi kuantitatif lainnya \cite{trivusi_confusion_matrix}.
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \multirow{2}{*}{\textbf{Kelas Aktual}} & \multicolumn{2}{c|}{\textbf{Prediksi Model}} \\ \cline{2-3}
+                                           & \textbf{Positive Class} & \textbf{Negative Class} \\ \hline
+    \textbf{Positive Class}                & True Positive ($TP$)    & False Negative ($FN$)   \\ \hline
+    \textbf{Negative Class}                & False Positive ($FP$)   & True Negative ($TN$)    \\ \hline
+  \end{tabular}
+  \caption{Struktur Komponen \textit{Confusion Matrix} pada \textit{Binary Classification}}
+  \label{tab:confusion-matrix}
+\end{table}
+
+\subsubsection{Accuracy}
+\par \textit{Accuracy} menunjukkan proporsi total prediksi yang tepat terhadap keseluruhan jumlah observasi data yang diuji \cite{scikit_metrics}. Formulasi matematis \textit{accuracy} dinyatakan pada Persamaan \eqref{eq:accuracy}:
+\begin{equation}
+  \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+  \label{eq:accuracy}
+\end{equation}
+Meskipun memberikan gambaran ketepatan model secara menyeluruh, metrik \textit{accuracy} perlu didampingi oleh metrik lain pada kondisi \textit{class imbalance} guna menghindari bias evaluasi akibat \textit{accuracy paradox} \cite{fawcett2006introduction, septiana2021analisis}.
+
+\subsubsection{Precision}
+\par \textit{Precision} mengukur rasio ketepatan model dalam menghasilkan prediksi positif, yaitu proporsi sampel yang benar-benar positif dibandingkan dengan keseluruhan sampel yang diprediksi sebagai kelas positif oleh model \cite{scikit_metrics, dqlab_classification_metrics}. Rumus matematis \textit{precision} didefinisikan pada Persamaan \eqref{eq:precision}:
+\begin{equation}
+  \text{Precision} = \frac{TP}{TP + FP}
+  \label{eq:precision}
+\end{equation}
+
+\subsubsection{Recall}
+\par \textit{Recall} (atau dikenal pula sebagai \textit{Sensitivity}) mengukur kemampuan model dalam menjaring dan menemukan kembali seluruh sampel yang sesungguhnya bernilai positif dari data aktual \cite{scikit_metrics, dqlab_classification_metrics}. Perhitungan \textit{recall} dirumuskan pada Persamaan \eqref{eq:recall}:
+\begin{equation}
+  \text{Recall} = \frac{TP}{TP + FN}
+  \label{eq:recall}
+\end{equation}
+
+\subsubsection{F1-Score}
+\par \textit{F1-score} merupakan \textit{harmonic mean} antara \textit{precision} dan \textit{recall} yang menyajikan ukuran keseimbangan performa model ketika terdapat \textit{trade-off} di antara kedua metrik tersebut \cite{dqlab_classification_metrics, normawati2021implementasi}. Formulasi matematis \textit{F1-score} dinyatakan pada Persamaan \eqref{eq:f1score}:
+\begin{equation}
+  \text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}
+  \label{eq:f1score}
+\end{equation}
+
+\subsection{Regression}
+\par \textit{Regression} merupakan teknik pemodelan prediktif dalam \textit{supervised learning} yang bertujuan untuk memodelkan persamaan matematis guna mengestimasi atau memprediksi nilai variabel target yang berskala numerik kontinu \cite{mardiani2023komparasi, ibm_linear_regression}. Pada pendekatan klasik Linear Regression, hubungan antara \textit{dependent variable} ($y$) yang ingin diprediksi dengan satu atau lebih \textit{independent variables} ($x_1, x_2, \dots, x_p$) dimodelkan sebagai persamaan kombinasi linear sebagaimana dirumuskan pada Persamaan \eqref{eq:linear-reg}:
+\begin{equation}
+  y = \beta_0 + \sum_{j=1}^{p} \beta_j x_j + \varepsilon
+  \label{eq:linear-reg}
+\end{equation}
+di mana $\beta_0$ menyatakan konstanta \textit{intercept}, $\beta_j$ adalah \textit{coefficients} kemiringan dari masing-masing atribut, dan $\varepsilon$ merepresentasikan \textit{error term} \cite{mardiani2023komparasi, ibm_linear_regression}.
+\par Dalam skenario dunia nyata yang melibatkan interaksi variabel yang rumit---seperti estimasi harga properti rumah berdasarkan puluhan atribut fisik dan geografis---asumsi hubungan linear murni sering kali tidak memadai untuk menangkap kompleksitas pola data \cite{bishop2006pattern}. Oleh karena itu, arsitektur \textit{neural network} melalui model \texttt{MLPRegressor} memperluas kapabilitas \textit{regression} ke ranah non-linear dengan memanfaatkan \textit{hidden layers} beraktivasi non-linear serta fungsi aktivasi identitas pada \textit{output layer} sehingga mampu memprediksi nilai kontinu secara langsung dengan meminimalkan \textit{squared error loss} \cite{scikit_mlp, goodfellow2016deep}.
+
+\subsection{Metrik Evaluasi Regression}
+\par Pengujian kualitas prediksi dari model \textit{regression} dilakukan dengan mengukur seberapa dekat nilai kontinu hasil estimasi model ($\hat{y}_i$) terhadap nilai observasi asli ($y_i$) pada \textit{testing set} \cite{scikit_metrics}. Dua metrik evaluasi standar yang digunakan dalam pengujian \textit{regression} adalah \textit{Root Mean Squared Error} (RMSE) dan \textit{Coefficient of Determination} ($R^2$) \cite{chai2014root, chicco2021coefficient}.
+
+\subsubsection{Root Mean Squared Error (RMSE)}
+\par \textit{Root Mean Squared Error} (RMSE) mengukur rata-rata magnitudo kesalahan prediksi dengan menghitung akar kuadrat dari rata-rata selisih kuadrat atau \textit{Mean Squared Error} (MSE) antara nilai target aktual dan nilai prediksi model \cite{chai2014root}. Formulasi matematis RMSE dinyatakan pada Persamaan \eqref{eq:rmse}:
+\begin{equation}
+  \text{RMSE} = \sqrt{\text{MSE}} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
+  \label{eq:rmse}
+\end{equation}
+di mana $n$ adalah jumlah sampel pengujian, $y_i$ adalah nilai aktual ke-$i$, dan $\hat{y}_i$ adalah nilai prediksi model ke-$i$. Nilai RMSE memiliki satuan skala yang sama dengan variabel target asli, di mana nilai RMSE yang semakin mendekati nol mengindikasikan tingkat kesalahan prediksi yang semakin rendah dan akurasi estimasi yang semakin baik \cite{chai2014root}.
+
+\subsubsection{Coefficient of Determination (\texorpdfstring{$R^2$}{R2})}
+\par \textit{Coefficient of Determination} atau skor $R^2$ (\textit{R-squared}) merupakan metrik evaluasi tidak berdimensi yang mengukur proporsi variansi dari \textit{dependent variable} yang berhasil dijelaskan oleh \textit{independent variables} di dalam model \textit{regression} \cite{chicco2021coefficient, scikit_metrics}. Perhitungan matematis $R^2$ dirumuskan pada Persamaan \eqref{eq:r2-score}:
+\begin{equation}
+  R^2 = 1 - \frac{SS_{\text{res}}}{SS_{\text{tot}}} = 1 - \frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{\sum_{i=1}^{n} (y_i - \bar{y})^2}
+  \label{eq:r2-score}
+\end{equation}
+di mana $SS_{\text{res}}$ menyatakan \textit{residual sum of squares} dan $SS_{\text{tot}}$ adalah \textit{total sum of squares} terhadap rata-rata data aktual $\bar{y} = \frac{1}{n}\sum_{i=1}^{n} y_i$ \cite{chicco2021coefficient}. Nilai $R^2$ paling optimal adalah $1,0$ yang menandakan model mampu menjelaskan seluruh variabilitas data target secara sempurna, sedangkan nilai $R^2 = 0$ menunjukkan performa model tidak lebih baik daripada sekadar menebak nilai rata-rata $\bar{y}$ \cite{chicco2021coefficient, scikit_metrics}.
 
 
 %contoh gambar dan kode
@@ -237,7 +424,7 @@ Pertemuan \Pertemuan\\
 
 \section{Kesimpulan}
 
-\par Link Google Colab: {\small\url{link-colab}}
+\par Link Google Colab: {\small\url{https://colab.research.google.com/drive/17rJz0tL_4CL5DmKpe0bhzU6ZDuLPmyT0?usp=sharing}}
 
 \section{Daftar Pustaka}
 \printbibliography[heading=none]
