@@ -1,0 +1,8 @@
+data1 = pd.DataFrame(y_test[:30], columns=['real'])
+data2 = pd.DataFrame(y_pred[:30], columns=['predicted'])
+df_new = pd.concat([data1, data2], axis=1)
+df_new.plot(kind='bar')
+plt.title("MLP regression")
+plt.xlabel('Sample i')
+plt.ylabel('House Price')
+plt.show()

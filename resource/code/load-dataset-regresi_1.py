@@ -1,0 +1,4 @@
+df = pd.read_csv(
+    "https://raw.githubusercontent.com/FauzanTrisuladana/content/refs/heads/master/kc_house_data.csv"
+)
+df.head()

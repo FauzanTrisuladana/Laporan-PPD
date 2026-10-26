@@ -1,0 +1,20 @@
+   Age  Blood Glucose Level(BGL)  Diastolic Blood Pressure  \
+0    9                        79                        73   
+1    9                        80                        73   
+2    9                        70                        76   
+3    9                        70                        78   
+4   66                       100                        96   
+
+   Systolic Blood Pressure  Heart Rate  Body Temperature  SPO2  \
+0                      118          98         98.300707    99   
+1                      119         102         98.300707    94   
+2                      110          81         98.300707    98   
+3                      115          96         98.300707    96   
+4                      144          92         97.807052    98   
+
+   Sweating  (Y/N)  Shivering (Y/N) Diabetic/NonDiabetic (D/N)  
+0                0                0                          N  
+1                1                0                          N  
+2                1                0                          N  
+3                1                0                          N  
+4                0                0                          N  

@@ -1,0 +1,11 @@
+Age                           0
+Blood Glucose Level(BGL)      0
+Diastolic Blood Pressure      0
+Systolic Blood Pressure       0
+Heart Rate                    0
+Body Temperature              0
+SPO2                          0
+Sweating  (Y/N)               0
+Shivering (Y/N)               0
+Diabetic/NonDiabetic (D/N)    0
+dtype: int64

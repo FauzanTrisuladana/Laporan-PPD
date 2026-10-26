@@ -420,9 +420,432 @@ di mana $SS_{\text{res}}$ menyatakan \textit{residual sum of squares} dan $SS_{\
 
 \section{Hasil dan Pembahasan}
 
-\par Sesuai dengan tujuan praktikum, berikut adalah hasil yang diperoleh dan pembahasan terkait materi yang telah dipelajari.
+\par Sesuai dengan tujuan praktikum, berikut adalah hasil yang diperoleh dan pembahasan terkait implementasi algoritma \textit{Neural Network} berbasis arsitektur Multilayer Perceptron (MLP) untuk menyelesaikan permasalahan \textit{classification} dan \textit{regression}.
+
+\subsection{Implementasi Multilayer Perceptron (MLP) untuk Classification}
+
+\subsubsection{Impor Pustaka Pemodelan Classification}
+\lstinputlisting[language=Python, caption={Impor Pustaka untuk Pemodelan MLPClassifier}, label={lst:kode-impor-pustaka-klasifikasi-1}]{resource/code/impor-pustaka-klasifikasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Impor Pustaka Pemodelan MLPClassifier}, label={lst:out-impor-pustaka-klasifikasi-1}]{resource/output/impor-pustaka-klasifikasi_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-impor-pustaka-klasifikasi-1}, seluruh pustaka esensial diimpor ke dalam lingkungan kerja Python, meliputi fungsi \path{train_test_split} untuk pembagian data, modul \path{LabelEncoder}, \path{OrdinalEncoder}, dan \path{StandardScaler} untuk tahapan \textit{data preprocessing}, berbagai fungsi metrik evaluasi seperti \path{accuracy_score}, \path{precision_score}, \path{recall_score}, \path{confusion_matrix}, dan \path{ConfusionMatrixDisplay}, serta kelas utama \texttt{MLPClassifier} dari modul \path{sklearn.neural_network}. Pustaka pendukung seperti Pandas, NumPy, dan Matplotlib turut dipanggil untuk manipulasi \textit{DataFrame} serta visualisasi grafik, dengan eksekusi yang berhasil tanpa galat sebagaimana ditunjukkan pada Output \ref{lst:out-impor-pustaka-klasifikasi-1}.
+
+\subsubsection{Pemuatan dan Eksplorasi Awal Dataset Bank Customer Churn}
+\lstinputlisting[language=Python, caption={Pemuatan Dataset BankChurners dan Inspeksi Lima Baris Teratas}, label={lst:kode-load-dataset-klasifikasi-1}]{resource/code/load-dataset-klasifikasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Lima Baris Teratas Dataset BankChurners}, label={lst:out-load-dataset-klasifikasi-1}]{resource/output/load-dataset-klasifikasi_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-load-dataset-klasifikasi-1}, berkas dataset \path{BankChurners.csv} dimuat secara langsung dari repositori GitHub menggunakan fungsi \path{pd.read_csv()} lalu ditampilkan lima baris pertamanya melalui metode \path{df.head()}. Sebagaimana terlihat pada Output \ref{lst:out-load-dataset-klasifikasi-1}, tabel terdiri atas $23$ kolom atribut yang merekam profil demografis dan riwayat transaksi nasabah kartu kredit, termasuk nomor identitas \path{CLIENTNUM}, label kelas target \path{Attrition_Flag}, usia nasabah, jenis kelamin, tingkat pendidikan, limit kredit, hingga rasio pemakaian kartu.
+
+\subsubsection{Visualisasi Distribusi Variabel Numerik dengan Histogram}
+\lstinputlisting[language=Python, caption={Visualisasi Histogram Distribusi Variabel Numerik BankChurners}, label={lst:kode-visualisasi-histogram-klasifikasi-1}]{resource/code/visualisasi-histogram-klasifikasi_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/1-histogram-fitur-bank-churners.png}
+  \caption[Visualisasi Histogram Fitur Numerik BankChurners]{Visualisasi Histogram Distribusi Fitur Numerik pada Dataset \texttt{BankChurners.csv}}
+  \label{fig:histogram-fitur-bank-churners-1}
+\end{figure}
+
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-histogram-klasifikasi-1}, distribusi frekuensi dari seluruh atribut numerik dipetakan secara simultan menggunakan fungsi \path{df.hist(figsize=(20, 25))} sebagaimana disajikan pada Gambar \ref{fig:histogram-fitur-bank-churners-1}. Melalui representasi visual tersebut, terlihat bahwa atribut demografis seperti \path{Customer_Age}, \path{Dependent_count}, dan \path{Months_on_book} memiliki sebaran yang mendekati distribusi normal simetris, sedangkan atribut finansial seperti \path{Credit_Limit}, \path{Avg_Open_To_Buy}, dan \path{Avg_Utilization_Ratio} memperlihatkan pola \textit{right-skewed distribution} karena mayoritas nasabah berada pada kelompok limit kredit rendah hingga menengah.
+
+\subsubsection{Analisis Proporsi Kelas Target (Attrition Flag)}
+\lstinputlisting[language=Python, caption={Visualisasi Pie Chart Proporsi Kelas Target Attrition Flag}, label={lst:kode-visualisasi-pie-target-klasifikasi-1}]{resource/code/visualisasi-pie-target-klasifikasi_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/2-pie-target-attrition-flag.png}
+  \caption[Visualisasi Proporsi Kelas Target Attrition Flag]{Visualisasi Proporsi Kelas Target \texttt{Attrition\_Flag} pada Dataset \texttt{BankChurners.csv}}
+  \label{fig:pie-target-attrition-flag-2}
+\end{figure}
+
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-pie-target-klasifikasi-1}, proporsi frekuensi kelas target \path{Attrition_Flag} dihitung menggunakan metode \path{value_counts()} dan divisualisasikan ke dalam diagram lingkaran (\textit{pie chart}) dengan format persentase dua angka desimal. Berdasarkan Gambar \ref{fig:pie-target-attrition-flag-2}, dataset didominasi oleh kategori \texttt{Existing Customer} sebesar $83{,}93\%$, sedangkan kategori nasabah yang berhenti berlangganan (\texttt{Attrited Customer}) mencakup $16{,}07\%$ dari total populasi, yang mengindikasikan adanya karakteristik \textit{class imbalance} pada data perbankan tersebut.
+
+\subsubsection{Pemeriksaan Nilai Hilang (Missing Values)}
+\lstinputlisting[language=Python, caption={Pemeriksaan Missing Values pada Dataset BankChurners}, label={lst:kode-cek-missing-values-klasifikasi-1}]{resource/code/cek-missing-values-klasifikasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Pemeriksaan Missing Values Dataset BankChurners}, label={lst:out-cek-missing-values-klasifikasi-1}]{resource/output/cek-missing-values-klasifikasi_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-missing-values-klasifikasi-1}, pemeriksaan kelengkapan data dijalankan melalui pemanggilan fungsi berantai \path{df.isnull().sum()} untuk menghitung jumlah sel kosong pada setiap kolom. Hasil pemeriksaan pada Output \ref{lst:out-cek-missing-values-klasifikasi-1} mengonfirmasi bahwa seluruh $23$ atribut memiliki jumlah \textit{missing values} bernilai $0$, sehingga dataset tidak memerlukan prosedur penghapusan baris maupun imputasi nilai kosong sebelum memasuki tahap \textit{encoding}.
+
+\subsubsection{Identifikasi Atribut Kategorikal}
+\lstinputlisting[language=Python, caption={Pemisahan Fitur dan Identifikasi Atribut Kategorikal BankChurners}, label={lst:kode-cek-atribut-kategorikal-klasifikasi-1}]{resource/code/cek-atribut-kategorikal-klasifikasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Daftar Atribut Kategorikal Dataset BankChurners}, label={lst:out-cek-atribut-kategorikal-klasifikasi-1}]{resource/output/cek-atribut-kategorikal-klasifikasi_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-atribut-kategorikal-klasifikasi-1}, matriks fitur prediktor \path{df_X} dibentuk dengan membuang kolom identitas \path{CLIENTNUM} serta kolom target \path{Attrition_Flag}, kemudian metode penyaringan tipe data \path{select_dtypes(include=['object', 'bool'])} diterapkan guna mengidentifikasi atribut non-numerik. Sebagaimana tertera pada Output \ref{lst:out-cek-atribut-kategorikal-klasifikasi-1}, terdapat lima atribut bertipe kategorikal objek yang wajib dikonversi menjadi representasi numerik, yaitu \path{Gender}, \path{Education_Level}, \path{Marital_Status}, \path{Income_Category}, dan \path{Card_Category}.
+
+\subsubsection{Prapemrosesan Data dan Pelatihan Model MLPClassifier}
+\lstinputlisting[language=Python, caption={Label Encoding, Train-Test Split, Scaling, dan Pelatihan MLPClassifier}, label={lst:kode-pelatihan-mlp-classifier-1}]{resource/code/pelatihan-mlp-classifier_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Inisialisasi dan Pelatihan Model MLPClassifier}, label={lst:out-pelatihan-mlp-classifier-1}]{resource/output/pelatihan-mlp-classifier_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pelatihan-mlp-classifier-1}, variabel target \path{df_y} serta kelima fitur kategorikal pada \path{df_X} ditransformasikan menjadi angka diskret menggunakan \path{LabelEncoder()}. Matriks fitur \texttt{X} dan vektor target \texttt{y} kemudian dipartisi menggunakan metode \textit{hold-out} melalui \path{train_test_split} dengan rasio $70\%$ \textit{training set} dan $30\%$ \textit{testing set} (\path{test_size=0.3}, \path{random_state=42}), dilanjutkan dengan standarisasi skala fitur menggunakan \path{StandardScaler} agar seluruh prediktor memiliki rata-rata nol dan variansi satu. Selanjutnya, model \path{MLPClassifier(max_iter=500)} diinisialisasi dan dilatih menggunakan metode \path{model.fit(X_train, y_train)}, di mana keberhasilan konvergensi pelatihan ditunjukkan pada Output \ref{lst:out-pelatihan-mlp-classifier-1}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/hasil-pelatihan.png}
+  \caption[Representasi Interaktif Hasil Pelatihan MLPClassifier]{Representasi Interaktif Hasil Pelatihan Model \texttt{MLPClassifier}}
+  \label{fig:hasil-pelatihan-mlp-1}
+\end{figure}
+
+\par Sebagaimana divisualisasikan pada Gambar \ref{fig:hasil-pelatihan-mlp-1}, antarmuka interaktif Scikit-Learn pada lingkungan Google Colab menampilkan blok estimator \path{MLPClassifier(max_iter=500)} yang telah berhasil menyelesaikan tahapan \textit{fitting} terhadap data pelatihan menggunakan batas iterasi maksimum sebanyak $500$ \textit{epochs}.
+
+\subsubsection{Inspeksi Matriks Fitur dan Sampel Data Terstandarisasi}
+\lstinputlisting[language=Python, caption={Inspeksi DataFrame Fitur df\_X Pasca-Encoding}, label={lst:kode-inspeksi-fitur-klasifikasi-1}]{resource/code/inspeksi-fitur-klasifikasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output DataFrame Fitur df\_X Pasca-Encoding}, label={lst:out-inspeksi-fitur-klasifikasi-1}]{resource/output/inspeksi-fitur-klasifikasi_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-inspeksi-fitur-klasifikasi-1}, isi variabel \path{df_X} ditampilkan untuk memverifikasi hasil \textit{categorical encoding}. Sebagaimana tersaji pada Output \ref{lst:out-inspeksi-fitur-klasifikasi-1}, keseluruhan $10.127$ baris dan $21$ kolom fitur prediktor kini telah berformat numerik sepenuhnya, di mana kolom seperti \path{Gender}, \path{Education_Level}, dan \path{Marital_Status} telah direpresentasikan sebagai bilangan bulat indeks kelas.
+
+\lstinputlisting[language=Python, caption={Inspeksi Vektor Fitur Sampel Pertama X\_train[0] Pasca-Scaling}, label={lst:kode-inspeksi-sampel-xtrain-1}]{resource/code/inspeksi-sampel-xtrain_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Vektor Fitur Sampel Pertama X\_train[0]}, label={lst:out-inspeksi-sampel-xtrain-1}]{resource/output/inspeksi-sampel-xtrain_1_out.txt}
+\par Lebih lanjut pada Kode \ref{lst:kode-inspeksi-sampel-xtrain-1}, elemen baris pertama dari matriks pelatihan (\path{X_train[0]}) dipanggil untuk meninjau hasil transformasi \path{StandardScaler}. Berdasarkan Output \ref{lst:out-inspeksi-sampel-xtrain-1}, ke-$21$ fitur pada sampel pertama telah berada pada rentang skala \textit{z-score} yang seragam di sekitar angka nol (seperti $0{,}3352$, $1{,}0569$, hingga $0{,}4361$), yang sangat krusial bagi stabilitas pembaruan \textit{weights} pada algoritma \textit{backpropagation}.
+
+\subsubsection{Evaluasi Performa dan Visualisasi Confusion Matrix MLPClassifier}
+\lstinputlisting[language=Python, caption={Evaluasi Metrik Performa dan Visualisasi Confusion Matrix MLPClassifier}, label={lst:kode-evaluasi-mlp-classifier-1}]{resource/code/evaluasi-mlp-classifier_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Metrik Evaluasi Model MLPClassifier pada BankChurners}, label={lst:out-evaluasi-mlp-classifier-1}]{resource/output/evaluasi-mlp-classifier_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-evaluasi-mlp-classifier-1}, model yang telah dilatih diuji kemampuannya dalam memprediksi \textit{testing set} melalui fungsi \path{model.predict(X_test)} serta dievaluasi menggunakan metrik \textit{accuracy}, \textit{precision}, \textit{recall}, dan \textit{confusion matrix}. Mengacu pada Output \ref{lst:out-evaluasi-mlp-classifier-1}, model \texttt{MLPClassifier} berhasil mencapai nilai \textit{Accuracy} sebesar $1{,}0$ ($100\%$), \textit{Precision} sebesar $1{,}0$, dan \textit{Recall} sebesar $1{,}0$, dengan susunan \textit{confusion matrix} $\begin{bmatrix} 496 & 0 \\ 0 & 2543 \end{bmatrix}$. Capaian sempurna tanpa kesalahan klasifikasi ini terjadi karena di dalam fitur input \path{df_X} masih tersimpan dua kolom probabilitas komplementer bawaan dataset (\path{Naive_Bayes_Classifier_..._1} dan \path{_2}) yang berkorelasi langsung dengan label \path{Attrition_Flag}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/3-confusion-matrix-mlp-bank-churners.png}
+  \caption[Visualisasi Confusion Matrix MLPClassifier pada BankChurners]{Visualisasi \textit{Confusion Matrix} Model \texttt{MLPClassifier} pada Dataset \texttt{BankChurners.csv}}
+  \label{fig:confusion-matrix-mlp-bank-churners-3}
+\end{figure}
+
+\par Sebagaimana ditampilkan pada Gambar \ref{fig:confusion-matrix-mlp-bank-churners-3}, plot \path{ConfusionMatrixDisplay} memetakan hasil klasifikasi pada $3.039$ sampel data uji ke dalam empat kuadran. Seluruh $496$ sampel kelas $0{,}0$ (\texttt{Attrited Customer}) dan $2.543$ sampel kelas $1{,}0$ (\texttt{Existing Customer}) terklasifikasi tepat pada diagonal utama tanpa adanya kesalahan \textit{False Positive} ($0$) maupun \textit{False Negative} ($0$).
+
+\subsubsection{Simulasi Prediksi pada Sampel Data Pelanggan Baru}
+\lstinputlisting[language=Python, caption={Simulasi Prediksi Unseen Data Pelanggan Baru Menggunakan MLPClassifier}, label={lst:kode-prediksi-data-baru-klasifikasi-1}]{resource/code/prediksi-data-baru-klasifikasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Hasil Prediksi Data Pelanggan Baru}, label={lst:out-prediksi-data-baru-klasifikasi-1}]{resource/output/prediksi-data-baru-klasifikasi_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-prediksi-data-baru-klasifikasi-1}, dilakukan simulasi inferensi terhadap dua sampel data pelanggan baru (\textit{unseen data}) yang disusun ke dalam objek \path{df_input}. Data baru tersebut diselaraskan urutan kolomnya menggunakan metode \path{reindex()}, dikodekan variabel kategorikalnya menggunakan \path{LabelEncoder}, lalu ditransformasikan skalanya melalui fungsi \path{scaler.transform()} sebelum diprediksi menggunakan \path{model.predict(df_input)}. Hasil inferensi pada Output \ref{lst:out-prediksi-data-baru-klasifikasi-1} menunjukkan bahwa kedua profil pelanggan baru tersebut diprediksi masuk ke dalam kategori \texttt{Attrited Customer}.
+
+\lstinputlisting[language=Python, caption={Inspeksi Matriks Fitur Data Baru df\_input Pasca-Scaling}, label={lst:kode-inspeksi-df-input-1}]{resource/code/inspeksi-df-input_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Matriks Fitur Data Baru df\_input Pasca-Scaling}, label={lst:out-inspeksi-df-input-1}]{resource/output/inspeksi-df-input_1_out.txt}
+\par Lebih lanjut pada Kode \ref{lst:kode-inspeksi-df-input-1}, matriks \path{df_input} yang telah melalui proses standarisasi ditampilkan ke layar. Sebagaimana ditunjukkan pada Output \ref{lst:out-inspeksi-df-input-1}, kedua baris sampel pelanggan baru telah direpresentasikan sebagai \textit{NumPy array} berdimensi $2 \times 21$ dengan nilai bertipe \texttt{float} terstandarisasi.
+
+\lstinputlisting[language=Python, caption={Inspeksi Daftar Atribut Kategorikal pada Data Baru (cat\_features)}, label={lst:kode-inspeksi-cat-features-1}]{resource/code/inspeksi-cat-features_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Daftar Atribut Kategorikal cat\_features}, label={lst:out-inspeksi-cat-features-1}]{resource/output/inspeksi-cat-features_1_out.txt}
+\par Selanjutnya pada Kode \ref{lst:kode-inspeksi-cat-features-1}, variabel \path{cat_features} dipanggil untuk memastikan konsistensi daftar kolom kategorikal yang diproses pada data baru. Output \ref{lst:out-inspeksi-cat-features-1} memvalidasi bahwa kelima kolom kategorikal (\path{Gender}, \path{Education_Level}, \path{Marital_Status}, \path{Income_Category}, dan \path{Card_Category}) telah teridentifikasi secara identik dengan tahapan pelatihan.
+
+\lstinputlisting[language=Python, caption={Inspeksi Array Keluaran Hasil Prediksi (result)}, label={lst:kode-inspeksi-result-prediksi-1}]{resource/code/inspeksi-result-prediksi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Array Keluaran Hasil Prediksi result}, label={lst:out-inspeksi-result-prediksi-1}]{resource/output/inspeksi-result-prediksi_1_out.txt}
+\par Pada tahap akhir bagian klasifikasi di Kode \ref{lst:kode-inspeksi-result-prediksi-1}, variabel \texttt{result} diperiksa secara langsung untuk melihat nilai mentah keluaran model. Sebagaimana tertera pada Output \ref{lst:out-inspeksi-result-prediksi-1}, model menghasilkan vektor \path{array([1., 1.])} yang oleh struktur percabangan logika pada program diterjemahkan menjadi keputusan prediksi \texttt{Attrited Customer} bagi kedua sampel uji.
+
+
+\subsection{Implementasi Multilayer Perceptron (MLP) untuk Regression}
+
+\subsubsection{Impor Pustaka Pemodelan Regression}
+\lstinputlisting[language=Python, caption={Impor Pustaka untuk Pemodelan MLPRegressor}, label={lst:kode-impor-pustaka-regresi-1}]{resource/code/impor-pustaka-regresi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Impor Pustaka Pemodelan MLPRegressor}, label={lst:out-impor-pustaka-regresi-1}]{resource/output/impor-pustaka-regresi_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-impor-pustaka-regresi-1}, modul-modul khusus untuk penyelesaian kasus \textit{regression} diimpor dari pustaka Scikit-Learn, mencakup kelas \texttt{MLPRegressor} sebagai arsitektur jaringan saraf tiruan regresi, \path{SimpleImputer} untuk penanganan nilai hilang, \path{train_test_split} untuk partisi dataset, serta fungsi evaluasi \path{mean_squared_error} dan \path{r2_score}. Output \ref{lst:out-impor-pustaka-regresi-1} mengonfirmasi bahwa seluruh modul berhasil dimuat tanpa pesan kesalahan.
+
+\subsubsection{Pemuatan dan Eksplorasi Awal Dataset KC House Data}
+\lstinputlisting[language=Python, caption={Pemuatan Dataset KC House Data dan Inspeksi Lima Baris Teratas}, label={lst:kode-load-dataset-regresi-1}]{resource/code/load-dataset-regresi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Lima Baris Teratas Dataset KC House Data}, label={lst:out-load-dataset-regresi-1}]{resource/output/load-dataset-regresi_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-load-dataset-regresi-1}, berkas dataset penjualan properti rumah di King County (\path{kc_house_data.csv}) diunduh dan dibaca ke dalam \textit{DataFrame} \texttt{df}, lalu ditampilkan lima rekaman pertamanya menggunakan \path{df.head()}. Sebagaimana ditunjukkan pada Output \ref{lst:out-load-dataset-regresi-1}, dataset memiliki $21$ kolom atribut yang mencakup identitas transaksi (\texttt{id}, \texttt{date}), variabel target harga jual rumah (\texttt{price}), serta berbagai spesifikasi fisik bangunan dan koordinat lokasi properti.
+
+\subsubsection{Pemeriksaan Nilai Hilang (Missing Values) pada Dataset Properti}
+\lstinputlisting[language=Python, caption={Pemeriksaan Missing Values pada Dataset KC House Data}, label={lst:kode-cek-missing-values-regresi-1}]{resource/code/cek-missing-values-regresi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemeriksaan Missing Values Dataset KC House Data}, label={lst:out-cek-missing-values-regresi-1}]{resource/output/cek-missing-values-regresi_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-missing-values-regresi-1}, perintah \path{df.isnull().sum()} dieksekusi untuk mendeteksi keberadaan data yang tidak lengkap pada setiap kolom atribut. Mengacu pada Output \ref{lst:out-cek-missing-values-regresi-1}, ditemukan sebanyak $2$ \textit{missing values} pada atribut \path{sqft_above} (luas lantai bangunan di atas permukaan tanah), sementara ke-$20$ atribut lainnya bersih dari nilai kosong. Temuan ini mengharuskan penerapan teknik \textit{imputation} sebelum data dimasukkan ke dalam \texttt{MLPRegressor}.
+
+\subsubsection{Visualisasi Distribusi Fitur Properti dengan Histogram}
+\lstinputlisting[language=Python, caption={Visualisasi Histogram Distribusi Variabel Numerik KC House Data}, label={lst:kode-visualisasi-histogram-regresi-1}]{resource/code/visualisasi-histogram-regresi_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/4-histogram-fitur-kc-house.png}
+  \caption[Visualisasi Histogram Fitur Numerik KC House Data]{Visualisasi Histogram Distribusi Fitur Numerik pada Dataset \texttt{kc\_house\_data.csv}}
+  \label{fig:histogram-fitur-kc-house-4}
+\end{figure}
+
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-histogram-regresi-1}, distribusi statistik dari ke-$20$ variabel numerik pada dataset properti divisualisasikan melalui fungsi \path{df.hist(figsize=(20, 25))} sebagaimana disajikan pada Gambar \ref{fig:histogram-fitur-kc-house-4}. Grafik tersebut memperlihatkan bahwa variabel harga rumah (\texttt{price}) serta kelompok variabel luas area (\path{sqft_living}, \path{sqft_above}, \path{sqft_basement}, dan \path{sqft_living15}) condong ke kiri (\textit{positively skewed}), atribut \texttt{grade} dan \texttt{bathrooms} terkonsentrasi di nilai tengah, sedangkan atribut \texttt{waterfront}, \texttt{view}, dan \path{yr_renovated} didominasi oleh nilai nol karena mayoritas rumah tidak berada di tepi perairan dan belum pernah direnovasi.
+
+\subsubsection{Identifikasi Atribut Non-Numerik dan Seleksi Fitur}
+\lstinputlisting[language=Python, caption={Penghapusan Kolom Non-Prediktor dan Pemeriksaan Atribut Kategorikal}, label={lst:kode-cek-atribut-kategorikal-regresi-1}]{resource/code/cek-atribut-kategorikal-regresi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemeriksaan Atribut Kategorikal KC House Data}, label={lst:out-cek-atribut-kategorikal-regresi-1}]{resource/output/cek-atribut-kategorikal-regresi_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-atribut-kategorikal-regresi-1}, dilakukan seleksi fitur dengan membuang kolom \texttt{id} dan \texttt{date} yang tidak relevan sebagai fitur numerik langsung, serta memisahkan kolom \texttt{price} ke dalam variabel target \path{df_y}. Pemeriksaan tipe data objek dan boolean pada \path{df_X} menghasilkan keluaran \path{Index([], dtype='object')} sebagaimana terlihat pada Output \ref{lst:out-cek-atribut-kategorikal-regresi-1}, yang menandakan bahwa seluruh $18$ fitur prediktor yang tersisa sudah bertipe numerik.
+
+\subsubsection{Imputasi Data, Pelatihan Model MLPRegressor, dan Estimasi Nilai}
+\lstinputlisting[language=Python, caption={Imputasi Mean, Pelatihan MLPRegressor, dan Prediksi Harga Rumah}, label={lst:kode-pelatihan-mlp-regressor-1}]{resource/code/pelatihan-mlp-regressor_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Skor Determinasi dan Sampel Prediksi MLPRegressor}, label={lst:out-pelatihan-mlp-regressor-1}]{resource/output/pelatihan-mlp-regressor_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pelatihan-mlp-regressor-1}, dua nilai kosong pada atribut \path{sqft_above} ditangani menggunakan objek \path{SimpleImputer(strategy='mean')} yang menggantikan sel kosong dengan nilai rata-rata kolom tersebut. Data kemudian dibagi menjadi $70\%$ \textit{training set} dan $30\%$ \textit{testing set} (\path{random_state=42}), lalu dilatih menggunakan model \path{MLPRegressor()} dengan parameter bawaan. Sebagaimana tercatat pada Output \ref{lst:out-pelatihan-mlp-regressor-1}, model memperoleh nilai \textit{coefficient of determination} ($R^2$) sebesar $0{,}5685$ pada data latih dan $0{,}5525$ pada data uji, diikuti tampilan perbandingan $10$ nilai estimasi pertama (\path{y_pred[:10]}) terhadap harga rumah aktual (\path{y_test[0:10]}).
+
+\subsubsection{Evaluasi Kuantitatif Model Menggunakan RMSE dan R-Squared}
+\lstinputlisting[language=Python, caption={Perhitungan Metrik Evaluasi RMSE dan R-Squared pada KC House Data}, label={lst:kode-evaluasi-mlp-regressor-1}]{resource/code/evaluasi-mlp-regressor_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Nilai RMSE dan R-Squared Model MLPRegressor}, label={lst:out-evaluasi-mlp-regressor-1}]{resource/output/evaluasi-mlp-regressor_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-evaluasi-mlp-regressor-1}, kualitas prediksi model pada \textit{testing set} dihitung secara eksplisit menggunakan fungsi \path{mean_squared_error()} yang diakarkuadratkan menjadi nilai RMSE melalui \path{np.sqrt(mse)} serta fungsi \path{r2_score()}. Mengacu pada hasil di Output \ref{lst:out-evaluasi-mlp-regressor-1}, diperoleh skor RMSE sebesar $254.179{,}55$ USD dan nilai $R^2$ sebesar $0{,}5525$. Capaian ini menunjukkan bahwa model \texttt{MLPRegressor} dengan konfigurasi bawaan mampu menerangkan sekitar $55{,}25\%$ variansi harga properti di wilayah King County.
+
+\subsubsection{Visualisasi Perbandingan Harga Aktual dan Prediksi (Bar Chart)}
+\lstinputlisting[language=Python, caption={Visualisasi Bar Chart Perbandingan Harga Rumah Aktual dan Prediksi}, label={lst:kode-visualisasi-bar-regresi-1}]{resource/code/visualisasi-bar-regresi_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/5-bar-mlp-regression-kc-house.png}
+  \caption[Visualisasi Perbandingan Nilai Aktual dan Prediksi KC House Data]{Visualisasi Perbandingan Nilai Aktual (\texttt{real}) dan Prediksi (\texttt{predicted}) pada 30 Sampel Pertama Dataset \texttt{kc\_house\_data.csv}}
+  \label{fig:bar-mlp-regression-kc-house-5}
+\end{figure}
+
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-bar-regresi-1}, sebanyak $30$ sampel pertama dari \textit{testing set} (\path{y_test[:30]}) beserta hasil prediksinya (\path{y_pred[:30]}) digabungkan menggunakan fungsi \path{pd.concat()} ke dalam objek \textit{DataFrame} \path{df_new} lalu diplot sebagai diagram batang berdampingan (\textit{bar chart}). Sebagaimana terlihat pada Gambar \ref{fig:bar-mlp-regression-kc-house-5}, tinggi batang oranye (\texttt{predicted}) secara umum mampu mengikuti pola proporsi tinggi batang biru (\texttt{real}) baik pada properti berharga menengah maupun properti bernilai di atas $1{,}0$ juta USD, meskipun masih terdapat selisih residu pada beberapa titik sampel ekstrem.
+
+
+\subsection{Tugas \& Analisis}
+
+\subsubsection{Tugas 1: Tujuan Penggunaan dan Deskripsi Fitur Dataset Percobaan}
+\textbf{Soal:} \textit{Dataset Preparation}:
+\begin{enumerate}[label=\arabic*.]
+  \item \textit{Download} kedua dataset di atas (satu untuk masalah \textit{classification} dan satu untuk \textit{regression}).
+  \item \textit{Upload} di Google Drive atau GitHub masing-masing.
+  \item Jelaskan tujuan dari masing-masing dataset di atas.
+  \item Jelaskan fitur (\textit{features}) dari kedua dataset di atas.
+\end{enumerate}
+
+\par \textbf{Analisis Tujuan Penggunaan Dataset:} Sesuai dengan instruksi pada modul praktikum, kedua dataset yang digunakan pada langkah percobaan diunggah ke repositori GitHub mahasiswa agar dapat diakses secara langsung melalui tautan URL pada Google Colab. Tujuan penggunaan masing-masing dataset tersebut adalah sebagai berikut:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{Dataset Classification (\textit{Bank Customer Churn Dataset} / \texttt{BankChurners.csv}):} Dataset ini terdiri atas $10.127$ rekaman nasabah kartu kredit dan bertujuan untuk memprediksi risiko \textit{customer churn} (atribut target \texttt{Attrition\_Flag}), yaitu mengklasifikasikan apakah seorang nasabah akan tetap mempertahankan layanan kartu kreditnya (\texttt{Existing Customer}) atau menutup rekeningnya (\texttt{Attrited Customer}). Bagi pihak manajemen bank, model klasifikasi ini sangat krusial sebagai sistem peringatan dini (\textit{early warning system}) untuk mengidentifikasi nasabah yang berpotensi berhenti berlangganan sehingga tim pemasaran dapat menerapkan strategi retensi pelanggan secara tepat sasaran.
+  \item \textbf{Dataset Regression (\textit{House Sales in King County, USA} / \texttt{kc\_house\_data.csv}):} Dataset ini memuat $21.613$ data historis transaksi penjualan rumah di wilayah King County, negara bagian Washington, Amerika Serikat (mencakup kota Seattle) pada rentang periode Mei 2014 hingga Mei 2015. Tujuan utama penggunaan dataset ini adalah membangun model \textit{regression} untuk mengestimasi nilai harga jual properti rumah (atribut target kontinu \texttt{price}) berdasarkan karakteristik struktural bangunan, kualitas konstruksi, usia properti, serta koordinat geografisnya.
+\end{enumerate}
+
+\par \textbf{Analisis Fitur Dataset Classification (\texttt{BankChurners.csv}):} Dataset \textit{Bank Customer Churn} memiliki $23$ atribut yang merangkum profil demografis, hubungan perbankan, dan perilaku transaksi nasabah sebagaimana dijelaskan secara lengkap pada Tabel \ref{tab:deskripsi-fitur-bank-churners}.
+
+\begin{table}[H]
+  \centering
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|c|l|c|p{8.8cm}|}
+      \hline
+      \textbf{No} & \textbf{Nama Atribut} & \textbf{Tipe Data} & \textbf{Deskripsi dan Makna Atribut} \\ \hline
+      1  & \path{CLIENTNUM} & Integer & Nomor identitas unik untuk setiap nasabah pemegang kartu kredit (\textit{Unique Identifier}). \\ \hline
+      2  & \path{Attrition_Flag} & Object & Variabel target klasifikasi status aktivitas akun nasabah (\texttt{Existing Customer} atau \texttt{Attrited Customer}). \\ \hline
+      3  & \path{Customer_Age} & Integer & Usia nasabah dalam satuan tahun. \\ \hline
+      4  & \path{Gender} & Object & Jenis kelamin nasabah (\texttt{M} untuk laki-laki dan \texttt{F} untuk perempuan). \\ \hline
+      5  & \path{Dependent_count} & Integer & Jumlah tanggungan anggota keluarga yang dimiliki oleh nasabah. \\ \hline
+      6  & \path{Education_Level} & Object & Tingkat pendidikan terakhir nasabah (seperti \texttt{High School}, \texttt{Graduate}, \texttt{Post-Graduate}, \texttt{Doctorate}, \texttt{Uneducated}). \\ \hline
+      7  & \path{Marital_Status} & Object & Status pernikahan nasabah (\texttt{Married}, \texttt{Single}, \texttt{Divorced}, atau \texttt{Unknown}). \\ \hline
+      8  & \path{Income_Category} & Object & Kategori rentang pendapatan tahunan nasabah (mulai dari \texttt{Less than \$40K} hingga \texttt{\$120K+}). \\ \hline
+      9  & \path{Card_Category} & Object & Jenis tingkatan kartu kredit yang dimiliki nasabah (\texttt{Blue}, \texttt{Silver}, \texttt{Gold}, atau \texttt{Platinum}). \\ \hline
+      10 & \path{Months_on_book} & Integer & Lama periode nasabah tercatat sebagai pelanggan bank (dalam satuan bulan). \\ \hline
+      11 & \path{Total_Relationship_Count} & Integer & Jumlah total produk layanan perbankan yang digunakan oleh nasabah. \\ \hline
+      12 & \path{Months_Inactive_12_mon} & Integer & Jumlah bulan di mana nasabah tidak aktif bertransaksi selama 12 bulan terakhir. \\ \hline
+      13 & \path{Contacts_Count_12_mon} & Integer & Frekuensi kontak komunikasi antara nasabah dan pihak bank dalam 12 bulan terakhir. \\ \hline
+      14 & \path{Credit_Limit} & Float & Batas maksimal pagu kredit (\textit{credit limit}) pada kartu kredit nasabah. \\ \hline
+      15 & \path{Total_Revolving_Bal} & Integer & Total saldo tagihan bergulir (\textit{revolving balance}) pada kartu kredit yang belum dilunasi. \\ \hline
+      16 & \path{Avg_Open_To_Buy} & Float & Rata-rata sisa kelonggaran limit kredit yang masih tersedia untuk dibelanjakan dalam 12 bulan terakhir. \\ \hline
+      17 & \path{Total_Amt_Chng_Q4_Q1} & Float & Rasio perubahan total nominal nilai transaksi dari kuartal ke-4 terhadap kuartal ke-1. \\ \hline
+      18 & \path{Total_Trans_Amt} & Integer & Total nominal uang transaksi kartu kredit selama 12 bulan terakhir. \\ \hline
+      19 & \path{Total_Trans_Ct} & Integer & Total frekuensi (jumlah kali) transaksi yang dilakukan selama 12 bulan terakhir. \\ \hline
+      20 & \path{Total_Ct_Chng_Q4_Q1} & Float & Rasio perubahan jumlah frekuensi transaksi dari kuartal ke-4 terhadap kuartal ke-1. \\ \hline
+      21 & \path{Avg_Utilization_Ratio} & Float & Rasio rata-rata pemanfaatan kartu kredit oleh nasabah terhadap total pagu kredit. \\ \hline
+      22 & \path{Naive_Bayes_Classifier_..._1} & Float & Nilai probabilitas prediksi kelas 1 hasil perhitungan model Naive Bayes bawaan dataset. \\ \hline
+      23 & \path{Naive_Bayes_Classifier_..._2} & Float & Nilai probabilitas prediksi kelas 2 hasil perhitungan model Naive Bayes bawaan dataset. \\ \hline
+    \end{tabular}%
+  }
+  \caption{Deskripsi Lengkap Seluruh Fitur pada Dataset \textit{Bank Customer Churn} (\texttt{BankChurners.csv})}
+  \label{tab:deskripsi-fitur-bank-churners}
+\end{table}
+
+\par \textbf{Analisis Fitur Dataset Regression (\texttt{kc\_house\_data.csv}):} Dataset penjualan rumah King County mencakup $21$ atribut yang mendeskripsikan nilai jual, kondisi fisik, dimensi tanah dan bangunan, serta lokasi geografis properti sebagaimana dirinci pada Tabel \ref{tab:deskripsi-fitur-kc-house}.
+
+\begin{table}[H]
+  \centering
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|c|l|c|p{8.8cm}|}
+      \hline
+      \textbf{No} & \textbf{Nama Atribut} & \textbf{Tipe Data} & \textbf{Deskripsi dan Makna Atribut} \\ \hline
+      1  & \path{id} & Integer & Nomor kode identifikasi unik untuk setiap transaksi penjualan rumah. \\ \hline
+      2  & \path{date} & Object & Tanggal terjadinya transaksi penjualan properti rumah. \\ \hline
+      3  & \path{price} & Float & Variabel target regresi berupa harga jual properti rumah (dalam satuan mata uang USD). \\ \hline
+      4  & \path{bedrooms} & Integer & Jumlah kamar tidur yang tersedia di dalam rumah. \\ \hline
+      5  & \path{bathrooms} & Float & Jumlah kamar mandi di dalam rumah (nilai desimal menunjukkan keberadaan kamar mandi tanpa fasilitas lengkap). \\ \hline
+      6  & \path{sqft_living} & Integer & Luas area ruang hunian interior rumah dalam satuan kaki persegi (\textit{square feet}). \\ \hline
+      7  & \path{sqft_lot} & Integer & Luas total keseluruhan kaveling tanah properti dalam satuan \textit{square feet}. \\ \hline
+      8  & \path{floors} & Float & Jumlah total tingkat atau lantai bangunan rumah. \\ \hline
+      9  & \path{waterfront} & Integer & Indikator biner apakah properti menghadap langsung ke tepi perairan ($1$ = ya, $0$ = tidak). \\ \hline
+      10 & \path{view} & Integer & Indeks kualitas pemandangan dari properti dengan skala penilaian dari $0$ hingga $4$. \\ \hline
+      11 & \path{condition} & Integer & Indeks kondisi fisik pemeliharaan rumah secara menyeluruh pada skala $1$ hingga $5$. \\ \hline
+      12 & \path{grade} & Integer & Tingkat mutu konstruksi dan desain arsitektur bangunan menurut sistem penilaian King County (skala $1$--$13$). \\ \hline
+      13 & \path{sqft_above} & Float & Luas area interior bangunan yang berada di atas permukaan tanah (tidak termasuk ruang bawah tanah). \\ \hline
+      14 & \path{sqft_basement} & Integer & Luas area ruang bawah tanah (\textit{basement}) dalam satuan \textit{square feet}. \\ \hline
+      15 & \path{yr_built} & Integer & Tahun pertama kali bangunan rumah selesai didirikan. \\ \hline
+      16 & \path{yr_renovated} & Integer & Tahun terakhir bangunan rumah mengalami perombakan atau renovasi besar ($0$ jika belum pernah direnovasi). \\ \hline
+      17 & \path{zipcode} & Integer & Nomor kode pos wilayah administratif lokasi properti berada. \\ \hline
+      18 & \path{lat} & Float & Koordinat garis lintang (\textit{latitude}) posisi geografis properti. \\ \hline
+      19 & \path{long} & Float & Koordinat garis bujur (\textit{longitude}) posisi geografis properti. \\ \hline
+      20 & \path{sqft_living15} & Integer & Rata-rata luas ruang hunian interior dari 15 properti tetangga terdekat. \\ \hline
+      21 & \path{sqft_lot15} & Integer & Rata-rata luas tanah kaveling dari 15 properti tetangga terdekat. \\ \hline
+    \end{tabular}%
+  }
+  \caption{Deskripsi Lengkap Seluruh Fitur pada Dataset \textit{KC House Data} (\texttt{kc\_house\_data.csv})}
+  \label{tab:deskripsi-fitur-kc-house}
+\end{table}
+
+\subsubsection{Tugas 2: Implementasi dan Analisis Model MLP untuk Classification (Occupancy Dataset)}
+\textbf{Soal:} Mengikuti langkah-langkah percobaan di atas, implementasikan model \textit{neural network} untuk \textit{classification} dan \textit{regression} menggunakan dataset yang sudah disiapkan pada bagian pertama, serta tampilkan dan analisis performanya.
+
+\par Pada bagian pertama Tugas 2 ini, model \texttt{MLPClassifier} diimplementasikan pada dataset baru yakni \textit{Room Occupancy Detection Dataset} (\path{ocupancy_dataset.csv}) yang bertujuan memprediksi keberadaan penghuni di dalam suatu ruangan (\texttt{Occupancy}: $1$ = terisi, $0$ = kosong) berdasarkan pembacaan sensor lingkungan (suhu, kelembapan, intensitas cahaya, kadar $\text{CO}_2$, dan rasio kelembapan).
+
+\lstinputlisting[language=Python, caption={Impor Pustaka untuk Eksperimen Tugas Klasifikasi dan Regresi}, label={lst:kode-tugas-impor-pustaka-1}]{resource/code/tugas-impor-pustaka_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Impor Pustaka Eksperimen Tugas}, label={lst:out-tugas-impor-pustaka-1}]{resource/output/tugas-impor-pustaka_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-impor-pustaka-1}, seluruh modul pemodelan \texttt{MLPClassifier} dan \texttt{MLPRegressor} beserta perangkat evaluasi dan prapemrosesan data dimuat secara terpadu, dengan hasil eksekusi tanpa galat sebagaimana tertera pada Output \ref{lst:out-tugas-impor-pustaka-1}.
+
+\lstinputlisting[language=Python, caption={Pemuatan Dataset Occupancy dan Inspeksi Lima Baris Teratas}, label={lst:kode-tugas-load-dataset-klasifikasi-1}]{resource/code/tugas-load-dataset-klasifikasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Lima Baris Teratas Dataset Occupancy}, label={lst:out-tugas-load-dataset-klasifikasi-1}]{resource/output/tugas-load-dataset-klasifikasi_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan penyelesaian pada Kode \ref{lst:kode-tugas-load-dataset-klasifikasi-1}, dataset \path{ocupancy_dataset.csv} dimuat dari repositori GitHub dan ditampilkan lima rekaman awalnya menggunakan \texttt{df.head()}. Sebagaimana ditunjukkan pada Output \ref{lst:out-tugas-load-dataset-klasifikasi-1}, dataset memuat tujuh kolom yang terdiri atas waktu pencatatan (\texttt{date}), lima fitur sensor fisik (\texttt{Temperature}, \texttt{Humidity}, \texttt{Light}, \texttt{CO2}, \texttt{HumidityRatio}), serta label biner \texttt{Occupancy}.
+
+\lstinputlisting[language=Python, caption={Visualisasi Histogram Distribusi Fitur Sensor Dataset Occupancy}, label={lst:kode-tugas-visualisasi-histogram-klasifikasi-1}]{resource/code/tugas-visualisasi-histogram-klasifikasi_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-1-histogram-fitur-occupancy.png}
+  \caption[Visualisasi Histogram Variabel Sensor Dataset Occupancy]{Visualisasi Histogram Distribusi Variabel Sensor pada Dataset \texttt{ocupancy\_dataset.csv}}
+  \label{fig:tugas-histogram-fitur-occupancy-1}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-visualisasi-histogram-klasifikasi-1}, sebaran nilai dari seluruh variabel numerik dipetakan menggunakan fungsi \path{df.hist(figsize=(20, 25))} sebagaimana disajikan pada Gambar \ref{fig:tugas-histogram-fitur-occupancy-1}. Grafik histogram memperlihatkan bahwa variabel \texttt{Light} terkonsentrasi tinggi pada nilai $0$ lux (kondisi ruangan gelap saat malam atau tidak berpenghuni) dengan kelompok kedua di kisaran $400$--$500$ lux, sedangkan variabel \texttt{CO2} dan \texttt{Temperature} menunjukkan distribusi miring ke kanan yang mencerminkan lonjakan kadar karbon dioksida dan suhu ketika ruangan sedang digunakan oleh penghuni.
+
+\lstinputlisting[language=Python, caption={Visualisasi Pie Chart Proporsi Kelas Target Occupancy}, label={lst:kode-tugas-visualisasi-pie-klasifikasi-1}]{resource/code/tugas-visualisasi-pie-klasifikasi_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-2-pie-target-occupancy.png}
+  \caption[Visualisasi Proporsi Kelas Target Occupancy]{Visualisasi Proporsi Kelas Target \texttt{Occupancy} pada Dataset \texttt{ocupancy\_dataset.csv}}
+  \label{fig:tugas-pie-target-occupancy-2}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-visualisasi-pie-klasifikasi-1}, distribusi kelas target \texttt{Occupancy} dihitung dan divisualisasikan menggunakan diagram lingkaran pada Gambar \ref{fig:tugas-pie-target-occupancy-2}. Terlihat bahwa kelas $0$ (ruangan kosong) mencakup $76{,}90\%$ dari keseluruhan observasi, sementara kelas $1$ (ruangan berpenghuni) mencakup $23{,}10\%$.
+
+\lstinputlisting[language=Python, caption={Pemeriksaan Missing Values pada Dataset Occupancy}, label={lst:kode-tugas-cek-missing-values-klasifikasi-1}]{resource/code/tugas-cek-missing-values-klasifikasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemeriksaan Missing Values Dataset Occupancy}, label={lst:out-tugas-cek-missing-values-klasifikasi-1}]{resource/output/tugas-cek-missing-values-klasifikasi_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan Kode \ref{lst:kode-tugas-cek-missing-values-klasifikasi-1} dan Output \ref{lst:out-tugas-cek-missing-values-klasifikasi-1}, pengecekan \path{df.isnull().sum()} membuktikan bahwa ketujuh kolom atribut pada dataset \textit{Occupancy} tidak memiliki satu pun nilai kosong (\textit{missing values} $= 0$).
+
+\lstinputlisting[language=Python, caption={Pemisahan Fitur Prediktor dan Pemeriksaan Atribut Kategorikal Occupancy}, label={lst:kode-tugas-cek-kategorikal-klasifikasi-1}]{resource/code/tugas-cek-kategorikal-klasifikasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemeriksaan Atribut Kategorikal Dataset Occupancy}, label={lst:out-tugas-cek-kategorikal-klasifikasi-1}]{resource/output/tugas-cek-kategorikal-klasifikasi_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan penyelesaian pada Kode \ref{lst:kode-tugas-cek-kategorikal-klasifikasi-1}, kolom waktu \texttt{date} dan label \texttt{Occupancy} dihapus dari matriks fitur \path{df_X}. Hasil penyaringan tipe data non-numerik pada Output \ref{lst:out-tugas-cek-kategorikal-klasifikasi-1} mengembalikan indeks kosong \path{Index([], dtype='object')}, yang mengonfirmasi bahwa seluruh fitur sensor sudah berformat numerik murni.
+
+\lstinputlisting[language=Python, caption={Inspeksi Matriks Fitur Prediktor df\_X pada Dataset Occupancy}, label={lst:kode-tugas-inspeksi-fitur-klasifikasi-1}]{resource/code/tugas-inspeksi-fitur-klasifikasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Matriks Fitur Prediktor df\_X Dataset Occupancy}, label={lst:out-tugas-inspeksi-fitur-klasifikasi-1}]{resource/output/tugas-inspeksi-fitur-klasifikasi_1_out.txt}
+\par \textbf{Analisis:} Lebih lanjut pada Kode \ref{lst:kode-tugas-inspeksi-fitur-klasifikasi-1}, objek \path{df_X} ditampilkan untuk memeriksa struktur dimensi data prediktor. Sebagaimana tertera pada Output \ref{lst:out-tugas-inspeksi-fitur-klasifikasi-1}, matriks fitur tersusun atas $20.560$ baris observasi dan $5$ kolom variabel sensor lingkungan.
+
+\lstinputlisting[language=Python, caption={Konversi DataFrame Fitur dan Target Occupancy Menjadi NumPy Array}, label={lst:kode-tugas-konversi-array-klasifikasi-1}]{resource/code/tugas-konversi-array-klasifikasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Konversi NumPy Array Dataset Occupancy}, label={lst:out-tugas-konversi-array-klasifikasi-1}]{resource/output/tugas-konversi-array-klasifikasi_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-konversi-array-klasifikasi-1}, struktur \path{df_X} dan \path{df_y} dikonversi ke tipe presisi desimal \texttt{float} menggunakan metode \path{astype(float)}, dengan eksekusi yang berjalan lancar sebagaimana ditunjukkan pada Output \ref{lst:out-tugas-konversi-array-klasifikasi-1}.
+
+\lstinputlisting[language=Python, caption={Pembagian Train-Test Split dan Standarisasi Fitur Dataset Occupancy}, label={lst:kode-tugas-split-scaling-klasifikasi-1}]{resource/code/tugas-split-scaling-klasifikasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pembagian Data dan Scaling Dataset Occupancy}, label={lst:out-tugas-split-scaling-klasifikasi-1}]{resource/output/tugas-split-scaling-klasifikasi_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-split-scaling-klasifikasi-1}, dataset dibagi menjadi $70\%$ data pelatihan ($14.392$ sampel) dan $30\%$ data pengujian ($6.168$ sampel) menggunakan \path{train_test_split} dengan \path{random_state=8}. Selanjutnya, \path{StandardScaler} diterapkan pada \path{X_train} dan \path{X_test} untuk menyeragamkan rentang nilai antar-sensor (misalnya antara \path{HumidityRatio} yang berskala $0{,}004$ dan \texttt{CO2} yang berskala ribuan ppm), sebagaimana divalidasi pada Output \ref{lst:out-tugas-split-scaling-klasifikasi-1}.
+
+\lstinputlisting[language=Python, caption={Pelatihan Model MLPClassifier pada Dataset Occupancy}, label={lst:kode-tugas-pelatihan-mlp-classifier-1}]{resource/code/tugas-pelatihan-mlp-classifier_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pelatihan Model MLPClassifier Dataset Occupancy}, label={lst:out-tugas-pelatihan-mlp-classifier-1}]{resource/output/tugas-pelatihan-mlp-classifier_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan penyelesaian pada Kode \ref{lst:kode-tugas-pelatihan-mlp-classifier-1}, objek \path{MLPClassifier(max_iter=500)} dilatih pada pasangan data \path{X_train} dan \path{y_train}. Output \ref{lst:out-tugas-pelatihan-mlp-classifier-1} mengonfirmasi bahwa proses optimasi bobot jaringan saraf tiruan telah mencapai konvergensi tanpa peringatan batas iterasi.
+
+\lstinputlisting[language=Python, caption={Evaluasi Performa dan Visualisasi Confusion Matrix pada Dataset Occupancy}, label={lst:kode-tugas-evaluasi-mlp-classifier-1}]{resource/code/tugas-evaluasi-mlp-classifier_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Metrik Evaluasi MLPClassifier pada Dataset Occupancy}, label={lst:out-tugas-evaluasi-mlp-classifier-1}]{resource/output/tugas-evaluasi-mlp-classifier_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-evaluasi-mlp-classifier-1}, evaluasi performa model pada $6.168$ sampel data uji menghasilkan kinerja generalisasi yang sangat unggul. Sebagaimana tercatat pada Output \ref{lst:out-tugas-evaluasi-mlp-classifier-1}, model berhasil meraih skor \textit{Accuracy} sebesar $0{,}9877$ ($98{,}77\%$), \textit{Precision} sebesar $0{,}9549$ ($95{,}49\%$), dan \textit{Recall} yang sangat tinggi sebesar $0{,}9937$ ($99{,}37\%$). Tingginya nilai \textit{recall} ini membuktikan bahwa model sangat sensitif dan andal dalam mendeteksi keberadaan penghuni ruangan secara akurat.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-3-confusion-matrix-mlp-occupancy.png}
+  \caption[Visualisasi Confusion Matrix MLPClassifier pada Dataset Occupancy]{Visualisasi \textit{Confusion Matrix} Model \texttt{MLPClassifier} pada Dataset \texttt{ocupancy\_dataset.csv}}
+  \label{fig:tugas-confusion-matrix-mlp-occupancy-3}
+\end{figure}
+
+\par \textbf{Analisis:} Mengacu pada visualisasi \path{ConfusionMatrixDisplay} pada Gambar \ref{fig:tugas-confusion-matrix-mlp-occupancy-3}, dari total $4.740$ sampel ruangan kosong aktual (kelas $0$), sebanyak $4.673$ sampel diprediksi benar sebagai \textit{True Negative} dan hanya $67$ sampel yang mengalami \textit{False Positive}. Sementara itu, dari $1.428$ sampel ruangan berpenghuni aktual (kelas $1$), sebanyak $1.419$ sampel berhasil dikenali dengan tepat sebagai \textit{True Positive} dan hanya terdapat $9$ kasus \textit{False Negative}.
+
+\subsubsection{Tugas 2: Implementasi dan Analisis Model MLP untuk Regression (Blood Glucose Level Dataset)}
+\par Pada bagian kedua Tugas 2 ini, model \texttt{MLPRegressor} diimplementasikan pada dataset medis \textit{Blood Glucose Level with Superficial Body Feature Readings} yang bertujuan memprediksi kadar glukosa darah seseorang (\path{Blood Glucose Level(BGL)}) secara non-invasif berdasarkan pembacaan fitur fisiologis permukaan tubuh (usia, tekanan darah diastolik dan sistolik, detak jantung, suhu tubuh, saturasi oksigen $\text{SpO}_2$, kondisi berkeringat, menggigil, serta status riwayat diabetes).
+
+\lstinputlisting[language=Python, caption={Pemuatan Dataset Blood Glucose Level dan Inspeksi Lima Baris Teratas}, label={lst:kode-tugas-load-dataset-regresi-1}]{resource/code/tugas-load-dataset-regresi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Lima Baris Teratas Dataset Blood Glucose Level}, label={lst:out-tugas-load-dataset-regresi-1}]{resource/output/tugas-load-dataset-regresi_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan penyelesaian pada Kode \ref{lst:kode-tugas-load-dataset-regresi-1}, berkas dataset pembacaan glukosa darah dimuat dari URL GitHub ke dalam \textit{DataFrame} \texttt{df} dan ditampilkan lima baris pertamanya. Sebagaimana terlihat pada Output \ref{lst:out-tugas-load-dataset-regresi-1}, dataset terdiri atas $10$ kolom yang memuat variabel target \path{Blood Glucose Level(BGL)} beserta sembilan variabel indikator fisiologis dan klinis pasien.
+
+\lstinputlisting[language=Python, caption={Pemeriksaan Missing Values pada Dataset Blood Glucose Level}, label={lst:kode-tugas-cek-missing-values-regresi-1}]{resource/code/tugas-cek-missing-values-regresi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemeriksaan Missing Values Dataset Blood Glucose Level}, label={lst:out-tugas-cek-missing-values-regresi-1}]{resource/output/tugas-cek-missing-values-regresi_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-cek-missing-values-regresi-1}, pemeriksaan \path{df.isnull().sum()} dijalankan untuk memverifikasi keutuhan rekaman medis. Hasil yang ditampilkan pada Output \ref{lst:out-tugas-cek-missing-values-regresi-1} memastikan bahwa seluruh $10$ atribut memiliki jumlah nilai kosong sebesar $0$.
+
+\lstinputlisting[language=Python, caption={Visualisasi Histogram Distribusi Fitur Fisiologis Blood Glucose Level}, label={lst:kode-tugas-visualisasi-histogram-regresi-1}]{resource/code/tugas-visualisasi-histogram-regresi_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-4-histogram-fitur-bgl.png}
+  \caption[Visualisasi Histogram Variabel Numerik Blood Glucose Level]{Visualisasi Histogram Distribusi Variabel Numerik pada Dataset \textit{Blood Glucose Level}}
+  \label{fig:tugas-histogram-fitur-bgl-4}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-visualisasi-histogram-regresi-1}, sebaran frekuensi dari sembilan atribut numerik diplot melalui fungsi \path{df.hist(figsize=(20, 25))} sebagaimana disajikan pada Gambar \ref{fig:tugas-histogram-fitur-bgl-4}. Grafik tersebut menunjukkan bahwa variabel \texttt{Diastolic Blood Pressure}, \texttt{Systolic Blood Pressure}, \texttt{Heart Rate}, dan \texttt{Body Temperature} berdistribusi menyerupai lonceng di sekitar rentang fisiologis normal manusia, sedangkan variabel target \path{Blood Glucose Level(BGL)} terkonsentrasi padat di kisaran $70$--$150$ mg/dL dengan ekor distribusi memanjang hingga di atas $300$ mg/dL pada pasien hiperglikemia.
+
+\lstinputlisting[language=Python, caption={Pemisahan Target dan Transformasi Atribut Kategorikal Diabetic/NonDiabetic}, label={lst:kode-tugas-encoding-kategorikal-regresi-1}]{resource/code/tugas-encoding-kategorikal-regresi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pemeriksaan Atribut Kategorikal Pasca-Mapping}, label={lst:out-tugas-encoding-kategorikal-regresi-1}]{resource/output/tugas-encoding-kategorikal-regresi_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan penyelesaian pada Kode \ref{lst:kode-tugas-encoding-kategorikal-regresi-1}, kolom target glukosa darah (\path{Blood Glucose Level(BGL)}) dipisahkan ke dalam \path{df_y}, sedangkan kolom kategorikal \path{Diabetic/NonDiabetic (D/N)} pada \path{df_X} dikonversi menjadi nilai biner menggunakan pemetaan \texttt{map} (\texttt{'D': 1, 'N': 0}). Pemeriksaan ulang tipe data objek pada Output \ref{lst:out-tugas-encoding-kategorikal-regresi-1} menghasilkan \path{Index([], dtype='object')}, yang membuktikan bahwa seluruh fitur prediktor telah siap diproses secara matematis.
+
+\lstinputlisting[language=Python, caption={Imputasi, Pembagian Data, dan Pelatihan MLPRegressor pada Dataset BGL}, label={lst:kode-tugas-pelatihan-mlp-regressor-1}]{resource/code/tugas-pelatihan-mlp-regressor_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Skor Determinasi dan Sampel Prediksi MLPRegressor Dataset BGL}, label={lst:out-tugas-pelatihan-mlp-regressor-1}]{resource/output/tugas-pelatihan-mlp-regressor_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-pelatihan-mlp-regressor-1}, matriks fitur diproses melalui modul \path{SimpleImputer(strategy='mean')} serta dibagi menggunakan fungsi \path{train_test_split} dengan proporsi $70\%$ data latih dan $30\%$ data uji (\path{random_state=42}), kemudian dilatih menggunakan \path{MLPRegressor()}. Sebagaimana ditunjukkan pada Output \ref{lst:out-tugas-pelatihan-mlp-regressor-1}, model menghasilkan nilai \textit{coefficient of determination} ($R^2$) sebesar $0{,}1923$ pada \textit{training set} dan $0{,}1877$ pada \textit{testing set}, diikuti perbandingan $10$ sampel prediksi pertama terhadap nilai glukosa darah aktual.
+
+\lstinputlisting[language=Python, caption={Perhitungan Metrik Evaluasi RMSE dan R-Squared pada Dataset BGL}, label={lst:kode-tugas-evaluasi-mlp-regressor-1}]{resource/code/tugas-evaluasi-mlp-regressor_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Nilai RMSE dan R-Squared MLPRegressor pada Dataset BGL}, label={lst:out-tugas-evaluasi-mlp-regressor-1}]{resource/output/tugas-evaluasi-mlp-regressor_1_out.txt}
+\par \textbf{Analisis:} Lebih lanjut pada Kode \ref{lst:kode-tugas-evaluasi-mlp-regressor-1}, nilai kesalahan prediksi dievaluasi menggunakan metrik RMSE dan $R^2$. Berdasarkan Output \ref{lst:out-tugas-evaluasi-mlp-regressor-1}, tercatat nilai RMSE sebesar $38{,}2827$ mg/dL dan skor $R^2$ sebesar $0{,}1877$. Rendahnya proporsi variansi yang mampu dijelaskan oleh model ($18{,}77\%$) disebabkan oleh hubungan fisiologis kadar glukosa darah yang sangat kompleks dan non-linear terhadap fitur permukaan tubuh, serta adanya nilai ekstrem (\textit{outliers}) hiperglikemia yang jauh dari rata-rata populasi normal.
+
+\lstinputlisting[language=Python, caption={Visualisasi Bar Chart Perbandingan Kadar Glukosa Aktual dan Prediksi}, label={lst:kode-tugas-visualisasi-bar-regresi-1}]{resource/code/tugas-visualisasi-bar-regresi_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-5-bar-mlp-regression-bgl.png}
+  \caption[Visualisasi Perbandingan Kadar Glukosa Aktual dan Prediksi]{Visualisasi Perbandingan Kadar Glukosa Aktual (\texttt{real}) dan Prediksi (\texttt{predicted}) pada 30 Sampel Pertama Dataset \textit{Blood Glucose Level}}
+  \label{fig:tugas-bar-mlp-regression-bgl-5}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-visualisasi-bar-regresi-1}, perbandingan antara nilai aktual (\texttt{real}) dan nilai estimasi model (\texttt{predicted}) untuk $30$ sampel uji pertama divisualisasikan ke dalam diagram batang pada Gambar \ref{fig:tugas-bar-mlp-regression-bgl-5}. Grafik memperlihatkan bahwa pada sampel pasien dengan kadar glukosa darah normal ($70$--$115$ mg/dL), tinggi batang prediksi (oranye) berada sangat dekat dengan batang aktual (biru); namun pada sampel ke-18 dan ke-25 yang memiliki nilai glukosa aktual sangat tinggi (di atas $240$ mg/dL), prediksi model cenderung bertahan di sekitar nilai rata-rata kelas diabetik ($\approx 110$--$140$ mg/dL) sehingga menyumbang selisih residu RMSE yang cukup besar.
+
+\par Sebagai rangkuman komprehensif atas seluruh rangkaian eksperimen pada langkah percobaan maupun tugas, perbandingan metrik evaluasi kinerja model \texttt{MLPClassifier} dan \texttt{MLPRegressor} pada keempat dataset disajikan pada Tabel \ref{tab:ringkasan-performa-mlp}.
+
+\begin{table}[H]
+  \centering
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|c|l|l|c|c|c|c|c|}
+      \hline
+      \textbf{Kategori} & \textbf{Nama Dataset} & \textbf{Model MLP} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{RMSE} & \textbf{Skor $R^2$} \\ \hline
+      Percobaan Klasifikasi & \texttt{BankChurners.csv} & \texttt{MLPClassifier} & $1{,}0000$ & $1{,}0000$ & $1{,}0000$ & --- & --- \\ \hline
+      Tugas 2 Klasifikasi & \texttt{ocupancy\_dataset.csv} & \texttt{MLPClassifier} & $0{,}9877$ & $0{,}9549$ & $0{,}9937$ & --- & --- \\ \hline
+      Percobaan Regresi & \texttt{kc\_house\_data.csv} & \texttt{MLPRegressor} & --- & --- & --- & $254.179{,}55$ & $0{,}5525$ \\ \hline
+      Tugas 2 Regresi & \texttt{Blood Glucose Level} & \texttt{MLPRegressor} & --- & --- & --- & $38{,}2827$ & $0{,}1877$ \\ \hline
+    \end{tabular}%
+  }
+  \caption{Ringkasan Perbandingan Performa Model Multilayer Perceptron (MLP) pada Langkah Percobaan dan Tugas}
+  \label{tab:ringkasan-performa-mlp}
+\end{table}
+
 
 \section{Kesimpulan}
+
+\par Berdasarkan hasil praktikum dan analisis pemodelan \textit{Neural Network} berbasis arsitektur Multilayer Perceptron (MLP) yang telah dilaksanakan, dapat ditarik beberapa kesimpulan utama sebagai berikut:
+\begin{enumerate}[label=\arabic*.]
+  \item Arsitektur Multilayer Perceptron (MLP) merupakan model \textit{feedforward neural network} serbaguna yang efektif diterapkan baik pada permasalahan \textit{supervised classification} melalui kelas \texttt{MLPClassifier} maupun \textit{supervised regression} melalui kelas \texttt{MLPRegressor} dengan memanfaatkan mekanisme pelatihan \textit{backpropagation} dan optimasi gradien iteratif.
+  \item Tahapan \textit{data preprocessing} yang meliputi penanganan \textit{missing values} menggunakan \path{SimpleImputer}, transformasi atribut kategorikal dengan \path{LabelEncoder}, serta penyetaraan skala fitur melalui \path{StandardScaler} terbukti sangat menentukan kecepatan konvergensi dan stabilitas pembaruan \textit{weights} pada \textit{hidden layers}.
+  \item Pada pengujian \textit{classification}, model \path{MLPClassifier(max_iter=500)} menghasilkan performa yang sangat tinggi, yakni mencapai \textit{Accuracy} $100\%$ pada dataset \path{BankChurners.csv} (akibat keberadaan fitur probabilitas komplementer bawaan) serta mencapai \textit{Accuracy} sebesar $98{,}77\%$, \textit{Precision} sebesar $95{,}49\%$, dan \textit{Recall} sebesar $99{,}37\%$ pada deteksi hunian ruangan (\path{ocupancy_dataset.csv}).
+  \item Pada pengujian \textit{regression} menggunakan parameter bawaan tanpa normalisasi skala target, model \texttt{MLPRegressor} menghasilkan skor determinasi $R^2$ sebesar $0{,}5525$ ($\text{RMSE} = 254.179{,}55$) pada estimasi harga properti \path{kc_house_data.csv} serta skor $R^2$ sebesar $0{,}1877$ ($\text{RMSE} = 38{,}2827$) pada estimasi kadar glukosa darah. Hal ini menunjukkan pentingnya penyetelan \textit{hyperparameters} (\textit{hidden layer sizes}, \textit{learning rate}, dan batas iterasi \path{max_iter}) serta \textit{feature scaling} guna menangkap variasi nilai target ekstrem secara lebih optimal.
+\end{enumerate}
 
 \par Link Google Colab: {\small\url{https://colab.research.google.com/drive/17rJz0tL_4CL5DmKpe0bhzU6ZDuLPmyT0?usp=sharing}}
 
