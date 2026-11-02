@@ -3,6 +3,8 @@
 % Package dasar
 \usepackage[utf8]{inputenc}     % untuk karakter UTF-8
 \usepackage[T1]{fontenc}        % encoding font
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{titling}
 \usepackage{titlesec}
@@ -24,6 +26,7 @@
 \usepackage{lipsum}             % untuk lorem ipsum
 \usepackage{indentfirst}        % untuk indent paragraf pertama
 \usepackage{enumitem}           % untuk kustomisasi penomoran list (A., B., dst)
+\usepackage{multirow}           % untuk sel tabel multi-baris
 
 % Pengaturan layout
 \geometry{left=3cm, right=2cm, top=2cm, bottom=2cm}
@@ -34,10 +37,14 @@
 \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 \renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
 
-% Penomoran figure mengikuti section (misal, Gambar A.1, A.2, ...)
+% Penomoran figure dan table mengikuti section (misal, Gambar A.1, Tabel A.1, ...)
 \renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\renewcommand{\theHfigure}{\theHsection.\arabic{figure}}
+\renewcommand{\theHtable}{\theHsection.\arabic{table}}
 \makeatletter
 \@addtoreset{figure}{section}
+\@addtoreset{table}{section}
 \makeatother
 
 % Format chapter
@@ -90,7 +97,7 @@
 
 % Info dokumen
 \newcommand{\Pertemuan}{11}
-\newcommand{\Materi}{Ci/Cd Pipeline Lokal dengan Gitea Action}
+\newcommand{\Materi}{Convolutional Neural Network}
 \title{Laporan Praktikum \\ Praktikum Penambangan Data\\
 Pertemuan \Pertemuan\\
 \Materi}
@@ -209,13 +216,196 @@ Pertemuan \Pertemuan\\
 
 \section{Tujuan Praktikum}
 \begin{enumerate}
-  \item Something
+  \item Mahasiswa memahami keterbatasan Multilayer Perceptron (MLP) dalam pengelolaan citra digital serta keunggulan arsitektur Convolutional Neural Network (CNN).
+  \item Mahasiswa mampu menjelaskan komponen arsitektur dasar CNN yang meliputi \textit{convolution layer}, \textit{pooling layer}, \textit{flattening}, dan \textit{fully connected layer}.
+  \item Mahasiswa mampu membangun dan melatih model CNN sederhana menggunakan \textit{framework} Keras dan TensorFlow.
+  \item Mahasiswa mampu menerapkan teknik regularisasi \textit{dropout} untuk mencegah terjadinya \textit{overfitting} pada jaringan saraf.
 \end{enumerate}
 
 \section{Dasar Teori}
 
-\subsection{Something}
-\par Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. \cite{}
+\subsection{Python}
+\par Python adalah bahasa pemrograman tingkat tinggi yang bersifat \textit{open-source} dan bertipe \textit{general-purpose} yang diciptakan oleh Guido van Rossum \cite{telkom_python}. Bahasa ini dirancang dengan filosofi yang mengutamakan \textit{code readability}, sehingga sintaksnya sederhana dan mudah dipahami baik oleh pemula maupun profesional \cite{dicoding_python}. Berkat komunitas pendukung yang besar serta ketersediaan ekosistem \textit{library} yang sangat lengkap, Python kini menjadi bahasa standar industri untuk berbagai keperluan komputasi modern, mulai dari pengembangan web, otomatisasi, analisis data, hingga pengembangan Artificial Intelligence (AI) dan Deep Learning \cite{telkom_python, chollet2021deep}.
+
+\subsection{Google Colab}
+\par Google Colab atau Colaboratory adalah layanan \textit{cloud computing} berbasis Jupyter Notebook yang disediakan secara gratis oleh Google \cite{glints_colab}. Platform ini memungkinkan penggunanya untuk menulis dan mengeksekusi kode bahasa Python secara langsung melalui \textit{browser} tanpa perlu melakukan instalasi atau konfigurasi perangkat lunak di komputer lokal \cite{binus_colab}. Salah satu keunggulan utama dari Google Colab adalah tersedianya akses akselerator perangkat keras seperti Graphics Processing Unit (GPU) dan Tensor Processing Unit (TPU) pada layanan \textit{free tier}, yang sangat esensial untuk mempercepat komputasi matriks paralel dalam pelatihan model \textit{deep learning} dan pengolahan citra berskala besar \cite{binus_colab, chollet2021deep}. Selain itu, layaknya Google Docs, Colab mendukung kolaborasi tim secara \textit{real-time} dan terintegrasi langsung dengan media penyimpanan Google Drive \cite{glints_colab}.
+
+\subsection{Numpy}
+\par NumPy atau Numerical Python adalah \textit{library} bersifat \textit{open-source} dalam ekosistem Python yang dirancang khusus untuk komputasi numerik dan saintifik \cite{dqlab_numpy}. NumPy menyediakan struktur data utama berupa objek array berdimensi-$n$ yang sangat efisien yang disebut \texttt{ndarray}. Dalam konteks pengolahan citra digital, struktur \texttt{ndarray} berperan krusial untuk merepresentasikan matriks maupun tensor nilai intensitas piksel secara kompak di dalam memori. Dibandingkan dengan struktur \textit{list} bawaan pada Python, NumPy menggunakan manajemen memori yang jauh lebih optimal serta memungkinkan penerapan operasi aljabar linear secara vektorisasi tanpa memerlukan \textit{looping} manual \cite{ruangguru_numpy}. Oleh karena itu, pustaka ini menjadi fondasi dasar bagi berbagai \textit{framework} analisis data dan \textit{deep learning} \cite{dqlab_numpy}.
+
+\subsection{Pandas}
+\par Pandas adalah pustaka perangkat lunak \textit{open-source} pada bahasa pemrograman Python yang berfokus pada tahapan manipulasi dan analisis data terstruktur \cite{datacamp_pandas}. Pustaka ini dibangun di atas fondasi NumPy dan menawarkan struktur data tingkat tinggi seperti \texttt{Series} untuk array berlabel satu dimensi serta \texttt{DataFrame} untuk struktur data tabular dua dimensi layaknya tabel basis data relasional \cite{dqlab_pandas}. Keunggulan utama Pandas terletak pada fleksibilitasnya dalam membaca berbagai format berkas eksternal, kelengkapan fitur \textit{data cleaning}, serta kemampuan komprehensif untuk pengolahan ringkasan metrik evaluasi, pemfilteran metadata dataset, dan penggabungan data eksperimen \cite{datacamp_pandas, han2022data}.
+
+\subsection{Matplotlib}
+\par Matplotlib adalah pustaka visualisasi grafik dua dimensi yang komprehensif dalam ekosistem bahasa pemrograman Python untuk menghasilkan figur berkualitas publikasi secara statis maupun interaktif \cite{hunter2007matplotlib}. Melalui modul antarmuka \texttt{matplotlib.pyplot}, praktisi data dapat memvisualisasikan distribusi sampel citra digital secara langsung dari array numerik menggunakan fungsi \texttt{imshow()}, serta menyusun tata letak multi-grafik menggunakan \texttt{subplot()} \cite{hunter2007matplotlib, chollet2021deep}. Dalam alur kerja pelatihan jaringan saraf tiruan, Matplotlib sangat berperan penting untuk merender grafik riwayat perkembangan nilai \textit{loss} dan \textit{accuracy} pada \textit{training set} maupun \textit{validation set} di setiap \textit{epoch} guna mendiagnosis gejala \textit{overfitting} atau \textit{underfitting} secara visual \cite{chollet2021deep}.
+
+\subsection{TensorFlow dan Keras}
+\par TensorFlow adalah \textit{framework} komputasi numerik dan \textit{machine learning} berskala besar bersifat \textit{open-source} yang dikembangkan oleh Google Brain untuk mengeksekusi operasi grafik aliran data berbasis struktur tensor multidimensi secara efisien di atas perangkat CPU, GPU, maupun TPU \cite{abadi2016tensorflow}. TensorFlow menyediakan dukungan \textit{automatic differentiation} untuk menghitung gradien secara otomatis dalam arsitektur jaringan saraf dalam \cite{abadi2016tensorflow, tensorflow_cnn}.
+\par Di atas fondasi TensorFlow, Keras hadir sebagai \textit{high-level neural networks API} melalui modul \texttt{tensorflow.keras} yang dirancang dengan prinsip modularitas dan kemudahan eksperimen \cite{chollet2021deep, keras_docs}. Melalui antarmuka \texttt{Sequential}, praktisi dapat merangkai tumpukan lapisan jaringan seperti \texttt{Conv2D}, \texttt{MaxPooling2D}, \texttt{Dropout}, \texttt{Flatten}, serta \texttt{Dense} secara berurutan. Selain itu, ketersediaan kelas \texttt{ImageDataGenerator} untuk pembacaan aliran direktori citra turut menyederhanakan siklus konstruksi, kompilasi, pelatihan, hingga evaluasi model Convolutional Neural Network \cite{chollet2021deep, keras_docs}.
+
+\subsection{Artificial Intelligence}
+\par Artificial Intelligence (AI) adalah bidang dalam ilmu komputer yang dikhususkan untuk memecahkan permasalahan kognitif yang umumnya diasosiasikan dengan kecerdasan manusia, seperti penalaran logis, pemecahan masalah, pengambilan keputusan, dan pengenalan pola visual \cite{ibm_ai}. AI bertujuan menciptakan sistem komputasi cerdas yang mampu memersepsikan lingkungannya serta bertindak secara rasional dalam menangani berbagai skenario kompleks \cite{dicoding_ai}. Secara luas, cakupan AI membentang dari sistem pakar, robotika, Natural Language Processing (NLP), \textit{computer vision}, hingga \textit{machine learning} dan \textit{deep learning} \cite{ibm_ai, goodfellow2016deep}.
+
+\subsection{Machine Learning}
+\par Machine Learning (ML) adalah cabang utama dari Artificial Intelligence yang berfokus pada pengembangan algoritma dan model matematis yang memungkinkan sistem komputer untuk belajar secara induktif langsung dari data empiris \cite{aws_ml, han2022data}. Alih-alih diprogram menggunakan aturan eksplisit untuk setiap skenario, sistem \textit{machine learning} mengekstraksi pola statistik dan inferensi dari sekumpulan data historis untuk menghasilkan prediksi atau keputusan pada data baru \cite{dqlab_ml}. Kualitas generalisasi model akan meningkat seiring bertambahnya representasi data pelatihan yang dipelajari, menjadikannya solusi utama dalam sistem rekomendasi, deteksi anomali, hingga pengenalan objek visual \cite{aws_ml, bishop2006pattern}.
+
+\subsection{Deep Learning}
+\par Deep Learning adalah sub-bidang spesifik dari \textit{machine learning} yang memanfaatkan arsitektur jaringan saraf tiruan dengan banyak lapisan pemrosesan berurutan untuk melakukan \textit{representation learning} secara otomatis dan hierarkis dari data mentah \cite{lecun2015deep, goodfellow2016deep}. Setiap lapisan pada model \textit{deep learning} mentransformasikan representasi fitur pada satu tingkat menjadi representasi yang lebih abstrak pada tingkat berikutnya; pada data citra misalnya, lapisan awal mempelajari keberadaan tepi dan orientasi garis, lapisan menengah merangkai motif dan bagian objek, sedangkan lapisan akhir mengenali wujud objek utuh \cite{lecun2015deep}.
+\par Perbedaan paling mendasar antara pendekatan \textit{traditional machine learning} dan \textit{deep learning} terletak pada tahapan \textit{feature extraction} \cite{lecun2015deep, chollet2021deep}. Pada alur klasifikasi citra tradisional, proses ekstraksi fitur bergantung pada rancangan rekayasa manual atau \textit{hand-crafted feature extractor} yang terpisah sepenuhnya dari pelatihan algoritma \textit{classifier} \cite{oshea2015introduction, goodfellow2016deep}. Sebaliknya, arsitektur \textit{deep learning} mengintegrasikan tahapan \textit{feature extractor} dan \textit{classifier} ke dalam satu kesatuan jaringan terpadu yang dilatih secara \textit{end-to-end}, sehingga parameter pengekstrak fitur dapat menyesuaikan diri secara optimal terhadap karakteristik tugas klasifikasi yang dihadapi \cite{lecun2015deep, chollet2021deep}.
+
+\subsection{EDA (Exploratory Data Analysis)}
+\par Exploratory Data Analysis (EDA) adalah pendekatan sistematis dalam analisis data yang bertujuan merangkum, memeriksa, dan memvisualisasikan karakteristik utama dari suatu dataset sebelum memasuki tahap pemodelan algoritma \cite{ibm_eda}. Dalam alur kerja penambangan data tabular maupun citra digital, tahapan ini sangat krusial untuk memverifikasi integritas pembacaan data, memeriksa keseimbangan proporsi sampel antar-kelas, menginspeksi dimensi resolusi tensor citra dan kanal warna pada setiap \textit{batch}, serta mendeteksi potensi anomali atau kesalahan pelabelan melalui peninjauan visual sampel data \cite{dqlab_eda, chollet2021deep}.
+
+\subsection{Data Preprocessing}
+\par \textit{Data preprocessing} merupakan tahapan persiapan awal dalam proses \textit{data mining} dan \textit{deep learning} yang bertujuan mentransformasikan data mentah menjadi representasi yang bersih, seragam, dan optimal untuk konvergensi pelatihan model \cite{techtarget_preprocessing, han2022data}. Data dunia nyata sering kali memiliki variasi ukuran, gangguan \textit{noise}, maupun ketidakkonsistenan skala numerik \cite{trivusi_preprocessing}. Pada pemodelan klasifikasi citra digital, tahapan \textit{data preprocessing} meliputi penyeragaman resolusi spasial melalui \textit{image resizing} ke dimensi input tetap seperti $224 \times 224$ piksel, \textit{pixel rescaling} atau normalisasi nilai intensitas piksel dari rentang $[0, 255]$ menjadi bilangan riil pada rentang $[0, 1]$ melalui pembagian dengan faktor $255$, pemisahan proporsi dataset menjadi \textit{training set} dan \textit{validation set}, hingga pengayaan variasi geometris citra melalui \textit{data augmentation} \cite{chollet2021deep, gonzalez2018digital}.
+
+\subsection{Supervised Learning}
+\par \textit{Supervised learning} merupakan paradigma utama dalam \textit{machine learning} di mana model dilatih menggunakan \textit{labeled dataset} yang terdiri atas pasangan \textit{input features} dan target \textit{ground truth} \cite{retnoningsih2020mengenal}. Selama proses \textit{training}, algoritma berupaya mempelajari parameter fungsi pemetaan matematis yang menghubungkan karakteristik masukan---seperti matriks piksel citra---dengan label target yang bersesuaian \cite{goodfellow2016deep}. Dengan demikian, model yang telah terlatih memiliki kemampuan generalisasi untuk memprediksi label atau nilai keluaran yang akurat ketika dihadapkan pada \textit{unseen data} \cite{abijono2021algoritma}. Secara umum, tugas dalam \textit{supervised learning} dikelompokkan ke dalam domain \textit{classification} untuk target diskret kategorikal serta \textit{regression} untuk target numerik kontinu \cite{retnoningsih2020mengenal}.
+
+\subsection{Neural Network}
+\par Neural Network atau Artificial Neural Network (ANN) merupakan paradigma pemodelan komputasi yang terinspirasi dari mekanisme kerja jaringan saraf biologis otak manusia dalam mengolah dan mentransmisikan sinyal informasi \cite{hukubun2022neural, ibm_neural_network}. Arsitektur dasar \textit{neural network} tersusun atas sekumpulan unit pemrosesan saling terhubung yang disebut \textit{artificial neuron} atau \textit{node}, yang diorganisasikan ke dalam susunan berlapis mulai dari \textit{input layer}, satu atau lebih \textit{hidden layer}, hingga \textit{output layer} \cite{haykin2009neural, ibm_neural_network}.
+\par Secara matematis, setiap \textit{neuron} menerima sinyal masukan $x_1, x_2, \dots, x_n$ yang masing-masing dikalikan dengan parameter \textit{weights} $w_1, w_2, \dots, w_n$ untuk merepresentasikan kekuatan hubungan sinaptik antar-unit \cite{haykin2009neural}. Seluruh hasil perkalian tersebut dijumlahkan bersama sebuah konstanta \textit{bias} ($b$) untuk membentuk nilai kombinasi linear atau \textit{net input} ($z$), kemudian dilewatkan ke dalam suatu \textit{activation function} ($\varphi$) guna menghasilkan nilai keluaran aktivasi ($a$) sebagaimana dirumuskan pada Persamaan \eqref{eq:neuron-net}:
+\begin{equation}
+  z = \sum_{i=1}^{n} w_i x_i + b = \mathbf{w}^T \mathbf{x} + b, \quad a = \varphi(z)
+  \label{eq:neuron-net}
+\end{equation}
+Melalui penyesuaian parameter \textit{weights} dan \textit{bias} secara iteratif pada tumpukan lapisan yang dalam, model jaringan saraf mampu mempelajari pemetaan pola non-linear berdimensi tinggi secara akurat \cite{haykin2009neural, lecun2015deep}.
+
+\subsection{Representasi Citra Digital dan Keterbatasan MLP}
+\par Dalam sistem visi komputer, sebuah citra digital direpresentasikan oleh perangkat komputasi sebagai struktur array atau tensor numerik yang memuat nilai intensitas piksel pada koordinat spasial diskret \cite{gonzalez2018digital, chollet2021deep}. Untuk citra berwarna dengan model kanal Red, Green, dan Blue (RGB) yang memiliki dimensi tinggi $H$ dan lebar $W$, struktur datanya dinyatakan sebagai tensor tiga dimensi berukuran $H \times W \times C$ dengan $C = 3$ menyatakan jumlah \textit{color channels} \cite{gonzalez2018digital, oshea2015introduction}. Sebagai contoh, sebuah citra RGB beresolusi $300 \times 300$ piksel direpresentasikan ke dalam array berukuran $300 \times 300 \times 3$, di mana setiap elemen piksel pada citra $8$-bit menyimpan nilai intensitas cahaya dalam rentang bilangan bulat $0$ hingga $255$, atau mencakup $256$ tingkat kuantisasi intensitas \cite{gonzalez2018digital}.
+\par Meskipun arsitektur klasik Multilayer Perceptron (MLP) sangat andal dalam memodelkan data tabular berdimensi rendah hingga menengah \cite{pardede2022kajian}, penerapan MLP secara langsung pada matriks piksel citra mentah memiliki dua keterbatasan fundamental \cite{lecun1998gradient, oshea2015introduction}:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{\textit{Parameter Explosion}:} Pada arsitektur MLP, setiap simpul pada suatu lapisan bersifat \textit{fully connected} terhadap seluruh simpul pada lapisan berikutnya sehingga memicu pembengkakan jumlah parameter secara ekstrem \cite{haykin2009neural}. Apabila sebuah citra \textit{grayscale} berukuran sangat kecil, yakni $16 \times 16 = 256$ piksel, dihubungkan ke satu \textit{hidden layer} berisi $100$ unit dan diteruskan ke \textit{output layer} berisi $26$ kelas karakter, maka jumlah total parameter terlatih yang meliputi \textit{weights} beserta \textit{bias} telah mencapai $(256 \times 100) + 100 + (100 \times 26) + 26 = 28.326$ parameter \cite{oshea2015introduction}. Pada citra RGB standar berukuran $224 \times 224 \times 3 = 150.528$ nilai masukan, satu \textit{hidden layer} berukuran $1.000$ unit saja sudah membutuhkan lebih dari $150$ juta parameter, sehingga menyebabkan beban komputasi dan konsumsi memori yang sangat berat serta memicu kerentanan tinggi terhadap \textit{overfitting} \cite{oshea2015introduction, albawi2017understanding}.
+  \item \textbf{\textit{Loss of Spatial Invariance}:} MLP mengharuskan struktur matriks citra multidimensi diratakan terlebih dahulu menjadi vektor satu dimensi pada tahap paling awal, sehingga mengabaikan topologi spasial dan korelasi lokal antar-piksel yang saling bertetangga \cite{lecun1998gradient, goodfellow2016deep}. Setiap posisi piksel diperlakukan sebagai fitur yang sepenuhnya independen. Akibatnya, model MLP tidak memiliki ketahanan terhadap perubahan geometris seperti \textit{translation} atau \textit{shift}, \textit{scaling}, rotasi, maupun distorsi lokal; apabila posisi objek di dalam citra bergeser sedikit saja dari posisi saat pelatihan, pola aktivasi bobot MLP akan berubah drastis sehingga model cenderung gagal mengenali objek tersebut \cite{lecun1998gradient, albawi2017understanding}.
+\end{enumerate}
+
+\subsection{Convolutional Neural Network (CNN)}
+\par Convolutional Neural Network (CNN) adalah arsitektur \textit{feedforward deep neural network} yang dirancang secara khusus untuk memproses data berstruktur \textit{grid} seperti citra dua dimensi serta mengekstraksi fitur spasial secara langsung dari susunan piksel dengan kebutuhan \textit{preprocessing} minimal \cite{lecun1998gradient, goodfellow2016deep}. Untuk mengatasi kelemahan MLP, CNN mengadopsi tiga gagasan arsitektural utama, yaitu \textit{local receptive fields}, \textit{parameter sharing} atau \textit{shared weights}, serta \textit{spatial subsampling} \cite{lecun1998gradient, ibm_cnn}. Melalui mekanisme \textit{parameter sharing}, bobot sebuah matriks detektor fitur yang sama digunakan berulang kali di seluruh permukaan citra, sehingga menekan jumlah parameter secara drastis sekaligus mempertahankan informasi topologi spasial objek \cite{goodfellow2016deep, hakim2021klasifikasi}. Secara umum, alur pemrosesan utama pada arsitektur CNN tersusun atas \textit{convolution layer}, \textit{activation function}, \textit{pooling layer}, \textit{flattening}, dan \textit{fully connected layer} \cite{oshea2015introduction, ramadhani2021optimasi}.
+
+\subsubsection{Convolution Layer}
+\par \textit{Convolution layer} merupakan komponen inti dari arsitektur CNN yang bertugas melakukan ekstraksi fitur lokal dari tensor citra masukan \cite{goodfellow2016deep, albawi2017understanding}. Lapisan ini memiliki sekumpulan matriks bobot terlatih berukuran kecil yang disebut \textit{filter} atau \textit{kernel}---misalnya berdimensi $3 \times 3$ atau $5 \times 5$---yang bergeser secara sistematis melintasi lebar dan tinggi citra masukan \cite{oshea2015introduction, tensorflow_cnn}. Pada setiap posisi pergeseran, dilakukan operasi konvolusi berupa perhitungan \textit{dot product} antara elemen matriks \textit{kernel} dan sub-area lokal citra yang disebut \textit{receptive field} \cite{albawi2017understanding}.
+\par Untuk citra masukan dua dimensi $I$ dan matriks \textit{kernel} $K$ berukuran $M \times N$, nilai elemen pada lokasi koordinat $(i, j)$ dari keluaran \textit{feature map} $S$ beserta penambahan \textit{bias} $b$ dirumuskan melalui operasi korelasi silang diskret dalam pustaka \textit{deep learning} sebagaimana dinyatakan pada Persamaan \eqref{eq:conv2d}:
+\begin{equation}
+  S(i, j) = (I * K)(i, j) = \sum_{m=0}^{M-1} \sum_{n=0}^{N-1} I(i \cdot s + m, \, j \cdot s + n) \, K(m, n) + b
+  \label{eq:conv2d}
+\end{equation}
+di mana $s$ menyatakan nilai \textit{stride} atau jarak langkah pergeseran \textit{filter} \cite{goodfellow2016deep, chollet2021deep}. Setiap \textit{filter} menghasilkan satu lembar \textit{feature map} yang merepresentasikan respons keberadaan pola visual spesifik, seperti tepi vertikal, garis horizontal, sudut, tekstur, maupun lengkungan objek \cite{lecun2015deep, ibm_cnn}.
+\par Ukuran dimensi spasial keluaran ($O$) dari sebuah \textit{feature map} ditentukan oleh ukuran dimensi masukan ($W$), ukuran \textit{kernel} ($K$), ketebalan penambahan piksel nol di tepi citra atau \textit{zero-padding} ($P$)---seperti mode \texttt{valid} maupun mode \texttt{same}---serta nilai \textit{stride} ($S$) sesuai Persamaan \eqref{eq:conv-output-size} \cite{oshea2015introduction, albawi2017understanding}:
+\begin{equation}
+  O = \left\lfloor \frac{W - K + 2P}{S} \right\rfloor + 1
+  \label{eq:conv-output-size}
+\end{equation}
+
+\subsubsection{Activation Function pada CNN}
+\par Setelah operasi linear konvolusi menghasilkan \textit{feature map}, suatu \textit{activation function} diterapkan pada setiap elemen keluaran guna menyuntikkan sifat non-linearitas ke dalam jaringan \cite{goodfellow2016deep, nwankpa2018activation}. Tanpa fungsi aktivasi non-linear, rangkaian berlapis operasi matriks pada jaringan saraf hanya akan ekuivalen dengan satu transformasi linear sederhana yang tidak sanggup memetakan pola visual kompleks \cite{haykin2009neural}.
+\par Pada lapisan konvolusi dan lapisan tersembunyi CNN modern, fungsi aktivasi standar yang paling luas digunakan adalah Rectified Linear Unit (ReLU) \cite{krizhevsky2012imagenet, lecun2015deep}. Fungsi ReLU bekerja dengan menerapkan batas \textit{threshold} pada angka nol sehingga seluruh nilai aktivasi piksel negatif diubah menjadi nol, sedangkan nilai positif diteruskan secara linear sebagaimana dirumuskan pada Persamaan \eqref{eq:act-relu}:
+\begin{equation}
+  \Phi(x) = \text{ReLU}(x) = \max(0, x) = \begin{cases} x, & \text{jika } x > 0 \\ 0, & \text{jika } x \le 0 \end{cases}
+  \label{eq:act-relu}
+\end{equation}
+Keunggulan utama ReLU terletak pada efisiensi komputasinya yang sangat cepat tanpa operasi eksponensial serta kemampuannya menjaga gradien tetap bernilai konstan pada domain positif, sehingga efektif menanggulangi permasalahan \textit{vanishing gradient} selama pelatihan jaringan dalam \cite{krizhevsky2012imagenet, nwankpa2018activation}.
+\par Sementara itu, pada bagian \textit{output layer} arsitektur CNN, pemilihan fungsi aktivasi disesuaikan dengan skema representasi label target klasifikasi \cite{chollet2021deep}. Untuk keluaran simpul tunggal pada \textit{binary classification}, fungsi Sigmoid memetakan nilai masukan $z$ ke rentang probabilitas $(0, 1)$ melalui formulasi $\sigma(z) = (1 + e^{-z})^{-1}$ \cite{nielsen2015neural}. Adapun untuk klasifikasi dengan vektor target \textit{one-hot encoding} yang terdiri atas $K$ kelas keluaran, fungsi aktivasi Softmax digunakan untuk mentransformasikan vektor \textit{logits} $\mathbf{z} = (z_1, z_2, \dots, z_K)$ menjadi distribusi probabilitas kelas ternormalisasi yang berjumlah tepat satu sesuai Persamaan \eqref{eq:act-softmax} \cite{goodfellow2016deep, chollet2021deep}:
+\begin{equation}
+  \text{Softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}, \quad \text{untuk } i = 1, 2, \dots, K
+  \label{eq:act-softmax}
+\end{equation}
+
+\subsubsection{Pooling Layer}
+\par \textit{Pooling layer} atau lapisan \textit{subsampling} ditempatkan secara berkala setelah blok konvolusi dengan tujuan melakukan \textit{downsampling} untuk mereduksi resolusi dimensi spasial \textit{height} dan \textit{width} dari setiap \textit{feature map} tanpa mengubah kedalaman jumlah kanalnya \cite{goodfellow2016deep, oshea2015introduction}. Penyusutan resolusi spasial ini memangkas jumlah parameter dan beban operasi aritmetika pada lapisan-lapisan selanjutnya, membantu mengendalikan risiko \textit{overfitting}, serta membangun sifat \textit{translation invariance} lokal sehingga model tetap kokoh mengenali fitur objek meskipun mengalami sedikit pergeseran posisi maupun distorsi kecil pada citra \cite{goodfellow2016deep, albawi2017understanding}.
+\par Pendekatan \textit{pooling} yang paling dominan diimplementasikan pada CNN adalah Max Pooling, di samping metode alternatif Average Pooling \cite{albawi2017understanding, chollet2021deep}. Operasi Max Pooling membagi \textit{feature map} ke dalam jendela ketetanggaan persegi berukuran $p \times p$---umumnya $2 \times 2$ dengan \textit{stride} $2$---kemudian memilih satu nilai aktivasi maksimum dari masing-masing area lokal $\mathcal{R}_{i,j}$ sebagaimana dinyatakan pada Persamaan \eqref{eq:max-pooling}:
+\begin{equation}
+  P_{\text{max}}(i, j) = \max_{(m, n) \in \mathcal{R}_{i,j}} A(m, n)
+  \label{eq:max-pooling}
+\end{equation}
+Melalui pemilihan respons aktivasi terkuat pada setiap area lokal tersebut, Max Pooling mampu mempertahankan fitur yang paling dominan sekaligus mereduksi luas spasial \textit{feature map} hingga seperempat dari ukuran awalnya saat memakai jendela $2 \times 2$ dengan \textit{stride} $2$ \cite{chollet2021deep, ibm_cnn}.
+
+\subsubsection{Flattening}
+\par \textit{Flattening} merupakan tahapan transisi struktural yang menghubungkan rangkaian \textit{convolution layer} serta \textit{pooling layer} dengan bagian klasifikasi akhir pada arsitektur CNN \cite{oshea2015introduction, keras_docs}. Operasi ini mengubah bentuk tensor \textit{feature map} multidimensi hasil lapisan \textit{pooling} terakhir yang berukuran $H' \times W' \times C'$ menjadi satu vektor baris atau kolom berdimensi tunggal sepanjang $D = H' \cdot W' \cdot C'$ \cite{chollet2021deep, ramadhani2021optimasi}. Lapisan \texttt{Flatten} hanya melakukan penataan ulang indeks dimensi tensor tanpa mengubah nilai numerik elemen di dalamnya dan tidak memiliki parameter bobot yang perlu dilatih \cite{keras_docs}.
+
+\subsubsection{Fully Connected Layer (Dense Layer)}
+\par \textit{Fully connected layer} atau lapisan \texttt{Dense} pada pustaka Keras merupakan bagian akhir dari arsitektur CNN yang berfungsi sebagai modul \textit{classifier} layaknya jaringan Multilayer Perceptron konvensional \cite{oshea2015introduction, chollet2021deep}. Setiap \textit{neuron} pada lapisan ini terhubung secara penuh dengan seluruh elemen fitur satu dimensi hasil tahapan \textit{flattening} \cite{albawi2017understanding}. Melalui kombinasi bobot pada satu atau beberapa lapisan \texttt{Dense}, jaringan mengintegrasikan seluruh representasi fitur spasial tingkat tinggi yang telah diekstraksi dari seluruh bagian citra untuk menarik batas keputusan dan memetakan prediksi akhir ke masing-masing kelas target keluaran, misalnya membedakan kelas citra kucing dan anjing \cite{chollet2021deep, ibm_cnn}.
+
+\subsection{Regularisasi Dropout dan Overfitting}
+\par Kapasitas parameter yang sangat besar pada arsitektur jaringan saraf dalam kerap memicu fenomena \textit{overfitting}, yaitu kondisi ketika model terlalu menghafal detail spesifik beserta \textit{noise} pada \textit{training set} sehingga mencapai \textit{training accuracy} tinggi, namun gagal melakukan generalisasi dengan baik yang ditandai oleh melonjaknya \textit{validation loss} dan stagnasi \textit{validation accuracy} pada data baru \cite{srivastava2014dropout, chollet2021deep}. Salah satu teknik regularisasi paling efektif dan luas diterapkan untuk meredam \textit{overfitting} pada arsitektur CNN adalah Dropout \cite{krizhevsky2012imagenet, srivastava2014dropout}.
+\par Mekanisme Dropout bekerja dengan menonaktifkan sebagian unit \textit{neuron} beserta koneksi masuk dan keluarnya secara acak untuk sementara waktu pada setiap langkah pembaruan gradien selama fase \textit{training} \cite{srivastava2014dropout}. Apabila ditetapkan hiperparameter \textit{dropout rate} sebesar $p \in (0, 1)$---misalnya $p = 0{,}1$ atau $p = 0{,}5$---maka pada skema \textit{inverted dropout} yang diterapkan oleh Keras, vektor aktivasi lapisan $\mathbf{a}$ dimodifikasi menggunakan vektor variabel acak masker $\mathbf{r}$ yang ditarik dari distribusi Bernoulli sesuai Persamaan \eqref{eq:dropout} \cite{srivastava2014dropout, keras_docs}:
+\begin{equation}
+  r_i \sim \text{Bernoulli}(1 - p), \quad \tilde{\mathbf{a}} = \frac{\mathbf{r} \odot \mathbf{a}}{1 - p}
+  \label{eq:dropout}
+\end{equation}
+di mana $\odot$ menyatakan perkalian elemen-demi-elemen dan pembagian dengan $(1 - p)$ menjaga nilai ekspektasi skala aktivasi tetap konsisten sehingga pada fase \textit{validation} atau \textit{testing} seluruh \textit{neuron} dapat kembali aktif secara utuh tanpa penskalaan ulang \cite{chollet2021deep, keras_docs}. Penonaktifan acak ini mencegah terjadinya \textit{co-adaptation} berlebih antar-\textit{neuron}, memaksa jaringan mempelajari representasi fitur yang lebih tersebar dan \textit{robust}, serta memberikan efek regularisasi yang menyerupai penggabungan prediksi ansambel dari banyak variasi subjaringan \cite{srivastava2014dropout}.
+
+\subsection{Loss Function dan Optimizer pada Pelatihan CNN}
+\par Pelatihan model CNN dilakukan secara iteratif melalui mekanisme \textit{supervised learning} untuk mencari konfigurasi parameter \textit{kernel} konvolusi dan bobot \textit{dense layer} yang meminimalkan kesalahan prediksi pada data pelatihan \cite{goodfellow2016deep, lecun2015deep}. Tingkat penyimpangan antara distribusi probabilitas keluaran model ($\hat{\mathbf{y}}$) dan vektor label \textit{ground truth} ($\mathbf{y}$) diukur secara kuantitatif menggunakan suatu \textit{loss function} \cite{goodfellow2016deep}. Pada permasalahan klasifikasi citra dengan representasi label \textit{one-hot encoding} atas $K$ buah kelas, fungsi objektif standar yang diminimalkan adalah \textit{Categorical Cross-Entropy Loss} sebagaimana dirumuskan pada Persamaan \eqref{eq:cce-loss} \cite{goodfellow2016deep, chollet2021deep}:
+\begin{equation}
+  \mathcal{L}_{\text{CCE}}(\mathbf{y}, \hat{\mathbf{y}}) = -\sum_{k=1}^{K} y_k \ln(\hat{y}_k)
+  \label{eq:cce-loss}
+\end{equation}
+\par Setelah nilai \textit{loss} pada satu \textit{mini-batch} dihitung melalui tahapan \textit{forward pass}, algoritma \textit{backpropagation} menerapkan \textit{chain rule} kalkulus diferensial untuk merambatkan sinyal kesalahan secara mundur dari \textit{output layer} menuju lapisan-lapisan konvolusi awal guna memperoleh gradien parsial $\nabla_{\theta} \mathcal{L}$ terhadap setiap parameter $\theta$ \cite{rumelhart1986learning, lecun1998gradient}. Selanjutnya, suatu algoritma \textit{optimizer} bertugas memperbarui nilai parameter jaringan berdasarkan informasi gradien tersebut di setiap langkah iterasi dalam satu siklus \textit{epoch} \cite{goodfellow2016deep}.
+\par Salah satu algoritma \textit{optimizer} berbasis \textit{adaptive learning rate} yang banyak digunakan dalam pelatihan CNN pada Keras adalah Root Mean Square Propagation (RMSprop), di samping algoritma Adam dan Stochastic Gradient Descent (SGD) \cite{chollet2021deep, kingma2015adam}. RMSprop memelihara rata-rata bergerak eksponensial dari kuadrat gradien masa lalu $E[g^2]_t$ untuk menyesuaikan skala langkah pembaruan tiap parameter secara individual sesuai Persamaan \eqref{eq:rmsprop} \cite{goodfellow2016deep, keras_docs}:
+\begin{equation}
+  E[g^2]_t = \rho \, E[g^2]_{t-1} + (1 - \rho) g_t^2, \quad \theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{E[g^2]_t + \epsilon}} \, g_t
+  \label{eq:rmsprop}
+\end{equation}
+di mana $g_t = \nabla_{\theta} \mathcal{L}(\theta_t)$ adalah gradien saat iterasi ke-$t$, $\rho$ adalah faktor peluruhan rata-rata bergerak, $\eta$ menyatakan \textit{learning rate}, dan $\epsilon$ adalah konstanta stabilitas numerik kecil \cite{goodfellow2016deep}. Normalisasi pembagian ini meredam osilasi gradien yang tajam dan mempercepat konvergensi pelatihan pada lanskap optimasi non-konveks jaringan saraf dalam \cite{goodfellow2016deep, chollet2021deep}.
+
+\subsection{Classification}
+\par \textit{Classification} merupakan teknik pemodelan prediktif dalam paradigma \textit{supervised learning} yang bertujuan mengelompokkan dan memprediksi label kategori diskret dari suatu observasi data berdasarkan pola atribut yang dimilikinya \cite{roihan2020pemanfaatan, ibm_classification}. Dalam domain \textit{image classification}, model mempelajari pemetaan dari ruang piksel berdimensi tinggi menuju himpunan kelas semantik yang telah didefinisikan sebelumnya---baik berupa \textit{binary classification} yang memisahkan dua kategori objek maupun \textit{multiclass classification} yang mencakup lebih dari dua kategori kelas \cite{dicoding_classification, hakim2021klasifikasi}. Setelah fase pelatihan selesai, model digunakan untuk melakukan inferensi kelas pada citra baru yang belum pernah dilihat selama pelatihan \cite{scikit_classification, chollet2021deep}.
+
+\subsection{Metrik Evaluasi Classification}
+\par Evaluasi performa model \textit{classification} merupakan langkah esensial untuk mengukur kualitas generalisasi dan ketepatan prediksi model secara objektif pada data validasi maupun \textit{testing set} \cite{scikit_metrics}. Selain memantau kurva dinamika \textit{training accuracy}, \textit{validation accuracy}, \textit{training loss}, dan \textit{validation loss} di sepanjang \textit{epoch} pelatihan \cite{chollet2021deep}, pengujian kuantitatif hasil prediksi kelas diskret dirangkum secara sistematis menggunakan \textit{confusion matrix} beserta metrik turunannya \cite{trivusi_confusion_matrix, normawati2021implementasi}.
+
+\subsubsection{Confusion Matrix}
+\par \textit{Confusion matrix} adalah tabel kontingensi dua dimensi yang memetakan perbandingan antara kategori kelas aktual atau \textit{ground truth} terhadap kelas hasil prediksi model \cite{trivusi_confusion_matrix, fawcett2006introduction}. Pada skenario klasifikasi dua kelas, \textit{confusion matrix} membagi hasil evaluasi ke dalam empat komponen utama \cite{scikit_metrics}:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{\textit{True Positive} ($TP$):} Jumlah sampel \textit{positive class} aktual yang berhasil diklasifikasikan secara benar sebagai \textit{positive class}.
+  \item \textbf{\textit{True Negative} ($TN$):} Jumlah sampel \textit{negative class} aktual yang berhasil diklasifikasikan secara benar sebagai \textit{negative class}.
+  \item \textbf{\textit{False Positive} ($FP$):} Jumlah sampel \textit{negative class} aktual yang keliru diprediksi sebagai \textit{positive class} (\textit{Type I Error}).
+  \item \textbf{\textit{False Negative} ($FN$):} Jumlah sampel \textit{positive class} aktual yang keliru diprediksi sebagai \textit{negative class} (\textit{Type II Error}).
+\end{enumerate}
+\par Struktur pemetaan keempat kuadran tersebut dirangkum pada Tabel \ref{tab:confusion-matrix}. Keempat komponen ini menjadi dasar perhitungan metrik evaluasi kinerja klasifikasi lainnya \cite{trivusi_confusion_matrix}.
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    \multirow{2}{*}{\textbf{Kelas Aktual}} & \multicolumn{2}{c|}{\textbf{Prediksi Model}} \\ \cline{2-3}
+                                           & \textbf{Positive Class} & \textbf{Negative Class} \\ \hline
+    \textbf{Positive Class}                & True Positive ($TP$)    & False Negative ($FN$)   \\ \hline
+    \textbf{Negative Class}                & False Positive ($FP$)   & True Negative ($TN$)    \\ \hline
+  \end{tabular}
+  \caption{Struktur Komponen \textit{Confusion Matrix} pada \textit{Binary Classification}}
+  \label{tab:confusion-matrix}
+\end{table}
+
+\subsubsection{Accuracy}
+\par \textit{Accuracy} mengukur proporsi keseluruhan sampel citra atau data uji yang berhasil diprediksi secara tepat oleh model dibandingkan terhadap total seluruh sampel yang dievaluasi \cite{scikit_metrics}. Formulasi matematis \textit{accuracy} dinyatakan pada Persamaan \eqref{eq:accuracy}:
+\begin{equation}
+  \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+  \label{eq:accuracy}
+\end{equation}
+Meskipun menyajikan indikator keberhasilan klasifikasi secara intuitif dan langsung pada dataset yang seimbang, metrik \textit{accuracy} perlu didampingi oleh metrik spesifik per kelas apabila distribusi dataset mengalami \textit{class imbalance} guna menghindari bias akibat \textit{accuracy paradox} \cite{fawcett2006introduction, septiana2021analisis}.
+
+\subsubsection{Precision}
+\par \textit{Precision} mengukur tingkat ketepatan prediksi positif yang dihasilkan oleh model, yakni rasio sampel yang benar-benar berasal dari kelas positif dibandingkan dengan seluruh sampel yang dilabeli positif oleh model \cite{scikit_metrics, dqlab_classification_metrics}. Rumus matematis \textit{precision} didefinisikan pada Persamaan \eqref{eq:precision}:
+\begin{equation}
+  \text{Precision} = \frac{TP}{TP + FP}
+  \label{eq:precision}
+\end{equation}
+
+\subsubsection{Recall}
+\par \textit{Recall} atau \textit{Sensitivity} mengukur daya tangkap model dalam mengenali seluruh sampel kelas positif aktual yang terdapat di dalam dataset pengujian \cite{scikit_metrics, dqlab_classification_metrics}. Perhitungan \textit{recall} dirumuskan pada Persamaan \eqref{eq:recall}:
+\begin{equation}
+  \text{Recall} = \frac{TP}{TP + FN}
+  \label{eq:recall}
+\end{equation}
+
+\subsubsection{F1-Score}
+\par \textit{F1-score} merupakan rata-rata harmonik atau \textit{harmonic mean} yang menyeimbangkan nilai \textit{precision} dan \textit{recall} ke dalam satu ukuran performa tunggal ketika terjadi \textit{trade-off} di antara kedua metrik tersebut \cite{dqlab_classification_metrics, normawati2021implementasi}. Formulasi matematis \textit{F1-score} dinyatakan pada Persamaan \eqref{eq:f1score}:
+\begin{equation}
+  \text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \cdot TP}{2 \cdot TP + FP + FN}
+  \label{eq:f1score}
+\end{equation}
 
 
 %contoh gambar dan kode
@@ -237,7 +427,7 @@ Pertemuan \Pertemuan\\
 
 \section{Kesimpulan}
 
-\par Link Google Colab: {\small\url{link-colab}}
+\par Link Google Colab: {\small\url{https://colab.research.google.com/drive/1VewMmHFEejN_v5vWTs1wYtLkIAyV3Lnr?usp=sharing}}
 
 \section{Daftar Pustaka}
 \printbibliography[heading=none]
