@@ -27,6 +27,8 @@
 \usepackage{indentfirst}        % untuk indent paragraf pertama
 \usepackage{enumitem}           % untuk kustomisasi penomoran list (A., B., dst)
 \usepackage{multirow}           % untuk sel tabel multi-baris
+\usepackage{pmboxdraw}          % untuk karakter box-drawing UTF-8 pada listing
+
 
 % Pengaturan layout
 \geometry{left=3cm, right=2cm, top=2cm, bottom=2cm}
@@ -80,7 +82,24 @@
   xleftmargin=2cm,
   xrightmargin=1cm,
   captionpos=b,
-  morekeywords={np, pd, plt, sns, array, DataFrame, Series, read_csv, read_excel, head, tail, info, describe, plot, scatter, bar, hist, fit, predict, transform, merge, concat, groupby, drop, fillna, dropna, iloc, loc}
+  literate=
+    {─}{{\textSFx}}1
+    {━}{{\pmboxdrawuni{2501}}}1
+    {│}{{\textSFxi}}1
+    {┃}{{\pmboxdrawuni{2503}}}1
+    {┏}{{\pmboxdrawuni{250F}}}1
+    {┓}{{\pmboxdrawuni{2513}}}1
+    {┳}{{\pmboxdrawuni{2533}}}1
+    {┡}{{\pmboxdrawuni{2521}}}1
+    {╇}{{\pmboxdrawuni{2547}}}1
+    {┩}{{\textSFix}}1
+    {├}{{\textSFviii}}1
+    {┼}{{\textSFv}}1
+    {┤}{{\textSFix}}1
+    {└}{{\textSFii}}1
+    {┴}{{\textSFvii}}1
+    {┘}{{\textSFiv}}1,
+  morekeywords={np, pd, plt, sns, tf, array, DataFrame, Series, Sequential, Conv2D, MaxPooling2D, Dropout, Flatten, Dense, ImageDataGenerator, EarlyStopping, ModelCheckpoint, read_csv, read_excel, head, tail, info, describe, plot, scatter, bar, hist, imshow, show, subplot, figure, fit, predict, evaluate, compile, summary, flow_from_directory, transform, merge, concat, groupby, drop, fillna, dropna, iloc, loc}
 }
 
 \lstset{style=vscode-dark}
@@ -423,9 +442,279 @@ Meskipun menyajikan indikator keberhasilan klasifikasi secara intuitif dan langs
 
 \section{Hasil dan Pembahasan}
 
-\par Sesuai dengan tujuan praktikum, berikut adalah hasil yang diperoleh dan pembahasan terkait materi yang telah dipelajari.
+\par Sesuai dengan tujuan praktikum, berikut adalah hasil eksperimen beserta pembahasan mengenai perancangan, pelatihan, regularisasi, dan evaluasi arsitektur Convolutional Neural Network (CNN) menggunakan \textit{framework} TensorFlow dan Keras untuk menyelesaikan permasalahan \textit{binary image classification} maupun \textit{multiclass image classification}.
+
+\subsection{Implementasi Convolutional Neural Network (CNN) pada Klasifikasi Citra Dog vs Cat}
+
+\subsubsection{Impor Pustaka Pemodelan CNN}
+\lstinputlisting[language=Python, caption={Impor Pustaka TensorFlow, Keras, NumPy, dan Matplotlib}, label={lst:kode-impor-pustaka-1}]{resource/code/impor-pustaka_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Impor Pustaka Pemodelan CNN}, label={lst:out-impor-pustaka-1}]{resource/output/impor-pustaka_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-impor-pustaka-1}, seluruh pustaka utama yang dibutuhkan dalam pemodelan CNN diimpor ke dalam lingkungan kerja Google Colab. Pustaka \path{tensorflow} dipanggil sebagai mesin komputasi tensor, diikuti pustaka \path{matplotlib.pyplot} untuk visualisasi matriks citra serta kurva pelatihan, modul \path{random}, dan pustaka \path{numpy} untuk operasi numerik. Selanjutnya, kelas wadah arsitektur \texttt{Sequential} beserta komponen penyusun jaringan saraf konvolusional yang terdiri atas \texttt{Dense}, \texttt{Conv2D}, \texttt{MaxPooling2D}, \texttt{Dropout}, dan \texttt{Flatten} dimuat dari modul \path{tensorflow.keras}. Eksekusi sel kode ini berjalan sukses tanpa pesan galat sebagaimana dikonfirmasi pada Output \ref{lst:out-impor-pustaka-1}.
+
+\subsubsection{Integrasi Penyimpanan Google Drive}
+\lstinputlisting[language=Python, caption={Integrasi Penyimpanan Google Drive pada Google Colab}, label={lst:kode-mount-drive-1}]{resource/code/mount-drive_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Proses Mounting Google Drive}, label={lst:out-mount-drive-1}]{resource/output/mount-drive_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-mount-drive-1}, modul \path{drive} dari paket \path{google.colab} dipanggil melalui fungsi \path{drive.mount('/content/drive')} untuk menghubungkan ruang penyimpanan awan Google Drive ke dalam sistem berkas mesin virtual Google Colab. Sebagaimana tertera pada Output \ref{lst:out-mount-drive-1}, direktori penyimpanan telah berhasil terpasang pada titik akses \path{/content/drive}, sehingga kumpulan berkas citra pelatihan dan validasi yang tersimpan di dalam folder Google Drive dapat dibaca secara langsung.
+
+\subsubsection{Preparasi Citra, Normalisasi Piksel, dan Splitting Data}
+\lstinputlisting[language=Python, caption={Normalisasi Piksel dan Pembagian Dataset Menggunakan ImageDataGenerator}, label={lst:kode-preparasi-splitting-data-1}]{resource/code/preparasi-splitting-data_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Jumlah Citra Training dan Validation Set Dataset Dog vs Cat}, label={lst:out-preparasi-splitting-data-1}]{resource/output/preparasi-splitting-data_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-preparasi-splitting-data-1}, tahapan \textit{image preprocessing} dan pemartisian data dilakukan menggunakan kelas \path{ImageDataGenerator}. Dimensi spasial masukan diseragamkan menjadi $224 \times 224$ piksel (\path{IMAGE_SIZE = 224}) dengan ukuran \textit{mini-batch} sebesar $64$ (\path{BATCH_SIZE = 64}). Parameter \path{rescale = 1./255} diterapkan untuk menormalisasi nilai intensitas piksel RGB dari skala diskret $[0, 255]$ menjadi bilangan pecahan kontinu $[0, 1]$ agar perhitungan gradien selama pelatihan berjalan stabil, sedangkan parameter \path{validation_split=0.2} mengalokasikan $80\%$ data sebagai \textit{training set} dan $20\%$ data sebagai \textit{validation set}. Melalui pemanggilan metode \path{flow_from_directory()} pada masing-masing \textit{subset}, Output \ref{lst:out-preparasi-splitting-data-1} menunjukkan bahwa dari total $100$ berkas gambar pada direktori dataset, sebanyak $80$ citra dialokasikan ke dalam \path{train_generator} dan $20$ citra dialokasikan ke dalam \path{val_generator} yang terbagi secara otomatis ke dalam $2$ kategori kelas (\textit{dog} dan \textit{cat}).
+
+\subsubsection{Uji Baca Batch Generator dan Visualisasi Sampel Citra}
+\lstinputlisting[language=Python, caption={Pengujian Pembacaan Batch Generator dan Visualisasi Lima Sampel Citra}, label={lst:kode-uji-baca-data-1}]{resource/code/uji-baca-data_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Dimensi Tensor Batch pada Lima Iterasi Pembacaan Generator}, label={lst:out-uji-baca-data-1}]{resource/output/uji-baca-data_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-uji-baca-data-1}, pengujian aliran data (\textit{sanity check}) dilakukan melalui perulangan sebanyak lima iterasi yang memanggil fungsi \path{next(train_generator)} untuk mengekstrak pasangan tensor citra \texttt{img} dan vektor labelnya, mencetak ukuran \path{img.shape}, serta merender elemen citra indeks pertama (\path{img[0]}) menggunakan fungsi \path{plt.imshow()}. Mengacu pada Output \ref{lst:out-uji-baca-data-1}, dimensi tensor \textit{batch} tercetak secara bergantian antara \texttt{(64, 224, 224, 3)} pada iterasi ke-1, ke-3, dan ke-5 serta \texttt{(16, 224, 224, 3)} pada iterasi ke-2 dan ke-4. Pola pergantian ini terjadi secara sistematis karena total \textit{training set} berjumlah $80$ citra sedangkan \path{BATCH_SIZE} ditetapkan sebesar $64$; akibatnya, setiap siklus satu \textit{epoch} pembacaan data selalu terpecah menjadi satu \textit{batch} penuh berisi $64$ citra dan satu \textit{remainder batch} berisi sisa $16$ citra ($80 = 64 + 16$) sebelum \textit{generator} berputar kembali ke awal dataset.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/1-sampel-citra-dog-cat-1.png}
+  \caption[Visualisasi Sampel Citra ke-1 Dataset Dog vs Cat]{Visualisasi Sampel Citra ke-1 (\texttt{img[0]}) dari \texttt{train\_generator} Dataset \textit{Dog vs Cat}}
+  \label{fig:sampel-citra-dog-cat-1}
+\end{figure}
+
+\par Sebagaimana ditampilkan pada Gambar \ref{fig:sampel-citra-dog-cat-1}, sampel citra pertama dari iterasi \textit{batch} ke-1 memperlihatkan objek seekor anak anjing ras Beagle berwarna cokelat, hitam, dan putih yang sedang duduk di atas hamparan rumput hijau dengan skala sumbu koordinat piksel yang telah terstandarisasi tepat pada dimensi $224 \times 224$ piksel.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/2-sampel-citra-dog-cat-2.png}
+  \caption[Visualisasi Sampel Citra ke-2 Dataset Dog vs Cat]{Visualisasi Sampel Citra ke-2 (\texttt{img[0]}) dari \texttt{train\_generator} Dataset \textit{Dog vs Cat}}
+  \label{fig:sampel-citra-dog-cat-2}
+\end{figure}
+
+\par Lebih lanjut pada Gambar \ref{fig:sampel-citra-dog-cat-2}, sampel citra dari iterasi \textit{batch} ke-2 menampilkan objek anjing Beagle dewasa berkalung yang duduk menyamping di dekat batang pohon dengan kondisi pencahayaan luar ruangan yang lebih redup, memperlihatkan variasi pencahayaan dan sudut pandang objek pada kelas anjing.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/3-sampel-citra-dog-cat-3.png}
+  \caption[Visualisasi Sampel Citra ke-3 Dataset Dog vs Cat]{Visualisasi Sampel Citra ke-3 (\texttt{img[0]}) dari \texttt{train\_generator} Dataset \textit{Dog vs Cat}}
+  \label{fig:sampel-citra-dog-cat-3}
+\end{figure}
+
+\par Selanjutnya pada Gambar \ref{fig:sampel-citra-dog-cat-3}, sampel citra dari iterasi \textit{batch} ke-3 merepresentasikan kelas kucing (\textit{cat}), yakni seekor kucing berbulu pendek cokelat keemasan (ras Abyssinian) dalam posisi berdiri tegak di depan latar belakang studio berwarna biru tua yang kontras sehingga kontur telinga runcing dan ekor tampak sangat jelas.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/4-sampel-citra-dog-cat-4.png}
+  \caption[Visualisasi Sampel Citra ke-4 Dataset Dog vs Cat]{Visualisasi Sampel Citra ke-4 (\texttt{img[0]}) dari \texttt{train\_generator} Dataset \textit{Dog vs Cat}}
+  \label{fig:sampel-citra-dog-cat-4}
+\end{figure}
+
+\par Berikutnya pada Gambar \ref{fig:sampel-citra-dog-cat-4}, sampel citra dari iterasi \textit{batch} ke-4 menampilkan seekor anjing Beagle yang sedang berbaring di atas karpet dalam ruangan dengan sorotan cahaya matahari terang dari arah samping yang menciptakan kontras bayangan tinggi pada area moncong dan tubuh.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/5-sampel-citra-dog-cat-5.png}
+  \caption[Visualisasi Sampel Citra ke-5 Dataset Dog vs Cat]{Visualisasi Sampel Citra ke-5 (\texttt{img[0]}) dari \texttt{train\_generator} Dataset \textit{Dog vs Cat}}
+  \label{fig:sampel-citra-dog-cat-5}
+\end{figure}
+
+\par Adapun pada Gambar \ref{fig:sampel-citra-dog-cat-5}, sampel citra kelima memperlihatkan potret jarak dekat (\textit{close-up}) wajah dan kaki depan kucing Abyssinian berwarna cokelat kemerahan dalam pencahayaan ruangan bernuansa hangat. Kelima sampel visual ini memvalidasi bahwa proses pembacaan berkas, pengubahan ukuran citra (\textit{resizing}), dan normalisasi rentang warna RGB telah berfungsi dengan benar tanpa merusak proporsi fitur visual objek.
+
+\subsubsection{Pemeriksaan Dimensi Tensor Batch dan Konfigurasi Kelas}
+\lstinputlisting[language=Python, caption={Pemeriksaan Bentuk Tensor Image Batch, Label Batch, dan Konfigurasi Input}, label={lst:kode-cek-dimensi-batch-1}]{resource/code/cek-dimensi-batch_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Bentuk Tensor Image Batch dan Label Batch}, label={lst:out-cek-dimensi-batch-1}]{resource/output/cek-dimensi-batch_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-cek-dimensi-batch-1}, satu pasangan \path{image_batch} dan \path{label_batch} diambil dari \path{train_generator} untuk memverifikasi kesesuaian struktur dimensi masukan dan target sebelum menyusun lapisan CNN. Karena lima pemanggilan \path{next(train_generator)} pada tahap sebelumnya berakhir pada \textit{batch} berukuran $64$, pemanggilan keenam pada Output \ref{lst:out-cek-dimensi-batch-1} mengambil \textit{remainder batch} dengan dimensi citra \texttt{(16, 224, 224, 3)} dan dimensi label \texttt{(16, 2)}. Bentuk label dua kolom tersebut mengonfirmasi bahwa \path{flow_from_directory()} secara bawaan mengodekan target kategori ke dalam format \textit{one-hot encoding} (\texttt{[1, 0]} dan \texttt{[0, 1]}), yang selaras dengan pendeklarasian konstanta \texttt{IMG\_SHAPE = (224, 224, 3)} serta \texttt{num\_classes = 2}.
+
+\subsubsection{Perancangan dan Kompilasi Arsitektur Model CNN}
+\lstinputlisting[language=Python, caption={Perancangan Arsitektur Sequential CNN Dua Blok Konvolusi dan Kompilasi Model}, label={lst:kode-arsitektur-model-cnn-1}]{resource/code/arsitektur-model-cnn_1.py}
+\par \textbf{Output:}
+\lstinputlisting[language={}, columns=fixed, basewidth=0.5em, basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Ringkasan Arsitektur dan Parameter Model CNN (\texttt{sequential\_8})}, label={lst:out-arsitektur-model-cnn-1}]{resource/output/arsitektur-model-cnn_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-arsitektur-model-cnn-1}, arsitektur CNN dibangun secara bertingkat menggunakan wadah \path{Sequential()} yang terdiri atas dua blok ekstraksi fitur konvolusional dan satu blok klasifikasi \textit{fully connected}. Blok konvolusi pertama menerapkan dua lapisan \path{Conv2D} berurutan dengan $32$ \textit{filters} berukuran $3 \times 3$, \path{padding='same'}, dan \textit{activation function} \texttt{relu} yang mempertahankan dimensi spasial pada $224 \times 224 \times 32$, diikuti \path{MaxPooling2D(pool_size=(2, 2))} yang mereduksi resolusi \textit{feature map} menjadi separuhnya ($112 \times 112 \times 32$) serta lapisan regularisasi \path{Dropout(0.1)} yang menonaktifkan $10\%$ unit aktivasi secara acak selama fase pelatihan. Blok konvolusi kedua meningkatkan kedalaman ekstraksi fitur menggunakan dua lapisan \path{Conv2D} berkapasitas $64$ \textit{filters} berukuran $3 \times 3$ (\path{padding='same'}, \texttt{relu}) dan satu lapisan \path{MaxPooling2D(2, 2)} sehingga menghasilkan tensor fitur berdimensi $56 \times 56 \times 64$. Tensor tiga dimensi tersebut kemudian diratakan oleh lapisan \path{Flatten()} menjadi vektor satu dimensi sepanjang $56 \times 56 \times 64 = 200.704$ elemen untuk diteruskan menuju \textit{hidden layer} \path{Dense(512, activation='relu')} dan \textit{output layer} \path{Dense(2, activation='softmax')}. Model dikompilasi menggunakan \textit{optimizer} \texttt{rmsprop}, fungsi kerugian \path{categorical_crossentropy}, serta metrik evaluasi \texttt{accuracy}. Sebagaimana dirinci pada Output \ref{lst:out-arsitektur-model-cnn-1}, model memiliki total $102.827.554$ \textit{trainable parameters} ($392{,}26$ MB), di mana $102.760.960$ parameter ($99{,}94\%$) terkonsentrasi pada koneksi padat antara lapisan \texttt{Flatten} dan \texttt{Dense(512)}, sedangkan keempat lapisan konvolusi hanya membutuhkan total $65.568$ parameter berkat mekanisme \textit{parameter sharing}.
+
+\subsubsection{Pelatihan dan Evaluasi Model CNN pada Dataset Dog vs Cat}
+\lstinputlisting[language=Python, caption={Pelatihan Model CNN Selama 20 Epochs dan Evaluasi pada Validation Set}, label={lst:kode-pelatihan-model-cnn-1}]{resource/code/pelatihan-model-cnn_1.py}
+\par \textbf{Output:}
+\lstinputlisting[language={}, basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Riwayat Pelatihan 20 Epochs dan Evaluasi Akhir Dataset Dog vs Cat}, label={lst:out-pelatihan-model-cnn-1}]{resource/output/pelatihan-model-cnn_1_out.txt}
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-pelatihan-model-cnn-1}, proses pelatihan model dieksekusi selama $20$ \textit{epochs} menggunakan metode \path{model.fit()} dengan mengumpankan \path{train_generator} sebagai data pelatihan dan \path{val_generator} sebagai pemantau kinerja validasi pada setiap akhir \textit{epoch}, kemudian ditutup dengan pemanggilan \path{model.evaluate(val_generator)}. Mengacu pada log pelatihan di Output \ref{lst:out-pelatihan-model-cnn-1}, pada \textit{Epoch} 1 model mengawali pembelajaran dengan \textit{training loss} yang cukup tinggi sebesar $6{,}3317$ (\textit{training accuracy} $0{,}4750$) dan \textit{validation loss} sebesar $6{,}1024$ (\textit{validation accuracy} $0{,}5000$) akibat pembaruan gradien awal pada ratusan juta parameter lapisan \texttt{Dense}. Seiring bertambahnya iterasi, \textit{training accuracy} meningkat hingga menyentuh nilai tertinggi $0{,}8250$ ($82{,}50\%$) pada \textit{Epoch} 8, 13, dan 16, sementara \textit{validation accuracy} sempat mencapai puncaknya sebesar $0{,}8000$ ($80{,}00\%$) pada \textit{Epoch} 12 dan 15. Meskipun demikian, hanya terdapat $2$ langkah pembaruan bobot per \textit{epoch} ($80$ citra latih), sehingga lintasan optimasi masih mengalami lonjakan kerugian sesaat seperti pada \textit{Epoch} 5 (\textit{loss} $2{,}7687$) dan \textit{Epoch} 17 (\textit{loss} $3{,}8689$). Pada akhir \textit{Epoch} 20, model mencatat \textit{training accuracy} sebesar $0{,}7875$ (\textit{loss} $0{,}5786$) dan menghasilkan skor evaluasi akhir pada \textit{validation set} dengan \textit{accuracy} sebesar $0{,}6000$ ($60{,}00\%$) serta \textit{validation loss} sebesar $0{,}6702$.
+
+\subsubsection{Visualisasi Grafik Akurasi dan Loss Pelatihan Model CNN}
+\lstinputlisting[language=Python, caption={Visualisasi Grafik Training dan Validation Accuracy serta Loss Dataset Dog vs Cat}, label={lst:kode-visualisasi-evaluasi-cnn-1}]{resource/code/visualisasi-evaluasi-cnn_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/6-plot-evaluasi-cnn-dog-cat.png}
+  \caption[Grafik Training dan Validation Accuracy serta Loss Dataset Dog vs Cat]{Visualisasi Grafik \textit{Training and Validation Accuracy} serta \textit{Training and Validation Loss} pada Dataset \textit{Dog vs Cat}}
+  \label{fig:plot-evaluasi-cnn-dog-cat-6}
+\end{figure}
+
+\par Berdasarkan sintaks pada Kode \ref{lst:kode-visualisasi-evaluasi-cnn-1}, riwayat nilai metrik \path{accuracy}, \path{val_accuracy}, \path{loss}, dan \path{val_loss} yang tersimpan di dalam objek \path{history.history} diekstrak dan dipetakan ke dalam dua panel grafik vertikal berukuran $8 \times 8$ inci menggunakan fungsi \path{plt.subplot(2, 1, 1)} dan \path{plt.subplot(2, 1, 2)}. Sebagaimana tergambar pada Gambar \ref{fig:plot-evaluasi-cnn-dog-cat-6}, panel atas memperlihatkan pola osilasi gergaji (\textit{sawtooth fluctuation}) baik pada kurva \textit{Training Accuracy} (biru) maupun \textit{Validation Accuracy} (oranye) setelah melewati indeks \textit{epoch} ke-5, di mana celah antara akurasi pelatihan yang menembus $82{,}50\%$ dan akurasi validasi akhir di titik $60{,}00\%$ mulai melebar pada paruh akhir pelatihan. Panel bawah menunjukkan bahwa meskipun \textit{Cross Entropy Loss} turun tajam dari atas $6{,}0$ menjadi di sekitar $0{,}6$ sejak indeks \textit{epoch} ke-2, terdapat dua lonjakan tajam \textit{Training Loss} pada indeks \textit{epoch} ke-4 dan ke-16 akibat ketidakstabilan langkah pembaruan \texttt{RMSprop} pada ukuran sampel yang sangat kecil. Fenomena fluktuasi dan gejala awal \textit{overfitting} ini terjadi karena kapasitas model yang sangat besar ($102{,}83$ juta parameter) melampaui jumlah variasi data pelatihan yang hanya berjumlah $80$ citra tanpa dukungan \textit{data augmentation} maupun mekanisme penyimpanan bobot terbaik (\textit{early stopping}).
+
+
+\subsection{Tugas \& Analisis}
+
+\subsubsection{Tugas 1: Pemilihan Dataset Citra Multi-Class dan Struktur Direktori}
+\textbf{Soal:} Carilah dataset berisi gambar, boleh berupa klasifikasi \textit{binary} maupun \textit{multi-class}! Jumlah dataset tidak harus besar.
+
+\par \textbf{Analisis Pemilihan Dataset dan Karakteristik Kelas:} Untuk menguji kemampuan generalisasi serta skalabilitas arsitektur CNN pada skenario \textit{multiclass image classification} yang lebih kompleks dan realistis, digunakan dataset publik \textbf{Intel Image Classification} yang diperoleh dari repositori Kaggle \cite{kaggle_intel_image}. Dataset ini awalnya dipublikasikan oleh Intel Corporation untuk kompetisi klasifikasi pemandangan alam dan lingkungan perkotaan di seluruh dunia. Secara keseluruhan, dataset yang digunakan memuat citra berwarna tiga kanal (RGB) beresolusi standar $150 \times 150$ piksel yang terbagi ke dalam $14.034$ citra pada himpunan pelatihan (\path{seg_train}), $3.000$ citra pada himpunan pengujian/validasi (\path{seg_test}), serta direktori citra tanpa label untuk kebutuhan prediksi (\path{seg_pred}). Seluruh citra berlabel terdistribusi secara merata ke dalam enam kategori kelas semantik sebagaimana dirangkum pada Tabel \ref{tab:kelas-intel-image}.
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.25}
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|c|l|c|p{9.2cm}|}
+      \hline
+      \textbf{Indeks} & \textbf{Nama Kelas} & \textbf{Resolusi Asli} & \textbf{Deskripsi Karakteristik Visual Citra} \\ \hline
+      0 & \texttt{buildings} & $150 \times 150 \times 3$ & Citra arsitektur gedung bertingkat, pencakar langit, monumen, dan struktur bangunan perkotaan dengan dominasi garis tepi geometris vertikal maupun horizontal. \\ \hline
+      1 & \texttt{forest}    & $150 \times 150 \times 3$ & Citra kawasan hutan lebat yang didominasi tekstur dedaunan hijau, pepohonan rapat, serta pola batang pohon vertikal. \\ \hline
+      2 & \texttt{glacier}   & $150 \times 150 \times 3$ & Citra bongkahan gletser, lembah es, dan lereng bersalju tebal dengan dominasi spektrum warna putih cerah serta biru muda dingin. \\ \hline
+      3 & \texttt{mountain}  & $150 \times 150 \times 3$ & Citra bentang pegunungan berbatu, perbukitan terjal, dan siluet puncak gunung dengan kontur punggung bukit diagonal terhadap langit. \\ \hline
+      4 & \texttt{sea}       & $150 \times 150 \times 3$ & Citra bentang perairan laut lepas, pantai, dan garis cakrawala samudra dengan tekstur riak gelombang air horizontal. \\ \hline
+      5 & \texttt{street}    & $150 \times 150 \times 3$ & Citra koridor jalan raya, trotoar, kendaraan terparkir, serta deretan bangunan di sisi kiri dan kanan jalan dengan perspektif titik hilang. \\ \hline
+    \end{tabular}%
+  }
+  \caption{Deskripsi Enam Kategori Kelas pada Dataset \textit{Intel Image Classification}}
+  \label{tab:kelas-intel-image}
+\end{table}
+
+\par Susunan hierarki folder dari arsip dataset \textit{Intel Image Classification} yang disimpan pada Google Drive mahasiswa disajikan secara lengkap melalui blok struktur direktori berikut:
+
+\par \textbf{Output:}
+\lstinputlisting[language={}, columns=fixed, caption={Struktur Direktori Dataset Intel Image Classification}, label={lst:out-tugas-struktur-direktori-1}]{resource/output/tugas-struktur-direktori_1_out.txt}
+
+\par \textbf{Analisis:} Sebagaimana diperlihatkan pada struktur pohon folder di Output \ref{lst:out-tugas-struktur-direktori-1}, arsip ekstraksi dataset \textit{Intel Image Classification} memiliki karakteristik struktur direktori bersarang dua tingkat (\textit{nested directory}), yaitu \path{seg_pred/seg_pred/}, \path{seg_test/seg_test/}, dan \path{seg_train/seg_train/}. Keenam subdirektori kelas (\path{buildings/}, \path{forest/}, \path{glacier/}, \path{mountain/}, \path{sea/}, dan \path{street/}) berada tepat di dalam tingkat kedua dari folder \path{seg_train/seg_train/} dan \path{seg_test/seg_test/}. Pemetaan struktur direktori ini sangat krusial dalam pemodelan Keras karena metode \path{flow_from_directory()} mengidentifikasi jumlah kelas dan mengurutkan label \textit{one-hot encoding} secara alfabetis berdasarkan subdirektori langsung di bawah alamat \textit{path} yang diberikan; apabila alamat yang dimasukkan hanya menunjuk ke tingkat pertama (\path{seg_train/}), maka generator hanya akan mendeteksi satu kelas tunggal sehingga model gagal mempelajari keenam kategori pemandangan.
+
+\subsubsection{Tugas 2: Pembangunan, Augmentasi Data, dan Pelatihan Model CNN Multi-Class}
+\textbf{Soal:} Bangun sebuah model klasifikasi citra menggunakan CNN untuk melakukan \textit{training} dan melakukan prediksi pada dataset tersebut!
+
+\lstinputlisting[language=Python, caption={Impor Pustaka CNN beserta Callbacks EarlyStopping dan ModelCheckpoint}, label={lst:kode-tugas-impor-pustaka-1}]{resource/code/tugas-impor-pustaka_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Impor Pustaka Pemodelan CNN Tugas}, label={lst:out-tugas-impor-pustaka-1}]{resource/output/tugas-impor-pustaka_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan penyelesaian pada Kode \ref{lst:kode-tugas-impor-pustaka-1}, selain mengimpor modul inti TensorFlow, Matplotlib, NumPy, serta lapisan arsitektur \texttt{Sequential} (\texttt{Dense}, \texttt{Conv2D}, \texttt{MaxPooling2D}, \texttt{Dropout}, dan \texttt{Flatten}), ditambahkan pemanggilan dua kelas pengendali pelatihan otomatis dari modul \path{tensorflow.keras.callbacks}, yakni \texttt{EarlyStopping} dan \texttt{ModelCheckpoint}. Penambahan kedua \textit{callbacks} ini dirancang untuk menghentikan iterasi secara cerdas ketika kurva validasi berhenti membaik sekaligus menyimpan salinan parameter model paling optimal, dengan eksekusi impor yang berjalan tanpa galat sebagaimana tertera pada Output \ref{lst:out-tugas-impor-pustaka-1}.
+
+\lstinputlisting[language=Python, caption={Mounting Penyimpanan Google Drive untuk Dataset Intel Image Classification}, label={lst:kode-tugas-mount-drive-1}]{resource/code/tugas-mount-drive_1.py}
+\par \textbf{Output:}
+\lstinputlisting[basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Mounting Google Drive pada Eksperimen Tugas}, label={lst:out-tugas-mount-drive-1}]{resource/output/tugas-mount-drive_1_out.txt}
+\par \textbf{Analisis:} Lebih lanjut pada Kode \ref{lst:kode-tugas-mount-drive-1}, koneksi menuju sistem penyimpanan Google Drive diverifikasi melalui pemanggilan \path{drive.mount('/content/drive')}. Konfirmasi pada Output \ref{lst:out-tugas-mount-drive-1} memastikan bahwa titik akses penyimpanan telah aktif sehingga ribuan berkas citra pada folder \textit{Intel Image Classification} siap dialirkan ke dalam memori akselerator GPU.
+
+\lstinputlisting[language=Python, caption={Konfigurasi Data Augmentation dan Pembuatan Generator Dataset Intel Image}, label={lst:kode-tugas-preparasi-augmentasi-1}]{resource/code/tugas-preparasi-augmentasi_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Jumlah Citra Training dan Validation/Testing Dataset Intel Image}, label={lst:out-tugas-preparasi-augmentasi-1}]{resource/output/tugas-preparasi-augmentasi_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan penyelesaian pada Kode \ref{lst:kode-tugas-preparasi-augmentasi-1}, alamat \path{train_path} dan \path{val_path} diarahkan secara presisi mengikuti struktur direktori bersarang \path{/seg_train/seg_train} dan \path{/seg_test/seg_test} dengan ukuran resolusi citra asli $150 \times 150$ piksel (\path{IMAGE_SIZE = 150}) dan \path{BATCH_SIZE = 64}. Berbeda dari eksperimen sebelumnya yang hanya menerapkan satu objek generator, pada tahap tugas ini dibangun dua skema \path{ImageDataGenerator} yang terpisah guna mencegah terjadinya \textit{data leakage}. Objek \path{train_datagen} dilengkapi normalisasi piksel \path{rescale = 1./255} beserta tiga transformasi \textit{data augmentation} stokastik secara \textit{on-the-fly}---meliputi rotasi acak hingga $\pm 20^\circ$ (\path{rotation_range=20}), perbesaran/pengecilan skala hingga $20\%$ (\path{zoom_range=0.2}), dan pencerminan horizontal (\path{horizontal_flip=True})---serta pengacakan urutan sampel (\path{shuffle=True}) untuk memperkaya keragaman geometris data latih. Sebaliknya, objek \path{val_datagen} hanya menerapkan normalisasi murni \path{rescale = 1./255} dengan \path{shuffle=False} agar evaluasi pada data uji tetap objektif dan konsisten. Sebagaimana divalidasi oleh Output \ref{lst:out-tugas-preparasi-augmentasi-1}, generator berhasil mengenali $14.034$ citra pelatihan dan $3.000$ citra pengujian yang masing-masing terbagi ke dalam $6$ kelas.
+
+\lstinputlisting[language=Python, caption={Pengujian Aliran Batch dan Visualisasi Lima Sampel Citra Hasil Augmentasi}, label={lst:kode-tugas-uji-baca-data-1}]{resource/code/tugas-uji-baca-data_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Dimensi Tensor Batch pada Lima Iterasi Generator Intel Image}, label={lst:out-tugas-uji-baca-data-1}]{resource/output/tugas-uji-baca-data_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-uji-baca-data-1}, lima iterasi pertama dari \path{train_generator} diekstrak dan dicetak bentuk tensornya sebelum merender sampel citra indeks ke-0 dari tiap \textit{batch}. Hasil pada Output \ref{lst:out-tugas-uji-baca-data-1} memperlihatkan kelima iterasi secara konsisten menghasilkan bentuk tensor \texttt{(64, 150, 150, 3)}, karena jumlah total data pelatihan ($14.034$ citra) menyusun $219$ \textit{batch} penuh berukuran $64$ citra sebelum mencapai satu \textit{remainder batch} berukuran $18$ citra di penghujung \textit{epoch}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-1-sampel-citra-intel-1.png}
+  \caption[Visualisasi Sampel Citra ke-1 Hasil Augmentasi Intel Image]{Visualisasi Sampel Citra ke-1 (\texttt{img[0]}) Hasil \textit{Data Augmentation} pada Dataset \textit{Intel Image Classification}}
+  \label{fig:tugas-sampel-citra-intel-1}
+\end{figure}
+
+\par \textbf{Analisis:} Pada Gambar \ref{fig:tugas-sampel-citra-intel-1}, terlihat sampel citra lanskap lereng pegunungan berbatu bersalju dengan padang rumput hijau dan objek pendaki di sudut kanan bawah pada resolusi $150 \times 150$ piksel. Efek kerja \textit{data augmentation} (\path{rotation_range=20}) tampak nyata pada sudut kanan bawah dan tepi kiri atas citra berupa pola perpanjangan piksel tepi (\textit{nearest-neighbor border extrapolation}) akibat pemutaran bidang gambar.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-2-sampel-citra-intel-2.png}
+  \caption[Visualisasi Sampel Citra ke-2 Hasil Augmentasi Intel Image]{Visualisasi Sampel Citra ke-2 (\texttt{img[0]}) Hasil \textit{Data Augmentation} pada Dataset \textit{Intel Image Classification}}
+  \label{fig:tugas-sampel-citra-intel-2}
+\end{figure}
+
+\par \textbf{Analisis:} Selanjutnya pada Gambar \ref{fig:tugas-sampel-citra-intel-2}, sampel citra kedua memperlihatkan panorama pepohonan pinus di latar depan yang menghadap lembah hijau luas, perairan, dan jajaran pegunungan biru berawan, menunjukkan tingkat kemiripan semantik antar-kelas alam (\texttt{forest} dan \texttt{mountain}) yang harus mampu dibedakan oleh filter konvolusional CNN.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-3-sampel-citra-intel-3.png}
+  \caption[Visualisasi Sampel Citra ke-3 Hasil Augmentasi Intel Image]{Visualisasi Sampel Citra ke-3 (\texttt{img[0]}) Hasil \textit{Data Augmentation} pada Dataset \textit{Intel Image Classification}}
+  \label{fig:tugas-sampel-citra-intel-3}
+\end{figure}
+
+\par \textbf{Analisis:} Pada Gambar \ref{fig:tugas-sampel-citra-intel-3}, sampel citra ketiga menampilkan puncak pegunungan es/gletser bersalju tebal yang tersorot cahaya keemasan dengan siluet gelap pepohonan cemara di sisi kiri dan kanan bawah, memperlihatkan kontras intensitas piksel yang tajam antara area bayangan hitam dan hamparan salju terang.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-4-sampel-citra-intel-4.png}
+  \caption[Visualisasi Sampel Citra ke-4 Hasil Augmentasi Intel Image]{Visualisasi Sampel Citra ke-4 (\texttt{img[0]}) Hasil \textit{Data Augmentation} pada Dataset \textit{Intel Image Classification}}
+  \label{fig:tugas-sampel-citra-intel-4}
+\end{figure}
+
+\par \textbf{Analisis:} Lebih lanjut pada Gambar \ref{fig:tugas-sampel-citra-intel-4}, ditampilkan sampel citra kategori \texttt{street} bernuansa monokrom yang memuat deretan rumah tinggal di sisi kiri, mobil yang terparkir di bahu jalan aspal, serta pepohonan di latar belakang. Efek kombinasi rotasi dan pengecilan skala (\path{zoom_range=0.2}) terlihat sangat jelas dari garis-garis ekstrapolasi piksel di sepanjang keempat sisi bingkai citra.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-5-sampel-citra-intel-5.png}
+  \caption[Visualisasi Sampel Citra ke-5 Hasil Augmentasi Intel Image]{Visualisasi Sampel Citra ke-5 (\texttt{img[0]}) Hasil \textit{Data Augmentation} pada Dataset \textit{Intel Image Classification}}
+  \label{fig:tugas-sampel-citra-intel-5}
+\end{figure}
+
+\par \textbf{Analisis:} Adapun pada Gambar \ref{fig:tugas-sampel-citra-intel-5}, sampel citra kelima memperlihatkan lanskap lereng bersalju dengan bangunan kabin kayu dan tebing puncak gunung tajam yang menembus awan di bawah langit biru tua, disertai jejak rotasi kemiringan lereng dan perpanjangan piksel tepi yang membuktikan bahwa setiap \textit{batch} pelatihan menyuplai variasi orientasi spasial baru kepada jaringan CNN.
+
+\lstinputlisting[language=Python, caption={Verifikasi Dimensi Tensor Batch dan Penetapan Enam Kelas Output}, label={lst:kode-tugas-cek-dimensi-batch-1}]{resource/code/tugas-cek-dimensi-batch_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Dimensi Tensor Image Batch dan Label Batch Enam Kelas}, label={lst:out-tugas-cek-dimensi-batch-1}]{resource/output/tugas-cek-dimensi-batch_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan penyelesaian pada Kode \ref{lst:kode-tugas-cek-dimensi-batch-1}, pemeriksaan bentuk tensor pada satu \textit{batch} pelatihan dijalankan sekaligus menetapkan konstanta dimensi \texttt{IMG\_SHAPE = (150, 150, 3)} serta jumlah kelas \texttt{num\_classes = 6}. Sebagaimana tercatat pada Output \ref{lst:out-tugas-cek-dimensi-batch-1}, matriks \path{image_batch} berdimensi \texttt{(64, 150, 150, 3)} sedangkan \path{label_batch} berdimensi \texttt{(64, 6)}, yang mengonfirmasi bahwa setiap sampel citra telah dipasangkan dengan vektor target \textit{one-hot encoding} berpanjang enam elemen sesuai jumlah kelas pada Tabel \ref{tab:kelas-intel-image}.
+
+\lstinputlisting[language=Python, caption={Perancangan dan Kompilasi Arsitektur CNN Multi-Class pada Dataset Intel Image}, label={lst:kode-tugas-arsitektur-cnn-1}]{resource/code/tugas-arsitektur-cnn_1.py}
+\par \textbf{Output:}
+\lstinputlisting[language={}, columns=fixed, basewidth=0.5em, basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Ringkasan Arsitektur dan Parameter Model CNN Tugas (\texttt{sequential\_9})}, label={lst:out-tugas-arsitektur-cnn-1}]{resource/output/tugas-arsitektur-cnn_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-arsitektur-cnn-1}, arsitektur model CNN (\texttt{sequential\_9}) disusun dengan struktur dua blok konvolusional beraktivasi \texttt{relu} yang seragam dengan model percobaan agar dapat dibandingkan secara langsung, namun disesuaikan dengan resolusi masukan $150 \times 150 \times 3$ serta \textit{output layer} \path{Dense(6, activation='softmax')} untuk menghasilkan distribusi probabilitas atas enam kelas pemandangan. Sebagaimana diperlihatkan pada tabel ringkasan di Output \ref{lst:out-tugas-arsitektur-cnn-1}, dimensi spasial tensor berkurang dari $150 \times 150 \times 32$ menjadi $75 \times 75 \times 32$ pasca-\texttt{MaxPooling2D} pertama dan \path{Dropout(0.1)}, kemudian menyusut kembali menjadi $\lfloor 75 / 2 \rfloor = 37 \times 37 \times 64$ pasca-\texttt{MaxPooling2D} kedua. Perataan tensor oleh lapisan \texttt{Flatten} menghasilkan vektor sepanjang $37 \times 37 \times 64 = 87.616$ fitur, sehingga jumlah bobot pada lapisan \path{Dense(512)} turun drastis menjadi $44.859.904$ parameter dan lapisan keluaran \path{Dense(6)} memuat $(512 + 1) \times 6 = 3.078$ parameter. Menarik dicermati bahwa jumlah parameter pada keempat lapisan konvolusi tetap identik sebesar $65.568$ parameter ($896 + 9.248 + 18.496 + 36.928$) tanpa terpengaruh oleh perubahan ukuran citra, sedangkan total keseluruhan \textit{trainable parameters} menyusut sebesar $56{,}31\%$ dari $102.827.554$ menjadi $44.928.550$ parameter ($171{,}39$ MB).
+
+\lstinputlisting[language=Python, caption={Pelatihan Model CNN dengan EarlyStopping dan ModelCheckpoint serta Evaluasi Akhir}, label={lst:kode-tugas-pelatihan-cnn-1}]{resource/code/tugas-pelatihan-cnn_1.py}
+\par \textbf{Output:}
+\lstinputlisting[language={}, basicstyle=\ttfamily\scriptsize\linespread{1.0}\selectfont\color{vscodeFg}, caption={Output Log Pelatihan 14 Epochs dan Evaluasi Data Uji Intel Image Classification}, label={lst:out-tugas-pelatihan-cnn-1}]{resource/output/tugas-pelatihan-cnn_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan penyelesaian pada Kode \ref{lst:kode-tugas-pelatihan-cnn-1}, pelatihan dijalankan dengan batas maksimum $20$ \textit{epochs} ($220$ langkah pembaruan gradien per \textit{epoch}) disertai dua mekanisme pengaman: \path{EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)} dan \path{ModelCheckpoint('best_model.keras', monitor='val_loss', save_best_only=True)}. Mengacu pada catatan iterasi di Output \ref{lst:out-tugas-pelatihan-cnn-1}, performa model meningkat secara konsisten dan mulus sejak \textit{Epoch} 1 (\textit{training accuracy} $0{,}5181$, \textit{loss} $1{,}2502$; \textit{validation accuracy} $0{,}6473$, \textit{val\_loss} $0{,}9364$). Menariknya, hingga \textit{Epoch} 8 skor \textit{validation accuracy} ($0{,}8393$) tercatat sedikit lebih tinggi dibandingkan \textit{training accuracy} ($0{,}8193$); fenomena ini merupakan karakteristik sehat dari penerapan \path{Dropout(0.1)} dan \textit{data augmentation} yang hanya aktif mempersulit citra selama fase pelatihan, sedangkan saat inferensi validasi jaringan menggunakan kapasitas penuhnya pada citra asli tanpa distorsi. Model mencapai titik konvergensi paling optimal pada \textbf{\textit{Epoch} 11} dengan rekor \textbf{\textit{validation loss} terendah sebesar $0{,}4281$} dan \textbf{\textit{validation accuracy} sebesar $0{,}8550$ ($85{,}50\%$)}. Karena selama tiga \textit{epoch} berturut-turut berikutnya (\textit{Epoch} 12 hingga \textit{Epoch} 14) nilai \textit{validation loss} ($0{,}6409$, $0{,}4423$, dan $0{,}4404$) tidak lagi melampaui rekor tersebut meskipun \textit{training accuracy} terus naik ke $0{,}8686$, mekanisme \texttt{EarlyStopping} menghentikan pelatihan secara otomatis pada akhir \textit{Epoch} 14 dan memulihkan kembali parameter terbaik dari \textit{Epoch} 11. Hal ini terbukti secara eksak pada baris terakhir evaluasi \path{model.evaluate(val_generator)} atas $3.000$ citra uji ($47$ \textit{batches}) yang menghasilkan skor akhir \textbf{\textit{accuracy} = $0{,}8550$} dan \textbf{\textit{loss} = $0{,}4281$}.
+
+\subsubsection{Tugas 3: Evaluasi Metrik Prediksi, Visualisasi Kurva Pelatihan, dan Analisis Komparatif}
+\textbf{Soal:} Tampilkan hasil prediksi berupa metrik evaluasi serta visualisasi grafik \textit{loss} dan akurasi selama proses pelatihan!
+
+\lstinputlisting[language=Python, caption={Visualisasi Grafik Training dan Validation Accuracy serta Loss Dataset Intel Image}, label={lst:kode-tugas-visualisasi-evaluasi-1}]{resource/code/tugas-visualisasi-evaluasi_1.py}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-6-plot-evaluasi-cnn-intel.png}
+  \caption[Grafik Training dan Validation Accuracy serta Loss Dataset Intel Image]{Visualisasi Grafik \textit{Training and Validation Accuracy} serta \textit{Training and Validation Loss} pada Dataset \textit{Intel Image Classification}}
+  \label{fig:tugas-plot-evaluasi-cnn-intel-6}
+\end{figure}
+
+\par \textbf{Analisis:} Berdasarkan sintaks pada Kode \ref{lst:kode-tugas-visualisasi-evaluasi-1}, dinamika metrik evaluasi sepanjang $14$ \textit{epochs} yang terekam pada objek \path{history} divisualisasikan menjadi dua kurva evaluasi berpasangan sebagaimana disajikan pada Gambar \ref{fig:tugas-plot-evaluasi-cnn-intel-6}. Pada panel atas (\textit{Training and Validation Accuracy}), kurva pelatihan (biru) menanjak secara monoton dan halus dari $51{,}81\%$ menuju $86{,}86\%$, sedangkan kurva validasi (oranye) bergerak beriringan sangat rapat hingga mencapai $85{,}50\%$ dengan selisih generalisasi (\textit{generalization gap}) yang sangat tipis di bawah $1{,}4\%$. Pada panel bawah (\textit{Training and Validation Loss}), nilai \textit{Cross Entropy Loss} pada data pelatihan melandai secara eksponensial dari $1{,}2502$ menuju $0{,}3679$, sementara \textit{Validation Loss} turun stabil dari $0{,}9364$ hingga titik minimum $0{,}4281$ pada indeks \textit{epoch} ke-10 (\textit{Epoch} 11/20), diikuti satu osilasi kecil pada indeks ke-11 sebelum kembali rata di kisaran $0{,}44$. Ketiadaan divergensi lebar antara kurva pelatihan dan kurva validasi ini membuktikan bahwa sinergi antara skala dataset yang memadai ($14.034$ citra latih), regularisasi \path{Dropout(0.1)}, transformasi \textit{data augmentation}, dan penghentian dini \texttt{EarlyStopping} sangat efektif dalam meredam \textit{overfitting}.
+
+\par Guna merangkum perbedaan perilaku pembelajaran dan kualitas prediksi model CNN di antara eksperimen modul dan eksperimen tugas secara menyeluruh, perbandingan spesifikasi teknis beserta metrik evaluasi kedua model disajikan pada Tabel \ref{tab:ringkasan-performa-cnn}.
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.25}
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|c|c|}
+      \hline
+      \textbf{Aspek Konfigurasi \& Metrik Evaluasi} & \textbf{Eksperimen Modul (\textit{Dog vs Cat})} & \textbf{Eksperimen Tugas (\textit{Intel Image Classification})} \\ \hline
+      Jenis Permasalahan Klasifikasi & \textit{Binary Classification} ($2$ Kelas) & \textit{Multiclass Classification} ($6$ Kelas) \\ \hline
+      Jumlah Sampel (\textit{Train} / \textit{Val-Test}) & $80$ Citra Latih / $20$ Citra Validasi & $14.034$ Citra Latih / $3.000$ Citra Uji \\ \hline
+      Dimensi Tensor Input (\texttt{IMG\_SHAPE}) & $224 \times 224 \times 3$ & $150 \times 150 \times 3$ \\ \hline
+      Jumlah Langkah per \textit{Epoch} (\texttt{BATCH\_SIZE = 64}) & $2$ \textit{steps/epoch} & $220$ \textit{steps/epoch} \\ \hline
+      Total \textit{Trainable Parameters} (Ukuran Memori) & $102.827.554$ ($392{,}26$ MB) & $44.928.550$ ($171{,}39$ MB) \\ \hline
+      Teknik \textit{Data Augmentation} & Tidak diterapkan (hanya \texttt{rescale=1./255}) & Rotasi $20^\circ$, \textit{Zoom} $20\%$, \textit{Horizontal Flip} \\ \hline
+      Mekanisme Regularisasi \& \textit{Callbacks} & \texttt{Dropout(0.1)} & \texttt{Dropout(0.1)}, \texttt{EarlyStopping}, \texttt{ModelCheckpoint} \\ \hline
+      Jumlah \textit{Epoch} Terealisasi & $20$ / $20$ \textit{Epochs} & $14$ / $20$ \textit{Epochs} (\textit{Best Weights}: \textit{Epoch} 11) \\ \hline
+      \textit{Training Accuracy} Akhir (\textit{Training Loss}) & $0{,}7875$ ($0{,}5786$) & $0{,}8686$ ($0{,}3679$) --- \textit{Epoch} 11: $0{,}8480$ ($0{,}4278$) \\ \hline
+      \textit{Validation Accuracy} Puncak & $0{,}8000$ ($80{,}00\%$) & $0{,}8550$ ($85{,}50\%$) \\ \hline
+      \textbf{\textit{Validation Accuracy} Evaluasi Akhir} & \textbf{$0{,}6000$ ($60{,}00\%$)} & \textbf{$0{,}8550$ ($85{,}50\%$)} \\ \hline
+      \textbf{\textit{Validation Loss} Evaluasi Akhir} & \textbf{$0{,}6702$} & \textbf{$0{,}4281$} \\ \hline
+    \end{tabular}%
+  }
+  \caption{Perbandingan Konfigurasi Arsitektur dan Kinerja Evaluasi Model CNN pada Langkah Percobaan dan Tugas}
+  \label{tab:ringkasan-performa-cnn}
+\end{table}
+
+\par \textbf{Analisis Komparatif:} Mengacu pada perbandingan kuantitatif di Tabel \ref{tab:ringkasan-performa-cnn}, meskipun permasalahan klasifikasi pada eksperimen tugas memiliki tingkat kesulitan ruang keputusan yang jauh lebih tinggi ($6$ kelas pemandangan dengan peluang tebakan acak hanya $1/6 \approx 16{,}67\%$) dibandingkan eksperimen modul ($2$ kelas dengan peluang tebakan acak $50{,}00\%$), model CNN pada dataset \textit{Intel Image Classification} justru berhasil meraih akurasi evaluasi akhir yang jauh lebih unggul sebesar $85{,}50\%$ (\textit{loss} $0{,}4281$) dibandingkan $60{,}00\%$ (\textit{loss} $0{,}6702$) pada dataset \textit{Dog vs Cat}. Keunggulan ini dipengaruhi oleh tiga faktor teknis utama: (1) ketersediaan $14.034$ sampel pelatihan ($220$ pembaruan gradien per \textit{epoch}) memberikan estimasi arah gradien \texttt{RMSprop} yang jauh lebih representatif dan stabil dibandingkan hanya $2$ langkah per \textit{epoch} pada dataset kecil; (2) pengurangan resolusi masukan ke $150 \times 150$ memangkas lebih dari $57{,}9$ juta parameter pada lapisan \texttt{Dense(512)} sehingga rasio kapasitas parameter terhadap jumlah data menjadi jauh lebih proporsional; serta (3) kombinasi \textit{data augmentation} dan \texttt{EarlyStopping} dengan pemulihan bobot terbaik berhasil mengunci performa puncak model tepat sebelum kurva validasi mengalami degradasi.
+
 
 \section{Kesimpulan}
+
+\par Berdasarkan seluruh rangkaian percobaan, implementasi tugas, dan analisis pemodelan Convolutional Neural Network (CNN) menggunakan TensorFlow dan Keras yang telah dilaksanakan, dapat ditarik beberapa kesimpulan utama sebagai berikut:
+\begin{enumerate}[label=\arabic*.]
+  \item Arsitektur Convolutional Neural Network (CNN) mengatasi dua kelemahan mendasar Multilayer Perceptron (MLP) pada pengolahan citra digital---yakni ledakan jumlah parameter dan hilangnya korelasi spasial lokal---melalui mekanisme \textit{local receptive fields} serta \textit{parameter sharing}, sebagaimana dibuktikan oleh keempat lapisan \texttt{Conv2D} pada eksperimen ini yang hanya memerlukan total $65.568$ parameter terlepas dari resolusi spasial citra masukan.
+  \item Setiap komponen arsitektur dasar CNN menjalankan peran hierarkis yang saling melengkapi: \textit{convolution layer} beraktivasi \texttt{ReLU} mengekstraksi \textit{feature map} tepi, tekstur, hingga pola objek; \textit{pooling layer} (\texttt{MaxPooling2D}) mereduksi dimensi spasial menjadi separuhnya sekaligus membangun ketahanan \textit{translation invariance}; lapisan \texttt{Flatten} menjembatani tensor fitur multidimensi menjadi vektor satu dimensi; serta \textit{fully connected layer} (\texttt{Dense}) beraktivasi \texttt{Softmax} memetakan fitur tingkat tinggi menjadi distribusi probabilitas kelas.
+  \item Pada eksperimen modul klasifikasi dua kelas \textit{Dog vs Cat} ($80$ citra latih dan $20$ citra validasi beresolusi $224 \times 224 \times 3$ dengan $102.827.554$ parameter), model mampu mencapai puncak \textit{validation accuracy} sebesar $80{,}00\%$ pada pertengahan pelatihan namun mengalami fluktuasi gradien dan gejala \textit{overfitting} hingga berakhir pada \textit{validation accuracy} $60{,}00\%$ (\textit{validation loss} $0{,}6702$) akibat kapasitas lapisan \texttt{Dense} yang terlalu besar terhadap ukuran sampel yang terbatas.
+  \item Pada eksperimen tugas klasifikasi enam kelas \textit{Intel Image Classification} ($14.034$ citra latih dan $3.000$ citra uji beresolusi $150 \times 150 \times 3$ dengan $44.928.550$ parameter), penerapan kombinasi regularisasi \path{Dropout(0.1)}, transformasi \textit{data augmentation} (\textit{rotation}, \textit{zoom}, dan \textit{horizontal flip}), serta pengendalian iterasi melalui \texttt{EarlyStopping} dan \texttt{ModelCheckpoint} terbukti berhasil mencegah \textit{overfitting} secara efektif dan menghasilkan konvergensi yang stabil pada \textit{Epoch} 11 dengan capaian evaluasi akhir \textit{validation accuracy} sebesar $85{,}50\%$ serta \textit{validation loss} sebesar $0{,}4281$.
+\end{enumerate}
 
 \par Link Google Colab: {\small\url{https://colab.research.google.com/drive/1VewMmHFEejN_v5vWTs1wYtLkIAyV3Lnr?usp=sharing}}
 

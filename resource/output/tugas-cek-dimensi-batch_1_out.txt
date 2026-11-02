@@ -1,0 +1,2 @@
+Image batch shape: (64, 150, 150, 3)
+Label batch shape: (64, 6)

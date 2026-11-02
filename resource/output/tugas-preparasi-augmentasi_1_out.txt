@@ -1,0 +1,2 @@
+Found 14034 images belonging to 6 classes.
+Found 3000 images belonging to 6 classes.
