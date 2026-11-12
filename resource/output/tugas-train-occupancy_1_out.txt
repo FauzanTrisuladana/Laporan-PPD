@@ -1,0 +1,24 @@
+=== RINGKASAN DATASET OCCUPANCY ===
+Path dataset   : /home/fratsia/Kuliah/Semester 5/Praktikum Penambangan Data/deploy-flask/docs/latihan/ocupancy_dataset.csv
+Total baris    : 20560
+Total kolom    : 7 (['date', 'Temperature', 'Humidity', 'Light', 'CO2', 'HumidityRatio', 'Occupancy'])
+Missing values : 0
+Distribusi kelas (0=Kosong, 1=Terisi): {'0': 15810, '1': 4750}
+Split 70/30    : train=14392, test=6168
+
+=== HASIL EVALUASI 5 MODEL (TEST SET) ===
+Model                        Accuracy  Precision     Recall   F1-Score
+----------------------------------------------------------------------
+Logistic Regression            0.9882     0.9769     0.9908     0.9836
+KNN (k=10)                     0.9895     0.9820     0.9887     0.9853
+Decision Tree (Entropy)        0.9909     0.9882     0.9863     0.9872
+Random Forest                  0.9908     0.9855     0.9886     0.9871
+AdaBoost                       0.9887     0.9778     0.9911     0.9843
+
+Model terbaik terpilih: Decision Tree (Entropy)
+Pipeline disimpan ke  : /home/fratsia/Kuliah/Semester 5/Praktikum Penambangan Data/deploy-flask/tugas/create_model/occupancy_model.joblib
+Pipeline disalin ke   : /home/fratsia/Kuliah/Semester 5/Praktikum Penambangan Data/deploy-flask/tugas/web/artifacts/occupancy_model.joblib
+Ringkasan analisis ke : /home/fratsia/Kuliah/Semester 5/Praktikum Penambangan Data/deploy-flask/tugas/web/artifacts/analysis_summary.json
+total 28K
+-rw-rw-r-- 1 fratsia fratsia 2.8K Nov 12 19:24 analysis_summary.json
+-rw-rw-r-- 1 fratsia fratsia  22K Nov 12 19:24 occupancy_model.joblib

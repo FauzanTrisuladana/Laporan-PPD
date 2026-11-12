@@ -1,0 +1,40 @@
+=== GET / (Dashboard) ===
+HTTP_STATUS:200
+=== POST /predict (Sampel Occupied = 1) ===
+                                        <h3 class="font-weight-bold mb-1">Occupied (Terisi)</h3>
+                                        <p class="mb-0">
+                                            Confidence: <strong>100.0%</strong>
+                                            (Not Occupied: 0.0% | Occupied: 100.0%)
+--
+                                                <td>Output Prediction</td>
+                                                <td>Occupied (Terisi)</td>
+                                            </tr>
+--
+HTTP_STATUS:200
+=== POST /predict (Sampel Not Occupied = 0) ===
+                                        <h3 class="font-weight-bold mb-1">Not Occupied (Kosong)</h3>
+                                        <p class="mb-0">
+                                            Confidence: <strong>100.0%</strong>
+                                            (Not Occupied: 100.0% | Occupied: 0.0%)
+--
+                                                <td>Output Prediction</td>
+                                                <td>Not Occupied (Kosong)</td>
+                                            </tr>
+--
+HTTP_STATUS:200
+=== POST /predict (Validasi Input Non-Numerik -> HTTP 400) ===
+HTTP_STATUS:400
+=== Server Log ===
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5001
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 540-174-304
+127.0.0.1 - - [12/Nov/2026 19:25:36] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 19:25:36] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 19:25:36] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 19:25:36] "POST /predict HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 19:25:36] "POST /predict HTTP/1.1" 400 -

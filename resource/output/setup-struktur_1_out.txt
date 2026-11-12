@@ -1,0 +1,22 @@
+.
+./docs
+./docs/latihan
+./docs/latihan/ocupancy_dataset.csv
+./docs/latihan/UTS_PPD.ipynb
+./docs/output
+./docs/output/01-setup-structure.txt
+./docs/output/01-verify-env.txt
+./docs/perintah.sh
+./langkah-pertemuan 10.md
+./latihan
+./latihan/create_model
+./latihan/create_model/hcvdat0.csv
+./latihan/web
+./latihan/web/static
+./latihan/web/templates
+./tugas
+./tugas/create_model
+./tugas/web
+./tugas/web/artifacts
+./tugas/web/static
+./tugas/web/templates

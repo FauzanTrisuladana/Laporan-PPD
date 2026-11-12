@@ -1,0 +1,9 @@
+Dataset awal: 615 baris, 14 kolom
+Dataset setelah dropna(): 589 baris
+Urutan fitur: ['Sex', 'Age', 'ALB', 'ALP', 'ALT', 'AST', 'BIL', 'CHE', 'CHOL', 'CREA', 'GGT', 'PROT']
+Mapping Sex LabelEncoder: {'f': np.int64(0), 'm': np.int64(1)}
+Generate Decision Tree Model
+Model berhasil disimpan ke: /home/fratsia/Kuliah/Semester 5/Praktikum Penambangan Data/deploy-flask/latihan/create_model/dt_model.model
+Training accuracy (in-sample): 1.0000
+-rw-rw-r-- 1 fratsia fratsia 5.7K Nov 12 19:23 latihan/create_model/dt_model.model
+-rw-rw-r-- 1 fratsia fratsia 5.7K Nov 12 19:23 latihan/web/dt_model.model
