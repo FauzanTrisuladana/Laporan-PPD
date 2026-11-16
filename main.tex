@@ -96,8 +96,8 @@
 }
 
 % Info dokumen
-\newcommand{\Pertemuan}{10}
-\newcommand{\Materi}{Model Deployment (Flask)}
+\newcommand{\Pertemuan}{10 \& 11}
+\newcommand{\Materi}{Model Deployment}
 \title{Laporan Praktikum \\ Praktikum Penambangan Data\\
 Pertemuan \Pertemuan\\
 \Materi}
@@ -211,10 +211,12 @@ Pertemuan \Pertemuan\\
 
 \section{Tujuan Praktikum}
 \begin{enumerate}[label=\Alph*.]
-  \item Mahasiswa mampu memahami konsep dasar \textit{model deployment} dalam siklus hidup \textit{data mining}.
-  \item Mahasiswa mampu melakukan \textit{serialization} (penyimpanan) dan \textit{deserialization} (pemuatan) model \textit{machine learning} menggunakan pustaka \texttt{pickle} atau \texttt{joblib}.
-  \item Mahasiswa dapat membangun layanan web (\textit{Web Service}) sederhana menggunakan \textit{framework} Flask.
-  \item Mahasiswa dapat mengintegrasikan model \textit{machine learning} ke dalam Application Programming Interface (API) sehingga dapat menerima input data baru dan memberikan hasil prediksi.
+  \item Mahasiswa mampu memahami konsep dasar dan arsitektur \textit{model deployment} dalam siklus hidup \textit{machine learning} (\textit{ML Lifecycle}).
+  \item Mahasiswa mampu melakukan \textit{serialization} (penyimpanan) dan \textit{deserialization} (pemuatan) model \textit{machine learning} menggunakan pustaka \texttt{joblib} ke dalam format biner terstandarisasi (\texttt{.model} atau \texttt{.joblib}).
+  \item Mahasiswa dapat merancang dan membangun layanan web (\textit{Web Service}) menggunakan \textit{framework} Flask berbasis antarmuka WSGI, rute endpoint, dan templat formulir HTML.
+  \item Mahasiswa dapat merancang dan membangun aplikasi data (\textit{Data Application}) interaktif menggunakan \textit{framework} Streamlit dengan komponen widget visual, kontainer tata letak, dan arsitektur eksekusi \textit{script rerun}.
+  \item Mahasiswa mampu mengimplementasikan manajemen \textit{state} interaktif (\texttt{st.session\_state}) serta optimasi \textit{caching} (\texttt{@st.cache\_resource} dan \texttt{@st.cache\_data}) untuk menjamin efisiensi inferensi model pada aplikasi Streamlit.
+  \item Mahasiswa mampu melakukan evaluasi komparatif multi-model dan menganalisis perbedaan paradigma penayangan antara \textit{Web Service} (Flask) dan \textit{Data Application} (Streamlit).
 \end{enumerate}
 
 \section{Dasar Teori}
@@ -294,10 +296,21 @@ Pada dataset yang memiliki ketimpangan jumlah sampel antarkelas (\textit{imbalan
 \par Dalam pembuatan aplikasi Flask, instansiasi objek utama dilakukan melalui pemanggilan \path{app = Flask(__name__)}, diikuti pendefinisian \textit{decorator} \path{@app.route()} guna memetakan suatu alamat URL ke fungsi penanganan (\textit{view function}) \cite{flask_quickstart}. Objek \path{request.form} digunakan untuk menangkap pasangan kunci dan nilai yang dikirimkan melalui metode HTTP \texttt{POST}, sedangkan fungsi \path{render_template()} memanggil mesin Jinja2 untuk menyuntikkan variabel hasil prediksi Python secara dinamis ke dalam berkas antarmuka HTML di dalam direktori \path{templates/} \cite{grinberg2018flask}.
 \par Untuk melayani permintaan HTTP, Flask mengimplementasikan spesifikasi standar Python Web Server Gateway Interface (WSGI) sebagaimana didefinisikan dalam PEP 3333, yakni antarmuka komunikasi standar antara \textit{web server} dan aplikasi web berbasis Python \cite{pep3333_wsgi}. Saat tahap pengembangan lokal, pemanggilan \texttt{app.run()} atau perintah \texttt{flask run} akan menjalankan \textit{development WSGI server} bawaan Werkzeug \cite{flask_quickstart}. Adapun untuk penayangan di lingkungan produksi yang sesungguhnya, dokumentasi resmi Flask merekomendasikan penggunaan \textit{dedicated production WSGI server} seperti Gunicorn atau uWSGI di balik \textit{reverse proxy} HTTP seperti NGINX atau Apache guna menjamin keamanan, konkurensi, dan stabilitas layanan \cite{flask_deploying, grinberg2018flask}.
 
+\subsection{Streamlit Framework dan Paradigma Data Application}
+\par Streamlit adalah \textit{open-source framework} berbasis Python murni yang dirancang khusus untuk memfasilitasi praktisi data dan perekayasa \textit{machine learning} dalam membangun antarmuka web interaktif serta \textit{data dashboard} secara cepat tanpa harus menulis kode HTML, CSS, maupun JavaScript secara manual \cite{streamlit_docs, treveil2020introducing}. Berbeda mendasar dengan arsitektur \textit{Request-Response} per rute URL pada Flask, Streamlit mengadopsi paradigma eksekusi yang dikenal sebagai \textit{Script Rerun} \cite{streamlit_execution_model}. Dalam paradigma ini, setiap kali pengguna berinteraksi dengan sebuah widget antarmuka---seperti mengubah angka pada \texttt{st.number\_input}, memilih opsi \texttt{st.selectbox}, atau menekan tombol \texttt{st.button}---Streamlit secara otomatis mengeksekusi ulang keseluruhan skrip Python dari baris pertama hingga baris terakhir \cite{streamlit_execution_model}. Model reaktif ini memungkinkan antarmuka visual selalu mencerminkan kondisi variabel Python terkini secara deterministik \cite{streamlit_execution_model, huyen2022designing}.
+\par Komponen antarmuka Streamlit tersusun secara deklaratif dan terbagi ke dalam empat kategori utama \cite{streamlit_docs}:
+\begin{enumerate}[label=\arabic*.]
+  \item \textbf{\textit{Output \& Text Display}:} Fungsi penampil teks hierarkis (\texttt{st.title()}, \texttt{st.header()}, \texttt{st.caption()}, \texttt{st.markdown()}), visualisasi metrik ringkas (\texttt{st.metric()}), serta notifikasi umpan balik (\texttt{st.success()}, \texttt{st.info()}, \texttt{st.spinner()}).
+  \item \textbf{\textit{Input Widgets}:} Komponen interaktif penerima masukan data pengguna (\texttt{st.number\_input()}, \texttt{st.selectbox()}, \texttt{st.slider()}, \texttt{st.button()}), termasuk pembungkus formulir \texttt{st.form()} bersama tombol aksi \texttt{st.form\_submit\_button()} yang menahan siklus \textit{rerun} hingga seluruh kolom selesai diisi.
+  \item \textbf{\textit{Layouts \& Containers}:} Pengorganisasian tata letak antarmuka tingkat lanjut seperti bilah navigasi samping (\texttt{st.sidebar}), pembagian kolom horizontal (\texttt{st.columns()}), panel tab bertingkat (\texttt{st.tabs()}), dan panel yang dapat diciutkan (\texttt{st.expander()}).
+  \item \textbf{\textit{Session State \& Caching}:} Mekanisme persistensi nilai variabel lokal lintas siklus \textit{rerun} (\texttt{st.session\_state}) serta pengelolaan memori terdistribusi guna menghindari beban komputasi berulang \cite{streamlit_execution_model, streamlit_caching}.
+\end{enumerate}
+\par Karena skrip Python dijalankan ulang secara menyeluruh pada setiap interaksi, variabel lokal standar akan terinisialisasi kembali ke nilai default. Untuk mempertahankan data yang dimasukkan pengguna atau status aplikasi, Streamlit menyediakan \texttt{st.session\_state} yang bertindak sebagai kamus global per sesi pengguna \cite{streamlit_execution_model}. Selain itu, pemuatan berkas model biner serialisasi (\texttt{.model} atau \texttt{.joblib}) dari media penyimpanan pada setiap siklus \textit{rerun} akan membebani memori dan memperlambat latensi inferensi secara signifikan \cite{streamlit_caching}. Oleh karena itu, dekorator \texttt{@st.cache\_resource} diterapkan pada fungsi pemuatan model agar objek model tersimpan secara persisten di memori bersama (\textit{shared global cache}) dan hanya dimuat satu kali selama siklus hidup server \cite{streamlit_caching}. Adapun untuk data tabular, kamus konfigurasi, atau metadata JSON, dekorator \texttt{@st.cache\_data} digunakan untuk meng-cache salinan data yang dapat diserialisasikan secara aman \cite{streamlit_caching}.
+
 
 \section{Hasil dan Pembahasan}
 
-\par Sesuai dengan tujuan praktikum, berikut adalah hasil eksperimen beserta pembahasan mengenai persiapan lingkungan kerja terisolasi, pelatihan serta serialisasi model \textit{machine learning}, pembangunan layanan web menggunakan \textit{framework} Flask, hingga implementasi \textit{dashboard} prediktif dan evaluasi multi-model pada kasus nyata.
+\par Sesuai dengan tujuan praktikum, berikut adalah hasil eksperimen beserta pembahasan komprehensif mengenai persiapan lingkungan kerja terisolasi, pelatihan serta serialisasi model \textit{machine learning}, perancangan layanan web menggunakan \textit{framework} Flask, pembangunan \textit{data dashboard} interaktif menggunakan \textit{framework} Streamlit, hingga analisis komparatif performa dan paradigma penayangan model pada kedua platform tersebut.
 
 \subsection{Persiapan Lingkungan Kerja dan Struktur Proyek Deployment}
 
@@ -428,18 +441,109 @@ Pada dataset yang memiliki ketimpangan jumlah sampel antarkelas (\textit{imbalan
 
 \par \textbf{Analisis Komparatif:} Mengacu pada Tabel \ref{tab:komparasi-deployment}, pengembangan pada proyek tugas menerapkan tiga praktik rekayasa \textit{deployment} yang jauh lebih matang dibandingkan proyek latihan dasar. Pertama, pembungkusan tahapan \texttt{StandardScaler} bersama model klasifikasi ke dalam satu objek \texttt{Pipeline} sebelum diekspor menggunakan \texttt{joblib.dump()} menghilangkan risiko ketidaksinkronan skala fitur saat inferensi di aplikasi Flask. Kedua, pemisahan hasil evaluasi eksperimen ke dalam artefak JSON (\texttt{analysis\_summary.json}) memungkinkan pembuatan antarmuka \textit{dashboard} yang tidak sekadar menampilkan formulir input kosong, melainkan juga menyajikan transparansi performa kelima model kandidat, rentang nilai wajar setiap sensor, serta tombol pengisian sampel otomatis (\textit{preset}) yang memudahkan pengujian pengguna. Ketiga, penambahan validasi tipe data masukan dengan kode respons \texttt{HTTP 400} serta penyajian skor probabilitas \texttt{predict\_proba()} meningkatkan keandalan layanan web dan memberikan tingkat keterjelasan keputusan (\textit{explainability}) yang lebih baik bagi pengguna akhir.
 
+\subsection{Implementasi Model Deployment Prediksi Penyakit Hepatitis C dengan Streamlit}
+
+\par Pada materi pertemuan ke-11, arsitektur \textit{model deployment} dieksplorasi menggunakan pendekatan \textit{data application framework} berbasis Streamlit. Berbeda dengan Flask yang memisahkan kode logika rute HTTP (\texttt{app.py}) dan templat antarmuka (\texttt{index.html} serta \texttt{result.html}), Streamlit mengadopsi paradigma deklaratif di mana tata letak antarmuka (\textit{user interface}), penerimaan input pengguna, dan eksekusi inferensi model machine learning disatukan secara elegan dalam satu naskah Python murni. Model yang digunakan pada proyek latihan ini adalah estimator \texttt{DecisionTreeClassifier} yang telah dilatih pada dataset Hepatitis C (\path{hcvdat0.csv}) dan disimpan dalam artefak biner \path{dt_model.model}.
+
+\subsubsection{Konfigurasi Antarmuka, Manajemen State, dan Integrasi Model Streamlit}
+\lstinputlisting[language=Python, caption={Implementasi Aplikasi Web Prediksi Hepatitis C Berbasis Streamlit}, label={lst:kode-latihan-streamlit-app-1}]{resource/code/latihan-streamlit-app_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pengujian Layanan dan Verifikasi Endpoint Streamlit Latihan}, label={lst:out-latihan-streamlit-app-1}]{resource/output/latihan-streamlit-app_1_out.txt}
+\par \textbf{Analisis:} Berdasarkan implementasi pada Kode \ref{lst:kode-latihan-streamlit-app-1}, aplikasi Streamlit latihan dibangun dengan konfigurasi halaman penuh melalui \path{st.set_page_config(page_title="HCV Predictor", layout="wide")}. Pemuatan model serialisasi dilakukan melalui fungsi pembungkus \path{load_model()} yang dihiasi dekorator \path{@st.cache_resource}. Penggunaan dekorator ini memastikan bahwa artefak \path{dt_model.model} hanya dibaca satu kali dari disk ke dalam memori global pada saat aplikasi pertama kali dinyalakan, sehingga siklus \textit{script rerun} tidak membebani komputasi \textit{I/O}. Antarmuka masukan disusun secara ergonomis menjadi tiga kolom sejajar (\path{st.columns(3)}) menggunakan widget \path{st.number_input()} dan \path{st.selectbox()} untuk atribut kategorikal jenis kelamin (\texttt{Category: Sex}). Nilai teks \texttt{m} atau \texttt{f} dipetakan secara deterministik menjadi representasi numerik biner ($0$ atau $1$) agar selaras dengan skema pelatihan. Ketika pengguna menekan tombol \path{st.button("Prediksi Hasil")}, Streamlit mengeksekusi inferensi \path{model.predict(input_df)} dan menampilkan hasil diagnosis klinis dalam kotak notifikasi berwarna (\path{st.success()}) beserta ringkasan parameter masukan dalam format tabel interaktif (\path{st.dataframe()}). Pada pengujian Output \ref{lst:out-latihan-streamlit-app-1}, verifikasi jaringan berbasis \texttt{curl} ke \url{http://localhost:8501} mengonfirmasi respons \texttt{HTTP/1.1 200 OK} dengan penyisipan berkas statis dan skrip runtime Streamlit secara sempurna.
+
+\subsubsection{Pengujian Antarmuka Aplikasi Streamlit Prediksi Hepatitis C}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/1-form-input-tabular-hcv-streamlit.png}
+  \caption{Visualisasi Formulir Input Tabular Prediksi Hepatitis C Berbasis Streamlit pada \texttt{http://localhost:8501}}
+  \label{fig:latihan-form-input-hcv-streamlit}
+\end{figure}
+
+\par \textbf{Analisis:} Gambar \ref{fig:latihan-form-input-hcv-streamlit} memperlihatkan antarmuka web aplikasi prediksi Hepatitis C yang berhasil di-deploy pada port \texttt{8501}. Streamlit secara otomatis merender komponen masukan ke dalam tiga kolom responsif: kolom pertama memuat data demografis (\textit{Age} dan \textit{Sex}) serta enzim hati dasar (\textit{ALB} dan \textit{ALP}), kolom kedua memuat indikator bilirubin dan protein (\textit{ALT}, \textit{AST}, \textit{BIL}, dan \textit{CHE}), sedangkan kolom ketiga memuat parameter kolesterol dan jaringan (\textit{CHOL}, \textit{CREA}, \textit{GGT}, dan \textit{PROT}). Nilai bawaan (\textit{default}) pada setiap kotak input diatur mendekati distribusi sampel uji klinis (\textit{Cirrhosis}) guna memudahkan pengujian tanpa memerlukan penulisan berkas HTML terpisah.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/2-hasil-prediksi-tabular-hcv-streamlit.png}
+  \caption{Visualisasi Hasil Prediksi Klinis Hepatitis C pada Antarmuka Reaktif Streamlit}
+  \label{fig:latihan-hasil-prediksi-hcv-streamlit}
+\end{figure}
+
+\par \textbf{Analisis:} Ketika tombol \texttt{Prediksi Hasil} ditekan, mekanisme reaktif Streamlit langsung merender bagian visualisasi hasil inferensi tepat di bawah formulir masukan tanpa melakukan \textit{refresh} seluruh halaman peramban, seperti diperlihatkan pada Gambar \ref{fig:latihan-hasil-prediksi-hcv-streamlit}. Aplikasi menampilkan spanduk hijau \path{st.success} yang mengumumkan diagnosis \textbf{\texttt{Hasil Prediksi: Cirrhosis}} disertai visualisasi tabel \textit{dataframe} ringkasan seluruh variabel yang dikirimkan. Hal ini membuktikan bahwa integrasi model serialisasi Scikit-Learn ke dalam lingkungan Streamlit berhasil berjalan secara instan dan interaktif.
+
+\subsection{Tugas \& Analisis 2: Pembangunan Dashboard Interaktif Room Occupancy dengan Streamlit}
+
+\par \textbf{Soal:} Lakukan pembangunan aplikasi data interaktif (\textit{interactive data dashboard}) untuk deteksi keterisian ruangan (\textit{Room Occupancy Detection}) berbasis Streamlit dengan memanfaatkan dataset lingkungan \path{ocupancy_dataset.csv} ($20.560$ baris, $5$ parameter sensor). Sistem wajib memanfaatkan artefak terbaik \path{Pipeline(StandardScaler + DecisionTreeClassifier)} dan metadata eksperimen \path{analysis_summary.json}, menyediakan antarmuka terstruktur berbasis multi-tab, mengimplementasikan mekanisme \textit{preset} skenario (\textit{Occupied} dan \textit{Not Occupied}) melalui manajemen \path{st.session_state}, serta memvisualisasikan estimasi probabilitas kepastian (\textit{confidence score}) dan perbandingan masukan terhadap statistik dataset.
+
+\subsubsection{Arsitektur Dashboard Multi-Tab dan Pengelolaan State Sensor Streamlit}
+\lstinputlisting[language=Python, caption={Implementasi Dashboard Interaktif Multi-Tab Room Occupancy Berbasis Streamlit}, label={lst:kode-tugas-streamlit-app-1}]{resource/code/tugas-streamlit-app_1.py}
+\par \textbf{Output:}
+\lstinputlisting[caption={Output Pengujian Layanan dan Verifikasi Endpoint Streamlit Dashboard Tugas}, label={lst:out-tugas-streamlit-app-1}]{resource/output/tugas-streamlit-app_1_out.txt}
+\par \textbf{Analisis:} Kode \ref{lst:kode-tugas-streamlit-app-1} menyajikan implementasi arsitektur \textit{dashboard} analitik modern pada berkas \path{app.py} proyek tugas Streamlit. Aplikasi memanfaatkan dua jenis \textit{caching} Scikit-Learn dan data: \path{@st.cache_resource} untuk memuat objek pipeline \path{occupancy_model.joblib} dan \path{@st.cache_data} untuk memuat metadata \path{analysis_summary.json}. Untuk mengatasi tantangan persistensi data masukan antar-siklus eksekusi, aplikasi menginisialisasi kamus \path{st.session_state} dengan nilai bawaan sensor. Tombol pengisian cepat (\textit{preset}) \texttt{Preset Ruangan Terisi (Occupied)} dan \texttt{Preset Ruangan Kosong (Not Occupied)} menginjeksikan nilai sensor sampel ke dalam \path{st.session_state} dan langsung memicu pembaruan widget \path{st.number_input}. Struktur antarmuka diorganisasikan ke dalam dua tab utama melalui \path{st.tabs(["Simulasi Prediksi Sensor", "Eksplorasi \& Evaluasi Model"])}. Pada tab simulasi, inferensi dilakukan dengan menghitung kelas prediksi melalui \path{model.predict(input_df)} dan probabilitas melalui \path{model.predict_proba(input_df)}. Status keputusan ditampilkan secara kontras menggunakan kotak \path{st.success} hijau (\texttt{Occupied}) atau \path{st.info} biru (\texttt{Not Occupied}), dilengkapi meteran probabilitas visual \path{st.progress()} dan kartu metrik ringkasan \path{st.metric()}. Sementara itu, tab eksplorasi menyajikan transparansi penuh metrik evaluasi kelima model klasifikasi, distribusi data latih/uji, serta tabel acuan rentang nilai sensor minimum, rata-rata, dan maksimum. Pengujian jaringan pada Output \ref{lst:out-tugas-streamlit-app-1} membuktikan bahwa server Streamlit tugas pada port \texttt{8502} merespons dengan status \texttt{HTTP/1.1 200 OK} dan siap melayani permintaan pengguna.
+
+\subsubsection{Pengujian Visual Antarmuka Dashboard dan Simulasi Prediksi Streamlit}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-1-dashboard-occupancy-streamlit.png}
+  \caption{Visualisasi Tab Simulasi Prediksi dan Panel Preset \textit{Dashboard} Streamlit pada \texttt{http://localhost:8502}}
+  \label{fig:tugas-dashboard-occupancy-streamlit-1}
+\end{figure}
+
+\par \textbf{Analisis:} Gambar \ref{fig:tugas-dashboard-occupancy-streamlit-1} menunjukkan tampilan awal \textit{dashboard} Streamlit pada port \texttt{8502}. Halaman ini diawali dengan empat kartu metrik informasi dataset ($20.560$ total data, $14.392$ data latih, $6.168$ data uji, dan $5$ sensor lingkungan). Pada Tab \textit{Simulasi Prediksi Sensor}, pengguna disajikan dua tombol aksi pengisian cepat (\textit{Preset Occupied} dan \textit{Preset Kosong}) serta formulir masukan $5$ sensor yang disusun ke dalam dua kolom rapi dengan batasan nilai presisi tinggi sesuai rentang fisikal sensor lingkungan.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{resource/dokumentasi/tugas-2-hasil-prediksi-occupancy-streamlit.png}
+  \caption{Visualisasi Hasil Estimasi Deteksi Keterisian Ruangan dan Pengukur Keyakinan Model}
+  \label{fig:tugas-hasil-prediksi-occupancy-streamlit-2}
+\end{figure}
+
+\par \textbf{Analisis:} Pada Gambar \ref{fig:tugas-hasil-prediksi-occupancy-streamlit-2}, ketika tombol preset ruangan terisi ditekan (\path{Light = 585.2 Lux}, \path{CO2 = 749.2 ppm}), model \texttt{Decision Tree} langsung menghasilkan inferensi berstatus \textbf{\texttt{RUANGAN TERISI (OCCUPIED)}} dengan tingkat kepastian \textbf{$100{,}0\%$}. Antarmuka Streamlit memvisualisasikan hasil tersebut secara dinamis melalui bilah kemajuan berwarna (\textit{confidence meter} $1{,}0$), kartu metrik probabilitas per kelas, serta tabel komparasi parameter masukan terhadap batas toleransi sensor yang membantu pengguna memvalidasi kewajaran data sensor secara langsung.
+
+\subsection{Analisis Komparatif Paradigma Deployment: Web Service (Flask) vs. Data Application (Streamlit)}
+
+\par Praktikum penambangan data modul ke-10 dan ke-11 memperlihatkan dua paradigma \textit{model deployment} yang memiliki karakteristik, keunggulan, dan skenario pemanfaatan yang sangat berbeda dalam siklus rekayasa perangkat lunak. Flask mewakili paradigma \textit{traditional web micro-framework} berbasis layanan REST/HTTP, sedangkan Streamlit mewakili paradigma \textit{reactive data application framework} berbasis status komponen Python murni. Perbandingan komprehensif kedua teknologi ini dirangkum pada Tabel \ref{tab:komparasi-flask-streamlit}.
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.25}
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|p{6.5cm}|p{6.5cm}|}
+      \hline
+      \textbf{Dimensi Perbandingan} & \textbf{Layanan Web Mikro (Flask)} & \textbf{Aplikasi Data Reaktif (Streamlit)} \\ \hline
+      Paradigma Eksekusi & \textit{Request--Response Lifecycle} berbasis rute HTTP eksplisit (\texttt{GET}, \texttt{POST}) & \textit{Script Rerun Execution Model} berbasis graf ketergantungan (\textit{Reactive DAG}) \\ \hline
+      Arsitektur \& Bahasa & Multibahasa: Python (\textit{backend logic}) + Jinja2 (HTML) + CSS + JavaScript (\textit{client UI}) & Python murni: antarmuka dideklarasikan langsung bersama logika inferensi tanpa menulis HTML/JS \\ \hline
+      Manajemen Status (\textit{State}) & \textit{Stateless} secara alami; membutuhkan HTTP \textit{cookies}, sesi server, atau basis data & \textit{Stateful} terkelola melalui memori sesi server (\texttt{st.session\_state}) lintas \textit{rerun} \\ \hline
+      Optimasi Memori Artefak & Dimuat ke variabel global modul saat inisialisasi server (\textit{startup}) & Dikelola secara deklaratif menggunakan dekorator \texttt{@st.cache\_resource} dan \texttt{@st.cache\_data} \\ \hline
+      Kecepatan Pembuatan Prototipe & Moderat; memerlukan perancangan templat HTML, form handling, dan styling manual & Sangat cepat; widget UI, layout kolom, tabs, dan visualisasi dataframe tersedia bawaan \\ \hline
+      Fleksibilitas Desain Antarmuka & Sangat tinggi; pengembang bebas memodifikasi DOM, CSS framework, dan script frontend & Terbatas pada ekosistem komponen dan struktur tata letak bawaan Streamlit \\ \hline
+      Kemampuan Integrasi API & Sangat luwes; dapat berfungsi ganda sebagai penyedia RESTful API (JSON) untuk aplikasi mobile/web & Dirancang khusus untuk konsumsi pengguna manusia via peramban; kurang ideal sebagai REST API murni \\ \hline
+      Skenario Penggunaan Utama & Layanan mikrosistem produksi, integrasi antarsistem skala besar, sistem dengan kebutuhan kustom UI kompleks & Eksplorasi data interaktif, \textit{internal business dashboard}, demo model machine learning, dan \textit{rapid prototyping} \\ \hline
+    \end{tabular}%
+  }
+  \caption{Perbandingan Paradigma Arsitektur \textit{Model Deployment}: Web Service (Flask) vs. Data Application (Streamlit)}
+  \label{tab:komparasi-flask-streamlit}
+\end{table}
+
+\par \textbf{Analisis Sintesis Paradigma:} Mengacu pada analisis Tabel \ref{tab:komparasi-flask-streamlit}, pemilihan antara Flask dan Streamlit dalam proyek penambangan data bergantung pada tujuan akhir produk perangkat lunak. Streamlit memberikan efisiensi yang tak tertandingi pada fase eksplorasi, evaluasi stakeholder, dan pembuatan \textit{dashboard} internal berkat kemampuannya memadukan data, model, dan kontrol visual hanya dengan beberapa baris kode Python. Mekanisme \texttt{@st.cache\_resource} dan \texttt{st.session\_state} mengeliminasi kerumitan pengelolaan sesi HTTP dan sinkronisasi berkas templat. Sebaliknya, apabila model ditargetkan menjadi mesin inferensi skala produksi yang melayani ratusan aplikasi klien pihak ketiga (\textit{multi-platform clients}) melalui kontrak data JSON terstandarisasi, Flask menjadi pilihan yang lebih tangguh dan terukur karena memisahkan secara tegas antara lapisan presentasi dan lapisan logika bisnis.
 
 \section{Kesimpulan}
 
-\par Berdasarkan seluruh rangkaian percobaan, pembangunan aplikasi web, dan analisis \textit{model deployment} menggunakan \textit{framework} Flask yang telah dilaksanakan pada praktikum ini, dapat ditarik beberapa kesimpulan utama sebagai berikut:
+\par Berdasarkan seluruh rangkaian eksperimen, perancangan sistem, dan pengujian implementasi \textit{model deployment} yang telah dilaksanakan pada pertemuan ke-10 (Flask) dan pertemuan ke-11 (Streamlit), dapat dirumuskan beberapa kesimpulan pokok sebagai berikut:
 \begin{enumerate}[label=\arabic*.]
-  \item \textit{Model deployment} merupakan tahapan kesembilan yang sangat esensial dalam \textit{Machine Learning Lifecycle} untuk mentransformasikan model hasil pelatihan yang semula bersifat statis di memori lokal menjadi layanan web aktif berarsitektur \textit{client-server} yang dapat diakses secara interaktif oleh pengguna akhir melalui jaringan HTTP.
-  \item Mekanisme \textit{serialization} menggunakan fungsi \texttt{joblib.dump()} dan \textit{deserialization} menggunakan \texttt{joblib.load()} memungkinkan objek estimator maupun \texttt{Pipeline} Scikit-Learn disimpan ke dalam berkas fisik (\texttt{.model} atau \texttt{.joblib}) dan dimuat kembali secara instan oleh server Flask saat inisialisasi tanpa perlu melatih ulang model pada setiap permintaan prediksi.
-  \item Pada proyek latihan prediksi penyakit Hepatitis C (\texttt{hcvdat0.csv}, $589$ baris bersih, $12$ fitur klinis), sinkronisasi urutan kolom atribut serta pengodean jenis kelamin antara skrip pelatihan dan rute endpoint Flask (\texttt{/tabular/} serta \texttt{/tabular/result/} pada port \texttt{5000}) terbukti krusial sehingga model \texttt{DecisionTreeClassifier} mampu memprediksi sampel uji klinis menjadi diagnosis \texttt{Cirrhosis} secara presisi.
-  \item Pada proyek tugas deteksi keterisian ruangan (\path{ocupancy_dataset.csv}, $20.560$ baris, $5$ fitur sensor lingkungan), evaluasi komparatif lima algoritma klasifikasi di dalam komposisi \path{Pipeline(StandardScaler + Classifier)} menempatkan \textbf{Decision Tree (\texttt{entropy})} sebagai model terbaik dengan capaian \textit{accuracy} sebesar $99{,}09\%$, \textit{macro precision} $98{,}82\%$, \textit{macro recall} $98{,}63\%$, dan \textit{macro F1-score} $98{,}72\%$, yang berhasil diintegrasikan bersama metadata \path{analysis_summary.json} ke dalam aplikasi \textit{dashboard} Flask pada port \texttt{5001} lengkap dengan fitur \textit{preset} input, kalkulasi \textit{confidence score}, serta validasi input \texttt{HTTP 400}.
+  \item \textit{Model deployment} merupakan fase krusial dalam siklus hidup penambangan data (\textit{Machine Learning Lifecycle}) yang menjembatani kesenjangan antara model prediktif statis hasil pelatihan di lingkungan \textit{notebook} dengan pemanfaatan nyata oleh pengguna akhir melalui antarmuka web interaktif dan terstandarisasi.
+  \item Pemanfaatan teknik serialisasi Scikit-Learn menggunakan pustaka \texttt{joblib} terbukti sangat efektif untuk mengemas model tunggal maupun rangkaian \texttt{Pipeline} (termasuk tahapan \texttt{StandardScaler}) menjadi artefak biner permanen (\texttt{.model} atau \texttt{.joblib}), sehingga proses \textit{deserialization} saat server dimulai dapat dilakukan secara instan tanpa mengulang komputasi pelatihan.
+  \item Implementasi \textit{model deployment} menggunakan \textit{framework} Flask berhasil merealisasikan arsitektur \textit{request-response} berbasis HTTP untuk prediksi penyakit Hepatitis C (\path{hcvdat0.csv}, $12$ fitur klinis) pada port \texttt{5000} dan \textit{dashboard} komparatif \textit{Room Occupancy Detection} (\path{ocupancy_dataset.csv}, $20.560$ data, model terbaik Decision Tree dengan akurasi $99{,}09\%$) pada port \texttt{5001} lengkap dengan validasi kode status \texttt{HTTP 400}.
+  \item Implementasi \textit{model deployment} menggunakan \textit{framework} Streamlit menghadirkan arsitektur aplikasi data reaktif (\textit{reactive data application}) berbasis Python murni yang mempercepat perancangan antarmuka visual prediksi Hepatitis C pada port \texttt{8501} serta \textit{dashboard} multi-tab analitik keterisian ruangan pada port \texttt{8502} dengan pemanfaatan optimal \texttt{@st.cache\_resource} untuk efisiensi memori dan \texttt{st.session\_state} untuk fitur \textit{preset} skenario uji.
+  \item Sintesis komparatif menunjukkan bahwa Flask unggul dalam hal fleksibilitas arsitektur, kustomisasi antarmuka pengguna berbasis templat web, serta penyediaan antarmuka layanan RESTful skala produksi, sedangkan Streamlit unggul secara signifikan dalam kecepatan \textit{prototyping}, integrasi visualisasi data analitik, dan efisiensi penulisan kode tanpa membutuhkan keahlian terpisah pada teknologi \textit{frontend} (HTML/CSS/JS).
 \end{enumerate}
 
-\par Repositori Proyek Lokal: \path{deploy-flask/} (Proyek Latihan pada \path{deploy-flask/latihan/} dan Proyek Tugas pada \path{deploy-flask/tugas/}).
+\par Repositori Proyek Praktikum:
+\begin{itemize}
+  \item Repositori Deployment Flask: \path{deploy-flask/} (Latihan pada \path{deploy-flask/latihan/} dan Tugas pada \path{deploy-flask/tugas/}).
+  \item Repositori Deployment Streamlit: \path{deploy-streamlit/} (Latihan pada \path{deploy-streamlit/latihan/} dan Tugas pada \path{deploy-streamlit/tugas/}).
+\end{itemize}
 
 \section{Daftar Pustaka}
 \printbibliography[heading=none]

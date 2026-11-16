@@ -1,0 +1,33 @@
+=== GET /_stcore/health ===
+ok
+HTTP_STATUS:200
+=== GET / (Streamlit App Shell) ===
+HTTP_STATUS:200
+=== Pengujian Fungsional AppTest (latihan/app/test_app.py) ===
+2026-11-16 17:19:26.918 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+=== Uji 1: Render Awal & Session State Default ===
+Title     : Hepatitis (HCV) Tabular Predictor
+Defaults  : age=30, sex=Male, ggt=400.0, prot=70.0
+Status    : PASS
+
+=== Uji 2: Submit Form Prediksi (Nilai Default -> Cirrhosis) ===
+Notifikasi: Prediction complete
+Metric    : Predicted Status = Cirrhosis
+Status    : PASS
+
+=== Uji 3: Modifikasi Input, Submit Form, & Tombol Reset to defaults ===
+Setelah ubah & submit : age=55, sex=Female
+Setelah reset         : age=30, sex=Male, alb=39.0, ggt=400.0
+Status                : PASS
+
+Semua pengujian Streamlit Latihan (HCV) berhasil.
+=== Server Log ===
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+2026-11-16 17:19:26.504 Uvicorn server started on 127.0.0.1:8501
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:8501
+

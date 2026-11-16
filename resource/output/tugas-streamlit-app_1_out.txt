@@ -1,0 +1,37 @@
+=== GET /_stcore/health ===
+ok
+HTTP_STATUS:200
+=== GET / (Streamlit Dashboard Shell) ===
+HTTP_STATUS:200
+=== Pengujian Fungsional AppTest (tugas/app/test_app.py) ===
+2026-11-16 17:25:35.773 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+=== Uji 1: Render Dashboard Awal & State Default (Occupied) ===
+Title          : Room Occupancy Detection & Model Analysis
+Default Temp   : 23.7 | Light: 585.2
+Status         : PASS
+
+=== Uji 2: Submit Form Prediksi (Preset Occupied -> Occupied (Terisi)) ===
+Notifikasi     : Prediction complete
+Predicted      : Occupied (Terisi) (Confidence: 100.0%)
+Status         : PASS
+
+=== Uji 3: Preset Not Occupied (Kosong) & Submit Prediksi ===
+Temp Preset    : 22.6
+Predicted      : Not Occupied (Kosong) (Confidence: 100.0%)
+Status         : PASS
+
+=== Uji 4: Tombol Reset ke Rata-rata (Mean) ===
+Mean Temp      : 20.906212 | Mean Humidity: 27.655925
+Status         : PASS
+
+Semua pengujian Streamlit Tugas (Room Occupancy) berhasil.
+=== Server Log ===
+
+Collecting usage statistics. To deactivate, set browser.gatherUsageStats to false.
+
+2026-11-16 17:25:35.351 Uvicorn server started on 127.0.0.1:8502
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://127.0.0.1:8502
+
